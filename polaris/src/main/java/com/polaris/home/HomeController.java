@@ -36,4 +36,15 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "search")
+	public String search(Model model) {
+		logger.info("method [" + Thread.currentThread().getStackTrace()[1].getMethodName() + "]");
+		return "search";	// search.jsp 호출!!!
+	}
+	
+	@RequestMapping(value = "detail")
+	public String detail(Model model) {
+		logger.info("method [" + Thread.currentThread().getStackTrace()[1].getMethodName() + "]");
+		return "detail";	// detail.jsp 호출!!!
+	}
 }
