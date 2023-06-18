@@ -1,6 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="resources/css/footer.css" />
+
+<div class="hg-rightbox">
+	<h1>내 도서관</h1>
+	<!-- 로그인 안했을 시 -->
+	<!-- <span>로그인 후<br/>이용해주세요.</span> -->
+	<!-- 로그인 안했을 시 -->
+	
+	<a href="javascript:void(0)">마이페이지</a>
+	<a href="javascript:void(0)">회원정보 수정</a>
+	<div class="hg-rightline"></div>
+</div>
+
 <footer>
 	<div class="container hg-footer">
 		<div class="hg-ftop">
