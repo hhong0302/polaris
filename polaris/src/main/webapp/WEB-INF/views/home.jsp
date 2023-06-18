@@ -29,25 +29,25 @@
 	<div id="hg-slide">
 		<div class="hg-slide-container">
 			<div class="hg-slider">
-				<a href="javascript:void(0)" class="hg-first-img">
+				<a href="" class="hg-first-img">
 					<img src="resources/banner/slidebanner05.jpg" alt="slide05" />
 				</a>
-				<a href="javascript:void(0)">
+				<a href="detail">
 					<img src="resources/banner/slidebanner01.jpg" alt="slide01" />
 				</a>
-				<a href="javascript:void(0)">
+				<a href="detail">
 					<img src="resources/banner/slidebanner02.jpg" alt="slide02" />
 				</a>
-				<a href="javascript:void(0)">
+				<a href="detail">
 					<img src="resources/banner/slidebanner03.jpg" alt="slide03" />
 				</a>
-				<a href="javascript:void(0)">
+				<a href="detail">
 					<img src="resources/banner/slidebanner04.jpg" alt="slide04" />
 				</a>
-				<a href="javascript:void(0)">
+				<a href="detail">
 					<img src="resources/banner/slidebanner05.jpg" alt="slide05" />
 				</a>
-				<a href="javascript:void(0)" class="hg-last-img">
+				<a href="detail" class="hg-last-img">
 					<img src="resources/banner/slidebanner01.jpg" alt="slide01" />
 				</a>
 			</div>

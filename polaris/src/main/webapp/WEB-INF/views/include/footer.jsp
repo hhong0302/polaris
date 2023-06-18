@@ -1,16 +1,71 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="resources/css/footer.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <div class="hg-rightbox">
 	<h1>내 도서관</h1>
+	
 	<!-- 로그인 안했을 시 -->
-	<!-- <span>로그인 후<br/>이용해주세요.</span> -->
+	<!-- <span clas="hg-afterlogin">로그인 후<br/>이용해주세요.</span> -->
 	<!-- 로그인 안했을 시 -->
 	
 	<a href="javascript:void(0)">마이페이지</a>
 	<a href="javascript:void(0)">회원정보 수정</a>
+	
 	<div class="hg-rightline"></div>
+	
+	<div class="hg-return">
+		곧 반납 도서
+	</div>
+	
+	<!-- 반납 없을 경우 -->
+	<!-- <div class="hg-returnbox">
+		
+	</div> -->
+	<!-- 반납 없을 경우 -->
+	
+	<!-- 반납 2개 이상 시 반복 -->
+	<div class="hg-returnbox">
+		<img src="resources/bookimg/spaceboy.jpg" alt="spaceboy" />
+		
+		<span class="hg-righttitle">
+			당신은 결국 무엇이든 해내는 사람
+		</span>
+		
+		<span class="hg-howmuch">
+			1일 남음
+		</span>
+	</div>
+	<!-- 반납 2개 이상 시 반복 -->
+	<div class="hg-returnbox">
+		<img src="resources/bookimg/spaceboy.jpg" alt="spaceboy" />
+		
+		<span class="hg-righttitle">
+			당신은 결국 무엇이든 해내는 사람
+		</span>
+		
+		<span class="hg-howmuch">
+			1일 남음
+		</span>
+	</div>
+	
+	<!-- 2개 이상일 시 나오는 더보기 버튼 -->
+	
+	<div class="hg-rightline"></div>
+	
+	<button class="hg-rboxbtn" onclick="rboxbtn(this)">+더보기</button>
+	
+	<script src="resources/js/footer.js"></script>
+	
+	<!-- 2개 이상일 시 나오는 더보기 버튼 -->
+</div>
+
+<div class="hg-gototop">
+	<button class="hg-topbtn" onclick="hg_gototop()">
+		<i class=" fa-solid fa-chevron-up"></i><br/>
+		TOP
+	</button>
 </div>
 
 <footer>
