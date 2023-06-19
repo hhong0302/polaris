@@ -43,6 +43,7 @@
 	font-size:14px;
 	font-weight:bold;
 	letter-spacing:-1px;
+	line-height:16px;
 	text-overflow: ellipsis;
     overflow: hidden;
     word-break: break-word;
@@ -54,7 +55,7 @@
 
 .hg-lbtnbox
 {
-	margin:22px 8px 10px;
+	margin:15px 8px 10px;
 }
 
 .hg-lbtnbox .hg-lboxbtn
@@ -382,7 +383,6 @@
 {
 	color:#3345A4;
 }
-
 
 
 

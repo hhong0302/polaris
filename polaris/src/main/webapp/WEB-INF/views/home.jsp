@@ -29,7 +29,7 @@
 	<div id="hg-slide">
 		<div class="hg-slide-container">
 			<div class="hg-slider">
-				<a href="" class="hg-first-img">
+				<a href="detail" class="hg-first-img">
 					<img src="resources/banner/slidebanner05.jpg" alt="slide05" />
 				</a>
 				<a href="detail">
@@ -96,7 +96,7 @@
 			</div>
 		</div>
 	</div>
-	<a href="javascript:void(0)">
+	<a href="detail">
 		<img src="resources/banner/banner_band03.jpg" alt="banner_band03" />
 	</a>
 </div>
@@ -142,7 +142,7 @@
 </div>
 
 <div class="container hg-mainunder">
-	<a href="javascript:void(0)">
+	<a href="detail">
 		<img src="resources/banner/banner_band02.jpg" alt="banner_band02" />
 	</a>
 	
@@ -189,7 +189,7 @@
 			<!-- db받아와서 뿌리기 -->
 		</div>
 	</div>
-	<a href="javascript:void(0)">
+	<a href="detail">
 		<img src="resources/banner/banner_band01.jpg" alt="banner_band01" />
 	</a>
 	

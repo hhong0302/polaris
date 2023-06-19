@@ -4,11 +4,18 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <div class="hg-rightbox">
+
+	<div class="hg-hidebtn" onclick="hg_hidebtn()">
+		<img src="resources/images/slide_right.jpg" alt="slide" id="hg-slidebtn" />
+	</div>
+
 	<h1>내 도서관</h1>
 	
 	<!-- 로그인 안했을 시 -->
-	<!-- <span clas="hg-afterlogin">로그인 후<br/>이용해주세요.</span> -->
+	<!-- <span class="hg-afterlogin">로그인 후<br/>이용해주세요.</span> -->
 	<!-- 로그인 안했을 시 -->
+	
+	<!-- 로그인 했을 시 -->
 	
 	<a href="javascript:void(0)">마이페이지</a>
 	<a href="javascript:void(0)">회원정보 수정</a>
@@ -27,7 +34,7 @@
 	
 	<!-- 반납 2개 이상 시 반복 -->
 	<div class="hg-returnbox">
-		<img src="resources/bookimg/spaceboy.jpg" alt="spaceboy" />
+		<img src="resources/bookimg/spaceboy.jpg" class="hg-rtimg" alt="spaceboy" />
 		
 		<span class="hg-righttitle">
 			당신은 결국 무엇이든 해내는 사람
@@ -39,7 +46,7 @@
 	</div>
 	<!-- 반납 2개 이상 시 반복 -->
 	<div class="hg-returnbox">
-		<img src="resources/bookimg/spaceboy.jpg" alt="spaceboy" />
+		<img src="resources/bookimg/spaceboy.jpg" class="hg-rtimg" alt="spaceboy" />
 		
 		<span class="hg-righttitle">
 			당신은 결국 무엇이든 해내는 사람
@@ -55,11 +62,14 @@
 	<div class="hg-rightline"></div>
 	
 	<button class="hg-rboxbtn" onclick="rboxbtn(this)">+더보기</button>
-	
-	<script src="resources/js/footer.js"></script>
-	
 	<!-- 2개 이상일 시 나오는 더보기 버튼 -->
+	
+	<!-- 로그인 했을 시 -->
+	
 </div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="resources/js/footer.js"></script>
 
 <div class="hg-gototop">
 	<button class="hg-topbtn" onclick="hg_gototop()">
