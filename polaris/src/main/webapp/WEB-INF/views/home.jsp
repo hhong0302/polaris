@@ -6,38 +6,48 @@
 <meta charset="UTF-8">
 <title>Polaris</title>
 <link rel="stylesheet" href="resources/css/mainhome.css" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
-  />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 <%@include file="include/header.jsp" %>
 
-<div class="container">
-
+<div class="container hg-relative">
+	<div class="hg-leftbox">
+		<h1>베스트 1</h1>
+		<a id="hg-lboxanchor" href="javascript:void(0)">
+			<img id="hg-leftboximg" src="resources/bookimg/spaceboy.jpg" alt="spaceboy" />
+		</a>
+		<span class="hg-lefttitle">당신은 결국 무엇이든 해내는 사람</span>
+		<div class="hg-lbtnbox">
+		<!-- 버튼 인기순으로 5개 -->
+			<button class="hg-lboxbtn" onclick="lboxbtn(this,'spaceboy')">
+				베스트1
+			</button>
+		<!-- 버튼 인기순으로 5개 -->
+		</div>
+	</div>
 	<div id="hg-slide">
 		<div class="hg-slide-container">
 			<div class="hg-slider">
-				<a href="javascript:void(0)" class="hg-first-img">
+				<a href="detail" class="hg-first-img">
 					<img src="resources/banner/slidebanner05.jpg" alt="slide05" />
 				</a>
-				<a href="javascript:void(0)">
+				<a href="detail">
 					<img src="resources/banner/slidebanner01.jpg" alt="slide01" />
 				</a>
-				<a href="javascript:void(0)">
+				<a href="detail">
 					<img src="resources/banner/slidebanner02.jpg" alt="slide02" />
 				</a>
-				<a href="javascript:void(0)">
+				<a href="detail">
 					<img src="resources/banner/slidebanner03.jpg" alt="slide03" />
 				</a>
-				<a href="javascript:void(0)">
+				<a href="detail">
 					<img src="resources/banner/slidebanner04.jpg" alt="slide04" />
 				</a>
-				<a href="javascript:void(0)">
+				<a href="detail">
 					<img src="resources/banner/slidebanner05.jpg" alt="slide05" />
 				</a>
-				<a href="javascript:void(0)" class="hg-last-img">
+				<a href="detail" class="hg-last-img">
 					<img src="resources/banner/slidebanner01.jpg" alt="slide01" />
 				</a>
 			</div>
@@ -59,7 +69,7 @@
 			<i class="fas fa-solid fa-chevron-left"></i>
 		</button>
 		<button type="button" class="hg-btn hg-novelbtn hg-rightbtn active" onclick="hg_nvmove(-310)">
-			<i class="fas fa-solid fa-chevron-right"></i>
+			<i class=" fa-solid fa-chevron-right"></i>
 		</button>
 		<div class="hg-mainbox">
 			<div class="hg-mainnovel">
@@ -86,7 +96,7 @@
 			</div>
 		</div>
 	</div>
-	<a href="javascript:void(0)">
+	<a href="detail">
 		<img src="resources/banner/banner_band03.jpg" alt="banner_band03" />
 	</a>
 </div>
@@ -132,7 +142,7 @@
 </div>
 
 <div class="container hg-mainunder">
-	<a href="javascript:void(0)">
+	<a href="detail">
 		<img src="resources/banner/banner_band02.jpg" alt="banner_band02" />
 	</a>
 	
@@ -179,7 +189,7 @@
 			<!-- db받아와서 뿌리기 -->
 		</div>
 	</div>
-	<a href="javascript:void(0)">
+	<a href="detail">
 		<img src="resources/banner/banner_band01.jpg" alt="banner_band01" />
 	</a>
 	
