@@ -198,6 +198,6 @@
 
 <script src="resources/js/mainhome.js"></script>
 
-<%@include file="include/footer.jsp" %>
+<%@include file="include/rboxfooter.jsp" %>
 </body>
 </html>
