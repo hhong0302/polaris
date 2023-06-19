@@ -44,6 +44,7 @@
 	border:none;
 	border-radius:8px;
 	box-shadow:0 2px 8px rgba(0,0,0,0.2);
+	outline:none;
 	cursor:pointer;
 }
 
@@ -71,14 +72,6 @@
 		right:40px;
 	}
 }
-/* 
-@media(max-height:768px)
-{
-	.hg-rightbox
-	{
-		top:20px;
-	}
-} */
 
 .hg-rightbox h1
 {
@@ -110,6 +103,8 @@
 	font-size:15px;
 	font-weight:600;
 	letter-spacing:-1px;
+	color:#333;
+	text-decoration: none;
 }
 
 .hg-rightbox .hg-rightline

@@ -5,7 +5,6 @@ $(document).ready(function()
 });
 const hg_rightbox = document.getElementsByClassName("hg-rightbox")[0];
 window.addEventListener('scroll', function(){
-	console.log(window.pageYOffset);
 	if(window.pageYOffset>160)
 	{
 		hg_rightbox.style.top = "20px";
