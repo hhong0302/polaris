@@ -39,12 +39,19 @@ public class HomeController {
 	@RequestMapping(value = "search")
 	public String search(Model model) {
 		logger.info("method [" + Thread.currentThread().getStackTrace()[1].getMethodName() + "]");
-		return "search";	// search.jsp 호출!!!
+		return "search";	// search.jsp �샇異�!!!
 	}
 	
 	@RequestMapping(value = "detail")
 	public String detail(Model model) {
 		logger.info("method [" + Thread.currentThread().getStackTrace()[1].getMethodName() + "]");
-		return "detail";	// detail.jsp 호출!!!
+		return "detail";	// detail.jsp �샇異�!!!
 	}
+	
+	@RequestMapping(value = "mypage")
+	public String mypage(Model model) {
+		logger.info("method [" + Thread.currentThread().getStackTrace()[1].getMethodName() + "]");
+		return "mypage";	// detail.jsp �샇異�!!!
+	}
+	
 }
