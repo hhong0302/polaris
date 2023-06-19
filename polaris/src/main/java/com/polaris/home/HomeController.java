@@ -1,6 +1,10 @@
 package com.polaris.home;
 
+import java.io.PrintWriter;
+import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.polaris.home.command.SpCommand;
+import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.BookDTO;
 import com.polaris.home.util.Static;
 
@@ -45,12 +51,15 @@ public class HomeController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/mainHotController")
-	public BookDTO ajaxTest() throws Exception {
+	public String mainHotController(HttpServletResponse res) throws Exception {
 
-		BookDTO dto = new BookDTO();
-		dto.setAuthor("asdsa");
-		dto.setBookcode("fsdfd");
-		return dto;
+		PolarisDAO dao = new PolarisDAO();
+		List<BookDTO> dto = (List<BookDTO>) dao.hg_hotList(null);
+		PrintWriter out = res.getWriter();
+		String gson = new Gson().toJson(dto);
+		out.println(gson);
+		out.close();
+		return "";
 	}
 	
 	@RequestMapping(value = "search")
