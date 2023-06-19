@@ -1,0 +1,323 @@
+@charset "UTF-8";
+body {
+	font-family: ‘Pretendard’, ‘Noto Sans KR’, sans-serif
+}
+.container-detail {
+	width: 1200px;
+	margin: 0 auto;
+	margin-top: -30px;
+}
+.infoNav-detail {
+	display: flex;
+	align-items: center;
+}
+.infoNav-detail p {
+	color: #bdbdbd;
+	font-size: 14px;
+	margin: 0 10px;
+	display: flex;
+    align-items: center;
+}
+.infoNav-detail i.ri-arrow-drop-right-line {
+	color: #bdbdbd;
+	font-size: 18px;
+	margin: 0 1px;
+}
+.infoNav-detail p span.ftBlack-detail {
+	color: #000;
+}
+.hash-detail {
+	width: 360px;
+}
+.hash-detail p {
+	color: #245478;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 24px;
+}
+.bookRental-detail {
+	display: flex;
+	justify-content: space-between;
+	margin: 40px 0 145px;
+    align-items: flex-end;
+}
+.bookImg-detail {
+	height: 560px;
+	box-shadow: -4px 5px 15px 0 rgba(0, 0, 0, 0.2);
+}
+.rentalBox-detail {
+	width: 285px;
+}
+.rentalBox-detail {
+	height: 560px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.bookInfoBox-detail h2 {
+	font-weight: bold;
+	font-size: 24px;
+	margin: 40px 0 30px;
+}
+.bookInfoBox-detail p {
+	font-size: 14px;
+	line-height: 24px;
+}
+.bookInfoBox-detail p:last-child {
+	margin-top: 30px;
+}
+.likeBtn-detail {
+	display: flex;
+	align-items: center;
+	color: #797979;
+	margin-bottom: 25px;
+}
+.likeBtn-detail img {
+	margin-right: 10px;
+}
+button.rental-detail,
+button.readNow-detail {
+	width: 285px;
+	height: 50px;
+	border-radius: 4px;
+	border: none;
+	font-size: 18px;
+	font-weight: bolder;
+	color: #fff;
+}
+button.rental-detail {
+	margin-bottom: 10px;
+	background: #4563ff;
+}
+button.readNow-detail {
+	background: #797979;
+}
+
+
+/***** MiddleNav *****/
+.middleNav-detail {
+	height: 40px;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 30px;
+}
+.middleNav-detail>div {
+	display: flex;
+}
+.middleNav-detail a {
+	display: flex;
+	align-items: center;
+	margin-right: 30px;
+}
+.navMenu-detail {
+	width: 5px;
+	height: 5px;
+	background: #797979;
+	border-radius: 50%;
+	margin-right: 8px;
+}
+.navMenu-detail.action {
+	width: 10px;
+	height: 10px;
+	background: #3345a4;
+	border-radius: 50%;
+}
+.menuTitle-detail {
+	color: #797979;
+	font-size: 18px;
+	font-weight: bolder;
+}
+.menuTitle-detail.action {
+	color: #3345a4;
+}
+
+
+/***** BookInfo & Review *****/
+.infoReview-detail {
+	width: 1200px;
+	margin: 0 auto;
+}
+.infoTitle-detail {
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 60px;
+}
+.infoTitle-detail h2 {
+	font-size: 24px;
+	font-weight: bolder;
+	margin-bottom: 25px;
+}
+.cateTitle-detail {
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+}
+.cate-detail {
+	display: inline-block;
+	width: 5px;
+	height: 5px;
+	background: #797979;
+	border-radius: 50%;
+	margin: 0 10px;
+}
+.cateTitle-detail p, i {
+	color: #797979;
+}
+
+
+/***** Recommend *****/
+.recom-detail {
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 90px;
+}
+.recom-detail h2 {
+	font-size: 24px;
+	font-weight: bolder;
+	margin-bottom: 30px;
+}
+.hashRecom-detail {
+	width: 620px;
+	margin-bottom: 40px;
+}
+.hashRecom-detail p {
+	color: #797979;
+	font-size: 16px;
+	line-height: 20px;
+	margin-bottom: 20px;
+	font-weight: bold;
+}
+.sumRecom-detail pre {
+	font-size: 16px;
+	line-height: 24px;
+	color: #999;
+}
+.defaultInfo-detail {
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 100px;
+}
+.defaultInfo-detail h2 {
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 35px;
+}
+.defaultBox-detail {
+	height: 100px;
+	display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+.defaultLeft-detail,
+.defaultRight-detail {
+	height: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.defaultRight-detail {
+	width: 700px;
+}
+.leftInfo-detail,
+.rightInfo-detail {
+	display: flex;
+	font-weight: bold;
+}
+.infoTtile-detail {
+	width: 100px;
+	color: #333;
+}
+.leftInfo-detail p,
+.rightInfo-detail p {
+	color: #797979;
+}
+.rightInfo-detail ul li {
+	list-style: disc;
+	list-style-position: inside;
+	color: #797979;
+	line-height: 21px;
+}
+
+/***** reviewBox *****/
+.reviewWrtBox-detail {
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 70px;
+}
+.reviewWrt-detail {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-around;
+	margin-bottom: 20px;
+}
+.reviewWrtBox-detail h2 {
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+.reviewWrtBox-detail span {
+	color: #999;
+	cursor: pointer;
+}
+.reviewBtn-detail img {
+	margin-right: 10px;
+}
+input.reviewBox-detail {
+	width: 997px;
+    height: 130px;
+    border: 1px solid #ccc;
+    outline: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0 10px;
+}
+.reviewBtn-detail {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+.submitBtn-detail {
+	width: 183px;
+	height: 100px;
+	border-radius: 4px;
+	background: #4563ff;
+	color: #fff;
+	border: none;
+	font-size: 20px;
+	font-weight: bold;
+	margin-top: 12px;
+	cursor: pointer;
+}
+.reviewList-detail {
+	display: flex;
+	align-items: flex-end;
+}
+.listNav-detail,
+.listNav-detail a {
+	display: flex;
+}
+.listNav-detail {
+	margin-left: 20px;
+}
+.listNav-detail a {
+	margin-left: 30px;
+}
+.reviewList-detail h2 {
+	font-size: 24px;
+	font-weight: bold;
+}
+.reviewMenu-detail {
+	width: 5px;
+	height: 5px;
+	background: #797979;
+	border-radius: 50%;
+	margin-right: 8px;
+}
+.reviewMenu-detail.action {
+	width: 10px;
+	height: 10px;
+	background: #4563ff;
+	border-radius: 50%;
+}
+.reviewTitle-detail {
+	color: #797979;
+	font-size: 18px;
+	font-weight: bolder;
+}
+.reviewTitle-detail.action {
+	color: #4563ff;
+}
