@@ -118,6 +118,24 @@ function hg_esmove(px)
 }
 //바튼(마지막 버튼은 보류)
 
+//ajax 데이터 받아오기
+
+function hg_hotmenubtn()
+{
+	$.ajax({
+  url : "mainHotController",
+  type: "post",
+  dataType: "json",
+  contentType: "application/json",
+  success : function(data) {
+  	console.log(data);
+  },
+  error : function() {
+  	console.log("error");
+  }
+})
+}
+
 
 
 
