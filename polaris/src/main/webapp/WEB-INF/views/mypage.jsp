@@ -48,12 +48,18 @@
 	                            <img src="resources/bookimg/bad.jpg" alt="">
 	                        </div>
 	                        <div class="choi-book-text">
-	                            <p>책 제목</p>
-	                            <span>저자 . 글쓴이</span>
-	                            <span>대여 기간</span>
-	                            <p>2023.5.13 ~ 2023.6.12</p>
-	                            <span class="choi-dday">반납일까지 남았습니다.</span>
-	                            <button type="button">반납하기</button>
+	                        	<div class="choi-book-text-top">
+		                            <p>책 제목</p>
+		                            <span>저자 . 글쓴이</span>
+	                            </div>
+	                            <div class="choi-book-text-mid">
+		                            <span>대여 기간</span>
+		                            <p>2023.5.13 ~ 2023.6.12</p>
+		                            <span class="choi-dday">반납일까지 남았습니다.</span>
+	                            </div>
+	                            <div class="choi-book-text-last">
+	                            	<button type="button">반납하기</button>
+	                            </div>
 	                        </div>
 	                    </div>
 	                </form>
@@ -65,6 +71,7 @@
 	                            <img src="resources/bookimg/bad.jpg" alt="">
 	                        </div>
 	                        <div class="choi-book-text">
+	                        	
 	                            <p>책 제목</p>
 	                            <span>저자 . 글쓴이</span>
 	                            <span>대여 기간</span>
@@ -88,9 +95,16 @@
                         <img src="resources/bookimg/bad.jpg" alt="">
                     </div>
                     <div class="choi-jjim-text">
-                        <p>안 귀여운 곰돌이 푸</p>
-                        <span>곰돌이 푸 저자</span>
-                        <span>지은이 푸</span>
+                    	<div class = "choi-close-btn">
+                    		x
+                    	</div>
+                    	<div class = "choi-jjim-text-top">
+	                        <p>안 귀여운 곰돌이 푸</p>
+                    	</div>
+    					<div class = "choi-jjim-text-bottom">
+	                        <span>곰돌이 푸 저자</span>
+	                        <span>지은이 푸</span>
+    					</div>
                     </div>
                 </div>
             </div>

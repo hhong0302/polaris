@@ -56,6 +56,9 @@ span{
     border : 1px solid #ccc;
     padding : 20px;
 }
+.choi-book-text>div{
+	margin-bottom : 15px;
+}
 .choi-book-img img{
 	width : 130px;
 	height : 190px;
@@ -104,14 +107,11 @@ span{
 .choi-jjim-text{
     display: block;
 }
-.choi-jjim-tex{
-	display : bold;
+.choi-jjim-text{
+	display : block;
 	justify-content:space-between;
 }
-.choi-jjim-text p{
-    font-size: 10px;
-    font-weight : bold;
+.choi-jjim-text-top p{
+	font-size : 15px;
 }
-.choi-jjim-text span{
-	
-}
+
