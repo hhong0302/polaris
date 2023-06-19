@@ -6,25 +6,38 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.polaris.home.util.Static;
 
-public class HomeDAO {
+public class PolarisDAO {
 	
 	DataSource dataSource;
 	JdbcTemplate template = null;
 	
-	//constructor DB접속
-	public HomeDAO()
+	public PolarisDAO()
 	{
 		template = Static.template;
 	}
 	
+	//gyu Start
 	
-	//wonhong
-		
-	//wonhong
+	//gyu End
 	
 	
-	//gyu
-		
-	//gyu
+	//wonhong Start
+	
+	//wonhong End
+	
+	
+	//바지조장 Start
+	
+	//바지조장 End
+	
+	
+	//alice Start
+	
+	//alice End
+	
+	
+	//cha Start
+	
+	//cha End
 
 }
