@@ -51,7 +51,6 @@ public class HomeController {
 		dto.setAuthor("asdsa");
 		dto.setBookcode("fsdfd");
 		return dto;
-	  
 	}
 	
 	@RequestMapping(value = "search")
