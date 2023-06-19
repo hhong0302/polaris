@@ -26,10 +26,24 @@ public class PolarisDAO {
 	
 	
 	//wonhong Start
-	public List<BookDTO> hg_hotList(String value)
+	public List<BookDTO> hg_homenovel()
+	{
+		String sql = "select * from book where genre='소설/시' order by date desc;";
+		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+	}
+	
+	public List<BookDTO> hg_homeessay()
+	{
+		String sql = "select * from book where genre='에세이' order by date desc;";
+		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+	}
+	
+	public List<BookDTO> hg_hotList(String name)
 	{
 		String sql = "";
-		sql="select * from book order by date desc limit 0,5";
+		if(name.equals("popular")||name=="popular") sql="select * from book where bookcode=any(select bookcode from interest group by bookcode order by count(bookcode) desc) limit 0,7";
+		if(name.equals("recent")||name=="recent") sql="select * from book order by date desc limit 0,7";
+		if(name.equals("lotsloan")||name=="lotsloan") sql="select * from book order by date desc limit 0,7";
 		
 		return template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
