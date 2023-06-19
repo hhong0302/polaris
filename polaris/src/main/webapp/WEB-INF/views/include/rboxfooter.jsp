@@ -12,13 +12,15 @@
 	<h1>내 도서관</h1>
 	
 	<!-- 로그인 안했을 시 -->
-	<!-- <span class="hg-afterlogin">로그인 후<br/>이용해주세요.</span> -->
+		<!-- <span class="hg-afterlogin">
+			<a href="javascript:void(0)">로그인</a> 후<br/>이용해주세요.
+		</span> -->
 	<!-- 로그인 안했을 시 -->
 	
 	<!-- 로그인 했을 시 -->
 	
-	<a href="mypage">마이페이지</a>
-	<a href="javascript:void(0)">회원정보 수정</a>
+	<a class="hg-mmlinks" href="mypage">마이페이지</a>
+	<a class="hg-mmlinks" href="javascript:void(0)">회원정보 수정</a>
 	
 	<div class="hg-rightline"></div>
 	
@@ -45,6 +47,7 @@
 		</span>
 	</div>
 	<!-- 반납 2개 이상 시 반복 -->
+	
 	<div class="hg-returnbox">
 		<img src="resources/bookimg/spaceboy.jpg" class="hg-rtimg" alt="spaceboy" />
 		
@@ -58,7 +61,6 @@
 	</div>
 	
 	<!-- 2개 이상일 시 나오는 더보기 버튼 -->
-	
 	<div class="hg-rightline"></div>
 	
 	<button class="hg-rboxbtn" onclick="rboxbtn(this)">+더보기</button>

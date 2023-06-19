@@ -167,6 +167,7 @@
 .hg-hotlist img
 {
 	width:270px;
+	height:400px;
 	box-shadow: 6px 6px 6px 0 rgba(0,0,0,0.2);
 }
 
@@ -246,6 +247,7 @@
 .hg-essaylist img
 {
 	width:380px;
+	height:530px;
 	box-shadow: 6px 6px 6px 0 rgba(0,0,0,0.2);
 }
 
