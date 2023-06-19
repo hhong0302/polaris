@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -150,7 +151,7 @@
 		<div class="hg-hothleft">
 			<h1 class="hg-hottitle">요즘 뜨는 도서</h1>
 			<div class="hg-hotmenu">
-				<button class="hg-hotmenubtn active">인기순</button>
+				<button class="hg-hotmenubtn active" onclick="hg_hotmenubtn()">인기순</button>
 				<button class="hg-hotmenubtn">최신순</button>
 				<button class="hg-hotmenubtn">대여순</button>
 			</div>

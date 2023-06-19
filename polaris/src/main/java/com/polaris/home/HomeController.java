@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.polaris.home.command.SpCommand;
+import com.polaris.home.dto.BookDTO;
 import com.polaris.home.util.Static;
 
 /**
@@ -39,6 +41,17 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		
 		return "home";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/mainHotController")
+	public BookDTO ajaxTest() throws Exception {
+
+		BookDTO dto = new BookDTO();
+		dto.setAuthor("asdsa");
+		dto.setBookcode("fsdfd");
+		return dto;
+	  
 	}
 	
 	@RequestMapping(value = "search")
