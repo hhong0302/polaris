@@ -17,7 +17,7 @@
 	
 	<!-- 로그인 했을 시 -->
 	
-	<a href="javascript:void(0)">마이페이지</a>
+	<a href="mypage">마이페이지</a>
 	<a href="javascript:void(0)">회원정보 수정</a>
 	
 	<div class="hg-rightline"></div>
