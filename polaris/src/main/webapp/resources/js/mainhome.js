@@ -1,3 +1,23 @@
+const hg_lboxbtn = document.getElementsByClassName("hg-lboxbtn");
+
+//화면 시작 시 기능
+window.onload = function()
+{
+	hg_lboxbtn[0].click();
+}
+
+function lboxbtn(e,images)
+{
+	const hg_anchor = document.getElementById("hg-lboxanchor");
+	const hg_limg = document.getElementById("hg-leftboximg");
+	for(let i=0;i<hg_lboxbtn.length;i++)
+	{
+		hg_lboxbtn[i].classList.remove("active");
+	}
+	hg_anchor.href = "javascript:void(0)";
+	hg_limg.src = "resources/bookimg/"+images+".jpg";
+	e.classList.add("active");
+}
 
 //스라이다
 const hg_images = document.querySelectorAll('.hg-slider a');
