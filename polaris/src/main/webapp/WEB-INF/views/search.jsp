@@ -80,6 +80,9 @@
 			</div>
 		</div>
 	</div>
+	<div class="search-banner">
+		<img src="resources/banner/banner_band01.jpg" alt="banner" />
+	</div>
 </div>
 
 <%@include file="include/footer.jsp" %>
