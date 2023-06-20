@@ -6,19 +6,6 @@ $('a.review').click(function(){
     $('a.info>span').removeClass('action');
     $('a.review>span').addClass('action');
 });
-$('a.recent').click(function(){
-    $('.listLike-detail').removeClass('action');
-    $('a.like>span').removeClass('action');
-    $('.listRecent-detail').addClass('action');
-    $('a.recent>span').addClass('action');
-
-});
-$('a.like').click(function(){
-    $('.listRecent-detail').removeClass('action');
-    $('a.like>span').removeClass('action');
-    $('.listLike-detail').addClass('action');
-    $('a.recent>span').addClass('action');
-});
 
 
 function scroll_move(seq){

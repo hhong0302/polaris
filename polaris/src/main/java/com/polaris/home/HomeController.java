@@ -1,6 +1,12 @@
 package com.polaris.home;
 
+import java.io.PrintWriter;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,7 +97,11 @@ public class HomeController {
 		
 		return "detail";	// detail.jsp 호출!!!
 	}
-	
+	@RequestMapping(value = "/bookcode")
+	public void bookcode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String bookcode = request.getParameter("bookcode");
+		System.out.println("bookcode : " + bookcode);
+	}
 	
 	@RequestMapping(value = "mypage")
 	public String mypage(Model model) {
