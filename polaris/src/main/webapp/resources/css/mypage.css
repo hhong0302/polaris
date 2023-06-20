@@ -55,6 +55,7 @@ span{
     border-radius: 5px;
     border : 1px solid #ccc;
     padding : 20px;
+    margin-right : 13px;
 }
 .choi-book-text>div{
 	margin-bottom : 15px;
@@ -114,4 +115,6 @@ span{
 .choi-jjim-text-top p{
 	font-size : 15px;
 }
-
+.choi-booklist{
+	display : flex;
+}
