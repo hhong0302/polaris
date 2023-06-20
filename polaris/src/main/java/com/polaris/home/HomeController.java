@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.polaris.home.command.SearchCommand;
 import com.google.gson.Gson;
 import com.polaris.home.command.HomeListCommand;
+import com.polaris.home.command.MyCommand;
 import com.polaris.home.command.RegisterCommand;
 import com.polaris.home.command.SpCommand;
 import com.polaris.home.dto.BookDTO;
@@ -105,7 +106,10 @@ public class HomeController {
 	
 	@RequestMapping(value = "mypage")
 	public String mypage(Model model) {
-		return "mypage";	// detail.jsp 호출!!!
+		
+		command = new MyCommand();
+		command.execute(model);
+		return "mypage";	// mypage.jsp 호출!!!
 	}
 	
 	@RequestMapping(value = "register")
