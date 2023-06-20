@@ -1,3 +1,4 @@
+<%@page import="com.polaris.home.dto.BookDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,7 +11,9 @@
 </head>
 <body>
 <%@include file="include/header.jsp" %>
+	
 
+	
 	<div class="container-detail">
 		<div class="bookInfo-detail">
 		
@@ -49,21 +52,21 @@
 			
 		</div>
 	</div>
-	<div class="middleNav-detail">
+	<div class="middleNav-detail sticky">
 		<div class="container-detail">
-			<a href="#bookInfo">
-				<div class="navMenu-detail action"></div>
+			<a class="info active" onclick="scroll_move('1')">
+				<span class="navMenu-detail action"></span>
 				<span class="menuTitle-detail action">도서 정보</span>
 			</a>
-			<a href="#review">
-				<div class="navMenu-detail"></div>
+			<a class="review" onclick="scroll_move('2')">
+				<span class="navMenu-detail"></span>
 				<span class="menuTitle-detail">리뷰(7)</span>
 			</a>
 		</div>
 	</div>
 	<div class="infoReview-detail">
 		
-		<div id="bookInfo">
+		<div id="move1">
 			<div class="infoTitle-detail">
 				<h2>카테고리 분류</h2>
 				<div class="cateTitle-detail">
@@ -140,7 +143,7 @@
 				</div>
 			</div>
 			
-			<div id="review" class="reviewWrtBox-detail">
+			<div id="move2" class="reviewWrtBox-detail">
 				<h2>리뷰작성</h2>
 				<form class="reviewWrt-detail">
 					<input type="text" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 작성하면 비공개 처리될 수 있습니다." class="reviewBox-detail">
@@ -152,23 +155,276 @@
 			</div>
 			
 			<div class="reviewList-detail">
-				<h2>리뷰(7)</h2>
-				<div class="listNav-detail">
-				    <a class="active" href="#review">
-				    	<div class="reviewMenu-detail action"></div>
-						<span class="reviewTitle-detail action">최신순</span>
-				    </a>
-				    <a href="#review">
-						<div class="reviewMenu-detail"></div>
-						<span class="reviewTitle-detail">좋아요순</span>
-					</a>
+				<div class="listTile-detail">
+					<h2>리뷰(7)</h2>
+					<div class="listNav-detail">
+					    <a class="recent" href="javascript:void(0)">
+					    	<span class="reviewMenu-detail action"></span>
+							<span class="reviewTitle-detail action">최신순</span>
+					    </a>
+					    <a class="like" href="javascript:void(0)">
+							<span class="reviewMenu-detail"></span>
+							<span class="reviewTitle-detail">좋아요순</span>
+						</a>
+				    </div>
 			    </div>
-			</div>
+			    
+			    <div class="listRecent-detail action">
+			    	<div class="reviewBox-detail">
+			    		<div class="reviewTop-detail">
+				    		<div class="reviewInfo-detail">
+				    			<span class="reviewUser-detail">os3aa****</span>
+				    			<span class="reviewDate-detail">2023년 06월 8일</span>
+				    		</div>
+				    		<div class="topBtn-detail">
+							    <button type="button" class="reviewUpdateBtn-detail" data-rno="${replyList.rno}">수정</button>
+							    <button type="button" class="reviewDeleteBtn-detail" data-rno="${replyList.rno}">삭제</button>
+				    		</div>
+			    		</div>
+			    		<div class="reviewBottom-detail">
+			    			<p>집중해서 재미있게 읽었습니다. 작가의 경험이 생생하게 잘 전달됩니다.</p>
+			    			<div class="likeBox-detail">
+			    				<img alt="like" src="resources/images/dislike-detail.png">17
+			    			</div>
+			    		</div>
+			    	</div>
+			    
+			    	<div class="reviewBox-detail">
+			    		<div class="reviewTop-detail">
+				    		<div class="reviewInfo-detail">
+				    			<span class="reviewUser-detail">os3aa****</span>
+				    			<span class="reviewDate-detail">2023년 06월 8일</span>
+				    		</div>
+				    		<div class="topBtn-detail">
+							    <button type="button" class="reviewUpdateBtn-detail" data-rno="${replyList.rno}">수정</button>
+							    <button type="button" class="reviewDeleteBtn-detail" data-rno="${replyList.rno}">삭제</button>
+				    		</div>
+			    		</div>
+			    		<div class="reviewBottom-detail">
+			    			<p>집중해서 재미있게 읽었습니다. 작가의 경험이 생생하게 잘 전달됩니다.</p>
+			    			<div class="likeBox-detail">
+			    				<img alt="like" src="resources/images/dislike-detail.png">17
+			    			</div>
+			    		</div>
+			    	</div>
+			    
+			    	<div class="reviewBox-detail">
+			    		<div class="reviewTop-detail">
+				    		<div class="reviewInfo-detail">
+				    			<span class="reviewUser-detail">os3aa****</span>
+				    			<span class="reviewDate-detail">2023년 06월 8일</span>
+				    		</div>
+				    		<div class="topBtn-detail">
+							    <button type="button" class="reviewUpdateBtn-detail" data-rno="${replyList.rno}">수정</button>
+							    <button type="button" class="reviewDeleteBtn-detail" data-rno="${replyList.rno}">삭제</button>
+				    		</div>
+			    		</div>
+			    		<div class="reviewBottom-detail">
+			    			<p>집중해서 재미있게 읽었습니다. 작가의 경험이 생생하게 잘 전달됩니다.</p>
+			    			<div class="likeBox-detail">
+			    				<img alt="like" src="resources/images/dislike-detail.png">17
+			    			</div>
+			    		</div>
+			    	</div>
+			   
+			    	<div class="reviewBox-detail">
+			    		<div class="reviewTop-detail">
+				    		<div class="reviewInfo-detail">
+				    			<span class="reviewUser-detail">os3aa****</span>
+				    			<span class="reviewDate-detail">2023년 06월 8일</span>
+				    		</div>
+				    		<div class="topBtn-detail">
+							    <button type="button" class="reviewUpdateBtn-detail" data-rno="${replyList.rno}">수정</button>
+							    <button type="button" class="reviewDeleteBtn-detail" data-rno="${replyList.rno}">삭제</button>
+				    		</div>
+			    		</div>
+			    		<div class="reviewBottom-detail">
+			    			<p>집중해서 재미있게 읽었습니다. 작가의 경험이 생생하게 잘 전달됩니다.</p>
+			    			<div class="likeBox-detail">
+			    				<img alt="like" src="resources/images/dislike-detail.png">17
+			    			</div>
+			    		</div>
+			    	</div>
+
+			    	<div class="reviewBox-detail">
+			    		<div class="reviewTop-detail">
+				    		<div class="reviewInfo-detail">
+				    			<span class="reviewUser-detail">os3aa****</span>
+				    			<span class="reviewDate-detail">2023년 06월 8일</span>
+				    		</div>
+				    		<div class="topBtn-detail">
+							    <button type="button" class="reviewUpdateBtn-detail" data-rno="${replyList.rno}">수정</button>
+							    <button type="button" class="reviewDeleteBtn-detail" data-rno="${replyList.rno}">삭제</button>
+				    		</div>
+			    		</div>
+			    		<div class="reviewBottom-detail">
+			    			<p>집중해서 재미있게 읽었습니다. 작가의 경험이 생생하게 잘 전달됩니다.</p>
+			    			<div class="likeBox-detail">
+			    				<img alt="like" src="resources/images/dislike-detail.png">17
+			    			</div>
+			    		</div>
+			    	</div>
+			    </div>
+			    
+			    <div class="listLike-detail">
+			    	<div class="reviewBox-detail">
+			    		<div class="reviewTop-detail">
+				    		<div class="reviewInfo-detail">
+				    			<span class="reviewUser-detail">os3aa****</span>
+				    			<span class="reviewDate-detail">2023년 06월 8일</span>
+				    		</div>
+				    		<div class="topBtn-detail">
+							    <button type="button" class="reviewUpdateBtn-detail" data-rno="${replyList.rno}">수정</button>
+							    <button type="button" class="reviewDeleteBtn-detail" data-rno="${replyList.rno}">삭제</button>
+				    		</div>
+			    		</div>
+			    		<div class="reviewBottom-detail">
+			    			<p>집중해서 재미있게 읽었습니다.</p>
+			    			<div class="likeBox-detail">
+			    				<img alt="like" src="resources/images/dislike-detail.png">17
+			    			</div>
+			    		</div>
+			    	</div>
+			    
+			    	<div class="reviewBox-detail">
+			    		<div class="reviewTop-detail">
+				    		<div class="reviewInfo-detail">
+				    			<span class="reviewUser-detail">os3aa****</span>
+				    			<span class="reviewDate-detail">2023년 06월 8일</span>
+				    		</div>
+				    		<div class="topBtn-detail">
+							    <button type="button" class="reviewUpdateBtn-detail" data-rno="${replyList.rno}">수정</button>
+							    <button type="button" class="reviewDeleteBtn-detail" data-rno="${replyList.rno}">삭제</button>
+				    		</div>
+			    		</div>
+			    		<div class="reviewBottom-detail">
+			    			<p>집중해서 재미있게 읽었습니다.</p>
+			    			<div class="likeBox-detail">
+			    				<img alt="like" src="resources/images/dislike-detail.png">17
+			    			</div>
+			    		</div>
+			    	</div>
+			    
+			    	<div class="reviewBox-detail">
+			    		<div class="reviewTop-detail">
+				    		<div class="reviewInfo-detail">
+				    			<span class="reviewUser-detail">os3aa****</span>
+				    			<span class="reviewDate-detail">2023년 06월 8일</span>
+				    		</div>
+				    		<div class="topBtn-detail">
+							    <button type="button" class="reviewUpdateBtn-detail" data-rno="${replyList.rno}">수정</button>
+							    <button type="button" class="reviewDeleteBtn-detail" data-rno="${replyList.rno}">삭제</button>
+				    		</div>
+			    		</div>
+			    		<div class="reviewBottom-detail">
+			    			<p>집중해서 재미있게 읽었습니다.</p>
+			    			<div class="likeBox-detail">
+			    				<img alt="like" src="resources/images/dislike-detail.png">17
+			    			</div>
+			    		</div>
+			    	</div>
+			   
+			    	<div class="reviewBox-detail">
+			    		<div class="reviewTop-detail">
+				    		<div class="reviewInfo-detail">
+				    			<span class="reviewUser-detail">os3aa****</span>
+				    			<span class="reviewDate-detail">2023년 06월 8일</span>
+				    		</div>
+				    		<div class="topBtn-detail">
+							    <button type="button" class="reviewUpdateBtn-detail" data-rno="${replyList.rno}">수정</button>
+							    <button type="button" class="reviewDeleteBtn-detail" data-rno="${replyList.rno}">삭제</button>
+				    		</div>
+			    		</div>
+			    		<div class="reviewBottom-detail">
+			    			<p>집중해서 재미있게 읽었습니다.</p>
+			    			<div class="likeBox-detail">
+			    				<img alt="like" src="resources/images/dislike-detail.png">17
+			    			</div>
+			    		</div>
+			    	</div>
+
+			    	<div class="reviewBox-detail">
+			    		<div class="reviewTop-detail">
+				    		<div class="reviewInfo-detail">
+				    			<span class="reviewUser-detail">os3aa****</span>
+				    			<span class="reviewDate-detail">2023년 06월 8일</span>
+				    		</div>
+				    		<div class="topBtn-detail">
+							    <button type="button" class="reviewUpdateBtn-detail" data-rno="${replyList.rno}">수정</button>
+							    <button type="button" class="reviewDeleteBtn-detail" data-rno="${replyList.rno}">삭제</button>
+				    		</div>
+			    		</div>
+			    		<div class="reviewBottom-detail">
+			    			<p>집중해서 재미있게 읽었습니다.</p>
+			    			<div class="likeBox-detail">
+			    				<img alt="like" src="resources/images/dislike-detail.png">17
+			    			</div>
+			    		</div>
+			    	</div>
+			    </div>
+			    
+			    
+			     <div class="pageNum-detail">
+               
+	               	<a href="">
+	                    <span class="prv"><i class="fa-solid fa-angle-left"></i></span>
+	                </a>
+	             	<div class="number">
+	               		<a href="">1</a>
+	                </div>
+	                <a href="">
+	                	<span class="nxt"><i class="fa-solid fa-angle-right"></i></span>
+	                </a>
+	                
+                </div>
+            </div>
+            
+            <div class="suggest-detail">
+            	<h2>추천 도서</h2>
+            	<div class="suggestBook-detail">
+            		<div class="suggestBookBox-detail">
+            			<img alt="suggestBookImg" src="resources/bookimg/goodgirl.jpg" class="suggestbookImg-detail">
+            			<div class="suggestInfo-detail">
+            				<h4>블랙 쇼맨과 환상의 여자</h4>
+            				<p><span>히가시노 게이고 저자</span> · <span>알에이치코리아(RHK)</span></p>
+            			</div>
+            		</div>
+            		
+            		<div class="suggestBookBox-detail">
+            			<img alt="suggestBookImg" src="resources/bookimg/commitment.jpg" class="suggestbookImg-detail">
+            			<div class="suggestInfo-detail">
+            				<h4>용의자 X의 헌신</h4>
+            				<p><span>히가시노 게이고 저자</span> · <span>재인</span></p>
+            			</div>
+            		</div>
+            		
+            		<div class="suggestBookBox-detail">
+            			<img alt="suggestBookImg" src="resources/bookimg/fighter.jpg" class="suggestbookImg-detail">
+            			<div class="suggestInfo-detail">
+            				<h4>완득이</h4>
+            				<p><span>창비 저자</span> · <span>창비</span></p>
+            			</div>
+            		</div>
+            		
+            		<div class="suggestBookBox-detail">
+            			<img alt="suggestBookImg" src="resources/bookimg/argument.jpg" class="suggestbookImg-detail">
+            			<div class="suggestInfo-detail">
+            				<h4>변론의 법칙</h4>
+            				<p><span>마이클 코넬리 저자</span> · <span>재인</span></p>
+            			</div>
+            		</div>
+            		
+            	</div>
+            	
+            		
+            </div>
 			
 		</div>
 		
 	</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="resources/js/detail.js"></script>
 
-<%@include file="include/footer.jsp" %>
+<%@include file="include/rboxfooter.jsp" %>
 </body>
 </html>
