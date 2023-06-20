@@ -23,7 +23,6 @@ public class SearchCommand implements SpCommand {
         Map<String, Object> map = model.asMap();
         HttpServletRequest request = (HttpServletRequest) map.get("request");
         String genre = request.getParameter("genre");
-
         ArrayList<BookDTO> dtos = dao.search();
         ArrayList<BookDTO> dto = dao.totalsearch();
         ArrayList<BookDTO> segen = dao.genresearch(genre);
