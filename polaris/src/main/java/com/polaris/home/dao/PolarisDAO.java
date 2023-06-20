@@ -1,20 +1,20 @@
 package com.polaris.home.dao;
 
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
-
 import java.util.List;
-
 
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 
 import com.polaris.home.dto.BookDTO;
-
 import com.polaris.home.dto.InterestDTO;
-
 import com.polaris.home.util.Static;
 
 public class PolarisDAO {
@@ -35,6 +35,11 @@ public class PolarisDAO {
 	public ArrayList<BookDTO> totalsearch() {
 	    String sql = "SELECT * FROM book";
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<>(BookDTO.class));
+	}
+	public ArrayList<BookDTO> genresearch(String genre) {
+	    String sql = "SELECT * FROM book WHERE genre LIKE ?";
+	    String wildcardedGenre = "%" + genre + "%";
+	    return (ArrayList<BookDTO>) template.query(sql + wildcardedGenre, new BeanPropertyRowMapper<>(BookDTO.class));
 	}
 	//gyu End
 	
@@ -81,7 +86,28 @@ public class PolarisDAO {
 	
 	
 	//cha Start
-	
+	public void registerok(String userid, String userpass, String username, String birth, String tel, String email) {
+		
+		
+		
+		template.update(new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
+				String sql = "insert into members (userid, userpass, username, birth, usertel, useremail)"
+						+ " values (?,?,?,?,?,?)";
+				PreparedStatement pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, userid);
+					pstmt.setString(2, userpass);
+					pstmt.setString(3, username);
+					pstmt.setString(4, birth);
+					pstmt.setString(5, tel);
+					pstmt.setString(6, email);
+					return pstmt;
+				}
+			
+		});
+	}
 	//cha End
 
 }
