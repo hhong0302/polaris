@@ -93,15 +93,13 @@ public class HomeController {
 
 	
 	@RequestMapping(value = "detail")
-	public String detail(Model model) {
-		
+	public String detail(HttpServletRequest request, Model model) {
+        String bookcode = request.getParameter("bookcode");
+        model.addAttribute("bookcode", bookcode);
+        
 		return "detail";	// detail.jsp 호출!!!
 	}
-	@RequestMapping(value = "/bookcode")
-	public void bookcode(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String bookcode = request.getParameter("bookcode");
-		System.out.println("bookcode : " + bookcode);
-	}
+
 	
 	@RequestMapping(value = "mypage")
 	public String mypage(Model model) {
