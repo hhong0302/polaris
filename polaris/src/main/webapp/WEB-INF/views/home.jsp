@@ -14,16 +14,18 @@
 
 <div class="container hg-relative">
 	<div class="hg-leftbox">
-		<h1>베스트 1</h1>
+		<h1 id="hg-leftboxh1">베스트 1</h1>
 		<a id="hg-lboxanchor" href="javascript:void(0)">
 			<img id="hg-leftboximg" src="resources/bookimg/spaceboy.jpg" alt="spaceboy" />
 		</a>
 		<span class="hg-lefttitle">당신은 결국 무엇이든 해내는 사람</span>
 		<div class="hg-lbtnbox">
 		<!-- 버튼 인기순으로 5개 -->
-			<button class="hg-lboxbtn" onclick="lboxbtn(this,'spaceboy')">
-				베스트1
+		<c:forEach items="${hg_interest}" var="dto" varStatus="status">
+			<button class="hg-lboxbtn" onclick="lboxbtn(this,'${dto.bookcode}','${dto.booktitle}')">
+				베스트${status.count}
 			</button>
+		</c:forEach>
 		<!-- 버튼 인기순으로 5개 -->
 		</div>
 	</div>
