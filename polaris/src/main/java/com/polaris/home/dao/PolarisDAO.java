@@ -36,6 +36,11 @@ public class PolarisDAO {
 	    String sql = "SELECT * FROM book";
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<>(BookDTO.class));
 	}
+	public ArrayList<BookDTO> genresearch(String genre) {
+	    String sql = "SELECT * FROM book WHERE genre LIKE ?";
+	    String wildcardedGenre = "%" + genre + "%";
+	    return (ArrayList<BookDTO>) template.query(sql + wildcardedGenre, new BeanPropertyRowMapper<>(BookDTO.class));
+	}
 	//gyu End
 	
 	
