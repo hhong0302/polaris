@@ -32,25 +32,25 @@
 	<div id="hg-slide">
 		<div class="hg-slide-container">
 			<div class="hg-slider">
-				<a href="detail" class="hg-first-img">
+				<a href="detail?bookcode=tigerfish" class="hg-first-img">
 					<img src="resources/banner/slidebanner05.jpg" alt="slide05" />
 				</a>
-				<a href="detail">
+				<a href="detail?bookcode=kitchen">
 					<img src="resources/banner/slidebanner01.jpg" alt="slide01" />
 				</a>
-				<a href="detail">
+				<a href="detail?bookcode=moreok">
 					<img src="resources/banner/slidebanner02.jpg" alt="slide02" />
 				</a>
-				<a href="detail">
+				<a href="detail?bookcode=itsok">
 					<img src="resources/banner/slidebanner03.jpg" alt="slide03" />
 				</a>
-				<a href="detail">
+				<a href="detail?bookcode=giant">
 					<img src="resources/banner/slidebanner04.jpg" alt="slide04" />
 				</a>
-				<a href="detail">
+				<a href="detail?bookcode=tigerfish">
 					<img src="resources/banner/slidebanner05.jpg" alt="slide05" />
 				</a>
-				<a href="detail" class="hg-last-img">
+				<a href="detail?bookcode=kitchen" class="hg-last-img">
 					<img src="resources/banner/slidebanner01.jpg" alt="slide01" />
 				</a>
 			</div>
@@ -82,7 +82,7 @@
 					<a href="javascript:void(0)">
 						<img src="resources/bookimg/${dto.bookcode}.jpg" alt="${dto.bookcode}" />
 					</a>
-					<h3 class="hg-bname"><a href="javascript:void(0)">${dto.booktitle}</a></h3>
+					<h3 class="hg-bname"><a href="detail?bookcode=${dto.bookcode}">${dto.booktitle}</a></h3>
 					<div class="hg-ap">
 						<span><a href="javascript:void(0)">${dto.author} 저자</a></span>
 						<span class="hg-dotted">·</span>
@@ -124,7 +124,7 @@
 						<a href="javascript:void(0)">
 							<img src="resources/bookimg/${dto.bookcode}.jpg" alt="${dto.bookcode}" />
 						</a>
-						<h3 class="hg-bname"><a href="javascript:void(0)">${dto.booktitle}</a></h3>
+						<h3 class="hg-bname"><a href="detail?bookcode=${dto.bookcode}">${dto.booktitle}</a></h3>
 						<div class="hg-ap">
 							<span><a href="javascript:void(0)">${dto.author} 저자</a></span>
 							<span class="hg-dotted">·</span>
