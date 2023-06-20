@@ -76,7 +76,7 @@ pageEncoding="UTF-8"%>
 			<div class="mailcheckno">
 				<span></span><span id="mailcheckno-message">올바른 이메일 형식이 아닙니다.</span>
 			</div>
-			<button type="button" class="fregister">입력 완료</button>
+			<button type="button" class="fregister" onclick="register()">입력 완료</button>
 		</form>
 	</div>
 </div>
