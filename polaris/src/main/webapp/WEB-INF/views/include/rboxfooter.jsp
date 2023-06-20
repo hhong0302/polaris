@@ -13,7 +13,7 @@
 	
 	<!-- 로그인 안했을 시 -->
 		<!-- <span class="hg-afterlogin">
-			<a href="javascript:void(0)">로그인</a> 후<br/>이용해주세요.
+			<a href="login">로그인</a> 후<br/>이용해주세요.
 		</span> -->
 	<!-- 로그인 안했을 시 -->
 	

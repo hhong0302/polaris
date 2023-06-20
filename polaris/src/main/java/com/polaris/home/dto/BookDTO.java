@@ -14,6 +14,8 @@ public class BookDTO {
 	private String date;
 	private String size;
 	private int pages;
+	private int likecount;
+	private int loancount;
 	
 	public int getNum() {
 		return num;
@@ -86,6 +88,18 @@ public class BookDTO {
 	}
 	public void setPages(int pages) {
 		this.pages = pages;
+	}
+	public int getLikecount() {
+		return likecount;
+	}
+	public void setLikecount(int likecount) {
+		this.likecount = likecount;
+	}
+	public int getLoancount() {
+		return loancount;
+	}
+	public void setLoancount(int loancount) {
+		this.loancount = loancount;
 	}
 
 }

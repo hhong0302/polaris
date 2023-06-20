@@ -16,7 +16,7 @@
 	</div>
 	<div class="menu_area">
 		<ul class="menu">
-			<li><a href="#">전체</a></li>
+			<li><a href="totalsearch">전체</a></li>
 			<li><a href="#">판타지</a></li>
 			<li><a href="#">소설/시</a></li>
 			<li><a href="#">추리</a></li>
