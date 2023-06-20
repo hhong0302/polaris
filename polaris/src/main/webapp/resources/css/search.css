@@ -75,6 +75,7 @@
 	font-size: 17px;
 	color: #fff;
 	padding: 13px;
+	cursor: pointer;
 }
 .search-rental-btn{
 	background-color: #4563ff;
@@ -92,6 +93,9 @@
 }
 .rental-btn{
 	margin-top: 6px;
+}
+.search-rental-btn{
+	cursor: pointer;
 }
 .search-banner{
 	margin-top: 200px;
