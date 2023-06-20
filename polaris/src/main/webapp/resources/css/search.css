@@ -1,11 +1,5 @@
 @charset "UTF-8";
-.search-result::after{
-	content: "";
-	width: 100%;
-	display: block;
-	border-bottom: 1px solid #cccccc;
-	padding-top : 30px;
-}
+
 .result-title{
 	display: flex;
 	padding-top : 30px;
@@ -29,6 +23,13 @@
 	margin-top: 70px;
 	justify-content: space-between;
 }
+.book-box::after{
+	content: "";
+	width: 100%;
+	display: block;
+	border-bottom: 1px solid #cccccc;
+	padding-top : 50px;
+}
 .book-information{
 	display: flex;
 }
@@ -50,13 +51,15 @@
 }
 .search-book-context{
 	padding-top: 40px;
-	width: 350px;
+	width: 600px;
   	text-overflow: ellipsis;
   	overflow: hidden;
   	word-break: break-word;
   	display: -webkit-box;
-	-webkit-line-clamp: 2; 
-    -webkit-box-orient: vertical
+	-webkit-line-clamp: 6; 
+    -webkit-box-orient: vertical;
+    letter-spacing: 1px;
+    line-height: 20px;
 }
 .search-like{
 	display: flex;

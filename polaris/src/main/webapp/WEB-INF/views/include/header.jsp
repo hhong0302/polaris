@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" href="resources/css/header.css" />
 <link rel="stylesheet" href="resources/css/reset.css" />
+<link rel="stylesheet" href="resources/css/header.css" />
 <header>
 <div class="container">
 	<div class="logo_area">
@@ -17,7 +17,7 @@
 	<div class="menu_area">
 		<ul class="menu">
 			<li><a href="totalsearch">전체</a></li>
-			<li><a href="#">판타지</a></li>
+			<li><a href="genresearch?genre=판타지">판타지</a></li>
 			<li><a href="#">소설/시</a></li>
 			<li><a href="#">추리</a></li>
 			<li><a href="#">에세이</a></li>
