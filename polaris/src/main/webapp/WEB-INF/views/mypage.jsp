@@ -43,6 +43,7 @@
             <div class="tab-content">
               <div class="tab-pane fade show active" id="qwe">
 	 				<form name = "form" action="#" method="post">
+	                 <div class = "choi-booklist">
 	                    <div class="choi-current-book">
 	                        <div class="choi-book-img">
 	                            <img src="resources/bookimg/bad.jpg" alt="">
@@ -61,6 +62,48 @@
 	                            	<button type="button">반납하기</button>
 	                            </div>
 	                        </div>
+	                    </div>
+	                    
+	                    <div class="choi-current-book">
+	                        <div class="choi-book-img">
+	                            <img src="resources/bookimg/bad.jpg" alt="">
+	                        </div>
+	                        <div class="choi-book-text">
+	                        	<div class="choi-book-text-top">
+		                            <p>책 제목</p>
+		                            <span>저자 . 글쓴이</span>
+	                            </div>
+	                            <div class="choi-book-text-mid">
+		                            <span>대여 기간</span>
+		                            <p>2023.5.13 ~ 2023.6.12</p>
+		                            <span class="choi-dday">반납일까지 남았습니다.</span>
+	                            </div>
+	                            <div class="choi-book-text-last">
+	                            	<button type="button">반납하기</button>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="choi-current-book">
+	                        <div class="choi-book-img">
+	                            <img src="resources/bookimg/bad.jpg" alt="">
+	                        </div>
+	                        <div class="choi-book-text">
+	                        	<div class="choi-book-text-top">
+		                            <p>책 제목</p>
+		                            <span>저자 . 글쓴이</span>
+	                            </div>
+	                            <div class="choi-book-text-mid">
+		                            <span>대여 기간</span>
+		                            <p>2023.5.13 ~ 2023.6.12</p>
+		                            <span class="choi-dday">반납일까지 남았습니다.</span>
+	                            </div>
+	                            <div class="choi-book-text-last">
+	                            	<button type="button">반납하기</button>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    
 	                    </div>
 	                </form>
               </div>
