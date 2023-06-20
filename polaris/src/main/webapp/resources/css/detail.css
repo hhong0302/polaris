@@ -129,6 +129,12 @@ button.readNow-detail {
 .menuTitle-detail.action {
 	color: #3345a4;
 }
+.sticky {
+	position: sticky;
+    top: 0px;
+    background: #fff;
+    padding-top: 50px;
+}
 
 
 /***** BookInfo & Review *****/

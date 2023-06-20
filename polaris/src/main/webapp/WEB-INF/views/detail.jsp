@@ -52,13 +52,13 @@
 			
 		</div>
 	</div>
-	<div class="middleNav-detail">
+	<div class="middleNav-detail sticky">
 		<div class="container-detail">
-			<a class="info" href="javascript:void(0)">
+			<a class="info active" onclick="scroll_move('1')">
 				<span class="navMenu-detail action"></span>
 				<span class="menuTitle-detail action">도서 정보</span>
 			</a>
-			<a class="review" href="javascript:void(0)">
+			<a class="review" onclick="scroll_move('2')">
 				<span class="navMenu-detail"></span>
 				<span class="menuTitle-detail">리뷰(7)</span>
 			</a>
@@ -66,7 +66,7 @@
 	</div>
 	<div class="infoReview-detail">
 		
-		<div id="bookInfo">
+		<div id="move1">
 			<div class="infoTitle-detail">
 				<h2>카테고리 분류</h2>
 				<div class="cateTitle-detail">
@@ -143,7 +143,7 @@
 				</div>
 			</div>
 			
-			<div id="review" class="reviewWrtBox-detail">
+			<div id="move2" class="reviewWrtBox-detail">
 				<h2>리뷰작성</h2>
 				<form class="reviewWrt-detail">
 					<input type="text" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 작성하면 비공개 처리될 수 있습니다." class="reviewBox-detail">
@@ -425,6 +425,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="resources/js/detail.js"></script>
 
-<%@include file="include/footer.jsp" %>
+<%@include file="include/rboxfooter.jsp" %>
 </body>
 </html>
