@@ -1,5 +1,6 @@
 package com.polaris.home;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -89,7 +90,11 @@ public class HomeController {
 		
 		return "detail";	// detail.jsp 호출!!!
 	}
-	
+	@RequestMapping(value = "/bookcode")
+	public void bookcode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String bookcode = request.getParameter("bookcode");
+		System.out.println("bookcode : " + bookcode);
+	}
 	
 	@RequestMapping(value = "mypage")
 	public String mypage(Model model) {
