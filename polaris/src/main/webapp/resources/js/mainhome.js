@@ -1,9 +1,11 @@
 const hg_lboxbtn = document.getElementsByClassName("hg-lboxbtn");
+const hg_hotmenubtn = document.getElementsByClassName("hg-hotmenubtn");
 
 //화면 시작 시 기능
 window.onload = function()
 {
 	hg_lboxbtn[0].click();
+	hg_hotmenubtn[0].click();
 }
 
 function lboxbtn(e,images)
@@ -73,12 +75,10 @@ const hg_hot = document.getElementsByClassName("hg-mainhot")[0];
 let hg_novelnum = 0;
 let hg_essaynum = 0;
 let hg_hotnum = 0;
-const nvsize = hg_novel.scrollWidth;
-const essize = hg_essay.scrollWidth;
-const htsize = hg_hot.scrollWidth;
 
 function hg_nvmove(px)
 {
+	const nvsize = hg_novel.scrollWidth;
 	hg_novelnum += px;
 	if(hg_novelnum<-nvsize+1240)
 	{
@@ -99,6 +99,7 @@ function hg_nvmove(px)
 
 function hg_esmove(px)
 {
+	const essize = hg_essay.scrollWidth;
 	hg_essaynum += px;
 	if(hg_essaynum<-essize+1230)
 	{
@@ -116,7 +117,81 @@ function hg_esmove(px)
 	if(hg_essaynum==-essize+1230)hg_essaybtn[1].classList.remove('active');
 	if(hg_essaynum==0)hg_essaybtn[0].classList.remove('active');
 }
-//바튼(마지막 버튼은 보류)
+
+function hg_htmove(px)
+{
+	const htsize = hg_hot.scrollWidth;
+	hg_hotnum += px;
+	if(hg_hotnum<-htsize+1240)
+	{
+		console.log(1);
+		hg_hotnum=-htsize+1240;
+		return false;
+	}
+	if(hg_hotnum>0)
+	{
+		console.log(2);
+		hg_hotnum=0;
+		return false;
+	}
+	console.log(3);
+	hg_hot.style.left=hg_hotnum+'px';
+	hg_hotbtn[0].classList.add('active');
+	hg_hotbtn[1].classList.add('active');
+	if(hg_hotnum==-htsize+1240)hg_hotbtn[1].classList.remove('active');
+	if(hg_hotnum==0)hg_hotbtn[0].classList.remove('active');
+}
+//바튼
+
+//ajax 데이터 받아오기
+
+function hg_hotmenubtnclick(hg_what,num)
+{
+	let text = "";
+	const hg_mainhot = document.getElementsByClassName("hg-mainhot")[0];
+	$.ajax({
+		url : "mainHotController",
+		type: "GET",
+		dataType: "json",
+		data:{"name":hg_what},
+		contentType: "application/json",
+		success : function(data) {
+		  	for(let i=0;i<data.length;i++)
+			{
+				text+=`<div class="hg-hotlist">
+				<a href="javascript:void(0)">
+					<img src="resources/bookimg/${data[i].bookcode}.jpg" alt="${data[i].bookcode}" />
+				</a>
+				<h3 class="hg-bname"><a href="javascript:void(0)">${data[i].booktitle}</a></h3>
+				<div class="hg-ap">
+					<span><a href="javascript:void(0)">${data[i].author} 저자</a></span>
+					<span class="hg-dotted">·</span>
+					<span><a href="javascript:void(0)">${data[i].publisher}</a></span>
+				</div>
+				<div class="hg-content">
+					스타트업을 창업해 몇 년간 앞만 보며 달려왔던
+					스타트업을 창업해 몇 년간 앞만 보며 달려왔던
+					스타트업을 창업해 몇 년간 앞만 보며 달려왔던
+					스타트업을 창업해 몇 년간 앞만 보며 달려왔던
+				</div>
+			</div>`;
+			}
+			hg_hot.style.left="0";
+			hg_hotnum = 0;
+			hg_hotbtn[0].classList.remove('active');
+			hg_hotbtn[1].classList.add('active');
+			hg_mainhot.innerHTML=text;
+			for(let i=0;i<hg_hotmenubtn.length;i++)
+			{
+				hg_hotmenubtn[i].classList.remove("active");
+			}
+			hg_hotmenubtn[num].classList.add("active");
+  		},
+  		error : function() {
+  		console.log("error");
+  		}
+	})
+}
 
 
 
