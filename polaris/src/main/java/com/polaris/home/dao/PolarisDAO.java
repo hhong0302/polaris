@@ -70,9 +70,9 @@ public class PolarisDAO {
 	//wonhong End
 	
 	
-	//諛붿�議곗옣 Start
+	//바지조장 Start
 	
-	//諛붿�議곗옣 End
+	//바지조장 End
 	
 	
 	//alice Start
