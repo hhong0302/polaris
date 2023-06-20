@@ -1,6 +1,10 @@
 package com.polaris.home.dao;
 
+
+import java.util.ArrayList;
+
 import java.util.List;
+
 
 import javax.sql.DataSource;
 
@@ -8,7 +12,9 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.polaris.home.dto.BookDTO;
+
 import com.polaris.home.dto.InterestDTO;
+
 import com.polaris.home.util.Static;
 
 public class PolarisDAO {
@@ -22,7 +28,14 @@ public class PolarisDAO {
 	}
 	
 	//gyu Start
-	
+	public ArrayList<BookDTO> search() {
+	    String sql = "SELECT * FROM book WHERE booktitle LIKE '%세이노%'";
+	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<>(BookDTO.class));
+	}
+	public ArrayList<BookDTO> totalsearch() {
+	    String sql = "SELECT * FROM book";
+	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<>(BookDTO.class));
+	}
 	//gyu End
 	
 	
@@ -57,9 +70,9 @@ public class PolarisDAO {
 	//wonhong End
 	
 	
-	//바지조장 Start
+	//諛붿�議곗옣 Start
 	
-	//바지조장 End
+	//諛붿�議곗옣 End
 	
 	
 	//alice Start
