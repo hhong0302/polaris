@@ -8,16 +8,20 @@ window.onload = function()
 	hg_hotmenubtn[0].click();
 }
 
-function lboxbtn(e,images)
+function lboxbtn(e,images,title)
 {
+	const hg_leftboxh1 = document.getElementById("hg-leftboxh1");
 	const hg_anchor = document.getElementById("hg-lboxanchor");
 	const hg_limg = document.getElementById("hg-leftboximg");
+	const hg_lefttitle = document.getElementsByClassName("hg-lefttitle")[0];
 	for(let i=0;i<hg_lboxbtn.length;i++)
 	{
 		hg_lboxbtn[i].classList.remove("active");
 	}
 	hg_anchor.href = "javascript:void(0)";
+	hg_leftboxh1.innerHTML=e.innerHTML;
 	hg_limg.src = "resources/bookimg/"+images+".jpg";
+	hg_lefttitle.innerHTML = title;
 	e.classList.add("active");
 }
 

@@ -40,6 +40,7 @@
 	display:inline-block;
 	margin:0 auto;
 	width:80px;
+	min-height:32px;
 	font-size:14px;
 	font-weight:bold;
 	letter-spacing:-1px;
