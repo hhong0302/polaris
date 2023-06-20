@@ -102,4 +102,16 @@ public class HomeController {
 		return "mypage";	// detail.jsp �샇異�!!!
 	}
 	
+	@RequestMapping(value = "register")
+	public String register(Model model) {
+		logger.info("method [" + Thread.currentThread().getStackTrace()[1].getMethodName() + "]");
+		return "register";	// register.jsp 호출!!!
+	}
+	
+	@RequestMapping(value = "login")
+	public String login(Model model) {
+		logger.info("method [" + Thread.currentThread().getStackTrace()[1].getMethodName() + "]");
+		return "login";	// login.jsp 호출!!!
+	}
+
 }
