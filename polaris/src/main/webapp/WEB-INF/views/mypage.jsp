@@ -20,9 +20,10 @@
             <span>홈 > 메인페이지</span>
         </div>
         <div class="choi-info">
+        <c:if test="${choi_memlist eq 'mdto' }"></c:if>
             <div class="choi-line1">
-                <p>홍길동님</p>
-                <span>email@email.com</span>
+                <p>${mdto.userid }</p>
+                <span>${mdto.useremail }</span>
             </div>
             <div class="choi-line2">
                 <span><a href="#">내 정보 수정</a></span>
