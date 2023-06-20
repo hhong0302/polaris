@@ -248,10 +248,27 @@ button.readNow-detail {
 	margin-bottom: 70px;
 }
 .reviewWrt-detail {
-	display: flex;
-	align-items: flex-end;
-	justify-content: space-around;
 	margin-bottom: 20px;
+}
+.reviewWrt-detail-title
+{
+	display:flex;
+	align-items:flex-start;
+	justify-content: flex-start;
+}
+.reviewWrt-detail-h1
+{
+	font-size:18px;
+	font-weight:600;
+	margin: 5px 15px 0 5px;
+}
+.reviewWrt-detail-title #reviewtitle
+{
+	width:945px;
+	height:50px;
+	font-size:18px;
+	padding-left:5px;
+	border-radius:4px;
 }
 .reviewWrtBox-detail h2 {
 	font-size: 24px;
@@ -265,13 +282,14 @@ button.readNow-detail {
 .reviewBtn-detail img {
 	margin-right: 10px;
 }
-input.reviewBox-detail {
-	width: 997px;
+.reviewBox-detail {
+	width: 945px;
     height: 130px;
     border: 1px solid #ccc;
     outline: 1px solid #ccc;
     border-radius: 4px;
-    padding: 0 10px;
+    padding: 10px 10px 100px;
+    resize:none;
 }
 .reviewBtn-detail {
 	display: flex;
@@ -355,10 +373,6 @@ input.reviewBox-detail {
 	font-size: 16px;
 	color: #797979;
 	font-weight: bold;
-}
-.reviewBox-detail {
-	margin: 30px 0;
-	border-bottom: 1px solid #ccc;
 }
 .pageNum-detail {
 	display: flex;
