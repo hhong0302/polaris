@@ -149,10 +149,15 @@
 			<div id="move2" class="reviewWrtBox-detail">
 				<h2>리뷰작성</h2>
 				<form class="reviewWrt-detail">
-					<input type="text" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 작성하면 비공개 처리될 수 있습니다." class="reviewBox-detail">
+					<div class="reviewWrt-detail-title">
+						<h1 class="reviewWrt-detail-h1">
+							제목
+						</h1>
+						<input type="text" id="reviewtitle" name="reviewtitle" placeholder="남기시는 리뷰의 제목을 적어주세요. (최대 30자)" />
+					</div>
+					<textarea placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 작성하면 비공개 처리될 수 있습니다. (최대 500자)" class="reviewBox-detail"></textarea>
 					<div class="reviewBtn-detail">
-						<span><img alt="check" src="resources/images/check-detail.png">스포일러 포함</span>
-						<button type="submit" onsubmit="checkLogin()" class="submitBtn-detail">리뷰 남기기</button>
+						<button type="button" onsubmit="reviewSubmit()" class="submitBtn-detail">리뷰 남기기</button>
 					</div>
 				</form>
 			</div>
