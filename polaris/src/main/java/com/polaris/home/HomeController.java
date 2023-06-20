@@ -91,6 +91,7 @@ public class HomeController {
 		return "detail";	// detail.jsp 호출!!!
 	}
 	
+	
 	@RequestMapping(value = "mypage")
 	public String mypage(Model model) {
 		return "mypage";	// detail.jsp 호출!!!
