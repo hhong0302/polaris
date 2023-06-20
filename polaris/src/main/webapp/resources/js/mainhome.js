@@ -8,7 +8,7 @@ window.onload = function()
 	hg_hotmenubtn[0].click();
 }
 
-function lboxbtn(e,images,title)
+function lboxbtn(e,bookcode,title)
 {
 	const hg_leftboxh1 = document.getElementById("hg-leftboxh1");
 	const hg_anchor = document.getElementById("hg-lboxanchor");
@@ -18,9 +18,9 @@ function lboxbtn(e,images,title)
 	{
 		hg_lboxbtn[i].classList.remove("active");
 	}
-	hg_anchor.href = "javascript:void(0)";
+	hg_anchor.href = "detail?bookcode="+bookcode;
 	hg_leftboxh1.innerHTML=e.innerHTML;
-	hg_limg.src = "resources/bookimg/"+images+".jpg";
+	hg_limg.src = "resources/bookimg/"+bookcode+".jpg";
 	hg_lefttitle.innerHTML = title;
 	e.classList.add("active");
 }
@@ -166,7 +166,7 @@ function hg_hotmenubtnclick(hg_what,num)
 				<a href="javascript:void(0)">
 					<img src="resources/bookimg/${data[i].bookcode}.jpg" alt="${data[i].bookcode}" />
 				</a>
-				<h3 class="hg-bname"><a href="javascript:void(0)">${data[i].booktitle}</a></h3>
+				<h3 class="hg-bname"><a href="detail?bookcode=${data[i].bookcode}">${data[i].booktitle}</a></h3>
 				<div class="hg-ap">
 					<span><a href="javascript:void(0)">${data[i].author} 저자</a></span>
 					<span class="hg-dotted">·</span>
