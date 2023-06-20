@@ -129,6 +129,12 @@ button.readNow-detail {
 .menuTitle-detail.action {
 	color: #3345a4;
 }
+.sticky {
+	position: sticky;
+    top: 0px;
+    background: #fff;
+    padding-top: 50px;
+}
 
 
 /***** BookInfo & Review *****/
@@ -282,9 +288,10 @@ input.reviewBox-detail {
 	margin-top: 12px;
 	cursor: pointer;
 }
-.reviewList-detail {
+.listTile-detail {
 	display: flex;
 	align-items: flex-end;
+	margin-bottom: 15px;
 }
 .listNav-detail,
 .listNav-detail a {
@@ -321,4 +328,82 @@ input.reviewBox-detail {
 }
 .reviewTitle-detail.action {
 	color: #4563ff;
+}
+.reviewInfo-detail span {
+	margin-right: 10px;
+	color: #999;
+	font-weight: 500;
+}
+.topBtn-detail button {
+	background: none;
+    border: none;
+    color: #797979;
+    font-weight: bold;
+    cursor: pointer;
+}
+.reviewTop-detail,
+.reviewBottom-detail {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 25px;
+}
+.likeBox-detail {
+	display: flex;
+	align-items: center;
+	font-size: 16px;
+	color: #797979;
+	font-weight: bold;
+}
+.reviewBox-detail {
+	margin: 30px 0;
+	border-bottom: 1px solid #ccc;
+}
+.pageNum-detail {
+	display: flex;
+	justify-content: center;
+}
+.pageNum-detail a {
+	width: 30px;
+	text-align: center;
+	margin-bottom: 100px;
+}
+.listRecent-detail,
+.listLike-detail {
+	display: none;
+}
+.listRecent-detail.action,
+.listLike-detail.action {
+	display: block;
+}
+
+
+/***** suggest *****/
+.suggest-detail {
+	margin-bottom: 320px;
+}
+.suggestBook-detail {
+	display: flex;
+	justify-content: space-between;
+}
+.suggest-detail h2 {
+	font-size: 30px;
+	color: #333;
+	font-weight: bolder;
+	margin-bottom: 30px;
+}
+.suggestbookImg-detail {
+	width: 280px;
+	height: 420px;
+	object-fit: cover;
+	box-shadow: -4px 5px 15px 0 rgba(0, 0, 0, 0.2);
+	margin-bottom: 20px;
+}
+.suggestInfo-detail h4 {
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+.suggestInfo-detail p {
+	font-size: 14px;
+	color: #797979;
 }
