@@ -20,6 +20,7 @@ import com.polaris.home.command.SearchCommand;
 
 import com.google.gson.Gson;
 import com.polaris.home.command.HomeListCommand;
+import com.polaris.home.command.RegisterCommand;
 import com.polaris.home.command.SpCommand;
 import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.BookDTO;
@@ -98,6 +99,15 @@ public class HomeController {
 	@RequestMapping(value = "register")
 	public String register(Model model) {
 		return "register";	// register.jsp 호출!!!
+	}
+	@RequestMapping(value = "registerok")
+	public String registerok(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		command = new RegisterCommand();
+		command.execute(model);
+		
+		return "redirect:/";
+		
 	}
 	
 	@RequestMapping(value = "login")

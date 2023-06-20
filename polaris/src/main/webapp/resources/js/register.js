@@ -125,7 +125,62 @@ userpass.addEventListener('keydown', function(){
             document.querySelector('#check-option2').classList.remove('blue');
             document.querySelector(".fa-check").classList.remove('blue');
     }
+});
+
+document.addEventListener('focusout', function(){
+    if(userid.value != '' && userpass.value != '' && reuserpass.value != '' && username.value != '' && birth.value != '' && tel.value != '' && email.value != ''){
+        fregister.style.backgroundColor = '#4563ff';
+    }
 })
+
+
+function register(){
+    if(userid.value == ''){
+        alert("아이디를 입력하세요.");
+        userid.focus();
+        return false;
+    }else if(idcheck.test(userid.value)){
+        alert("아이디를 형식에 맞게 입력 하세요");
+        userid.focus();
+        return false;
+    }else if(userpass.value == ''){
+        alert("비밀번호를 입력하세요.");
+        userpass.focus();
+        return false;
+    }
+    else if(passcheck.test(userpass.value)){
+        alert("비밀번호를 형식에 맞게 입력 하세요");
+        userpass.focus();
+        return false;
+    }else if(reuserpass.value == ''){
+        alert("비밀번호 확인을 입력하세요.");
+        reuserpass.focus();
+        return false;
+    }
+    else if(username.value == ''){
+        alert("이름를 입력하세요.");
+        username.focus();
+        return false;
+    }
+    else if(birth.value == ''){
+        alert("생년월일 입력하세요.");
+        birth.focus();
+        return false;
+    }
+    else if(tel.value == ''){
+        alert("휴대폰 번호를 입력하세요.");
+        tel.focus();
+        return false;
+    }
+    else if(email.value == ''){
+        alert("이메일을 입력하세요.");
+        email.focus();
+        return false;
+    }else{
+        document.registerform.submit();
+    }
+}
+
 
 
 
