@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 
 import com.polaris.home.dto.BookDTO;
 import com.polaris.home.dto.InterestDTO;
+import com.polaris.home.dto.MembersDTO;
 import com.polaris.home.util.Static;
 
 public class PolarisDAO {
@@ -76,7 +77,10 @@ public class PolarisDAO {
 	
 	
 	//바지조장 Start
-	
+	public List<MembersDTO> choi_memList(){
+		String sql = "select * from members";
+		return (ArrayList<MembersDTO>) template.query(sql, new BeanPropertyRowMapper<>(MembersDTO.class));
+	}
 	//바지조장 End
 	
 	
