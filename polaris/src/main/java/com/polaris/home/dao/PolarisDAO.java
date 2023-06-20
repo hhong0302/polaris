@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.polaris.home.dto.BookDTO;
+import com.polaris.home.dto.InterestDTO;
 import com.polaris.home.util.Static;
 
 public class PolarisDAO {
@@ -26,6 +27,12 @@ public class PolarisDAO {
 	
 	
 	//wonhong Start
+	public List<InterestDTO> hg_homeinterest()
+	{
+		String sql = "select * from book order by likecount desc limit 0,5";
+		return (List<InterestDTO>)template.query(sql,new BeanPropertyRowMapper<InterestDTO>(InterestDTO.class));
+	}
+	
 	public List<BookDTO> hg_homenovel()
 	{
 		String sql = "select * from book where genre='소설/시' order by date desc;";
@@ -41,9 +48,9 @@ public class PolarisDAO {
 	public List<BookDTO> hg_hotList(String name)
 	{
 		String sql = "";
-		if(name.equals("popular")||name=="popular") sql="select * from book where bookcode=any(select bookcode from interest group by bookcode order by count(bookcode) desc) limit 0,7";
-		if(name.equals("recent")||name=="recent") sql="select * from book order by date desc limit 0,7";
-		if(name.equals("lotsloan")||name=="lotsloan") sql="select * from book order by date desc limit 0,7";
+		if(name.equals("popular")||name=="popular") sql="select * from book order by likecount desc limit 0,10";
+		if(name.equals("recent")||name=="recent") sql="select * from book order by date desc limit 0,10";
+		if(name.equals("lotsloan")||name=="lotsloan") sql="select * from book order by loancount desc limit 0,10";
 		
 		return template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
