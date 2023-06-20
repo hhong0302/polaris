@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.polaris.home.command.SearchCommand;
+import com.google.gson.Gson;
+import com.polaris.home.command.HomeListCommand;
+import com.polaris.home.command.RegisterCommand;
 import com.polaris.home.command.SpCommand;
 import com.polaris.home.dto.BookDTO;
 import com.polaris.home.util.Static;
@@ -25,8 +28,6 @@ import com.polaris.home.util.Static;
  */
 @Controller
 public class HomeController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	//모든 command가 갖고 있는 인터페이스 타입을 선언
 		SpCommand command;
@@ -59,8 +60,6 @@ public class HomeController {
 	
 	@RequestMapping(value = "search")
 	public String search(Model model) {
-	    logger.info("method [" + Thread.currentThread().getStackTrace()[1].getMethodName() + "]");
-
 
 	    command = new SearchCommand();
 	    command.execute(model);
@@ -70,7 +69,6 @@ public class HomeController {
 
 	@RequestMapping(value = "totalsearch")
 	public String totalsearch(Model model) {
-	    logger.info("method [" + Thread.currentThread().getStackTrace()[1].getMethodName() + "]");
 
 	    command = new SearchCommand();
 	    command.execute(model);
@@ -90,15 +88,33 @@ public class HomeController {
 	
 	@RequestMapping(value = "detail")
 	public String detail(Model model) {
-		logger.info("method [" + Thread.currentThread().getStackTrace()[1].getMethodName() + "]");
 		
-		return "detail";	// detail.jsp �샇異�!!!
+		return "detail";	// detail.jsp 호출!!!
 	}
+	
 	
 	@RequestMapping(value = "mypage")
 	public String mypage(Model model) {
-		logger.info("method [" + Thread.currentThread().getStackTrace()[1].getMethodName() + "]");
-		return "mypage";	// detail.jsp �샇異�!!!
+		return "mypage";	// detail.jsp 호출!!!
 	}
 	
+	@RequestMapping(value = "register")
+	public String register(Model model) {
+		return "register";	// register.jsp 호출!!!
+	}
+	@RequestMapping(value = "registerok")
+	public String registerok(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		command = new RegisterCommand();
+		command.execute(model);
+		
+		return "redirect:/";
+		
+	}
+	
+	@RequestMapping(value = "login")
+	public String login(Model model) {
+		return "login";	// login.jsp 호출!!!
+	}
+
 }
