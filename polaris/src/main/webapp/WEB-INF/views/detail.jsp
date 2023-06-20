@@ -143,6 +143,9 @@
 				</div>
 			</div>
 			
+			
+			<!-- REVIEW START -->
+			
 			<div id="move2" class="reviewWrtBox-detail">
 				<h2>리뷰작성</h2>
 				<form class="reviewWrt-detail">
@@ -378,6 +381,8 @@
 	                
                 </div>
             </div>
+            
+            <!-- REVIEW END -->
             
             <div class="suggest-detail">
             	<h2>추천 도서</h2>
