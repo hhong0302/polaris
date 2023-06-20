@@ -1,0 +1,121 @@
+@charset "UTF-8";
+@import url(./reset.css);
+div.container{
+    width: 600px;
+    margin: 100px auto;
+}
+.logo{
+    text-align: center;
+    margin-bottom: 50px;
+}
+.logo .login-logo{
+    width: 200px;
+    height: 100px;
+}
+.id-area{
+    font-size: 18px;
+    width: 100%;
+    height: 60px;
+    border-radius: 8px;
+    border: 1px solid #999;
+    padding-left: 15px;
+}
+.pass-area{
+    font-size: 18px;
+    width: 100%;
+    height: 60px;
+    border-radius: 8px;
+    border: 1px solid #999;
+    padding-left: 15px;
+    margin-top: 10px;
+}
+.show-pass{
+    position: relative;
+}
+.eye{
+	position: absolute;
+    font-size: 18px;
+	top: 30px;
+	right: 18px;
+	cursor: pointer;
+}
+.login-btn{
+    font-size: 24px;
+    width: 100%;
+    color: #fff;
+    background-color: #4563ff;
+    border: none;
+    border-radius: 8px;
+    height: 60px;
+    margin-top: 24px;
+}
+#save-id{
+    margin-top: 30px;
+}
+.save-id{
+    color: #999;
+}
+ul.find{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ul.find li{
+    color: #999;
+    font-size: 14px;
+    border-right: 1px solid #999;
+    margin-right: 20px;
+    padding-right: 20px;
+    height: 10px;
+}
+ul.find li:last-child{
+    border: none;
+}
+.sns-login{
+    margin-top: 60px;
+    text-align: center;
+    vertical-align: middle;
+}
+.n-login{
+    font-size: 22px;
+    display: block;
+    width: 100%;
+    height: 60px;
+    background-color: #1cc700;
+    color: #fff;
+    padding-top: 23px;
+    border-radius: 8px;
+}
+.k-login{
+    font-size: 22px;
+    display: block;
+    width: 100%;
+    height: 60px;
+    background-color: #fcde00;
+    color: #333;
+    padding-top: 23px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+.g-login{
+    font-size: 22px;
+    display: block;
+    width: 100%;
+    height: 60px;
+    background-color: #f2f2f2;
+    color: #333;
+    padding-top: 23px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+
+
+
+
+
+
+
+
+
