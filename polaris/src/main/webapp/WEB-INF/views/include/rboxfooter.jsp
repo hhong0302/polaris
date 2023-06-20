@@ -27,15 +27,11 @@
 		<div class="hg-return">
 			곧 반납 도서
 		</div>
-		
-		<!-- 반납 없을 경우 -->
-		<!-- <div class="hg-returnbox">
-			
-		</div> -->
+
 		<!-- 반납 없을 경우 -->
 		
 		<!-- 반납 2개 이상 시 반복 -->
-		<!-- <div class="hg-returnbox">
+		<div class="hg-returnbox">
 			<img src="resources/bookimg/spaceboy.jpg" class="hg-rtimg" alt="spaceboy" />
 			
 			<span class="hg-righttitle">
@@ -45,19 +41,31 @@
 			<span class="hg-howmuch">
 				1일 남음
 			</span>
-		</div> -->
+		</div>
 		<!-- 반납 2개 이상 시 반복 -->
+		
+		<div class="hg-returnbox">
+			<img src="resources/bookimg/spaceboy.jpg" class="hg-rtimg" alt="spaceboy" />
+			
+			<span class="hg-righttitle">
+				당신은 결국 무엇이든 해내는 사람
+			</span>
+			
+			<span class="hg-howmuch">
+				1일 남음
+			</span>
+		</div>
 				
 		<!-- 2개 이상일 시 나오는 더보기 버튼 -->
-		<!-- <div class="hg-rightline"></div>
+		<div class="hg-rightline"></div>
 		
-		<button class="hg-rboxbtn" onclick="rboxbtn(this)">+더보기</button> -->
+		<button class="hg-rboxbtn" onclick="rboxbtn(this)">+더보기</button>
 		<!-- 2개 이상일 시 나오는 더보기 버튼 -->
 		
 		<!-- 반납 도서가 없을 시 -->
-		<div class="hg-returnbox">
+		<!-- <div class="hg-returnbox">
 			<img src="resources/images/home_noloan.png" class="hg-rtimg" alt="noloan" />
-		</div>
+		</div> -->
 		<!-- 반납 도서가 없을 시 -->
 	
 		<!-- 로그인 했을 시 -->
