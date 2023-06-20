@@ -1,6 +1,10 @@
 package com.polaris.home;
 
-import java.util.Locale;
+import java.io.PrintWriter;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.polaris.home.command.SearchCommand;
+
+import com.google.gson.Gson;
+import com.polaris.home.command.HomeListCommand;
 import com.polaris.home.command.SpCommand;
+import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.BookDTO;
 import com.polaris.home.util.Static;
 
@@ -41,19 +49,22 @@ public class HomeController {
 		}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		
+	public String home(Model model) {
+		command = new HomeListCommand();
+		command.execute(model);
 		return "home";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/mainHotController")
-	public BookDTO ajaxTest() throws Exception {
-
-		BookDTO dto = new BookDTO();
-		dto.setAuthor("asdsa");
-		dto.setBookcode("fsdfd");
-		return dto;
+	public void mainHotController(HttpServletRequest req,HttpServletResponse res) throws Exception {
+		PolarisDAO dao = new PolarisDAO();
+		String name = req.getParameter("name");
+		List<BookDTO> dto = (List<BookDTO>) dao.hg_hotList(name);
+		PrintWriter out = res.getWriter();
+		String gson = new Gson().toJson(dto);
+		out.println(gson);
+		out.close();
 	}
 	
 	@RequestMapping(value = "search")

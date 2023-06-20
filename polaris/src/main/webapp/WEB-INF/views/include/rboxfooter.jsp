@@ -6,70 +6,64 @@
 <div class="hg-rightbox">
 
 	<div class="hg-hidebtn" onclick="hg_hidebtn()">
-		<img src="resources/images/slide_right.jpg" alt="slide" id="hg-slidebtn" />
+		<img src="resources/images/slide_right.png" alt="slide" id="hg-slidebtn" />
 	</div>
 
 	<h1>내 도서관</h1>
 	
 	<!-- 로그인 안했을 시 -->
-	<!-- <span class="hg-afterlogin">로그인 후<br/>이용해주세요.</span> -->
+		<!-- <span class="hg-afterlogin">
+			<a href="javascript:void(0)">로그인</a> 후<br/>이용해주세요.
+		</span> -->
 	<!-- 로그인 안했을 시 -->
 	
-	<!-- 로그인 했을 시 -->
-	
-	<a href="mypage">마이페이지</a>
-	<a href="javascript:void(0)">회원정보 수정</a>
-	
-	<div class="hg-rightline"></div>
-	
-	<div class="hg-return">
-		곧 반납 도서
-	</div>
-	
-	<!-- 반납 없을 경우 -->
-	<!-- <div class="hg-returnbox">
+		<!-- 로그인 했을 시 -->
 		
-	</div> -->
-	<!-- 반납 없을 경우 -->
-	
-	<!-- 반납 2개 이상 시 반복 -->
-	<div class="hg-returnbox">
-		<img src="resources/bookimg/spaceboy.jpg" class="hg-rtimg" alt="spaceboy" />
+		<a class="hg-mmlinks" href="mypage">마이페이지</a>
+		<a class="hg-mmlinks" href="javascript:void(0)">회원정보 수정</a>
 		
-		<span class="hg-righttitle">
-			당신은 결국 무엇이든 해내는 사람
-		</span>
+		<div class="hg-rightline"></div>
 		
-		<span class="hg-howmuch">
-			1일 남음
-		</span>
-	</div>
-	<!-- 반납 2개 이상 시 반복 -->
-	<div class="hg-returnbox">
-		<img src="resources/bookimg/spaceboy.jpg" class="hg-rtimg" alt="spaceboy" />
+		<div class="hg-return">
+			곧 반납 도서
+		</div>
 		
-		<span class="hg-righttitle">
-			당신은 결국 무엇이든 해내는 사람
-		</span>
+		<!-- 반납 없을 경우 -->
+		<!-- <div class="hg-returnbox">
+			
+		</div> -->
+		<!-- 반납 없을 경우 -->
 		
-		<span class="hg-howmuch">
-			1일 남음
-		</span>
-	</div>
+		<!-- 반납 2개 이상 시 반복 -->
+		<!-- <div class="hg-returnbox">
+			<img src="resources/bookimg/spaceboy.jpg" class="hg-rtimg" alt="spaceboy" />
+			
+			<span class="hg-righttitle">
+				당신은 결국 무엇이든 해내는 사람
+			</span>
+			
+			<span class="hg-howmuch">
+				1일 남음
+			</span>
+		</div> -->
+		<!-- 반납 2개 이상 시 반복 -->
+				
+		<!-- 2개 이상일 시 나오는 더보기 버튼 -->
+		<!-- <div class="hg-rightline"></div>
+		
+		<button class="hg-rboxbtn" onclick="rboxbtn(this)">+더보기</button> -->
+		<!-- 2개 이상일 시 나오는 더보기 버튼 -->
+		
+		<!-- 반납 도서가 없을 시 -->
+		<div class="hg-returnbox">
+			<img src="resources/images/home_noloan.png" class="hg-rtimg" alt="noloan" />
+		</div>
+		<!-- 반납 도서가 없을 시 -->
 	
-	<!-- 2개 이상일 시 나오는 더보기 버튼 -->
-	
-	<div class="hg-rightline"></div>
-	
-	<button class="hg-rboxbtn" onclick="rboxbtn(this)">+더보기</button>
-	<!-- 2개 이상일 시 나오는 더보기 버튼 -->
-	
-	<!-- 로그인 했을 시 -->
-	
+		<!-- 로그인 했을 시 -->
+	 
 </div>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="resources/js/footer.js"></script>
 
 <div class="hg-gototop">
 	<button class="hg-topbtn" onclick="hg_gototop()">
@@ -78,6 +72,9 @@
 	</button>
 </div>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="resources/js/footer.js"></script>
+	
 <footer>
 	<div class="container hg-footer">
 		<div class="hg-ftop">
