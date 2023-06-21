@@ -4,9 +4,17 @@ const rv_writespan=document.getElementsByClassName("review-writedspan")[0];
 const rv_title=document.getElementById("reviewtitle");
 const rvbox_detail = document.getElementsByClassName("reviewBox-detail")[0];
 const review_deletebtn=document.getElementsByClassName("review-deletebtn")[0];
-	
+const listNav_recent=document.getElementById("recent");
+const listNav_like=document.getElementById("like");
 const rv_title_value=rv_title.value;
 const rvbox_detail_value=rvbox_detail.innerHTML;
+
+window.onload=function()
+{
+	listNav_recent.click();
+}
+
+//리뷰작성/수정/삭제 부분
 function reviewModify()
 {
 	const rv_writespan=document.getElementsByClassName("review-writedspan")[0];
@@ -45,6 +53,67 @@ function reviewModifyCancel()
 	else
 	{
 		
+	}
+}
+//리뷰 작성/수정/삭제 부분
+
+//리뷰 리스트 부분
+function listNav_click(reviewtype,bookcode)
+{
+	const rvmenu_detail = document.getElementsByClassName("reviewMenu-detail");
+	const rvtitle_detail = document.getElementsByClassName("reviewTitle-detail");
+	if(reviewtype=="recent")
+	{
+		rvmenu_detail[0].classList.add("action");
+		rvtitle_detail[0].classList.add("action");
+		rvmenu_detail[1].classList.remove("action");
+		rvtitle_detail[1].classList.remove("action");
+		$.ajax({
+		url : "reviewController",
+		type: "GET",
+		dataType: "json",
+		data:{"bookcode":bookcode},
+		contentType: "application/json",
+		success : function(data) {
+		  	for(let i=0;i<data.length;i++)
+			{
+				text+=`<div class="hg-hotlist">
+				<a href="detail?bookcode=${data[i].bookcode}">
+					<img src="resources/bookimg/${data[i].bookcode}.jpg" alt="${data[i].bookcode}" />
+				</a>
+				<h3 class="hg-bname"><a href="detail?bookcode=${data[i].bookcode}">${data[i].booktitle}</a></h3>
+				<div class="hg-ap">
+					<span><a href="javascript:void(0)">${data[i].author} 저자</a></span>
+					<span class="hg-dotted">·</span>
+					<span>${data[i].publisher}</span>
+				</div>
+				<div class="hg-content">
+					${data[i].bookcontent}
+				</div>
+			</div>`;
+			}
+			hg_hot.style.left="0";
+			hg_hotnum = 0;
+			hg_hotbtn[0].classList.remove('active');
+			hg_hotbtn[1].classList.add('active');
+			hg_mainhot.innerHTML=text;
+			for(let i=0;i<hg_hotmenubtn.length;i++)
+			{
+				hg_hotmenubtn[i].classList.remove("active");
+			}
+			hg_hotmenubtn[num].classList.add("active");
+  		},
+  		error : function() {
+  		console.log("error");
+  		}
+	});
+	}
+	else
+	{
+		rvmenu_detail[0].classList.remove("action");
+		rvtitle_detail[0].classList.remove("action");
+		rvmenu_detail[1].classList.add("action");
+		rvtitle_detail[1].classList.add("action");
 	}
 }
 

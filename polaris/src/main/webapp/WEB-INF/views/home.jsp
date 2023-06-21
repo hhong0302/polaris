@@ -79,14 +79,14 @@
 				<!-- db받아와서 뿌리기 -->
 				<c:forEach items="${hg_novel}" var="dto">
 				<div class="hg-novellist">
-					<a href="javascript:void(0)">
+					<a href="detail?bookcode=${dto.bookcode}">
 						<img src="resources/bookimg/${dto.bookcode}.jpg" alt="${dto.bookcode}" />
 					</a>
 					<h3 class="hg-bname"><a href="detail?bookcode=${dto.bookcode}">${dto.booktitle}</a></h3>
 					<div class="hg-ap">
-						<span><a href="javascript:void(0)">${dto.author} 저자</a></span>
+						<span><a href="javascript:void(0)">${dto.author}</a> 저자</span>
 						<span class="hg-dotted">·</span>
-						<span><a href="javascript:void(0)">${dto.publisher}</a></span>
+						<span>${dto.publisher}</span>
 					</div>
 					<div class="hg-content">
 						${dto.bookcontent}
@@ -98,7 +98,7 @@
 			</div>
 		</div>
 	</div>
-	<a href="detail">
+	<a href="detail?bookcode=laundry">
 		<img src="resources/banner/banner_band03.jpg" alt="banner_band03" />
 	</a>
 </div>
@@ -121,14 +121,14 @@
 					
 				<c:forEach items="${hg_essay}" var="dto">
 					<div class="hg-essaylist">
-						<a href="javascript:void(0)">
+						<a href="detail?bookcode=${dto.bookcode}">
 							<img src="resources/bookimg/${dto.bookcode}.jpg" alt="${dto.bookcode}" />
 						</a>
 						<h3 class="hg-bname"><a href="detail?bookcode=${dto.bookcode}">${dto.booktitle}</a></h3>
 						<div class="hg-ap">
-							<span><a href="javascript:void(0)">${dto.author} 저자</a></span>
+							<span><a href="javascript:void(0)">${dto.author}</a> 저자</span>
 							<span class="hg-dotted">·</span>
-							<span><a href="javascript:void(0)">${dto.publisher}</a></span>
+							<span>${dto.publisher}</span>
 						</div>
 						<div class="hg-content">
 							${dto.bookcontent}
@@ -144,7 +144,7 @@
 </div>
 
 <div class="container hg-mainunder">
-	<a href="detail">
+	<a href="detail?bookcode=department">
 		<img src="resources/banner/banner_band02.jpg" alt="banner_band02" />
 	</a>
 	
@@ -193,7 +193,7 @@
 			</div>
 		</div>
 	</div>
-	<a href="detail">
+	<a href="detail?bookcode=nightstar">
 		<img src="resources/banner/banner_band01.jpg" alt="banner_band01" />
 	</a>
 	
