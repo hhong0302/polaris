@@ -40,7 +40,6 @@ public class PolarisDAO {
 	public ArrayList<BookDTO> genresearch(String genre) { 
 	    String sql = "SELECT * FROM book WHERE genre LIKE ";
 	    sql +="'%" + genre + "%'";
-	    System.out.println(sql);
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	//gyu End
@@ -86,6 +85,22 @@ public class PolarisDAO {
 	
 	
 	//alice Start
+	public String booktitle(String bookcode) {
+		template.update(new PreparedStatementCreator() {
+					
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
+				String sql = "select booktitle from book where bookcode = ?";
+				PreparedStatement pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, bookcode);
+					System.out.println(pstmt);
+					return pstmt;
+				}
+			
+		});
+		return bookcode;
+		
+	}
 	
 	//alice End
 	
@@ -114,5 +129,7 @@ public class PolarisDAO {
 		});
 	}
 	//cha End
+
+	
 
 }

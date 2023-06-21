@@ -30,11 +30,11 @@
 					<p>#이누도 잇신 감독 〈조제, 호랑이 그리고 물고기들〉 원작</p>
 				</div>
 				<div class="infoImg-detail">
-					<img alt="bookImg" src="resources/bookimg/tigerfish.jpg" class="bookImg-detail">
+					<img alt="bookImg" src="resources/bookimg/${bookcode}.jpg" class="bookImg-detail">
 				</div>
 				<div class="rentalBox-detail">
 					<div class="bookInfoBox-detail">
-						<h2>조제와 호랑이와 물고기들</h2>
+						<h2>${bdto.booktitle}</h2>
 						<p>다나베 세이코 저자 · 양억관 옮김<br>
 							작가정신 출판</p>
 						<p>2023년 03월 2일 출간</p>
@@ -314,6 +314,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="resources/js/detail.js"></script>
 
-<%@include file="include/rboxfooter.jsp" %>
+<%@include file="include/footer.jsp" %>
 </body>
 </html>

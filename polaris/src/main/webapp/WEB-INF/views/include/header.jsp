@@ -18,11 +18,11 @@
 		<ul class="menu">
 			<li><a href="totalsearch">전체</a></li>
 			<li><a href="genresearch?genre=판타지">판타지</a></li>
-			<li><a href="#">소설/시</a></li>
-			<li><a href="#">추리</a></li>
-			<li><a href="#">에세이</a></li>
-			<li><a href="#">자기계발</a></li>
-			<li><a href="#">미디어 추천</a></li>
+			<li><a href="genresearch?genre=소설/시">소설/시</a></li>
+			<li><a href="genresearch?genre=추리">추리</a></li>
+			<li><a href="genresearch?genre=에세이">에세이</a></li>
+			<li><a href="genresearch?genre=자기계발">자기계발</a></li>
+			<li><a href="genresearch?genre=미디어 추천">미디어 추천</a></li>
 		</ul>
 		<div class="member">
 			<div class="top-nav">
