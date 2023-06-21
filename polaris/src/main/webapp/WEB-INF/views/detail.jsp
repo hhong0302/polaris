@@ -244,21 +244,21 @@
 				<div class="listTile-detail">
 					<h2>리뷰(7)</h2>
 					<div class="listNav-detail">
-					    <button id="recent" class="recent" onclick="listNav_click('recent','itsok')">
+					    <button id="recent" class="recent" onclick="listNav_click('recent','bookcode')">
 					    	<span class="reviewMenu-detail action"></span>
 							<span class="reviewTitle-detail action">최신순</span>
 					    </button>
-					    <button id="like" class="like" onclick="listNav_click('like','itsok')">
+					    <button id="like" class="like" onclick="listNav_click('relike','bookcode')">
 							<span class="reviewMenu-detail"></span>
 							<span class="reviewTitle-detail">좋아요순</span>
 						</button>
 				    </div>
 			    </div>
 			    
-			    <div class="listRecent-detail action">
+			    <div class="reviewcommentlist-detail action">
 			    <!-- 리뷰 있을 때 -->
 			    
-			    	<div class="reviewComment-detail">
+			    	<!-- <div class="reviewComment-detail">
 			    		<div class="reviewTop-detail">
 				    		<div class="reviewInfo-detail">
 					    		<h1 class="reviewtitle-detail">
@@ -276,7 +276,7 @@
 				    			<img alt="like" src="resources/images/dislike-detail.png">17
 			    			</button>
 			    		</div>
-			    	</div>
+			    	</div> -->
 			    	
 			    <!-- 리뷰 있을 때 -->
 			    </div>
@@ -292,17 +292,13 @@
 			    
 			     <div class="pageNum-detail">
                
-	               	<button>
+	               	<button onclick="rvListPrevNxtBtn(-1,'bookcode')">
 	                    <span class="prv"><i class="fa-solid fa-angle-left"></i></span>
 	                </button>
 	             	<div class="pageNum-detail-btnbox">
-	               		<button class="pageNum-pagebtn active">1</button>
-	               		<button class="pageNum-pagebtn">2</button>
-	               		<button class="pageNum-pagebtn">3</button>
-	               		<button class="pageNum-pagebtn">4</button>
-	               		<button class="pageNum-pagebtn">5</button>
+	               		<!-- <button class="pageNum-pagebtn active">1</button> -->
 	                </div>
-	                <button>
+	                <button onclick="rvListPrevNxtBtn(1,'bookcode')">
 	                	<span class="nxt active"><i class="fa-solid fa-angle-right"></i></span>
 	                </button>
 	                
