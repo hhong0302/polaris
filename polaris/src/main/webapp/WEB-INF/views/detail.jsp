@@ -12,9 +12,9 @@
 <body>
 <%@include file="include/header.jsp" %>
 	
-
 	
 	<div class="container-detail">
+		
 		<div class="bookInfo-detail">
 		
 			<div class="infoNav-detail">
@@ -34,7 +34,7 @@
 				</div>
 				<div class="rentalBox-detail">
 					<div class="bookInfoBox-detail">
-						<h2>${bdto.booktitle}</h2>
+						<h2>${booktitle}</h2>
 						<p>다나베 세이코 저자 · 양억관 옮김<br>
 							작가정신 출판</p>
 						<p>2023년 03월 2일 출간</p>
@@ -51,6 +51,7 @@
 			</form>
 			
 		</div>
+		
 	</div>
 	<div class="middleNav-detail sticky">
 		<div class="container-detail">

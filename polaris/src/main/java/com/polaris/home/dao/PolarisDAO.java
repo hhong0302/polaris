@@ -85,22 +85,8 @@ public class PolarisDAO {
 	
 	
 	//alice Start
-	public String booktitle(String bookcode) {
-		template.update(new PreparedStatementCreator() {
-					
-			@Override
-			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
-				String sql = "select booktitle from book where bookcode = ?";
-				PreparedStatement pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, bookcode);
-					System.out.println(pstmt);
-					return pstmt;
-				}
-			
-		});
-		return bookcode;
-		
-	}
+	
+	
 	
 	//alice End
 	
