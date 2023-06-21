@@ -8,7 +8,19 @@ import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.MembersDTO;
 
 public class MyCommand implements SpCommand {
+	
+	private String username;
+	private String useremail;
+	
+	public MyCommand() {
+		
+	}
 
+	public MyCommand(String username, String useremail) {
+		super();
+		this.useremail = useremail;
+		this.username = username;
+	}
 	@Override
 	public void execute(Model model) {
 		
