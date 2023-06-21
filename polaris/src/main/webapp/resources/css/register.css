@@ -39,13 +39,13 @@ input[type="number"]::-webkit-inner-spin-button {
 	align-items: center;
 }
 .idcheckno, .passcheckno, .repasscheckno, .namecheckno, .birthcheckno,
-.telcheckno, .mailcheckno{
+.telcheckno, .mailcheckno, .alreadyid{
 	display: none; /* display: flex; */
 	justify-content: space-between;
 }
 .idcheckno span:first-child, .passcheckno span:first-child, .repasscheckno span:first-child,
 .namecheckno span:first-child, .birthcheckno span:first-child,
-.telcheckno span:first-child, .mailcheckno span:first-child{
+.telcheckno span:first-child, .mailcheckno span:first-child, .alreadyid span:first-child{
 	display: inline-block;
 	border-bottom: 2px solid #ff0000;
 	width: 65%;
@@ -53,7 +53,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 #idcheckno-message, #passcheckno-message, #repasscheckno-message,
 #namecheckno-message, #birthcheckno-message, #telcheckno-message,
-#mailcheckno-message{
+#mailcheckno-message, #alreadyid-message{
 	font-size: 10px;
 	font-weight: bold;
 	color: #ff0000;
