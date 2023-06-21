@@ -9,10 +9,12 @@
 		<a href="/home">
 			<img src="resources/images/textlogo_black.svg" alt="logo" />
 		</a>
-		<div class="search_box">
-	  		<input type="text" class="search" placeholder="검색어를 입력해주세요.">
-	  		<a href="search"><img src="resources/images/search.jpg" alt="search-icon" /></a>
-		</div>
+	<div class="search_box">
+	  <input type="text" class="search" id="searchInput" placeholder="검색어를 입력해주세요.">
+	  <a href="#" onclick="submitSearch()">
+	    <img src="resources/images/search.jpg" alt="search-icon" />
+	  </a>
+	</div>
 	</div>
 	<div class="menu_area">
 		<ul class="menu">
