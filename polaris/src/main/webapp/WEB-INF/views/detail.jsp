@@ -34,7 +34,7 @@
 				</div>
 				<div class="rentalBox-detail">
 					<div class="bookInfoBox-detail">
-						<h2>${bookcode}</h2>
+						<h2>${bdto.booktitle}</h2>
 						<p>다나베 세이코 저자 · 양억관 옮김<br>
 							작가정신 출판</p>
 						<p>2023년 03월 2일 출간</p>
@@ -262,6 +262,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="resources/js/detail.js"></script>
 
-<%@include file="include/rboxfooter.jsp" %>
+<%@include file="include/footer.jsp" %>
 </body>
 </html>
