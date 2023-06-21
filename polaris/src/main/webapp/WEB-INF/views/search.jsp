@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,11 +12,12 @@
     <%@ include file="include/header.jsp" %>
 
     <div class="container">
-    <c:if test="${not empty search}">
+    <c:choose>
+    <c:when test="${not empty searchresult}">
         <div class="search-result">
             <div class="result-title">
-                <h3>'세이노의 가르침' 검색결과</h3>
-                <p>총 ${search.size()}건</p>
+                <h3><c:out value="'${searchresult}'"/> 검색결과</h3>
+                <p>총 <c:out value="${searchType eq 'search' ? fn:length(search) : searchType eq 'totalsearch' ? fn:length(totalsearch) : fn:length(genresearch)}" /> 건</p>
             </div>
             <c:if test="${searchType eq 'search'}">
             <c:forEach var="book" items="${search}">
@@ -27,7 +29,7 @@
 	                        </div>
 	                        <div class="search-context">
 	                            <h3>${book.booktitle}</h3>
-	                            <p><span class="author">${book.author}</span> ${book.publisher}</p>
+	                           <p>${book.author} • ${book.publisher}</p>
 	                            <p>${book.genre}</p>
 	                            <p><span class="search-book-context">${book.hash}</span></p>
 	                        </div>
@@ -52,7 +54,7 @@
             </c:forEach>
             </c:if>
             <c:if test="${searchType eq 'totalsearch'}">
-            <c:forEach var="book" items="${totalsearch}">
+            <c:forEach var="book" items="${totalsearch}" >
             	<div class="book-box">
 	            <div class="search-content">
 	                    <div class="book-information">
@@ -120,12 +122,14 @@
             </c:forEach>
             </c:if>
         </div>
-        </c:if>
+        </c:when>
+        </c:choose>
         <div class="search-banner">
             <img src="resources/banner/banner_band01.jpg" alt="banner" />
         </div>
     </div>
 
     <%@ include file="include/rboxfooter.jsp" %>
+    <script src="resources/js/search.js"></script>
 </body>
 </html>

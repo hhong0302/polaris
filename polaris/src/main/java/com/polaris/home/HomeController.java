@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.HomeListCommand;
 import com.polaris.home.command.RegisterCommand;
 import com.polaris.home.command.SearchCommand;
@@ -66,10 +67,11 @@ public class HomeController {
 		out.close();
 	}
 	
-	@RequestMapping(value = "search")
+	@RequestMapping(value = "search", method = RequestMethod.GET)
 	public String search(HttpServletRequest request,Model model) {
-		
+		String query = request.getParameter("query");
 		model.addAttribute("request", request);
+		model.addAttribute("searchresult", query);
 
 	    command = new SearchCommand();
 	    command.execute(model);
@@ -81,6 +83,7 @@ public class HomeController {
 	public String totalsearch(HttpServletRequest request,Model model) {
 		
 		model.addAttribute("request", request);
+		model.addAttribute("searchresult", "전체");
 
 	    command = new SearchCommand();
 	    command.execute(model);
@@ -90,9 +93,10 @@ public class HomeController {
 	
 	@RequestMapping(value = "genresearch", method = RequestMethod.GET)
 	public String genresearch(HttpServletRequest request, Model model) {
-		
+		String genre = request.getParameter("genre");
 		model.addAttribute("request", request);
-		
+		model.addAttribute("searchresult", genre);
+
 	    command = new SearchCommand();
 	    command.execute(model);
 	    model.addAttribute("searchType", "genresearch");
@@ -101,11 +105,25 @@ public class HomeController {
 	}
 
 	
+	
 	@RequestMapping(value = "detail")
-	public String detail(Model model) {
-		
+	public String detail(HttpServletRequest req, Model model) {
+        String bookcode = req.getParameter("bookcode");
+        model.addAttribute("bookcode", bookcode);
+        
 		return "detail";	// detail.jsp 호출!!!
 	}
+
+	@RequestMapping(value = "booktitle")
+	public String booktitle(HttpServletRequest req, Model model) {
+		model.addAttribute("request", req);
+		command = new DetailCommand();
+		command.execute(model);
+        
+		return "detail";
+	}
+
+	
 	
 	
 	@RequestMapping(value = "mypage")

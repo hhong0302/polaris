@@ -117,9 +117,9 @@ input[type="number"]::-webkit-inner-spin-button {
 	text-align: left;
 	margin-top: 5px;
 }
-#check-option0>span, #check-option1>span, #check-option2>span{
+/* #check-option0>span, #check-option1>span, #check-option2>span{
 	color: #999;
-}
+} */
 
 .fa-solid{
 	padding-right: 7px;
