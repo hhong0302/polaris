@@ -85,7 +85,7 @@
 	            </div>
             </c:forEach>
             </c:if>
-            <c:if test="${searchType eq 'genresearch'}">
+            <c:if test="${request eq 'request'}">
             <c:forEach var="book" items="${genresearch}">
             	<div class="book-box">
 	            <div class="search-content">
