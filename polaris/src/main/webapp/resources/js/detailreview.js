@@ -75,33 +75,11 @@ function listNav_click(reviewtype,bookcode)
 		data:{"bookcode":bookcode},
 		contentType: "application/json",
 		success : function(data) {
-		  	for(let i=0;i<data.length;i++)
+		  	if(data==null||data==""||data==0) return;
+			else
 			{
-				text+=`<div class="hg-hotlist">
-				<a href="detail?bookcode=${data[i].bookcode}">
-					<img src="resources/bookimg/${data[i].bookcode}.jpg" alt="${data[i].bookcode}" />
-				</a>
-				<h3 class="hg-bname"><a href="detail?bookcode=${data[i].bookcode}">${data[i].booktitle}</a></h3>
-				<div class="hg-ap">
-					<span><a href="javascript:void(0)">${data[i].author} 저자</a></span>
-					<span class="hg-dotted">·</span>
-					<span>${data[i].publisher}</span>
-				</div>
-				<div class="hg-content">
-					${data[i].bookcontent}
-				</div>
-			</div>`;
+				
 			}
-			hg_hot.style.left="0";
-			hg_hotnum = 0;
-			hg_hotbtn[0].classList.remove('active');
-			hg_hotbtn[1].classList.add('active');
-			hg_mainhot.innerHTML=text;
-			for(let i=0;i<hg_hotmenubtn.length;i++)
-			{
-				hg_hotmenubtn[i].classList.remove("active");
-			}
-			hg_hotmenubtn[num].classList.add("active");
   		},
   		error : function() {
   		console.log("error");

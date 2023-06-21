@@ -18,7 +18,7 @@ function lboxbtn(e,bookcode,title)
 	{
 		hg_lboxbtn[i].classList.remove("active");
 	}
-	hg_anchor.href = "detail?bookcode="+bookcode;
+	hg_anchor.href = "detail?bookinfo="+bookcode;
 	hg_leftboxh1.innerHTML=e.innerHTML;
 	hg_limg.src = "resources/bookimg/"+bookcode+".jpg";
 	hg_lefttitle.innerHTML = title;
@@ -163,10 +163,10 @@ function hg_hotmenubtnclick(hg_what,num)
 		  	for(let i=0;i<data.length;i++)
 			{
 				text+=`<div class="hg-hotlist">
-				<a href="detail?bookcode=${data[i].bookcode}">
+				<a href="detail?bookinfo=${data[i].bookcode}">
 					<img src="resources/bookimg/${data[i].bookcode}.jpg" alt="${data[i].bookcode}" />
 				</a>
-				<h3 class="hg-bname"><a href="detail?bookcode=${data[i].bookcode}">${data[i].booktitle}</a></h3>
+				<h3 class="hg-bname"><a href="detail?bookinfo=${data[i].bookcode}">${data[i].booktitle}</a></h3>
 				<div class="hg-ap">
 					<span><a href="javascript:void(0)">${data[i].author} 저자</a></span>
 					<span class="hg-dotted">·</span>

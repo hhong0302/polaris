@@ -77,8 +77,17 @@ public class PolarisDAO {
 	
 	public List<ReviewDTO> hg_reviewList(String bookcode)
 	{
-		String sql="";
-		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
+		String sql="select * from review where bookcode="+bookcode;
+		List<ReviewDTO> review = null;
+		try
+		{
+			review = (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
+		}
+		catch(Exception e)
+		{
+			review = null;
+		}
+		return review;
 	}
 	//wonhong End
 	

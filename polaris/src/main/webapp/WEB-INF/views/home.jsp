@@ -15,7 +15,7 @@
 <div class="container hg-relative">
 	<div class="hg-leftbox">
 		<h1 id="hg-leftboxh1">베스트 1</h1>
-		<a id="hg-lboxanchor" href="javascript:void(0)">
+		<a id="hg-lboxanchor" href="detail">
 			<img id="hg-leftboximg" src="resources/bookimg/spaceboy.jpg" alt="spaceboy" />
 		</a>
 		<span class="hg-lefttitle">당신은 결국 무엇이든 해내는 사람</span>
@@ -32,25 +32,25 @@
 	<div id="hg-slide">
 		<div class="hg-slide-container">
 			<div class="hg-slider">
-				<a href="detail?bookcode=tigerfish" class="hg-first-img">
+				<a href="detail?bookinfo=tigerfish" class="hg-first-img">
 					<img src="resources/banner/slidebanner05.jpg" alt="slide05" />
 				</a>
-				<a href="detail?bookcode=kitchen">
+				<a href="detail?bookinfo=kitchen">
 					<img src="resources/banner/slidebanner01.jpg" alt="slide01" />
 				</a>
-				<a href="detail?bookcode=moreok">
+				<a href="detail?bookinfo=moreok">
 					<img src="resources/banner/slidebanner02.jpg" alt="slide02" />
 				</a>
-				<a href="detail?bookcode=itsok">
+				<a href="detail?bookinfo=itsok">
 					<img src="resources/banner/slidebanner03.jpg" alt="slide03" />
 				</a>
-				<a href="detail?bookcode=giant">
+				<a href="detail?bookinfo=giant">
 					<img src="resources/banner/slidebanner04.jpg" alt="slide04" />
 				</a>
-				<a href="detail?bookcode=tigerfish">
+				<a href="detail?bookinfo=tigerfish">
 					<img src="resources/banner/slidebanner05.jpg" alt="slide05" />
 				</a>
-				<a href="detail?bookcode=kitchen" class="hg-last-img">
+				<a href="detail?bookinfo=kitchen" class="hg-last-img">
 					<img src="resources/banner/slidebanner01.jpg" alt="slide01" />
 				</a>
 			</div>
@@ -79,10 +79,10 @@
 				<!-- db받아와서 뿌리기 -->
 				<c:forEach items="${hg_novel}" var="dto">
 				<div class="hg-novellist">
-					<a href="detail?bookcode=${dto.bookcode}">
+					<a href="detail?bookinfo=${dto.bookcode}">
 						<img src="resources/bookimg/${dto.bookcode}.jpg" alt="${dto.bookcode}" />
 					</a>
-					<h3 class="hg-bname"><a href="detail?bookcode=${dto.bookcode}">${dto.booktitle}</a></h3>
+					<h3 class="hg-bname"><a href="detail?bookinfo=${dto.bookcode}">${dto.booktitle}</a></h3>
 					<div class="hg-ap">
 						<span><a href="javascript:void(0)">${dto.author}</a> 저자</span>
 						<span class="hg-dotted">·</span>
@@ -98,7 +98,7 @@
 			</div>
 		</div>
 	</div>
-	<a href="detail?bookcode=laundry">
+	<a href="detail?bookinfo=laundry">
 		<img src="resources/banner/banner_band03.jpg" alt="banner_band03" />
 	</a>
 </div>
@@ -121,10 +121,10 @@
 					
 				<c:forEach items="${hg_essay}" var="dto">
 					<div class="hg-essaylist">
-						<a href="detail?bookcode=${dto.bookcode}">
+						<a href="detail?bookinfo=${dto.bookcode}">
 							<img src="resources/bookimg/${dto.bookcode}.jpg" alt="${dto.bookcode}" />
 						</a>
-						<h3 class="hg-bname"><a href="detail?bookcode=${dto.bookcode}">${dto.booktitle}</a></h3>
+						<h3 class="hg-bname"><a href="detail?bookinfo=${dto.bookcode}">${dto.booktitle}</a></h3>
 						<div class="hg-ap">
 							<span><a href="javascript:void(0)">${dto.author}</a> 저자</span>
 							<span class="hg-dotted">·</span>
@@ -144,7 +144,7 @@
 </div>
 
 <div class="container hg-mainunder">
-	<a href="detail?bookcode=department">
+	<a href="detail?bookinfo=department">
 		<img src="resources/banner/banner_band02.jpg" alt="banner_band02" />
 	</a>
 	
@@ -193,7 +193,7 @@
 			</div>
 		</div>
 	</div>
-	<a href="detail?bookcode=nightstar">
+	<a href="detail?bookinfo=nightstar">
 		<img src="resources/banner/banner_band01.jpg" alt="banner_band01" />
 	</a>
 	
