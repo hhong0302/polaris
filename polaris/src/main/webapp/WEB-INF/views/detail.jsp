@@ -244,11 +244,11 @@
 				<div class="listTile-detail">
 					<h2>리뷰(7)</h2>
 					<div class="listNav-detail">
-					    <button class="recent">
+					    <button id="recent" class="recent" onclick="listNav_click('recent','itsok')">
 					    	<span class="reviewMenu-detail action"></span>
 							<span class="reviewTitle-detail action">최신순</span>
 					    </button>
-					    <button class="like">
+					    <button id="like" class="like" onclick="listNav_click('like','itsok')">
 							<span class="reviewMenu-detail"></span>
 							<span class="reviewTitle-detail">좋아요순</span>
 						</button>

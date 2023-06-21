@@ -1,5 +1,6 @@
 package com.polaris.home;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Locale;
@@ -24,6 +25,7 @@ import com.polaris.home.command.SearchCommand;
 import com.polaris.home.command.SpCommand;
 import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.BookDTO;
+import com.polaris.home.dto.ReviewDTO;
 import com.polaris.home.util.Static;
 
 
@@ -57,11 +59,22 @@ public class HomeController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/mainHotController")
-	
 	public void mainHotController(HttpServletRequest req,HttpServletResponse res) throws Exception {
 		PolarisDAO dao = new PolarisDAO();
 		String name = req.getParameter("name");
 		List<BookDTO> dto = (List<BookDTO>) dao.hg_hotList(name);
+		PrintWriter out = res.getWriter();
+		String gson = new Gson().toJson(dto);
+		out.println(gson);
+		out.close();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/reviewController")
+	public void reviewController(HttpServletRequest req,HttpServletResponse res) throws Exception{
+		PolarisDAO dao = new PolarisDAO();
+		String bookcode = req.getParameter("bookcode");
+		List <ReviewDTO> dto = dao.hg_reviewList(bookcode);
 		PrintWriter out = res.getWriter();
 		String gson = new Gson().toJson(dto);
 		out.println(gson);
