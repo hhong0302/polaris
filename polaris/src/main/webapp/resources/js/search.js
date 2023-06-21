@@ -5,3 +5,4 @@
     var searchUrl = 'search?query=' + encodeURIComponent(query);
     window.location.href = searchUrl;
   }
+  
