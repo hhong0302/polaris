@@ -2,12 +2,11 @@ package com.polaris.home;
 
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -16,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.polaris.home.command.SearchCommand;
-
 import com.google.gson.Gson;
+import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.HomeListCommand;
 import com.polaris.home.command.RegisterCommand;
+import com.polaris.home.command.SearchCommand;
 import com.polaris.home.command.SpCommand;
 import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.BookDTO;
@@ -48,14 +47,16 @@ public class HomeController {
 		}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
-		command = new HomeListCommand();
+	public String home(Locale locale, Model model) {
+		SpCommand command = new HomeListCommand();
 		command.execute(model);
+		
 		return "home";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/mainHotController")
+	
 	public void mainHotController(HttpServletRequest req,HttpServletResponse res) throws Exception {
 		PolarisDAO dao = new PolarisDAO();
 		String name = req.getParameter("name");
@@ -67,7 +68,9 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "search")
-	public String search(Model model) {
+	public String search(HttpServletRequest request,Model model) {
+		
+		model.addAttribute("request", request);
 
 	    command = new SearchCommand();
 	    command.execute(model);
@@ -76,20 +79,51 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "totalsearch")
-	public String totalsearch(Model model) {
+	public String totalsearch(HttpServletRequest request,Model model) {
+		
+		model.addAttribute("request", request);
+		model.addAttribute("searchresult", "전체");
 
 	    command = new SearchCommand();
 	    command.execute(model);
 	    model.addAttribute("searchType", "totalsearch");
 	    	return "search"; 
-
 	}
 	
+	@RequestMapping(value = "genresearch", method = RequestMethod.GET)
+	public String genresearch(HttpServletRequest request, Model model) {
+		String genre = request.getParameter("genre");
+		model.addAttribute("request", request);
+		model.addAttribute("searchresult", genre);
+
+	    command = new SearchCommand();
+	    command.execute(model);
+	    model.addAttribute("searchType", "genresearch");
+	    
+	    return "search";
+	}
+
+	
+	
 	@RequestMapping(value = "detail")
-	public String detail(Model model) {
-		
+	public String detail(HttpServletRequest req, Model model) {
+        String bookcode = req.getParameter("bookcode");
+        model.addAttribute("bookcode", bookcode);
+        
 		return "detail";	// detail.jsp 호출!!!
 	}
+
+	@RequestMapping(value = "booktitle")
+	public String booktitle(HttpServletRequest req, Model model) {
+		model.addAttribute("request", req);
+		command = new DetailCommand();
+		command.execute(model);
+        
+		return "detail";
+	}
+
+	
+	
 	
 	@RequestMapping(value = "mypage")
 	public String mypage(Model model) {

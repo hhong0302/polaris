@@ -240,52 +240,102 @@ button.readNow-detail {
 	line-height: 21px;
 }
 
+
+
 /***** reviewBox *****/
 .reviewWrtBox-detail {
 	border-bottom: 1px solid #ccc;
 	margin-bottom: 70px;
 }
 .reviewWrt-detail {
-	display: flex;
-	align-items: flex-end;
-	justify-content: space-around;
 	margin-bottom: 20px;
+}
+.reviewWrt-detail-title
+{
+	display:flex;
+	align-items:flex-start;
+	justify-content: flex-start;
+	margin-bottom:20px;
+}
+.reviewWrt-detail-h1
+{
+	font-size:18px;
+	font-weight:600;
+	margin: 5px 15px 0 5px;
+	white-space:nowrap;
+}
+.reviewWrt-detail-title #reviewtitle
+{
+	width:940px;
+	height:50px;
+	font-size:18px;
+	font-weight:600;
+	padding-left:10px;
+	margin-right:20px;
+    border: 2px solid #ccc;
+	border-radius:4px;
+	outline:none;
+}
+.reviewWrt-detail-title #reviewtitle::placeholder
+{
+	color:#ccc;
+}
+.review-deletebtn
+{
+	width: 183px;
+	height: 50px;
+	border-radius: 4px;
+	background: #797979;
+	color: #fff;
+	border: none;
+	font-size: 20px;
+	font-weight: bold;
+	cursor: pointer;
 }
 .reviewWrtBox-detail h2 {
 	font-size: 24px;
 	font-weight: bold;
 	margin-bottom: 20px;
 }
-.reviewWrtBox-detail span {
-	color: #999;
-	cursor: pointer;
-}
 .reviewBtn-detail img {
 	margin-right: 10px;
 }
-input.reviewBox-detail {
-	width: 997px;
-    height: 130px;
-    border: 1px solid #ccc;
-    outline: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 0 10px;
+.reviewWrt-textareabox
+{
+	position:relative;
+    margin-right:20px;	
 }
-.reviewBtn-detail {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
+#review-detail-after-login
+{
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+}
+.reviewBox-detail {
+	width: 940px;
+    height: 130px;
+    padding: 10px 10px 100px;
+    border: 2px solid #ccc;
+    outline: none;
+    border-radius: 4px;
+    font-size:16px;
+    resize:none;
+    overflow:hidden;
+}
+.reviewBox-detail::placeholder
+{
+	color:#ccc;
 }
 .submitBtn-detail {
 	width: 183px;
-	height: 100px;
+	height: 130px;
 	border-radius: 4px;
 	background: #4563ff;
 	color: #fff;
 	border: none;
 	font-size: 20px;
 	font-weight: bold;
-	margin-top: 12px;
 	cursor: pointer;
 }
 .listTile-detail {
@@ -294,15 +344,18 @@ input.reviewBox-detail {
 	margin-bottom: 15px;
 }
 .listNav-detail,
-.listNav-detail a {
+.listNav-detail button {
 	display: flex;
 	align-items: center;
+	background:none;
+	border:none;
 }
 .listNav-detail {
 	margin-left: 20px;
 }
-.listNav-detail a {
+.listNav-detail button {
 	margin-left: 30px;
+	cursor:pointer;
 }
 .reviewList-detail h2 {
 	font-size: 24px;
@@ -329,34 +382,66 @@ input.reviewBox-detail {
 .reviewTitle-detail.action {
 	color: #4563ff;
 }
-.reviewInfo-detail span {
-	margin-right: 10px;
-	color: #999;
-	font-weight: 500;
-}
-.topBtn-detail button {
+/* .topBtn-detail button {
 	background: none;
     border: none;
     color: #797979;
     font-weight: bold;
     cursor: pointer;
+} */
+.reviewComment-detail
+{
+	height:fit-content;
+	margin: 30px 0;
 }
-.reviewTop-detail,
+.reviewTop-detail .reviewInfo-detail h1
+{
+	font-size:18px;
+	font-weight:600;
+	color:#797979;
+}
+.reviewComment-content
+{
+	width:945px;
+	height:fit-content;
+	font-size:16px;
+	color:#797979;
+	padding:0;
+	margin-top:15px;
+	border:none;
+	outline:none;
+	resize:none;
+}
 .reviewBottom-detail {
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 25px;
+	align-items:center;
+	padding-bottom: 30px;
+	border-bottom:1px solid #797979;
 }
-.likeBox-detail {
-	display: flex;
-	align-items: center;
+.reviewBottom-detail .reviewUser-detail {
 	font-size: 16px;
 	color: #797979;
 	font-weight: bold;
 }
-.reviewBox-detail {
-	margin: 30px 0;
-	border-bottom: 1px solid #ccc;
+.likeBox-detail-like
+{
+	background:none;
+	border:none;
+	outline:none;
+	display:flex;
+	align-items:flex-end;
+	cursor:pointer;
+}
+.reviewBox-noncomment
+{
+	width:1200px;
+	height:238px;
+	display:flex;
+	justify-content: center;
+	align-items:center;
+	font-size:16px;
+	color:#ccc;
 }
 .pageNum-detail {
 	display: flex;
@@ -375,6 +460,8 @@ input.reviewBox-detail {
 .listLike-detail.action {
 	display: block;
 }
+
+
 
 
 /***** suggest *****/

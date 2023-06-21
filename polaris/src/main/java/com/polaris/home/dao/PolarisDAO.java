@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 
 import com.polaris.home.dto.BookDTO;
 import com.polaris.home.dto.InterestDTO;
+import com.polaris.home.dto.MembersDTO;
 import com.polaris.home.util.Static;
 
 public class PolarisDAO {
@@ -30,11 +31,16 @@ public class PolarisDAO {
 	//gyu Start
 	public ArrayList<BookDTO> search() {
 	    String sql = "SELECT * FROM book WHERE booktitle LIKE '%세이노%'";
-	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<>(BookDTO.class));
+	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	public ArrayList<BookDTO> totalsearch() {
 	    String sql = "SELECT * FROM book";
-	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<>(BookDTO.class));
+	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+	}
+	public ArrayList<BookDTO> genresearch(String genre) { 
+	    String sql = "SELECT * FROM book WHERE genre LIKE ";
+	    sql +="'%" + genre + "%'";
+	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	//gyu End
 	
@@ -71,11 +77,30 @@ public class PolarisDAO {
 	
 	
 	//바지조장 Start
-	
+	public List<MembersDTO> choi_memList(){
+		String sql = "select * from members";
+		return (ArrayList<MembersDTO>) template.query(sql, new BeanPropertyRowMapper<>(MembersDTO.class));
+	}
 	//바지조장 End
 	
 	
 	//alice Start
+	public String booktitle(String bookcode) {
+		template.update(new PreparedStatementCreator() {
+					
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
+				String sql = "select booktitle from book where bookcode = ?";
+				PreparedStatement pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, bookcode);
+					System.out.println(pstmt);
+					return pstmt;
+				}
+			
+		});
+		return bookcode;
+		
+	}
 	
 	//alice End
 	
@@ -104,5 +129,7 @@ public class PolarisDAO {
 		});
 	}
 	//cha End
+
+	
 
 }
