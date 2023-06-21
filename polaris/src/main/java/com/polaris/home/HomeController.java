@@ -114,7 +114,18 @@ public class HomeController {
 		return "detail";	// detail.jsp 호출!!!
 	}
 
-	
+	@RequestMapping(value = "bookinfo", method = RequestMethod.GET)
+	public String bookinfo(HttpServletRequest request, Model model) {
+		String bookcode = request.getParameter("bookcode");
+		model.addAttribute("request", request);
+		model.addAttribute("bookcode", bookcode);
+
+	    command = new DetailCommand();
+	    command.execute(model);
+	    model.addAttribute("bookinfo", "bookinfo");
+	    
+	    return "detail";
+	}
 	
 	
 	@RequestMapping(value = "mypage")

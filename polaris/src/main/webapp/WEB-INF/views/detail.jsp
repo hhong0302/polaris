@@ -12,9 +12,9 @@
 <body>
 <%@include file="include/header.jsp" %>
 	
+
 	
 	<div class="container-detail">
-		
 		<div class="bookInfo-detail">
 		
 			<div class="infoNav-detail">
