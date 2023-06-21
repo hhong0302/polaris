@@ -22,7 +22,7 @@
         <div class="choi-info">
         <c:if test="${choi_memlist eq 'mdto' }"></c:if>
             <div class="choi-line1">
-                <p>${mdto.userid }</p>
+                <p>${mdto.test } 님 환영합니다.</p>
                 <span>${mdto.useremail }</span>
             </div>
             <div class="choi-line2">
