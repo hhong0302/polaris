@@ -17,10 +17,13 @@ pageEncoding="UTF-8"%>
 			<label class="label-name" for="userid">아이디</label>
 			<div class="id-area">
 			<input type="text" name="userid" id="userid" class="input-idpart" placeholder="아이디" />
-			<button class="checkid" type="button">중복확인</button>
+			<button id="idcheck" class="checkid" type="button">중복확인</button>
 			</div>
 			<div class="idcheckno">
-				<span></span><span id="idcheckno-message">아이디를 입력해주세요.</span>
+				<span></span><span id="idcheckno-message">올바른 아이디를 입력해주세요.</span>
+			</div>
+			<div class="alreadyid">
+				<span></span><span id="alreadyid-message">이미 존재하는 아이디입니다.</span>
 			</div>
 			<div class="idcheckok">
 				<span></span><span id="idcheckok-message">사용 가능한 아이디입니다.</span>
@@ -83,8 +86,8 @@ pageEncoding="UTF-8"%>
 	
 	
 	
-	
 <%@include file="include/footer.jsp" %>
+<script src="https://code.jquery.com/jquery.min.js"></script>
 <script src="resources/js/register.js"></script>
 </body>
 </html>
