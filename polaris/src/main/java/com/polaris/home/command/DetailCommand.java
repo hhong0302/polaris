@@ -16,13 +16,13 @@ public class DetailCommand implements SpCommand {
 
 	@Override
 	public void execute(Model model) {
-		Map<String, Object> map = model.asMap();
-        HttpServletRequest request = (HttpServletRequest) map.get("request");
-        String bookcode = request.getParameter("bookcode");
+		 Map<String, Object> map = model.asMap();
+	        HttpServletRequest request = (HttpServletRequest) map.get("request");
+	        String bookcode = request.getParameter("bookinfo");
 
-        PolarisDAO dao = new PolarisDAO();
-        ArrayList<BookDTO> bookinfo = dao.bookinfo(bookcode);
+	        PolarisDAO dao = new PolarisDAO();
+	        ArrayList<BookDTO> binfo = dao.bookinfo(bookcode);
 
-        model.addAttribute("bookinfo", bookinfo);
+	        model.addAttribute("bookinfo", binfo);
     }
 }
