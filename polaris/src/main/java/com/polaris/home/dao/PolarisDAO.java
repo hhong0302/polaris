@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 
 import com.polaris.home.dto.BookDTO;
 import com.polaris.home.dto.InterestDTO;
+import com.polaris.home.dto.MembersDTO;
 import com.polaris.home.util.Static;
 
 public class PolarisDAO {
@@ -36,10 +37,11 @@ public class PolarisDAO {
 	    String sql = "SELECT * FROM book";
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<>(BookDTO.class));
 	}
-	public ArrayList<BookDTO> genresearch(String genre) {
-	    String sql = "SELECT * FROM book WHERE genre LIKE ?";
-	    String wildcardedGenre = "%" + genre + "%";
-	    return (ArrayList<BookDTO>) template.query(sql + wildcardedGenre, new BeanPropertyRowMapper<>(BookDTO.class));
+	public ArrayList<BookDTO> genresearch(String genre) { 
+	    String sql = "SELECT * FROM book WHERE genre LIKE ";
+	    sql +="%" + genre + "%";
+	    System.out.println(sql);
+	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<>(BookDTO.class));
 	}
 	//gyu End
 	
@@ -76,7 +78,10 @@ public class PolarisDAO {
 	
 	
 	//바지조장 Start
-	
+	public List<MembersDTO> choi_memList(){
+		String sql = "select * from members";
+		return (ArrayList<MembersDTO>) template.query(sql, new BeanPropertyRowMapper<>(MembersDTO.class));
+	}
 	//바지조장 End
 	
 	
