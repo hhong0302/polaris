@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.HomeListCommand;
+import com.polaris.home.command.IdCheckCommand;
 import com.polaris.home.command.RegisterCommand;
 import com.polaris.home.command.SearchCommand;
 import com.polaris.home.command.SpCommand;
@@ -107,23 +108,24 @@ public class HomeController {
 	
 	
 	@RequestMapping(value = "detail")
-	public String detail(HttpServletRequest req, Model model) {
-        String bookcode = req.getParameter("bookcode");
+	public String detail(HttpServletRequest request, Model model) {
+        String bookcode = request.getParameter("bookinfo");
         model.addAttribute("bookcode", bookcode);
         
 		return "detail";	// detail.jsp 호출!!!
 	}
 
-	@RequestMapping(value = "booktitle")
-	public String booktitle(HttpServletRequest req, Model model) {
-		model.addAttribute("request", req);
-		command = new DetailCommand();
-		command.execute(model);
-        
-		return "detail";
-	}
+	@RequestMapping(value = "detail", method = RequestMethod.GET)
+	public String bookinfo(HttpServletRequest request, Model model) {
+		String bookcode = request.getParameter("bookinfo");
+		model.addAttribute("request", request);
+		model.addAttribute("bookcode", bookcode);
 
-	
+	    command = new DetailCommand();
+	    command.execute(model);
+	    
+	    return "detail";
+	}
 	
 	
 	@RequestMapping(value = "mypage")
@@ -144,6 +146,13 @@ public class HomeController {
 		return "redirect:/";
 		
 	}
+	@RequestMapping("/idcheck")
+		public String idcheck(HttpServletRequest request, Model model){
+			model.addAttribute("request", request);
+			command = new IdCheckCommand();
+			command.execute(model);
+			return "check";
+		}
 	
 	@RequestMapping(value = "login")
 	public String login(Model model) {

@@ -15,6 +15,8 @@
 
 	
 	<div class="container-detail">
+		
+		<c:forEach var="book" items="${bookinfo}">
 		<div class="bookInfo-detail">
 		
 			<div class="infoNav-detail">
@@ -30,15 +32,25 @@
 					<p>#이누도 잇신 감독 〈조제, 호랑이 그리고 물고기들〉 원작</p>
 				</div>
 				<div class="infoImg-detail">
-					<img alt="bookImg" src="resources/bookimg/${bookcode}.jpg" class="bookImg-detail">
+					<img alt="bookImg" src="resources/bookimg/${book.bookcode}.jpg" class="bookImg-detail">
 				</div>
 				<div class="rentalBox-detail">
+				<c:if test="${empty book.trans}">
 					<div class="bookInfoBox-detail">
-						<h2>${bdto.booktitle}</h2>
-						<p>다나베 세이코 저자 · 양억관 옮김<br>
-							작가정신 출판</p>
-						<p>2023년 03월 2일 출간</p>
+						<h2>${book.booktitle}</h2>
+						<p>${book.author} 저자<br>
+							${book.publisher} 출판</p>
+						<p>${book.date} 출간</p>
 					</div>
+				</c:if>
+				<c:if test="${ not empty book.trans}">
+					<div class="bookInfoBox-detail">
+						<h2>${book.booktitle}</h2>
+						<p>${book.author} 저자 · ${book.trans} 옮김<br>
+							${book.publisher} 출판</p>
+						<p>${book.date} 출간</p>
+					</div>
+				</c:if>
 					<div class="rentalBtn-detail">
 						<div class="likeBtn-detail">
 							<img alt="like" src="resources/images/emptheart-detail.png">
@@ -51,6 +63,7 @@
 			</form>
 			
 		</div>
+		</c:forEach>
 	</div>
 	<div class="middleNav-detail sticky">
 		<div class="container-detail">
@@ -151,7 +164,7 @@
 				
 				<!-- 로그인 안했을 시 -->
 				
-				<div class="reviewWrt-detail" method="post">
+				<!-- <div class="reviewWrt-detail">
 					<div class="reviewWrt-detail-title">
 						<h1 class="reviewWrt-detail-h1">
 							제목
@@ -163,14 +176,14 @@
 							내용
 						</h1>
 						<div class="reviewWrt-textareabox">
-							<textarea name="reviewcontent" maxlength="600" style="background-color:#f0f0f0;" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 작성하면 비공개 처리될 수 있습니다. (최대 600자)" class="reviewBox-detail" readonly></textarea>
+							<textarea name="reviewcontent" class="reviewBox-detail" maxlength="600" style="background-color:#f0f0f0;" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 작성하면 비공개 처리될 수 있습니다. (최대 600자)" readonly></textarea>
 							<a href="login">
 								<img id="review-detail-after-login" src="resources/images/detail-after-login.png" alt="after-login" />
 							</a>
 						</div>
 						<button type="button" class="submitBtn-detail">리뷰 남기기</button>
 					</div>
-				</div>
+				</div> -->
 				
 				<!-- 로그인 안했을 시 -->
 				
@@ -183,7 +196,33 @@
 						</h1>
 						<input type="text" id="reviewtitle" name="reviewtitle" maxlength="70" placeholder="남기시는 리뷰의 제목을 적어주세요. (최대 70자)" />
 						
-						<button type="button" onclick="reviewDelete()" class="review-deletebtn">리뷰 삭제</button>
+					</div>
+					<div class="reviewWrt-detail-title">
+						<h1 class="reviewWrt-detail-h1">
+							내용
+						</h1>
+						<div class="reviewWrt-textareabox">
+							<textarea name="reviewcontent" class="reviewBox-detail" maxlength="600" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 작성하면 비공개 처리될 수 있습니다. (최대 600자)"></textarea>
+						</div>
+						<button type="button" onclick="reviewSubmit()" class="submitBtn-detail">리뷰 남기기</button>
+					</div>
+				</form> -->
+				
+				<!-- 로그인 했으면서 리뷰 작성 안했을 시 -->
+				
+				<!-- 리뷰작성 했을 시 -->
+				
+				<form class="reviewWrt-detail" method="post">
+					<div class="reviewWrt-detail-title">
+						<h1 class="reviewWrt-detail-h1">
+							제목
+						</h1>
+						<span class="review-writed review-writedspan">
+							재밌어요 호호
+						</span>
+						<input type="hidden" id="reviewtitle" name="reviewtitle" maxlength="70" placeholder="남기시는 리뷰의 제목을 적어주세요. (최대 70자)" value="재밌어요 호호" />
+						
+						<button type="button" onclick="reviewModifyCancel()" class="review-deletebtn">리뷰 삭제</button>
 						
 					</div>
 					<div class="reviewWrt-detail-title">
@@ -191,13 +230,13 @@
 							내용
 						</h1>
 						<div class="reviewWrt-textareabox">
-							<textarea name="reviewcontent" maxlength="600" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 작성하면 비공개 처리될 수 있습니다. (최대 600자)" class="reviewBox-detail"></textarea>
+							<textarea name="reviewcontent" class="reviewBox-detail review-writedarea" maxlength="600" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 작성하면 비공개 처리될 수 있습니다. (최대 600자)" readonly>재밌네요 호호</textarea>
 						</div>
-						<button type="button" onclick="reviewSubmit()" class="submitBtn-detail">리뷰 남기기</button>
+						<button type="button" onclick="reviewModify()" class="submitBtn-detail">리뷰 수정</button>
 					</div>
-				</form> -->
+				</form>
 				
-				<!-- 로그인 했으면서 리뷰 작성 안했을 시 -->
+				<!-- 리뷰작성 했을 시 -->
 				
 			</div>
 			
@@ -253,19 +292,23 @@
 			    
 			     <div class="pageNum-detail">
                
-	               	<a href="">
+	               	<button>
 	                    <span class="prv"><i class="fa-solid fa-angle-left"></i></span>
-	                </a>
-	             	<div class="number">
-	               		<a href="">1</a>
+	                </button>
+	             	<div class="pageNum-detail-btnbox">
+	               		<button class="pageNum-pagebtn active">1</button>
+	               		<button class="pageNum-pagebtn">2</button>
+	               		<button class="pageNum-pagebtn">3</button>
+	               		<button class="pageNum-pagebtn">4</button>
+	               		<button class="pageNum-pagebtn">5</button>
 	                </div>
-	                <a href="">
-	                	<span class="nxt"><i class="fa-solid fa-angle-right"></i></span>
-	                </a>
+	                <button>
+	                	<span class="nxt active"><i class="fa-solid fa-angle-right"></i></span>
+	                </button>
 	                
                 </div>
             </div>
-            
+            <script src="resources/js/detailreview.js"></script>
             <!-- REVIEW END -->
             
             <div class="suggest-detail">
@@ -314,6 +357,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="resources/js/detail.js"></script>
 
-<%@include file="include/footer.jsp" %>
+<%@include file="include/rboxfooter.jsp" %>
 </body>
 </html>
