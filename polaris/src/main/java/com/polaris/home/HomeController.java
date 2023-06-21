@@ -120,23 +120,24 @@ public class HomeController {
 	
 	
 	@RequestMapping(value = "detail")
-	public String detail(HttpServletRequest req, Model model) {
-        String bookcode = req.getParameter("bookcode");
+	public String detail(HttpServletRequest request, Model model) {
+        String bookcode = request.getParameter("bookinfo");
         model.addAttribute("bookcode", bookcode);
         
 		return "detail";	// detail.jsp 호출!!!
 	}
 
-	@RequestMapping(value = "booktitle")
-	public String booktitle(HttpServletRequest req, Model model) {
-		model.addAttribute("request", req);
-		command = new DetailCommand();
-		command.execute(model);
-        
-		return "detail";
-	}
+	@RequestMapping(value = "detail", method = RequestMethod.GET)
+	public String bookinfo(HttpServletRequest request, Model model) {
+		String bookcode = request.getParameter("bookinfo");
+		model.addAttribute("request", request);
+		model.addAttribute("bookcode", bookcode);
 
-	
+	    command = new DetailCommand();
+	    command.execute(model);
+	    
+	    return "detail";
+	}
 	
 	
 	@RequestMapping(value = "mypage")

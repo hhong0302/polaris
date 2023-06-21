@@ -15,6 +15,8 @@
 
 	
 	<div class="container-detail">
+		
+		<c:forEach var="book" items="${bookinfo}">
 		<div class="bookInfo-detail">
 		
 			<div class="infoNav-detail">
@@ -30,15 +32,25 @@
 					<p>#이누도 잇신 감독 〈조제, 호랑이 그리고 물고기들〉 원작</p>
 				</div>
 				<div class="infoImg-detail">
-					<img alt="bookImg" src="resources/bookimg/${bookcode}.jpg" class="bookImg-detail">
+					<img alt="bookImg" src="resources/bookimg/${book.bookcode}.jpg" class="bookImg-detail">
 				</div>
 				<div class="rentalBox-detail">
+				<c:if test="${empty book.trans}">
 					<div class="bookInfoBox-detail">
-						<h2>${bdto.booktitle}</h2>
-						<p>다나베 세이코 저자 · 양억관 옮김<br>
-							작가정신 출판</p>
-						<p>2023년 03월 2일 출간</p>
+						<h2>${book.booktitle}</h2>
+						<p>${book.author} 저자<br>
+							${book.publisher} 출판</p>
+						<p>${book.date} 출간</p>
 					</div>
+				</c:if>
+				<c:if test="${ not empty book.trans}">
+					<div class="bookInfoBox-detail">
+						<h2>${book.booktitle}</h2>
+						<p>${book.author} 저자 · ${book.trans} 옮김<br>
+							${book.publisher} 출판</p>
+						<p>${book.date} 출간</p>
+					</div>
+				</c:if>
 					<div class="rentalBtn-detail">
 						<div class="likeBtn-detail">
 							<img alt="like" src="resources/images/emptheart-detail.png">
@@ -51,6 +63,7 @@
 			</form>
 			
 		</div>
+		</c:forEach>
 	</div>
 	<div class="middleNav-detail sticky">
 		<div class="container-detail">
@@ -344,6 +357,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="resources/js/detail.js"></script>
 
-<%@include file="include/footer.jsp" %>
+<%@include file="include/rboxfooter.jsp" %>
 </body>
 </html>
