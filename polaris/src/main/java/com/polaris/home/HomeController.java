@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.HomeListCommand;
+import com.polaris.home.command.IdCheckCommand;
 import com.polaris.home.command.RegisterCommand;
 import com.polaris.home.command.SearchCommand;
 import com.polaris.home.command.SpCommand;
@@ -156,6 +157,13 @@ public class HomeController {
 		return "redirect:/";
 		
 	}
+	@RequestMapping("/idcheck")
+		public String idcheck(HttpServletRequest request, Model model){
+			model.addAttribute("request", request);
+			command = new IdCheckCommand();
+			command.execute(model);
+			return "check";
+		}
 	
 	@RequestMapping(value = "login")
 	public String login(Model model) {

@@ -135,8 +135,11 @@ public class PolarisDAO {
 			
 		});
 	}
+	public int checkid(String userid) {
+		String sql = "select count(*) from  members where userid = '" + userid + "'";
+		return template.queryForObject(sql, Integer.class);
+	}
+}
 	//cha End
 
 	
-
-}
