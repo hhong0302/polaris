@@ -38,7 +38,7 @@ public class PolarisDAO {
 	}
 	public ArrayList<BookDTO> genresearch(String genre) { 
 	    String sql = "SELECT * FROM book WHERE genre LIKE ";
-	    sql +=" '%" + genre + "%'";
+	    sql +="%" + genre + "%";
 	    System.out.println(sql);
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<>(BookDTO.class));
 	}
