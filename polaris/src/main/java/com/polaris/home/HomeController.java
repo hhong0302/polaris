@@ -81,6 +81,7 @@ public class HomeController {
 	public String totalsearch(HttpServletRequest request,Model model) {
 		
 		model.addAttribute("request", request);
+		model.addAttribute("searchresult", "전체");
 
 	    command = new SearchCommand();
 	    command.execute(model);
@@ -90,9 +91,10 @@ public class HomeController {
 	
 	@RequestMapping(value = "genresearch", method = RequestMethod.GET)
 	public String genresearch(HttpServletRequest request, Model model) {
-		
+		String genre = request.getParameter("genre");
 		model.addAttribute("request", request);
-		
+		model.addAttribute("searchresult", genre);
+
 	    command = new SearchCommand();
 	    command.execute(model);
 	    model.addAttribute("searchType", "genresearch");

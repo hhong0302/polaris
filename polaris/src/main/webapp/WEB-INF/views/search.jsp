@@ -11,11 +11,12 @@
     <%@ include file="include/header.jsp" %>
 
     <div class="container">
-    <c:if test="${not empty search}">
+    <c:choose>
+    <c:when test="${not empty searchType}">
         <div class="search-result">
             <div class="result-title">
-                <h3>'세이노의 가르침' 검색결과</h3>
-                <p>총 ${search.size()}건</p>
+                <h3><c:out value="'${searchresult}'"/> 검색결과</h3>
+                <p>총 1 건</p>
             </div>
             <c:if test="${searchType eq 'search'}">
             <c:forEach var="book" items="${search}">
@@ -120,7 +121,8 @@
             </c:forEach>
             </c:if>
         </div>
-        </c:if>
+        </c:when>
+        </c:choose>
         <div class="search-banner">
             <img src="resources/banner/banner_band01.jpg" alt="banner" />
         </div>
