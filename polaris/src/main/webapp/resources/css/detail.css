@@ -107,6 +107,7 @@ button.readNow-detail {
 	display: flex;
 	align-items: center;
 	margin-right: 30px;
+	cursor: pointer;
 }
 .navMenu-detail {
 	width: 5px;
@@ -134,7 +135,9 @@ button.readNow-detail {
     top: 0px;
     background: #fff;
     padding-top: 50px;
+    z-index: 999;
 }
+
 
 
 /***** BookInfo & Review *****/
