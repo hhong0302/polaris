@@ -13,13 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.HomeListCommand;
-import com.polaris.home.command.MyCommand;
 import com.polaris.home.command.RegisterCommand;
 import com.polaris.home.command.SearchCommand;
 import com.polaris.home.command.SpCommand;
@@ -52,11 +50,13 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		SpCommand command = new HomeListCommand();
 		command.execute(model);
+		
 		return "home";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/mainHotController")
+	
 	public void mainHotController(HttpServletRequest req,HttpServletResponse res) throws Exception {
 		PolarisDAO dao = new PolarisDAO();
 		String name = req.getParameter("name");
@@ -68,7 +68,9 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "search")
-	public String search(Model model) {
+	public String search(HttpServletRequest request,Model model) {
+		
+		model.addAttribute("request", request);
 
 	    command = new SearchCommand();
 	    command.execute(model);
@@ -77,7 +79,9 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "totalsearch")
-	public String totalsearch(Model model) {
+	public String totalsearch(HttpServletRequest request,Model model) {
+		
+		model.addAttribute("request", request);
 
 	    command = new SearchCommand();
 	    command.execute(model);
@@ -86,11 +90,14 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "genresearch", method = RequestMethod.GET)
-	public String search(@RequestParam("genre") String genre, Model model) {
+	public String genresearch(HttpServletRequest request, Model model) {
+		
+		model.addAttribute("request", request);
 		
 	    command = new SearchCommand();
 	    command.execute(model);
 	    model.addAttribute("searchType", "genresearch");
+	    
 	    return "search";
 	}
 
@@ -103,6 +110,7 @@ public class HomeController {
         
 		return "detail";	// detail.jsp 호출!!!
 	}
+
 	@RequestMapping(value = "booktitle")
 	public String booktitle(HttpServletRequest req, Model model) {
 		model.addAttribute("request", req);
@@ -111,15 +119,13 @@ public class HomeController {
         
 		return "detail";
 	}
+
 	
 	
 	
 	@RequestMapping(value = "mypage")
 	public String mypage(Model model) {
-		
-		command = new MyCommand();
-		command.execute(model);
-		return "mypage";	// mypage.jsp 호출!!!
+		return "mypage";	// detail.jsp 호출!!!
 	}
 	
 	@RequestMapping(value = "register")
