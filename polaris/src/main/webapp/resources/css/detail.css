@@ -289,7 +289,8 @@ button.readNow-detail {
 	color: #fff;
 	border: none;
 	font-size: 20px;
-	font-weight: bold;
+	font-weight: 600;
+	letter-spacing:-1px;
 	cursor: pointer;
 }
 .reviewWrtBox-detail h2 {
@@ -320,12 +321,31 @@ button.readNow-detail {
     outline: none;
     border-radius: 4px;
     font-size:16px;
+    color:#797979;
     resize:none;
     overflow:hidden;
 }
 .reviewBox-detail::placeholder
 {
 	color:#ccc;
+}
+.reviewWrt-detail-title .review-writedspan
+{
+	display:block;
+	width:940px;
+	padding-top:5px;
+	margin-left:10px;
+	margin-right:10px;
+	font-size:18px;
+	font-weight:600;
+	color:#797979;
+}
+.reviewWrt-detail-title .review-writedarea
+{
+	padding-top:5px;
+	font-size:16px;
+	font-weight:500;
+	border:none;
 }
 .submitBtn-detail {
 	width: 183px;
@@ -335,7 +355,8 @@ button.readNow-detail {
 	color: #fff;
 	border: none;
 	font-size: 20px;
-	font-weight: bold;
+	font-weight: 600;
+	letter-spacing:-1px;
 	cursor: pointer;
 }
 .listTile-detail {
@@ -446,11 +467,42 @@ button.readNow-detail {
 .pageNum-detail {
 	display: flex;
 	justify-content: center;
-}
-.pageNum-detail a {
-	width: 30px;
-	text-align: center;
+	align-items:center;
 	margin-bottom: 100px;
+}
+.pageNum-detail-btnbox
+{
+	display:flex;
+	justify-content: center;
+}
+.pageNum-detail button {
+	width: 30px;
+	background:none;
+	font-size:16px;
+	color:#ccc;
+	border:none;
+	outline:none;
+	text-align: center;
+	cursor:pointer;
+}
+.pageNum-detail .prv i,
+.pageNum-detail .nxt i
+{
+	font-size:20px;
+	color:#ccc;
+}
+.pageNum-detail .prv.active i,
+.pageNum-detail .nxt.active i
+{
+	color:#797979;
+}
+.pageNum-pagebtn:hover
+{
+	color:#666;
+}
+.pageNum-pagebtn.active
+{
+	color:#333;
 }
 .listRecent-detail,
 .listLike-detail {
