@@ -29,8 +29,8 @@ public class PolarisDAO {
 	}
 	
 	//gyu Start
-	public ArrayList<BookDTO> search() {
-	    String sql = "SELECT * FROM book WHERE booktitle LIKE '%세이노%'";
+	public ArrayList<BookDTO> search(String query) {
+		String sql = "SELECT * FROM book WHERE booktitle LIKE '%" + query + "%' OR author LIKE '%" + query + "%' OR genre LIKE '%" + query + "%'";
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	public ArrayList<BookDTO> totalsearch() {
