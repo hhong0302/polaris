@@ -67,10 +67,11 @@ public class HomeController {
 		out.close();
 	}
 	
-	@RequestMapping(value = "search")
+	@RequestMapping(value = "search", method = RequestMethod.GET)
 	public String search(HttpServletRequest request,Model model) {
-		
+		String query = request.getParameter("query");
 		model.addAttribute("request", request);
+		model.addAttribute("searchresult", query);
 
 	    command = new SearchCommand();
 	    command.execute(model);
