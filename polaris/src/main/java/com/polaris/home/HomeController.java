@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.HomeListCommand;
 import com.polaris.home.command.RegisterCommand;
 import com.polaris.home.command.SearchCommand;
@@ -103,11 +104,25 @@ public class HomeController {
 	}
 
 	
+	
 	@RequestMapping(value = "detail")
-	public String detail(Model model) {
-		
+	public String detail(HttpServletRequest req, Model model) {
+        String bookcode = req.getParameter("bookcode");
+        model.addAttribute("bookcode", bookcode);
+        
 		return "detail";	// detail.jsp 호출!!!
 	}
+
+	@RequestMapping(value = "booktitle")
+	public String booktitle(HttpServletRequest req, Model model) {
+		model.addAttribute("request", req);
+		command = new DetailCommand();
+		command.execute(model);
+        
+		return "detail";
+	}
+
+	
 	
 	
 	@RequestMapping(value = "mypage")
