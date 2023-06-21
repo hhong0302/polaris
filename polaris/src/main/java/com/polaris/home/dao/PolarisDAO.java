@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import com.polaris.home.dto.BookDTO;
 import com.polaris.home.dto.InterestDTO;
 import com.polaris.home.dto.MembersDTO;
+import com.polaris.home.dto.ReviewDTO;
 import com.polaris.home.util.Static;
 
 public class PolarisDAO {
@@ -73,6 +74,21 @@ public class PolarisDAO {
 		
 		return template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
+	
+	public List<ReviewDTO> hg_reviewList(String bookcode)
+	{
+		String sql="select * from review where bookcode="+bookcode;
+		List<ReviewDTO> review = null;
+		try
+		{
+			review = (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
+		}
+		catch(Exception e)
+		{
+			review = null;
+		}
+		return review;
+	}
 	//wonhong End
 	
 	
@@ -85,21 +101,10 @@ public class PolarisDAO {
 	
 	
 	//alice Start
-	public String booktitle(String bookcode) {
-		template.update(new PreparedStatementCreator() {
-					
-			@Override
-			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
-				String sql = "select booktitle from book where bookcode = ?";
-				PreparedStatement pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, bookcode);
-					System.out.println(pstmt);
-					return pstmt;
-				}
-			
-		});
-		return bookcode;
-		
+	public ArrayList<BookDTO> bookinfo(String bookcode) { 
+	    String sql = "select * from book where bookcode like ";
+	    sql +="'" + bookcode + "'";
+	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	
 	//alice End
@@ -128,8 +133,11 @@ public class PolarisDAO {
 			
 		});
 	}
+	public int checkid(String userid) {
+		String sql = "select count(*) from  members where userid = '" + userid + "'";
+		return template.queryForObject(sql, Integer.class);
+	}
+}
 	//cha End
 
 	
-
-}

@@ -1,5 +1,6 @@
 package com.polaris.home;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Locale;
@@ -18,11 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.HomeListCommand;
+import com.polaris.home.command.IdCheckCommand;
 import com.polaris.home.command.RegisterCommand;
 import com.polaris.home.command.SearchCommand;
 import com.polaris.home.command.SpCommand;
 import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.BookDTO;
+import com.polaris.home.dto.ReviewDTO;
 import com.polaris.home.util.Static;
 
 
@@ -56,11 +59,22 @@ public class HomeController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/mainHotController")
-	
 	public void mainHotController(HttpServletRequest req,HttpServletResponse res) throws Exception {
 		PolarisDAO dao = new PolarisDAO();
 		String name = req.getParameter("name");
 		List<BookDTO> dto = (List<BookDTO>) dao.hg_hotList(name);
+		PrintWriter out = res.getWriter();
+		String gson = new Gson().toJson(dto);
+		out.println(gson);
+		out.close();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/reviewController")
+	public void reviewController(HttpServletRequest req,HttpServletResponse res) throws Exception{
+		PolarisDAO dao = new PolarisDAO();
+		String bookcode = req.getParameter("bookcode");
+		List <ReviewDTO> dto = dao.hg_reviewList(bookcode);
 		PrintWriter out = res.getWriter();
 		String gson = new Gson().toJson(dto);
 		out.println(gson);
@@ -107,23 +121,24 @@ public class HomeController {
 	
 	
 	@RequestMapping(value = "detail")
-	public String detail(HttpServletRequest req, Model model) {
-        String bookcode = req.getParameter("bookcode");
+	public String detail(HttpServletRequest request, Model model) {
+        String bookcode = request.getParameter("bookinfo");
         model.addAttribute("bookcode", bookcode);
         
 		return "detail";	// detail.jsp 호출!!!
 	}
 
-	@RequestMapping(value = "booktitle")
-	public String booktitle(HttpServletRequest req, Model model) {
-		model.addAttribute("request", req);
-		command = new DetailCommand();
-		command.execute(model);
-        
-		return "detail";
-	}
+	@RequestMapping(value = "detail", method = RequestMethod.GET)
+	public String bookinfo(HttpServletRequest request, Model model) {
+		String bookcode = request.getParameter("bookinfo");
+		model.addAttribute("request", request);
+		model.addAttribute("bookcode", bookcode);
 
-	
+	    command = new DetailCommand();
+	    command.execute(model);
+	    
+	    return "detail";
+	}
 	
 	
 	@RequestMapping(value = "mypage")
@@ -144,6 +159,13 @@ public class HomeController {
 		return "redirect:/";
 		
 	}
+	@RequestMapping("/idcheck")
+		public String idcheck(HttpServletRequest request, Model model){
+			model.addAttribute("request", request);
+			command = new IdCheckCommand();
+			command.execute(model);
+			return "check";
+		}
 	
 	@RequestMapping(value = "login")
 	public String login(Model model) {
