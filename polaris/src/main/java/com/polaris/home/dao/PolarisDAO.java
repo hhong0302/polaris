@@ -31,17 +31,17 @@ public class PolarisDAO {
 	//gyu Start
 	public ArrayList<BookDTO> search() {
 	    String sql = "SELECT * FROM book WHERE booktitle LIKE '%세이노%'";
-	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<>(BookDTO.class));
+	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	public ArrayList<BookDTO> totalsearch() {
 	    String sql = "SELECT * FROM book";
-	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<>(BookDTO.class));
+	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	public ArrayList<BookDTO> genresearch(String genre) { 
 	    String sql = "SELECT * FROM book WHERE genre LIKE ";
-	    sql +="%" + genre + "%";
+	    sql +="'%" + genre + "%'";
 	    System.out.println(sql);
-	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<>(BookDTO.class));
+	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	//gyu End
 	

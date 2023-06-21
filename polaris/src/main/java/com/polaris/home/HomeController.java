@@ -1,6 +1,5 @@
 package com.polaris.home;
 
-
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Locale;
@@ -16,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import com.google.gson.Gson;
 import com.polaris.home.command.HomeListCommand;
-import com.polaris.home.command.MyCommand;
 import com.polaris.home.command.RegisterCommand;
 import com.polaris.home.command.SearchCommand;
 import com.polaris.home.command.SpCommand;
@@ -52,11 +49,13 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		SpCommand command = new HomeListCommand();
 		command.execute(model);
+		
 		return "home";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/mainHotController")
+	
 	public void mainHotController(HttpServletRequest req,HttpServletResponse res) throws Exception {
 		PolarisDAO dao = new PolarisDAO();
 		String name = req.getParameter("name");
@@ -68,7 +67,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "search")
-	public String search(HttpServletRequest request, Model model) {
+	public String search(HttpServletRequest request,Model model) {
 		
 		model.addAttribute("request", request);
 
@@ -96,6 +95,7 @@ public class HomeController {
 		
 	    command = new SearchCommand();
 	    command.execute(model);
+	    model.addAttribute("searchType", "genresearch");
 	    
 	    return "search";
 	}
@@ -110,10 +110,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "mypage")
 	public String mypage(Model model) {
-		
-		command = new MyCommand();
-		command.execute(model);
-		return "mypage";	// mypage.jsp 호출!!!
+		return "mypage";	// detail.jsp 호출!!!
 	}
 	
 	@RequestMapping(value = "register")
