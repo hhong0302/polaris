@@ -25,6 +25,7 @@ const birthcheckno = document.getElementsByClassName('birthcheckno')[0];
 const telcheckno = document.getElementsByClassName('telcheckno')[0];
 const mailcheckno = document.getElementsByClassName('mailcheckno')[0];
 
+const checkbtn = document.getElementById('idcheck');
 
 let idcheck = /^(?=.*[0-9]+)[a-zA-Z][a-zA-Z0-9]{5,20}$/g;
 let passcheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/;
@@ -37,15 +38,16 @@ let birthcheck = /[0-9]{8,8}$/;
 
 
 
-userid.addEventListener('focusout', function(){
+userid.addEventListener('keyup', function(){
     if(!idcheck.test(userid.value)){
         idcheckno.style.display = 'flex';
     }else{
         idcheckno.style.display = 'none';
+        checkbtn.style.backgroundColor = "blue";
     }
 });
 
-userpass.addEventListener('keypress', function(){
+userpass.addEventListener('keyup', function(){
     if(!passcheck.test(userpass.value)){
         passcheckno.style.display = "flex";
         passcheckok.style.display = 'none';
@@ -108,7 +110,7 @@ email.addEventListener('focusout', function(){
         
     }
 });
-userpass.addEventListener('keydown', function(){
+userpass.addEventListener('keyup', function(){
     if(passcheck1.test(userpass.value)){
         document.querySelector('#check-option1').classList.add('blue');
         document.querySelector(".fa-check").classList.add('blue');
@@ -117,7 +119,7 @@ userpass.addEventListener('keydown', function(){
             document.querySelector(".fa-check").classList.remove('blue');
     }
 });
-userpass.addEventListener('keydown', function(){
+userpass.addEventListener('keyup', function(){
     if(passcheck2.test(userpass.value)){
         document.querySelector('#check-option2').classList.add('blue');
         document.querySelector(".fa-check").classList.add('blue');
@@ -183,5 +185,36 @@ function register(){
 
 
 
-
+var idck = 0;
+$(function(){
+    $("#idcheck").click(function(){
+        var userid = $("#userid").val();
+        $.ajax({
+            async: true,
+            type: 'POST',
+            url: "idcheck?userid="+userid,
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            success: function(data){
+                console.log(data);
+                if(data > 0){
+                    $(".alreadyid").css("display", "flex");
+                    $(".idcheckok").css("display", "none");
+                    $(".idcheckno").css("display", "none");
+                }else if(data == 0){
+                    $(".alreadyid").css("display", "none");
+                    $(".idcheckok").css("display", "flex");
+                    $(".idcheckno").css("display", "none");
+                }else{
+                    $(".alreadyid").css("display", "none");
+                    $(".idcheckok").css("display", "none");
+                    $(".idcheckno").css("display", "flex");
+                }
+            },
+            error: function(error){
+                console.log("error : " + error);
+            }
+        });
+    });
+}); //jquery
 
