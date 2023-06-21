@@ -13,10 +13,6 @@ import com.polaris.home.dto.BookDTO;
 public class SearchCommand implements SpCommand {
     private PolarisDAO dao;
 
-    // dao 객체 주입을 위한 setter 메서드
-    public void setDao(PolarisDAO dao) {
-        this.dao = dao;
-    }
 
     @Override
     public void execute(Model model) {
@@ -29,7 +25,7 @@ public class SearchCommand implements SpCommand {
         ArrayList<BookDTO> segen = dao.genresearch(genre);
 
         model.addAttribute("search", dtos);
-        model.addAttribute("totoalsearch", dto);
+        model.addAttribute("totalsearch", dto);
         model.addAttribute("genresearch", segen);
     }
 }
