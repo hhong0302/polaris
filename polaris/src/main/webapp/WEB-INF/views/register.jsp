@@ -5,11 +5,12 @@ pageEncoding="UTF-8" session="true"%>
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-</head>
-<body>
 <%@include file="include/header.jsp" %>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"  />
 <link rel="stylesheet" href="resources/css/register.css" />
+</head>
+<body>
+
 <div class="container my-container">
 <h1>회원 정보 입력</h1>
 <%
