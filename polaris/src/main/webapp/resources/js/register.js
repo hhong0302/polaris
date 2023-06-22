@@ -71,6 +71,8 @@ const birthcheckno = document.getElementsByClassName('birthcheckno')[0];
 const telcheckno = document.getElementsByClassName('telcheckno')[0];
 const mailcheckno = document.getElementsByClassName('mailcheckno')[0];
 
+
+const checkemo = document.getElementsByTagName('i')[1];
 const checkbtn = document.getElementById('idcheck');
 
 let idcheck = /^[a-zA-Z0-9]{6,18}$/;
@@ -119,11 +121,15 @@ reuserpass.addEventListener('focusout', function(){
 
     }else if(reuserpass.value != userpass.value){
         repasscheckno.style.display = 'flex';
+        passcheckno.style.display = 'flex';
         repasscheckok.style.display = 'none';
+        passcheckok.style.display = 'none';
         
-    }else if(userpass.value == reuserpass.value){
+    }else if(reuserpass.value == userpass.value){
         repasscheckno.style.display = 'none';
         repasscheckok.style.display = 'flex';
+        passcheckok.style.display = 'flex';
+        passcheckno.style.display = 'none';
     }else{
         return false;
     }
@@ -168,19 +174,22 @@ email.addEventListener('focusout', function(){
 userpass.addEventListener('keyup', function(){
     if(passcheck1.test(userpass.value)){
         document.querySelector('#check-option1').classList.add('blue');
-        document.querySelector(".fa-check").classList.add('blue');
+        document.querySelector(".check-up").classList.add('blue');
     }else{
             document.querySelector('#check-option1').classList.remove('blue');
-            document.querySelector(".fa-check").classList.remove('blue');
+            document.querySelector(".check-up").classList.remove('blue');
     }
 });
 userpass.addEventListener('keyup', function(){
     if(passcheck2.test(userpass.value)){
         document.querySelector('#check-option2').classList.add('blue');
-        document.querySelector(".fa-check").classList.add('blue');
+        document.querySelector(".check-down").classList.add('blue');
+        checkemo.style.color = 'blue';
     }else{
             document.querySelector('#check-option2').classList.remove('blue');
-            document.querySelector(".fa-check").classList.remove('blue');
+            document.querySelector(".check-down").classList.remove('blue');
+            checkemo.style.color = '#bdbdbd';
+
     }
 });
 

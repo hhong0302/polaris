@@ -13,10 +13,6 @@ pageEncoding="UTF-8" session="true"%>
 
 <div class="container my-container">
 <h1>회원 정보 입력</h1>
-<%
-	String id = (String) session.getAttribute("userid");
-%>
-	<p><%=id %></p>
 	<div class="form-con">
 		<form action="registerok" method="post" class="registerform" name="registerform" >
 			<label class="label-name" for="userid">아이디</label>
@@ -33,7 +29,7 @@ pageEncoding="UTF-8" session="true"%>
 			<div class="idcheckok">
 				<span></span><span id="idcheckok-message">사용 가능한 아이디입니다.</span>
 			</div>
-			<p id="check-option0"><span>영문,숫자 조합 5-20자 / 특수문자 포함 불가</span></p>
+			<p id="check-option0"><span style="color: #bdbdbd;">영문,숫자 조합 5-20자 / 특수문자 포함 불가</span></p>
 			
 			<label class="label-name" for="userpass">비밀번호</label>
 			<div class="show-pass">
@@ -46,8 +42,8 @@ pageEncoding="UTF-8" session="true"%>
 			<div class="passcheckok">
 				<span></span><span id="passcheckok-message">사용 가능한 비밀번호입니다.</span>
 			</div>
-			<p id="check-option1" class="option1"><i class="fa-solid fa-check"></i>영문,숫자,특수문자 조합</p>
-			<p id="check-option2" class="option2"><i class="fa-solid fa-check"></i>8자리 이상 20자리 이하</p>
+			<p id="check-option1" class="option1"><i class="fa-solid fa-check check-up" style="color: #bdbdbd;" ></i>영문,숫자,특수문자 조합</p>
+			<p id="check-option2" class="option2"><i class="fa-solid fa-check check-down" style="color: #bdbdbd;"></i>8자리 이상 20자리 이하</p>
 			
 			<label class="label-name" for="reuserpass">비밀번호 확인</label>
 			<div class="show-repass">
@@ -68,7 +64,7 @@ pageEncoding="UTF-8" session="true"%>
 			</div>
 			
 			<label class="label-name" for="birth">생년월일</label>
-			<input type="tel" name="birth" id="birth" placeholder="생년월일 8자" minlength="8" maxlength="8" />
+			<input type="number" name="birth" id="birth" placeholder="생년월일 8자" minlength="8" maxlength="8" />
 			<div class="birthcheckno">
 				<span></span><span id="namecheckno-message">생년월일 8자를 입력해주세요</span>
 			</div>

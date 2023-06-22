@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="resources/css/member.css">
 </head>
 <body>
+<c:set var="nowpass" value="${userInfo.userpass }" />
     <div class="container my-container">
         <h1>회원 정보 수정</h1>
         <form action="memberUpdate" method="post" class="memberUpdate" name="memberUpdate" >
@@ -31,7 +32,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="second">
                     <div class="block">
                         <div class="left">
@@ -48,9 +48,9 @@
                                 <input type="password" name="re-pass" id="re-pass" placeholder="새 비밀번호 확인">
                             </div>
                                 <ul class="condition-box">
-                                <li class="condition">영문, 숫자, 특수문자 조합</li>
-                                <li class="condition">8자리 이상</li>
-                                <li class="condition">이전에 사용했던 비밀번호는 사용할 수 없습니다.</li>
+                                <li class="condition">• 영문, 숫자, 특수문자 조합</li>
+                                <li class="condition">• 8자리 이상</li>
+                                <li class="condition">• 이전에 사용했던 비밀번호는 사용할 수 없습니다.</li>
                            		</ul>
                                 <a href="#" class="change-pass">비밀번호 변경</a>
                             
@@ -58,7 +58,8 @@
                     </div>
                     
                 </div>
-
+                </form>
+			<div class="memberUpdate2">
                 <div class="third">
                     <div class="block">
                         <div class="left">
@@ -102,7 +103,8 @@
                     <div class="leave">회원탈퇴</div>
                         <a href="#" class="leave-box">탈퇴하기</a>
                 </div>
-        </form>
-    </div>
+              </div>
+             </div>
+        <%@include file="include/footer.jsp" %>
 </body>
 </html>
