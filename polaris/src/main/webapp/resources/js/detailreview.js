@@ -61,6 +61,7 @@ function reviewModifyCancel()
 let listPageNum=0;
 let listType;
 let allReviewDatas=0;
+let scrollCount=0;
 const rvcmtcontent = document.getElementsByClassName("reviewComment-content");
 const reviewcommentlist = document.getElementsByClassName("reviewcommentlist-detail")[0];
 const rvmenu_detail = document.getElementsByClassName("reviewMenu-detail");
@@ -226,11 +227,13 @@ function pageNumBtnClick(e,listNumber,lstType,bookcode)
   		console.log("error");
   		}
 		});
-	window.scrollTo({ top: 2600, behavior: "smooth" }); 
+	if(scrollCount>0) window.scrollTo({ top: 2600, behavior: "smooth" }); 
+	scrollCount=1;
 	for(let i=0;i<pgNum_pgbtn.length;i++)
 	{
 		pgNum_pgbtn[i].classList.remove("active");
 	}
+	
 	e.classList.add("active");
 }
 
