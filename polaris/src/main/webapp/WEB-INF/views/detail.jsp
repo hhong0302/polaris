@@ -230,7 +230,14 @@
 							내용
 						</h1>
 						<div class="reviewWrt-textareabox">
-							<textarea name="reviewcontent" class="reviewBox-detail review-writedarea" maxlength="600" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 작성하면 비공개 처리될 수 있습니다. (최대 600자)" readonly>재밌네요 호호</textarea>
+							<textarea name="reviewcontent" class="reviewBox-detail active review-writedarea" maxlength="600" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 작성하면 비공개 처리될 수 있습니다. (최대 600자)" readonly>재밌네요 호호재밌네요 호호
+fdsdfsa
+fsdaf
+sdfds
+fsddsfa</textarea>
+							<div id="rvcontentmoreWatchbtnbox">
+								<button type="button" class="rvcontentmoreWatchbtn" onclick="rvmoreWatch(this)">모두보기<i class="fa-solid fa-angle-down"></i></button>
+							</div>
 						</div>
 						<button type="button" onclick="reviewModify()" class="submitBtn-detail">리뷰 수정</button>
 					</div>
