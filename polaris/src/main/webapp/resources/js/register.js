@@ -1,3 +1,48 @@
+var idck = 0;
+$(function(){
+    $("#idcheck").click(function(){
+        var userid = $("#userid").val();
+        $.ajax({
+            async: true,
+            type: 'POST',
+            url: "idcheck?userid="+userid,
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            success: function(data){
+                console.log(data);
+                if(data > 0){
+                    $(".alreadyid").css("display", "flex");
+                    $(".idcheckok").css("display", "none");
+                    $(".idcheckno").css("display", "none");
+                }else if(data == 0){
+                    $(".alreadyid").css("display", "none");
+                    $(".idcheckok").css("display", "flex");
+                    $(".idcheckno").css("display", "none");
+                    idck = 1;
+                }else{
+                    $(".alreadyid").css("display", "none");
+                    $(".idcheckok").css("display", "none");
+                    $(".idcheckno").css("display", "flex");
+                }
+            },
+            error: function(error){
+                console.log("error : " + error);
+            }
+        });
+    });
+    $('.eye').on('click',function(){
+        $('input').toggleClass('active');
+        if($('input').hasClass('active')){
+            $('.show img').attr('src',"resources/images/hide-pass.png")
+            .prev('input[name=userpass]').prop('type',"text");
+        }else{
+            $(this).attr('src',"resources/images/show-pass.png")
+            .prev('input[name=userpass]').prop('type','password');
+        }
+}); 
+});//jquery
+
+
 const userid = document.getElementById('userid');
 const userpass = document.getElementById('userpass');
 const reuserpass = document.getElementById('reuserpass');
@@ -14,8 +59,9 @@ const check2 = document.getElementById('check-option2');
 const fregister = document.getElementsByClassName('fregister')[0];
 
 
-
+const idcheckok = document.getElementsByClassName('idcheckok')[0];
 const idcheckno = document.getElementsByClassName('idcheckno')[0];
+const alreadyid = document.getElementsByClassName('alreadyid')[0];
 const passcheckno = document.getElementsByClassName('passcheckno')[0];
 const passcheckok = document.getElementsByClassName('passcheckok')[0];
 const repasscheckno = document.getElementsByClassName('repasscheckno')[0];
@@ -27,7 +73,7 @@ const mailcheckno = document.getElementsByClassName('mailcheckno')[0];
 
 const checkbtn = document.getElementById('idcheck');
 
-let idcheck = /^(?=.*[0-9]+)[a-zA-Z][a-zA-Z0-9]{5,20}$/g;
+let idcheck = /^[a-zA-Z0-9]{6,18}$/;
 let passcheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/;
 let passcheck1 = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])/;
 let passcheck2 = /(?=.*[0-9]).{8,20}$/;
@@ -41,11 +87,20 @@ let birthcheck = /[0-9]{8,8}$/;
 userid.addEventListener('keyup', function(){
     if(!idcheck.test(userid.value)){
         idcheckno.style.display = 'flex';
+        checkbtn.style.backgroundColor = '#CCCCCC';
+        idcheckok.style.display = 'none';
     }else{
         idcheckno.style.display = 'none';
-        checkbtn.style.backgroundColor = "blue";
+        checkbtn.style.backgroundColor = "#4563ff";
     }
 });
+userid.addEventListener('keyup', function(){
+    if(userid.value == ''){
+        idcheckok.style.display = 'none';
+        idcheckno.style.display = 'none';
+        alreadyid.style.display = 'none';
+    }
+})
 
 userpass.addEventListener('keyup', function(){
     if(!passcheck.test(userpass.value)){
@@ -141,7 +196,7 @@ function register(){
         alert("아이디를 입력하세요.");
         userid.focus();
         return false;
-    }else if(idcheck.test(userid.value)){
+    }else if(!idcheck.test(userid.value)){
         alert("아이디를 형식에 맞게 입력 하세요");
         userid.focus();
         return false;
@@ -150,7 +205,7 @@ function register(){
         userpass.focus();
         return false;
     }
-    else if(passcheck.test(userpass.value)){
+    else if(!passcheck.test(userpass.value)){
         alert("비밀번호를 형식에 맞게 입력 하세요");
         userpass.focus();
         return false;
@@ -178,43 +233,13 @@ function register(){
         alert("이메일을 입력하세요.");
         email.focus();
         return false;
+    }else if(idck == 0){
+        alert("id중복체크를 해주세요");
     }else{
+        
         document.registerform.submit();
     }
 }
 
 
-
-var idck = 0;
-$(function(){
-    $("#idcheck").click(function(){
-        var userid = $("#userid").val();
-        $.ajax({
-            async: true,
-            type: 'POST',
-            url: "idcheck?userid="+userid,
-            dataType: "json",
-            contentType: "application/json; charset=UTF-8",
-            success: function(data){
-                console.log(data);
-                if(data > 0){
-                    $(".alreadyid").css("display", "flex");
-                    $(".idcheckok").css("display", "none");
-                    $(".idcheckno").css("display", "none");
-                }else if(data == 0){
-                    $(".alreadyid").css("display", "none");
-                    $(".idcheckok").css("display", "flex");
-                    $(".idcheckno").css("display", "none");
-                }else{
-                    $(".alreadyid").css("display", "none");
-                    $(".idcheckok").css("display", "none");
-                    $(".idcheckno").css("display", "flex");
-                }
-            },
-            error: function(error){
-                console.log("error : " + error);
-            }
-        });
-    });
-}); //jquery
 

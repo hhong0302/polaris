@@ -140,7 +140,17 @@ public class PolarisDAO {
 		String sql = "select count(*) from  members where userid = '" + userid + "'";
 		return template.queryForObject(sql, Integer.class);
 	}
-}
+
+	public int loginOk(String userid, String userpass){
+		String sql = "select * from members where userid = ? and userpass = ?";
+		return template.queryForObject(sql, Integer.class);
+	}
+
+
+	
+	
 	//cha End
 
 	
+
+}
