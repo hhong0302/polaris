@@ -193,10 +193,11 @@ button.readNow-detail {
 	margin-bottom: 20px;
 	font-weight: bold;
 }
-.sumRecom-detail pre {
+.sumRecom-detail p {
 	font-size: 16px;
 	line-height: 24px;
 	color: #999;
+	margin-bottom: 20px;
 }
 .defaultInfo-detail {
 	border-bottom: 1px solid #ccc;
