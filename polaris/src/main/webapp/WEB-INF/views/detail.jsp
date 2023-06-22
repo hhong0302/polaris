@@ -18,7 +18,7 @@
 	<%
 		String uid = (String) session.getAttribute("userid");
 	%>
-	
+	<input type="hidden" name="userid" value="<%= uid%>">
 	<div class="container-detail">
 		
 		<c:forEach var="book" items="${bookinfo}">
@@ -29,7 +29,7 @@
 				<p>메인<i class="ri-arrow-drop-right-line"></i><span class="ftBlack-detail">${book.genre}</span></p>
 			</div>
 			
-			<form class="bookRental-detail" action="javascript:void(0)">
+			<form class="bookRental-detail" action="detail/loanBook">
 				<div class="hash-detail">					
 					<p class="bookHash-detail">
 					${fn:replace(book.hash, replaceHash, "</p> <p>")}
@@ -42,16 +42,22 @@
 				<c:if test="${empty book.trans}">
 					<div class="bookInfoBox-detail">
 						<h2>${book.booktitle}</h2>
+						<input type="hidden" name="booktitle" value="${book.booktitle}">
 						<p>${book.author} 저자<br>
 							${book.publisher} 출판</p>
+						<input type="hidden" name="author" value="${book.author}">
+						<input type="hidden" name="publisher" value="${book.publisher}">
 						<p>${book.date} 출간</p>
 					</div>
 				</c:if>
 				<c:if test="${ not empty book.trans}">
 					<div class="bookInfoBox-detail">
 						<h2>${book.booktitle}</h2>
+						<input type="hidden" name="booktitle" value="${book.booktitle}">
 						<p>${book.author} 저자 · ${book.trans} 옮김<br>
 							${book.publisher} 출판</p>
+						<input type="hidden" name="author" value="${book.author}">
+						<input type="hidden" name="publisher" value="${book.publisher}">
 						<p>${book.date} 출간</p>
 					</div>
 				</c:if>
@@ -61,7 +67,7 @@
 					<div onclick="reject()" class="rentalBtn-detail">
 						<div class="likeBtn-detail">
 							<img alt="like" src="resources/images/emptyheart.png">
-							찜 1,240
+							찜 ${likeCount}
 						</div>
 						<button type="button" class="rental-detail">대여하기</button>
 						<button type="button" class="readNow-detail">바로 읽기</button>
@@ -70,11 +76,18 @@
 					}else {
 				%>				
 					<div class="rentalBtn-detail">
-						
-						<div class="likeBtn-detail">
-							<img alt="like" src="resources/images/emptyheart.png">
-							찜 1,240
-						</div>
+						<c:if test="${userLike == 0}">
+							<a class="likeBtn-detail" href='/home/detail?bookinfo=${bookcode}&userLike=1'>
+								<img alt="like" src="resources/images/emptyheart.png">
+								찜 ${likeCount} / ${userLike}
+							</a>
+						</c:if>
+						<c:if test="${userLike != 0}">
+							<a class="likeBtn-detail" href='/home/detail?bookinfo=${bookcode}&userLike=0'>
+								<img alt="like" src="resources/images/fillheart.png">
+								찜 ${likeCount} / ${userLike}
+							</a>
+						</c:if>
 						<button type="submit" class="rental-detail">대여하기</button>
 						<button type="button" class="readNow-detail">바로 읽기</button>
 					</div>
