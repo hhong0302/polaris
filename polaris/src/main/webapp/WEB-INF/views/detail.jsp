@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <% pageContext.setAttribute("replaceChar", "\n"); %>
+<% pageContext.setAttribute("replaceHash", "\n\n"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,8 +30,7 @@
 			<form class="bookRental-detail">
 				<div class="hash-detail">					
 					<p class="bookHash-detail">
-					${fn:replace(book.hash, replaceChar, "<br/>")}
-						<%-- ${book.hash} --%>
+					${fn:replace(book.hash, replaceHash, "</p> <p>")}
 					</p>
 				</div>
 				<div class="infoImg-detail">
@@ -95,10 +95,10 @@
 				<h2>이 책 소개</h2>
 				
 				<div class="hashRecom-detail">
-					<p>아쿠타가와상 수상 작가 다나베 세이코 대표작<br> 빛나는 감각으로 그려낸 사랑과 연애의 본질</p>
-					<p>‘내 인생 잊지 못할 사랑 영화 1위’<br> 이누도 잇신 감독 〈조제, 호랑이 그리고 물고기들〉 원작</p>
-					<p>한국판 리메이크 :: 한지민·남주혁 주연, 김종관 감독 영화 〈조제〉 원작<br> 2020 부산국제영화제 폐막작 :: 일본 애니메이션 〈조제, 호랑이 그리고 물고기들〉 원작</p>
-					<p>싸한 사랑의 기억, 이 시대 최고의 연애소설</p>
+					<p>
+						<c:set var="noneHash" value="${fn:replace(book.hash, replaceHash, '</p> <p>')}" />
+						${fn:replace(noneHash, "#", " ")}
+					</p>
 				</div>
 				<div class="sumRecom-detail">
 					<p>
