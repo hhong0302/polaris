@@ -98,6 +98,7 @@ public class PolarisDAO {
 	
 	//바지조장 Start
 	public List<MembersDTO> choi_memList(){
+
 		String sql = "select * from members where userid = 'test'";
 		return (List<MembersDTO>)template.query(sql,new BeanPropertyRowMapper<MembersDTO>(MembersDTO.class));
 	}

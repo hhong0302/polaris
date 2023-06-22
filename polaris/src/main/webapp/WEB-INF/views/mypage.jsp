@@ -23,8 +23,10 @@
         <c:forEach var = "mem" items = "${memlist }">
         <div class="choi-info">
             <div class="choi-line1">
+
                 <p>${mem.userid }</p>
                 <span>${mem.useremail }</span>
+
             </div>
             <div class="choi-line2">
                 <span><a href="#">내 정보 수정</a></span>
