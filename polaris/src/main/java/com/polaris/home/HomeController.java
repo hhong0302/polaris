@@ -150,46 +150,21 @@ public class HomeController {
 	    return "search";
 	}
 
+
 	
-	
-	@RequestMapping(value = "memlist", method = RequestMethod.GET)
-	public String detail(HttpServletRequest request, Model model) {
-        
-		String memlist = request.getParameter("memlist");
-		model.addAttribute("request", request);
-        model.addAttribute("memlist", memlist);
-        
-        command = new MyCommand();
-        command.execute(model);
-                
-		return "detail";	// detail.jsp 호출!!!
-	}
-	
-	@RequestMapping(value = "loanList", method = RequestMethod.GET)
-	public String loanlist(HttpServletRequest request, Model model) {
-        
-		String loanlist = request.getParameter("loanlist");
-		model.addAttribute("request", request);
-        model.addAttribute("loanlist", loanlist);
-        
-        command = new MyCommand();
-        command.execute(model);
-                
-		return "detail";	// detail.jsp 호출!!!
-	}
-	
-	@RequestMapping(value = "interest", method = RequestMethod.GET)
-	public String interest(HttpServletRequest request, Model model) {
-        
-		String interest = request.getParameter("interest");
-		model.addAttribute("request", request);
-        model.addAttribute("interest", interest);
-        
-        command = new MyCommand();
-        command.execute(model);
-                
-		return "detail";	// detail.jsp 호출!!!
-	}
+	/*
+	 * @RequestMapping(value = "interest", method = RequestMethod.GET) public String
+	 * interest(HttpServletRequest request, Model model) {
+	 * 
+	 * String interest = request.getParameter("interest");
+	 * model.addAttribute("request", request); model.addAttribute("mypageresult",
+	 * interest);
+	 * 
+	 * command = new MyCommand(); command.execute(model);
+	 * model.addAttribute("pageType", "interest");
+	 * 
+	 * return "mypage"; // mypage.jsp 호출!!! }
+	 */
 
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
 	public String bookinfo(HttpServletRequest request, Model model) {
@@ -202,27 +177,18 @@ public class HomeController {
 	    
 	    return "detail";
 	}
-	
-	
-	@RequestMapping(value="mypage")
-	public String mypage(HttpServletRequest request, Model model) {
-		String bookloan = request.getParameter("bookloan");
-		model.addAttribute("bookloan", bookloan);
-		
-		return "mypage";
-	}
+
 	
 	@RequestMapping(value = "mypage", method = RequestMethod.GET)
 	public String bookloan(HttpServletRequest request, Model model) {
-		String bookloan = request.getParameter("bookloan");
-		model.addAttribute("request", request);
-		model.addAttribute("bookloan", bookloan);
 		
 		command = new MyCommand();
 		command.execute(model);
 		
 		return "mypage";	// detail.jsp 호출!!!
+	
 	}
+	
 	
 	@RequestMapping(value = "register")
 	public String register(Model model) {
@@ -264,3 +230,4 @@ public class HomeController {
 		return "member";	// member.jsp 호출!!!
 	}
 }
+
