@@ -20,12 +20,13 @@
         <div class = "choi-top">
             <span>홈 > 메인페이지</span>
         </div>
-        <c:forEach var = "mem" items = "${memlist }">
+
+        <c:forEach var = "my" items = "${memlist }">
         <div class="choi-info">
             <div class="choi-line1">
 
-                <p>${mem.userid }</p>
-                <span>${mem.useremail }</span>
+                <p>${my.userid }</p>
+                <span>${my.useremail }</span>
 
             </div>
             <div class="choi-line2">
@@ -33,9 +34,11 @@
             </div>
         </div>
 </c:forEach>
+ 
 	<div class="row">
         <div class="col">
           <p></p>
+         
             <ul class="nav mt">
               <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#qwe">• 현재 대여 목록</a>
@@ -46,20 +49,20 @@
             </ul>
             <div class="tab-content">
               <div class="tab-pane fade show active" id="qwe">
-	 				<form name = "form" action="#" method="post">
+	 				<c:forEach var ="my" items= "${loanList }">
 	                 <div class = "choi-booklist">
 	                    <div class="choi-current-book">
 	                        <div class="choi-book-img">
-	                            <img src="resources/bookimg/bad.jpg" alt="">
+	                            <img src="resources/bookimg/${my.bookcode }.jpg" alt="">
 	                        </div>
 	                        <div class="choi-book-text">
 	                        	<div class="choi-book-text-top">
-		                            <p>책 제목</p>
+		                            <p>${my.booktitle }</p>
 		                            <span>저자 . 글쓴이</span>
 	                            </div>
 	                            <div class="choi-book-text-mid">
 		                            <span>대여 기간</span>
-		                            <p>2023.5.13 ~ 2023.6.12</p>
+		                            <p>${my.loandate }</p>
 		                            <span class="choi-dday">반납일까지 남았습니다.</span>
 	                            </div>
 	                            <div class="choi-book-text-last">
@@ -67,73 +70,38 @@
 	                            </div>
 	                        </div>
 	                    </div>
-	                    
-	                    <div class="choi-current-book">
-	                        <div class="choi-book-img">
-	                            <img src="resources/bookimg/bad.jpg" alt="">
-	                        </div>
-	                        <div class="choi-book-text">
-	                        	<div class="choi-book-text-top">
-		                            <p>책 제목</p>
-		                            <span>저자 . 글쓴이</span>
-	                            </div>
-	                            <div class="choi-book-text-mid">
-		                            <span>대여 기간</span>
-		                            <p>2023.5.13 ~ 2023.6.12</p>
-		                            <span class="choi-dday">반납일까지 남았습니다.</span>
-	                            </div>
-	                            <div class="choi-book-text-last">
-	                            	<button type="button">반납하기</button>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    
-	                    <div class="choi-current-book">
-	                        <div class="choi-book-img">
-	                            <img src="resources/bookimg/bad.jpg" alt="">
-	                        </div>
-	                        <div class="choi-book-text">
-	                        	<div class="choi-book-text-top">
-		                            <p>책 제목</p>
-		                            <span>저자 . 글쓴이</span>
-	                            </div>
-	                            <div class="choi-book-text-mid">
-		                            <span>대여 기간</span>
-		                            <p>2023.5.13 ~ 2023.6.12</p>
-		                            <span class="choi-dday">반납일까지 남았습니다.</span>
-	                            </div>
-	                            <div class="choi-book-text-last">
-	                            	<button type="button">반납하기</button>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    
-	                    </div>
-	                </form>
+	              
+	                  </div>
+                                  
+	                 </c:forEach> 
               </div>
               <div class="tab-pane fade" id="asd">
-					<form name = "form" action="#" method="post">
+               <c:forEach var ="my" items= "${pastloanList }"> 
 	                    <div class="choi-current-book">
 	                        <div class="choi-book-img">
-	                            <img src="resources/bookimg/bad.jpg" alt="">
+	                            <img src="resources/bookimg/${my.bookcode}.jpg" alt="book">
 	                        </div>
 	                        <div class="choi-book-text">
 	                        	
-	                            <p>책 제목</p>
+	                            <p>${my.booktitle}</p>
 	                            <span>저자 . 글쓴이</span>
 	                            <span>대여 기간</span>
-	                            <p>2023.5.13 ~ 2023.6.12</p>
+	                            <p>${my.loandate }</p>
 	                            <span class="choi-dday"></span>
 	                           
 	                        </div>
 	                    </div>
-	                </form>
-              </div>
-              
+	                </c:forEach> 
+              </div>             
             </div>
+         
         </div>
       </div>
 
+
+		<!--------------찜한목록------------------>
+		
+		
         <div class="choi-jjim">
             <p>찜한 목록</p>
             <div class="choi-jjim-book">
@@ -143,7 +111,7 @@
                     </div>
                     <div class="choi-jjim-text">
                     	<div class = "choi-close-btn">
-                    		x
+                    		<img src="resources/images/Vector.png" alt="" />
                     	</div>
                     	<div class = "choi-jjim-text-top">
 	                        <p>안 귀여운 곰돌이 푸</p>
@@ -156,6 +124,7 @@
                 </div>
             </div>
         </div>
+
     </div>
     
      
