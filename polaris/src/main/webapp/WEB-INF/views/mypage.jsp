@@ -15,6 +15,9 @@
 </style>
 </head>
 <body>
+<%
+	String loan = (String)session.getAttribute("loan");
+%>
 <%@include file = "include/header.jsp" %>
     <div class="container">
         <div class = "choi-top">
@@ -36,9 +39,7 @@
 </c:forEach>
  
 	<div class="row">
-        <div class="col">
-          <p></p>
-         
+        <div class="col">        
             <ul class="nav mt">
               <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#qwe">• 현재 대여 목록</a>
@@ -48,8 +49,8 @@
               </li>
             </ul>
             <div class="tab-content">
-              <div class="tab-pane fade show active" id="qwe">
 	 				<c:forEach var ="my" items= "${loanList }">
+              <div class="tab-pane fade show active" id="qwe">
 	                 <div class = "choi-booklist">
 	                    <div class="choi-current-book">
 	                        <div class="choi-book-img">
@@ -69,28 +70,29 @@
 	                            	<button type="button">반납하기</button>
 	                            </div>
 	                        </div>
-	                    </div>
-	              
-	                  </div>
-                                  
-	                 </c:forEach> 
+	                    </div> 
+	               </div>                   
               </div>
+	                 </c:forEach> 
               <div class="tab-pane fade" id="asd">
                <c:forEach var ="my" items= "${pastloanList }"> 
-	                    <div class="choi-current-book">
-	                        <div class="choi-book-img">
-	                            <img src="resources/bookimg/${my.bookcode}.jpg" alt="book">
-	                        </div>
-	                        <div class="choi-book-text">
-	                        	
-	                            <p>${my.booktitle}</p>
-	                            <span>저자 . 글쓴이</span>
-	                            <span>대여 기간</span>
-	                            <p>${my.loandate }</p>
-	                            <span class="choi-dday"></span>
-	                           
-	                        </div>
-	                    </div>
+	                <div class="choi-past-book">
+                    <div class="choi-jjim-img">
+                        <img src="resources/bookimg/${my.bookcode }.jpg" alt="book">
+                    </div>
+                    <div class="choi-jjim-text">
+                    	<div class = "choi-close-btn">
+                    		<img src="resources/images/Vector.png" alt="" />
+                    	</div>
+                    	<div class = "choi-jjim-text-top">
+	                        <p>${my.booktitle}</p>
+                    	</div>
+    					<div class = "choi-jjim-text-bottom">
+	                        <span>지은이</span>
+	                        <span>출판사</span>
+    					</div>
+                    </div>
+                </div>
 	                </c:forEach> 
               </div>             
             </div>
