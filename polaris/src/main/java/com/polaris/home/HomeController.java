@@ -3,7 +3,6 @@ package com.polaris.home;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,14 +21,17 @@ import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.HomeListCommand;
 import com.polaris.home.command.IdCheckCommand;
 import com.polaris.home.command.MyCommand;
+
 import com.polaris.home.command.LoginOkCommand;
 import com.polaris.home.command.MemberListCommand;
+
 import com.polaris.home.command.OrderSearchCommand;
 import com.polaris.home.command.RegisterCommand;
 import com.polaris.home.command.SearchCommand;
 import com.polaris.home.command.SpCommand;
 import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.BookDTO;
+import com.polaris.home.dto.BookloanDTO;
 import com.polaris.home.util.Static;
 
 
@@ -55,7 +57,7 @@ public class HomeController {
 
 	//home
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Model model) {
 		SpCommand command = new HomeListCommand();
 		command.execute(model);
 		
@@ -78,9 +80,15 @@ public class HomeController {
 	//rightbox 반납도서 체크
 	@ResponseBody
 	@RequestMapping(value = "/rightboxLoanController")
-	public void rightboxLoanController(HttpServletRequest req,HttpServletResponse res) throws Exception
+	public void rightboxLoanController(HttpServletRequest req,HttpServletResponse res,Model model) throws Exception
 	{
-		
+		PolarisDAO dao = new PolarisDAO();
+        HttpSession session = req.getSession();
+		List<BookloanDTO> dto = dao.hg_bookLoanDate((String)session.getAttribute("userid"));
+		PrintWriter out = res.getWriter();
+		String gson = new Gson().toJson(dto);
+		out.println(gson);
+		out.close();
 	}
 	
 	//리뷰 내역
@@ -172,46 +180,21 @@ public class HomeController {
 	    return "search";
 	}
 
+
 	
-	
-	@RequestMapping(value = "memlist", method = RequestMethod.GET)
-	public String detail(HttpServletRequest request, Model model) {
-        
-		String memlist = request.getParameter("memlist");
-		model.addAttribute("request", request);
-        model.addAttribute("memlist", memlist);
-        
-        command = new MyCommand();
-        command.execute(model);
-                
-		return "detail";	// detail.jsp 호출!!!
-	}
-	
-	@RequestMapping(value = "loanList", method = RequestMethod.GET)
-	public String loanlist(HttpServletRequest request, Model model) {
-        
-		String loanlist = request.getParameter("loanlist");
-		model.addAttribute("request", request);
-        model.addAttribute("loanlist", loanlist);
-        
-        command = new MyCommand();
-        command.execute(model);
-                
-		return "detail";	// detail.jsp 호출!!!
-	}
-	
-	@RequestMapping(value = "interest", method = RequestMethod.GET)
-	public String interest(HttpServletRequest request, Model model) {
-        
-		String interest = request.getParameter("interest");
-		model.addAttribute("request", request);
-        model.addAttribute("interest", interest);
-        
-        command = new MyCommand();
-        command.execute(model);
-                
-		return "detail";	// detail.jsp 호출!!!
-	}
+	/*
+	 * @RequestMapping(value = "interest", method = RequestMethod.GET) public String
+	 * interest(HttpServletRequest request, Model model) {
+	 * 
+	 * String interest = request.getParameter("interest");
+	 * model.addAttribute("request", request); model.addAttribute("mypageresult",
+	 * interest);
+	 * 
+	 * command = new MyCommand(); command.execute(model);
+	 * model.addAttribute("pageType", "interest");
+	 * 
+	 * return "mypage"; // mypage.jsp 호출!!! }
+	 */
 
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
 	public String bookinfo(HttpServletRequest request, Model model) {
@@ -224,27 +207,18 @@ public class HomeController {
 	    
 	    return "detail";
 	}
-	
-	
-	@RequestMapping(value="mypage")
-	public String mypage(HttpServletRequest request, Model model) {
-		String bookloan = request.getParameter("bookloan");
-		model.addAttribute("bookloan", bookloan);
-		
-		return "mypage";
-	}
+
 	
 	@RequestMapping(value = "mypage", method = RequestMethod.GET)
 	public String bookloan(HttpServletRequest request, Model model) {
-		String bookloan = request.getParameter("bookloan");
-		model.addAttribute("request", request);
-		model.addAttribute("bookloan", bookloan);
 		
 		command = new MyCommand();
 		command.execute(model);
 		
 		return "mypage";	// detail.jsp 호출!!!
+	
 	}
+	
 	
 	@RequestMapping(value = "register")
 	public String register(Model model) {
@@ -320,3 +294,4 @@ public class HomeController {
 		return "member";	// member.jsp 호출!!!
 	}
 }
+

@@ -32,7 +32,7 @@ public class PolarisDAO {
 	
 	//gyu Start
 	public ArrayList<BookDTO> search(String query) {
-		String sql = "SELECT * FROM book WHERE booktitle LIKE '%" + query + "%' OR author LIKE '%" + query + "%' OR genre LIKE '%" + query + "%'";
+		String sql = "SELECT * FROM book WHERE booktitle LIKE '%" + query + "%' OR author LIKE '%" + query + "%' OR genre LIKE '%" + query + "%' OR publisher LIKE '%" + query + "%' ";
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	public ArrayList<BookDTO> totalsearch() {
@@ -61,6 +61,12 @@ public class PolarisDAO {
 	{
 		String sql = "select * from book order by likecount desc limit 0,5";
 		return (List<InterestDTO>)template.query(sql,new BeanPropertyRowMapper<InterestDTO>(InterestDTO.class));
+	}
+	
+	public List<BookloanDTO> hg_bookLoanDate(String userid)
+	{
+		String sql = "select * from bookloan where userid='"+userid+"' and loan=1 order by loandate asc limit 0,2;";
+		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
 	}
 	
 	public List<BookDTO> hg_homenovel()

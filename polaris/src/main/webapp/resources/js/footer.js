@@ -1,7 +1,61 @@
-
+let rightboxLoanList="";
 $(document).ready(function()
 {
 	document.getElementsByClassName("hg-returnbox")[0].style.display="block";
+	$.ajax({
+		url : "rightboxLoanController",
+		type: "GET",
+		dataType: "json",
+		data:{},
+		async:false,
+		contentType: "application/json",
+		success : function(data) {
+			if(data.length==0)
+			{
+				rightboxLoanList+=`<div class="hg-returnbox">
+						<img src="resources/images/home_noloan.png" class="hg-rtimg" alt="noloan" />
+					</div>`;
+			}
+			else if(data.length==1)
+			{
+				rightboxLoanList+=`<div class="hg-returnbox">
+					<img src="resources/bookimg/${data[i].bookcode}.jpg" class="hg-rtimg" alt="${data[i].bookcode}" />
+					
+					<span class="hg-righttitle">
+						${data[i].booktitle}
+					</span>
+					
+					<span class="hg-howmuch">
+						1일 남음
+					</span>
+				</div>`;
+			}
+			else
+			{
+				for(let i=0;i<data.length;i++)
+				{
+					rightboxLoanList+=`<div class="hg-returnbox" ${i==data.length-1?"style='display:none;'":""}>
+						<img src="resources/bookimg/${data[i].bookcode}.jpg" class="hg-rtimg" alt="${data[i].bookcode}" />
+						
+						<span class="hg-righttitle">
+							${data[i].booktitle}
+						</span>
+						
+						<span class="hg-howmuch">
+							1일 남음
+						</span>
+					</div>`;
+				}
+				rightboxLoanList+=`<div class="hg-rightline"></div>
+					<button class="hg-rboxbtn" onclick="rboxbtn(this)">+더보기</button>`;
+			}
+			
+			document.getElementsByClassName("hg_returnvalidbox")[0].innerHTML=rightboxLoanList;
+		},
+  		error : function() {
+  		console.log("error");
+  		}
+		});
 });
 const hg_rightbox = document.getElementsByClassName("hg-rightbox")[0];
 const hg_gototopbtn = document.getElementsByClassName("hg-gototop")[0];
