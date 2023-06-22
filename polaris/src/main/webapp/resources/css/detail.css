@@ -335,6 +335,10 @@ button.readNow-detail {
     resize:none;
     overflow:hidden;
 }
+.reviewBox-detail.nowrited
+{
+	height:130px;
+}
 .reviewBox-detail.active
 {
 	text-overflow: ellipsis;

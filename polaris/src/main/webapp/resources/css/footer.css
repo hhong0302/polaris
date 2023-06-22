@@ -135,22 +135,29 @@
 	color:#C30000;
 	font-size:15px;
 	font-weight:bolder;
-	margin-left:15px;
+	margin-left:20px;
 	letter-spacing:-1px;
+}
+
+.hg-returnbox
+{
+	text-align:center;
 }
 
 .hg-rightbox .hg-rtimg
 {
 	width:90px;
 	height:128px;
-	margin:10px 15px;
-	box-shadow:-3px 3px 5px 0 rgba(0,0,0,0.2);
+	margin-top:10px;
+	box-shadow:-3px 3px 10px 1px rgba(0,0,0,0.2);
 }
 
 .hg-rightbox .hg-righttitle
 {
-	width:80px;
-	margin-left:15px;
+	width:90px;
+	margin:auto;
+	margin-top:10px;
+	text-align:left;
 	font-size:14px;
 	font-weight:bold;
 	letter-spacing:-1.5px;
@@ -167,10 +174,12 @@
 .hg-rightbox .hg-howmuch
 {
 	display:inline-block;
+	width:90px;
+	margin:auto;
+	text-align:left;
 	font-size:12px;
 	color:#f30000;
 	margin-top:8px;
-	margin-left:15px;
 	letter-spacing:-1px;
 	font-weight:600;
 }
@@ -178,6 +187,9 @@
 .hg-rightbox .hg-rboxbtn
 {
 	display:block;
+	font-size:14px;
+	font-weight:600;
+	color:#888;
 	border:none;
 	outline:none;
 	background:none;
