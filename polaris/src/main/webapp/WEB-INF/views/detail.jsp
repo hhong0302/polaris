@@ -21,15 +21,12 @@
 		
 			<div class="infoNav-detail">
 				<img alt="homeIcon" src="resources/images/home-detail.png">
-				<p>메인<i class="ri-arrow-drop-right-line"></i><span class="ftBlack-detail">미디어 추천</span></p>
+				<p>메인<i class="ri-arrow-drop-right-line"></i><span class="ftBlack-detail">${book.genre}</span></p>
 			</div>
 			
 			<form class="bookRental-detail">
-				<div class="hash-detail">
-					<p>#아쿠타가와상 수상 작가 다나베 세이코 대표작</p>
-					<p>#내 인생 잊지 못할 사랑 영화 1위</p>
-					<p>#한국판 리메이크 한지민·남주혁 주연, 김종관 감독 영화 〈조제〉 원작</p>
-					<p>#이누도 잇신 감독 〈조제, 호랑이 그리고 물고기들〉 원작</p>
+				<div class="hash-detail">					
+					<p class="bookHash-detail">${book.hash}</p>
 				</div>
 				<div class="infoImg-detail">
 					<img alt="bookImg" src="resources/bookimg/${book.bookcode}.jpg" class="bookImg-detail">
