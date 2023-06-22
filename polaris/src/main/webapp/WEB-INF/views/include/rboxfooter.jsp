@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="resources/css/footer.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -12,13 +13,15 @@
 	<h1>내 도서관</h1>
 	
 	<!-- 로그인 안했을 시 -->
-		<!-- <span class="hg-afterlogin">
+	<c:if test="${sessionScope.userid eq null || empty sessionScope.userid}">
+		<span class="hg-afterlogin">
 			<a href="login">로그인</a> 후<br/>이용해주세요.
-		</span> -->
+		</span>
+		<div class="hg-returnbox"></div>
+	</c:if>
 	<!-- 로그인 안했을 시 -->
-	
 		<!-- 로그인 했을 시 -->
-		
+		<c:if test="${sessionScope.userid eq not null || not empty sessionScope.userid}">
 		<a class="hg-mmlinks" href="mypage">마이페이지</a>
 		<a class="hg-mmlinks" href="javascript:void(0)">회원정보 수정</a>
 		
@@ -28,7 +31,7 @@
 			곧 반납 도서
 		</div>
 
-		<!-- 반납 없을 경우 -->
+		<!-- 반납 있을 경우 -->
 		
 		<!-- 반납 2개 이상 시 반복 -->
 		<div class="hg-returnbox">
@@ -62,14 +65,15 @@
 		<button class="hg-rboxbtn" onclick="rboxbtn(this)">+더보기</button>
 		<!-- 2개 이상일 시 나오는 더보기 버튼 -->
 		
+		<!-- 반납 있을 경우 -->
+		
 		<!-- 반납 도서가 없을 시 -->
 		<!-- <div class="hg-returnbox">
 			<img src="resources/images/home_noloan.png" class="hg-rtimg" alt="noloan" />
 		</div> -->
 		<!-- 반납 도서가 없을 시 -->
-	
+		</c:if>
 		<!-- 로그인 했을 시 -->
-	 
 </div>
 
 
