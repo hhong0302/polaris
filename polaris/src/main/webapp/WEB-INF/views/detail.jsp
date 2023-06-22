@@ -83,7 +83,7 @@
 							</a>
 						</c:if>
 						<c:if test="${userLike != 0}">
-							<a class="likeBtn-detail" href='/home/detail?bookinfo=${bookcode}&userLike=0'>
+							<a onclik='return submit2(this.form)' class="likeBtn-detail" >
 								<img alt="like" src="resources/images/fillheart.png">
 								찜 ${likeCount} / ${userLike}
 							</a>
