@@ -74,6 +74,14 @@ public class HomeController {
 		out.close();
 	}
 	
+	//rightbox 반납도서 체크
+	@ResponseBody
+	@RequestMapping(value = "/rightboxLoanController")
+	public void rightboxLoanController(HttpServletRequest req,HttpServletResponse res) throws Exception
+	{
+		
+	}
+	
 	//리뷰 내역
 	@ResponseBody
 	@RequestMapping(value = "/reviewController")

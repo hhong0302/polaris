@@ -12,10 +12,11 @@ const rvbox_detail_value=rvbox_detail.innerHTML;
 
 window.onload=function()
 {
-	if(rvbox_detail_num<=95)
-	{
-		document.getElementById("rvcontentmoreWatchbtnbox").innerHTML="";
-	}
+	if(rvbox_detail_num<=95) document.getElementById("rvcontentmoreWatchbtnbox").innerHTML="";
+	else document.getElementById("rvcontentmoreWatchbtnbox").innerHTML=`<button type="button" 
+	class="rvcontentmoreWatchbtn" onclick="rvmoreWatch(this)">모두보기<i class="fa-solid fa-angle-down"></i>
+	</button>`;
+	
 	listNav_recent.click();
 }
 
