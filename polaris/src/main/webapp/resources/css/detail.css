@@ -1,6 +1,9 @@
 @charset "UTF-8";
+html {
+	scroll-behavior:smooth;
+}
 body {
-	font-family: ‘Pretendard’, ‘Noto Sans KR’, sans-serif
+	font-family: ‘Pretendard’, ‘Noto Sans KR’, sans-serif;
 }
 .container-detail {
 	width: 1200px;
