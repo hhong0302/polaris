@@ -55,13 +55,13 @@ public class PolarisDAO {
 	
 	public List<BookDTO> hg_homenovel()
 	{
-		String sql = "select * from book where genre='소설/시' order by date desc;";
+		String sql = "select * from book where genre='소설/시' order by date desc";
 		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	
 	public List<BookDTO> hg_homeessay()
 	{
-		String sql = "select * from book where genre='에세이' order by date desc;";
+		String sql = "select * from book where genre='에세이' order by date desc";
 		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	
@@ -75,26 +75,29 @@ public class PolarisDAO {
 		return template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	
-	public List<ReviewDTO> hg_reviewList(String bookcode)
+	public List<ReviewDTO> hg_reviewList(String bookcode,String rvType)
 	{
-		String sql="select * from review where bookcode="+bookcode;
-		List<ReviewDTO> review = null;
-		try
-		{
-			review = (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
-		}
-		catch(Exception e)
-		{
-			review = null;
-		}
-		return review;
+		String sql="select * from review where bookcode='"+bookcode+"'";
+		if(rvType=="recent"||rvType.equals("recent")) sql+="order by redate desc";
+		else sql+="order by relike desc";
+		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
+	}
+	public List<BookDTO> hg_sample()
+	{
+		String sql = "select * from book";
+		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+	}
+	public List<BookDTO> hg_reviewList(int listnum)
+	{
+		String sql = "select * from book limit "+listnum+", 5";
+		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	//wonhong End
 	
 	
 	//바지조장 Start
 	public List<MembersDTO> choi_memList(){
-		String sql = "select * from members";
+		String sql = "select * from members wherhe userid=?";
 		return (ArrayList<MembersDTO>) template.query(sql, new BeanPropertyRowMapper<>(MembersDTO.class));
 	}
 	//바지조장 End
