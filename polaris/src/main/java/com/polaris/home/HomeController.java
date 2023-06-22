@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.mysql.cj.Session;
 import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.HomeListCommand;
 import com.polaris.home.command.IdCheckCommand;
+import com.polaris.home.command.LoginOkCommand;
 import com.polaris.home.command.RegisterCommand;
 import com.polaris.home.command.SearchCommand;
 import com.polaris.home.command.SpCommand;
@@ -201,4 +203,17 @@ public class HomeController {
 		return "login";	// login.jsp 호출!!!
 	}
 
+	@RequestMapping("/loginok")
+	public String loginok(HttpServletRequest request, Model model){
+		model.addAttribute("request", request);
+		command = new LoginOkCommand();
+		command.execute(model);
+		
+		return "redirect:home";
+	}
+	
+	@RequestMapping(value = "member")
+	public String member(Model model) {
+		return "member";	// member.jsp 호출!!!
+	}
 }
