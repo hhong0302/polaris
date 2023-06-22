@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 
 import com.polaris.home.dto.BookDTO;
 import com.polaris.home.dto.BookloanDTO;
@@ -91,22 +92,45 @@ public class PolarisDAO {
 		return template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	
+	public void hg_reviewWrite(String bookcode,String userid,String retitle,String recontent)
+	{
+		String sql = "insert into review(bookcode,userid,retitle,recontent) values(?,?,?,?)";
+		template.update(sql,new PreparedStatementSetter()
+		{
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException
+			{
+				ps.setString(1, bookcode);
+				ps.setString(2, userid);
+				ps.setString(3, retitle);
+				ps.setString(4, recontent);
+			}
+		});
+	}
+	
+	//전체 리스트 수
 	public List<ReviewDTO> hg_reviewList(String bookcode,String rvType)
 	{
-		String sql="select * from review where bookcode='"+bookcode+"'";
+		String sql="select * from review where bookcode='"+bookcode+"' ";
 		if(rvType=="recent"||rvType.equals("recent")) sql+="order by redate desc";
-		else sql+="order by relike desc";
+		else sql+="order by relike desc, redate desc";
 		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
 	}
-	public List<BookDTO> hg_sample()
+	
+	//번호 눌렀을 때 나오는 리스트
+	public List<ReviewDTO> hg_reviewList(int listnum,String listType,String bookcode)
 	{
-		String sql = "select * from book";
-		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+		String sql = "select * from review where bookcode='"+bookcode+"' ";
+		if(listType=="recent"||listType.equals("recent")) sql+="order by redate desc";
+		else sql+="order by relike desc, redate desc";
+		sql+=" limit "+listnum+", 5";
+		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
 	}
-	public List<BookDTO> hg_reviewList(int listnum)
+	
+	public List<ReviewDTO> hg_ifyouWriteReview(String userid,String bookcode)
 	{
-		String sql = "select * from book limit "+listnum+", 5";
-		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+		String sql = "select * from review where userid='"+userid+"' and bookcode='"+bookcode+"'";
+		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
 	}
 	//wonhong End
 	
