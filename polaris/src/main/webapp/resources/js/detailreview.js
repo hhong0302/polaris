@@ -66,6 +66,8 @@ const reviewcommentlist = document.getElementsByClassName("reviewcommentlist-det
 const rvmenu_detail = document.getElementsByClassName("reviewMenu-detail");
 const rvtitle_detail = document.getElementsByClassName("reviewTitle-detail");
 const pgnum_detail_btnbox = document.getElementsByClassName("pageNum-detail-btnbox")[0];
+const pgbtn_prev = document.getElementsByClassName("prv")[0];
+const pgbtn_next = document.getElementsByClassName("nxt")[0];
 
 //인기/최신 버튼
 function listNav_click(reviewType,bookcode)
@@ -142,7 +144,11 @@ function listNav_click(reviewType,bookcode)
 				let listCount=0;
 				let rvButtonList="";
 				if(datas.length<25) listCount=Math.ceil(datas.length/5);
-				else listCount=5;
+				else
+				{
+					listCount=5;
+					pgbtn_next.classList.add("active");
+				}
 				for(let i=1;i<=listCount;i++)
 				{
 					rvButtonList+=`<button class="pageNum-pagebtn" onclick="pageNumBtnClick(this,${i-1},'${listType}','${bookcode}')">${i}</button>`;
@@ -220,7 +226,7 @@ function pageNumBtnClick(e,listNumber,lstType,bookcode)
   		console.log("error");
   		}
 		});
-	
+	window.scrollTo({ top: 2600, behavior: "smooth" }); 
 	for(let i=0;i<pgNum_pgbtn.length;i++)
 	{
 		pgNum_pgbtn[i].classList.remove("active");
@@ -232,8 +238,6 @@ function pageNumBtnClick(e,listNumber,lstType,bookcode)
 function rvListPrevNxtBtn(hg_number,bookcode)
 {
 	const pgNum_pgbtn = document.getElementsByClassName("pageNum-pagebtn");
-	const pgbtn_prev = document.getElementsByClassName("prv")[0];
-	const pgbtn_next = document.getElementsByClassName("nxt")[0];
 	listPageNum+=hg_number;
 	if(listPageNum<0)
 	{
@@ -270,6 +274,9 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 	if(listPageNum==(allReviewDatas/5)-1) pgbtn_next.classList.remove("active");
 	else pgbtn_next.classList.add("active");
 }
+
+
+
 
 
 
