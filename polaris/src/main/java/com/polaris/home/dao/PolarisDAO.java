@@ -113,7 +113,12 @@ public class PolarisDAO {
 	}
 	
 	public List<BookloanDTO> choi_loanList(){
-		String sql = "select*from bookloan";
+		String sql = "select*from bookloan where loan >=1";
+		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
+	}
+	
+	public List<BookloanDTO> choi_pastloanList(){
+		String sql = "select*from bookloan where loan < 1";
 		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
 	}
 	
