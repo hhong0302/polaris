@@ -15,7 +15,9 @@
 </head>
 <body>
 <%@include file="include/header.jsp" %>
-	
+	<%
+		String uid = (String) session.getAttribute("userid");
+	%>
 	
 	<div class="container-detail">
 		
@@ -27,7 +29,7 @@
 				<p>메인<i class="ri-arrow-drop-right-line"></i><span class="ftBlack-detail">${book.genre}</span></p>
 			</div>
 			
-			<form class="bookRental-detail">
+			<form class="bookRental-detail" action="javascript:void(0)">
 				<div class="hash-detail">					
 					<p class="bookHash-detail">
 					${fn:replace(book.hash, replaceHash, "</p> <p>")}
@@ -53,7 +55,22 @@
 						<p>${book.date} 출간</p>
 					</div>
 				</c:if>
+				<%
+					if (uid == null){
+				%>
+					<div onclick="reject()" class="rentalBtn-detail">
+						<div class="likeBtn-detail">
+							<img alt="like" src="resources/images/emptyheart.png">
+							찜 1,240
+						</div>
+						<button type="button" class="rental-detail">대여하기</button>
+						<button type="button" class="readNow-detail">바로 읽기</button>
+					</div>
+				<%
+					}else {
+				%>				
 					<div class="rentalBtn-detail">
+						
 						<div class="likeBtn-detail">
 							<img alt="like" src="resources/images/emptyheart.png">
 							찜 1,240
@@ -61,6 +78,9 @@
 						<button type="submit" class="rental-detail">대여하기</button>
 						<button type="button" class="readNow-detail">바로 읽기</button>
 					</div>
+				<%
+					}
+				%>
 				</div>
 			</form>
 			
