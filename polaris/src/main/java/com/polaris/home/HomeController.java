@@ -257,7 +257,7 @@ public class HomeController {
 		if(rs == 0) {
 			response.setContentType("text/html; charset=UTF-8");
 			out.println("<script>");
-			out.println("alert('로그인에 실패했습니다.');");
+			out.println("alert('아이디 또는 비밀번호가 틀립니다.');");
 			out.println("location.href=('/home/login')");
 			out.println("</script>");
 			out.close();
@@ -266,11 +266,6 @@ public class HomeController {
 			response.setContentType("text/html; charset=UTF-8");
 			HttpSession session = request.getSession();
 			session.setAttribute("userid", request.getParameter("userid"));
-			out.println("<script>");
-			out.println("alert('로그인에 성공했습니다.');");
-			out.println("location.href=('/home')");
-			out.println("</script>");
-			out.close();
 			return "redirect:/";
 		}
 	}

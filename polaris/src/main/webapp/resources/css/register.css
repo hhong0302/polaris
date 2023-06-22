@@ -69,6 +69,9 @@ input[type="number"]::-webkit-inner-spin-button {
 	width: 65%;
 	height: 10px;
 }
+.mailcheckno span:first-child{
+    width: 60%;
+}
 #idcheckok-message, #passcheckok-message, #repasscheckok-message{
 	font-size: 10px;
 	font-weight: bold;
@@ -103,16 +106,19 @@ input[type="number"]::-webkit-inner-spin-button {
 	cursor: pointer;
 }
 #check-option0{
+	color: #bdbdbd;
 	font-size: 10px;
 	text-align: left;
 	margin-top: 5px;
 }
 #check-option1{
+	color: #bdbdbd;
 	font-size: 10px;
 	text-align: left;
 	margin-top: 5px;
 }
 #check-option2{
+	color: #bdbdbd;
 	font-size: 10px;
 	text-align: left;
 	margin-top: 5px;
