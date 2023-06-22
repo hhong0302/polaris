@@ -10,28 +10,21 @@ import org.springframework.ui.Model;
 import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.BookDTO;
 
-public class SearchCommand implements SpCommand {
-    
-
+public class OrderSearchCommand implements SpCommand{
 
     @Override
     public void execute(Model model) {
         Map<String, Object> map = model.asMap();
         HttpServletRequest request = (HttpServletRequest) map.get("request");
         
-        String genre = request.getParameter("genre");
-        String query = request.getParameter("query");
-
-
+ 
+        String order = request.getParameter("order");
         PolarisDAO dao = new PolarisDAO();
-        ArrayList<BookDTO> dtos = dao.search(query);
-        ArrayList<BookDTO> dto = dao.totalsearch();
-        ArrayList<BookDTO> segen = dao.genresearch(genre);
+
+        ArrayList<BookDTO> ordse = dao.ordersearch(order);
 
 
-        model.addAttribute("search", dtos);
-        model.addAttribute("totalsearch", dto);
-        model.addAttribute("genresearch", segen);
-
+        model.addAttribute("ordersearch", ordse);
     }
 }
+
