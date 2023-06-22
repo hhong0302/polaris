@@ -58,6 +58,50 @@
                     </div>
                     
                 </div>
+
+                <div class="third">
+                    <div class="block">
+                        <div class="left">
+                          <div class="l-birth">
+                            생년월일
+                          </div>  
+                            
+                        </div>
+                        <div class="right d-flex justify-between align-center">
+                            <div class="birth">
+                                2000년 06월 11일
+                            </div>
+                            <div class="c-birth">
+                                <a href="#" class="change-b">변경하기</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="fourth">
+                    <div class="block">
+                        <div class="left">
+                            휴대폰 번호
+                        </div>
+                        <div class="right">
+                            010-1234-5678
+                        </div>
+                    </div>
+                </div>
+                <div class="fifth">
+                    <div class="block">
+                        <div class="left">
+                            이메일
+                        </div>
+                        <div class="right">
+                            example@naver.com
+                        </div>
+                    </div>
+                </div>
+                <div class="sixth d-flex justify-between align-center">
+                    <div class="leave">회원탈퇴</div>
+                        <a href="#" class="leave-box">탈퇴하기</a>
+                </div>
         </form>
     </div>
 </body>
