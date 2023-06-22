@@ -43,6 +43,15 @@ public class PolarisDAO {
 	    sql +="'%" + genre + "%'";
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
+	public ArrayList<BookDTO> ordersearch(String order)
+	{
+		String sql = "";
+		if(order.equals("인기순")||order=="인기순") sql="select * from book order by likecount desc";
+		if(order.equals("최신순")||order=="최신순") sql="select * from book order by date desc";
+		if(order.equals("대여순")||order=="대여순") sql="select * from book order by loancount desc";
+		
+		return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+	}
 	//gyu End
 	
 	
