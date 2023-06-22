@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import com.polaris.home.dto.BookDTO;
 import com.polaris.home.dto.InterestDTO;
 import com.polaris.home.dto.MembersDTO;
+import com.polaris.home.dto.ReviewDTO;
 import com.polaris.home.util.Static;
 
 public class PolarisDAO {
@@ -54,13 +55,13 @@ public class PolarisDAO {
 	
 	public List<BookDTO> hg_homenovel()
 	{
-		String sql = "select * from book where genre='소설/시' order by date desc;";
+		String sql = "select * from book where genre='소설/시' order by date desc";
 		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	
 	public List<BookDTO> hg_homeessay()
 	{
-		String sql = "select * from book where genre='에세이' order by date desc;";
+		String sql = "select * from book where genre='에세이' order by date desc";
 		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	
@@ -73,33 +74,40 @@ public class PolarisDAO {
 		
 		return template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
+	
+	public List<ReviewDTO> hg_reviewList(String bookcode,String rvType)
+	{
+		String sql="select * from review where bookcode='"+bookcode+"'";
+		if(rvType=="recent"||rvType.equals("recent")) sql+="order by redate desc";
+		else sql+="order by relike desc";
+		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
+	}
+	public List<BookDTO> hg_sample()
+	{
+		String sql = "select * from book";
+		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+	}
+	public List<BookDTO> hg_reviewList(int listnum)
+	{
+		String sql = "select * from book limit "+listnum+", 5";
+		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+	}
 	//wonhong End
 	
 	
 	//바지조장 Start
 	public List<MembersDTO> choi_memList(){
-		String sql = "select * from members";
+		String sql = "select * from members wherhe userid=?";
 		return (ArrayList<MembersDTO>) template.query(sql, new BeanPropertyRowMapper<>(MembersDTO.class));
 	}
 	//바지조장 End
 	
 	
 	//alice Start
-	public String booktitle(String bookcode) {
-		template.update(new PreparedStatementCreator() {
-					
-			@Override
-			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
-				String sql = "select booktitle from book where bookcode = ?";
-				PreparedStatement pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, bookcode);
-					System.out.println(pstmt);
-					return pstmt;
-				}
-			
-		});
-		return bookcode;
-		
+	public ArrayList<BookDTO> bookinfo(String bookcode) { 
+	    String sql = "select * from book where bookcode like ";
+	    sql +="'" + bookcode + "'";
+	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	
 	//alice End

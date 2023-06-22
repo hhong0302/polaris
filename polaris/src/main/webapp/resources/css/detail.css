@@ -107,6 +107,7 @@ button.readNow-detail {
 	display: flex;
 	align-items: center;
 	margin-right: 30px;
+	cursor: pointer;
 }
 .navMenu-detail {
 	width: 5px;
@@ -134,7 +135,9 @@ button.readNow-detail {
     top: 0px;
     background: #fff;
     padding-top: 50px;
+    z-index: 999;
 }
+
 
 
 /***** BookInfo & Review *****/
@@ -361,7 +364,8 @@ button.readNow-detail {
 }
 .listTile-detail {
 	display: flex;
-	align-items: flex-end;
+	height:30px;
+	align-items: baseline;
 	margin-bottom: 15px;
 }
 .listNav-detail,
@@ -424,7 +428,6 @@ button.readNow-detail {
 .reviewComment-content
 {
 	width:945px;
-	height:fit-content;
 	font-size:16px;
 	color:#797979;
 	padding:0;
@@ -432,11 +435,13 @@ button.readNow-detail {
 	border:none;
 	outline:none;
 	resize:none;
+	overflow:hidden;
 }
 .reviewBottom-detail {
 	display: flex;
 	justify-content: space-between;
 	align-items:center;
+	margin-top:20px;
 	padding-bottom: 30px;
 	border-bottom:1px solid #797979;
 }
@@ -453,6 +458,10 @@ button.readNow-detail {
 	display:flex;
 	align-items:flex-end;
 	cursor:pointer;
+}
+.likebox-detail-like
+{
+	color:#4563FF;
 }
 .reviewBox-noncomment
 {

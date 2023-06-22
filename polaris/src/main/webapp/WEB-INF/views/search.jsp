@@ -76,7 +76,7 @@
 	                    </div>
 	                    <div class="btn-box">
 	                        <div class="detail-btn">
-	                            <a href="detail">상세보기</a>
+	                            <a href="detail?bookinfo=${book.bookcode}">상세보기</a>
 	                        </div>
 	                        <div class="rental-btn">
 	                            <button type="submit" class="search-rental-btn">대여하기</button>
@@ -105,7 +105,9 @@
 	                
 	                <div class="rental-box">
 	                    <div class="search-like">
-	                        <img src="resources/images/heartline.jpg" alt="heart" />
+	                    	<a href="#" id="likeimg" onclick="switchlike()">
+	                        	<img src="resources/images/heartline.jpg" alt="heart" />
+	                        </a>
 	                        <p>찜 1,240</p>
 	                    </div>
 	                    <div class="btn-box">
@@ -130,6 +132,6 @@
     </div>
 
     <%@ include file="include/rboxfooter.jsp" %>
-    <script src="resources/js/search.js"></script>
+
 </body>
 </html>

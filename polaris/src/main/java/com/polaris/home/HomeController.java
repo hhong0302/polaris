@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -26,6 +27,7 @@ import com.polaris.home.command.SearchCommand;
 import com.polaris.home.command.SpCommand;
 import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.BookDTO;
+import com.polaris.home.dto.ReviewDTO;
 import com.polaris.home.util.Static;
 
 
@@ -49,6 +51,7 @@ public class HomeController {
 			Static.template=this.template;
 		}
 
+	//home
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		SpCommand command = new HomeListCommand();
@@ -57,9 +60,9 @@ public class HomeController {
 		return "home";
 	}
 	
+	//main 인기/최신/대여순
 	@ResponseBody
 	@RequestMapping(value = "/mainHotController")
-	
 	public void mainHotController(HttpServletRequest req,HttpServletResponse res) throws Exception {
 		PolarisDAO dao = new PolarisDAO();
 		String name = req.getParameter("name");
@@ -67,6 +70,45 @@ public class HomeController {
 		PrintWriter out = res.getWriter();
 		String gson = new Gson().toJson(dto);
 		out.println(gson);
+		out.close();
+	}
+	
+	//리뷰 내역
+	@ResponseBody
+	@RequestMapping(value = "/reviewController")
+	public void reviewController(HttpServletRequest req,HttpServletResponse res) throws Exception{
+		PolarisDAO dao = new PolarisDAO();
+		String bookcode = req.getParameter("bookcode");
+		String rvType = req.getParameter("reviewType");
+		//List <ReviewDTO> dto = dao.hg_reviewList(bookcode,rvType);
+		List <BookDTO> dto = dao.hg_sample();
+		PrintWriter out = res.getWriter();
+		String gson = new Gson().toJson(dto);
+		out.println(gson);
+		out.close();
+	}
+	
+	//리뷰 리스트
+	@ResponseBody
+	@RequestMapping(value = "/reviewListController")
+	public void reviewListController(HttpServletRequest req,HttpServletResponse res) throws Exception{
+		PolarisDAO dao = new PolarisDAO();
+		int listnum = 5*Integer.parseInt(req.getParameter("listnum"));
+		List <BookDTO> dto = dao.hg_reviewList(listnum);
+		PrintWriter out = res.getWriter();
+		String gson = new Gson().toJson(dto);
+		out.println(gson);
+		out.close();
+	}
+	
+	//리뷰 좋아요
+	@ResponseBody
+	@RequestMapping(value = "/reviewLikeController")
+	public void reviewLikeController(HttpServletRequest req,HttpServletResponse res) throws Exception{
+		HttpSession session = req.getSession();
+		
+		PrintWriter out = res.getWriter();
+		out.println(0);
 		out.close();
 	}
 	
@@ -110,23 +152,24 @@ public class HomeController {
 	
 	
 	@RequestMapping(value = "detail")
-	public String detail(HttpServletRequest req, Model model) {
-        String bookcode = req.getParameter("bookcode");
+	public String detail(HttpServletRequest request, Model model) {
+        String bookcode = request.getParameter("bookinfo");
         model.addAttribute("bookcode", bookcode);
         
 		return "detail";	// detail.jsp 호출!!!
 	}
 
-	@RequestMapping(value = "booktitle")
-	public String booktitle(HttpServletRequest req, Model model) {
-		model.addAttribute("request", req);
-		command = new DetailCommand();
-		command.execute(model);
-        
-		return "detail";
-	}
+	@RequestMapping(value = "detail", method = RequestMethod.GET)
+	public String bookinfo(HttpServletRequest request, Model model) {
+		String bookcode = request.getParameter("bookinfo");
+		model.addAttribute("request", request);
+		model.addAttribute("bookcode", bookcode);
 
-	
+	    command = new DetailCommand();
+	    command.execute(model);
+	    
+	    return "detail";
+	}
 	
 	
 	@RequestMapping(value = "mypage")

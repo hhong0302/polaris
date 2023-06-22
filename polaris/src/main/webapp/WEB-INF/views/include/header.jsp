@@ -43,3 +43,4 @@
 	</div>
 </div>
 </header>
+   <script src="resources/js/search.js"></script>
