@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 
 import com.polaris.home.dto.BookDTO;
+import com.polaris.home.dto.BookloanDTO;
 import com.polaris.home.dto.InterestDTO;
 import com.polaris.home.dto.MembersDTO;
 import com.polaris.home.dto.ReviewDTO;
@@ -97,8 +98,20 @@ public class PolarisDAO {
 	
 	//바지조장 Start
 	public List<MembersDTO> choi_memList(){
-		String sql = "select * from members wherhe userid=?";
-		return (ArrayList<MembersDTO>) template.query(sql, new BeanPropertyRowMapper<>(MembersDTO.class));
+
+		String sql = "select * from members where userid = 'test'";
+		return (List<MembersDTO>)template.query(sql,new BeanPropertyRowMapper<MembersDTO>(MembersDTO.class));
+	}
+	
+	public List<BookloanDTO> choi_loanList(){
+		String sql = "select*from bookloan";
+		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
+	}
+	
+	public List<InterestDTO> choi_interest(){
+		String sql = "select*from interest";
+		return (List<InterestDTO>)template.query(sql,new BeanPropertyRowMapper<InterestDTO>(InterestDTO.class));
+
 	}
 	//바지조장 End
 	
@@ -140,7 +153,17 @@ public class PolarisDAO {
 		String sql = "select count(*) from  members where userid = '" + userid + "'";
 		return template.queryForObject(sql, Integer.class);
 	}
-}
+
+	public int loginOk(String userid, String userpass){
+		String sql = "select * from members where userid = ? and userpass = ?";
+		return template.queryForObject(sql, Integer.class);
+	}
+
+
+	
+	
 	//cha End
 
 	
+
+}

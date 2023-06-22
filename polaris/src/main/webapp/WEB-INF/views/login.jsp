@@ -13,13 +13,13 @@
 	<div class="logo">
 		<img class="login-logo" src="resources/images/textlogo_black.svg" alt="LOGO" />
 	</div>
-	<form action="" method="post" name="login-form" class="login-form">
+	<form action="loginok" method="post" name="login-form" class="login-form">
 		<input type="text" name="userid" placeholder="아이디" class="id-area">
 	<div class="show-pass">
 		<input type="password" name="userpass" placeholder="비밀번호" class="pass-area">
 		<div class="eye"><i class="fa-solid fa-eye" style="color: #bbb;"></i></div>
 	</div>
-		<button type="button" class="login-btn">로그인</button>
+		<button type="submit" class="login-btn">로그인</button>
 	</form>
 	<input type="checkbox" id="save-id">
 	<label for="save-id" class="save-id">아이디 저장</label>
