@@ -1,5 +1,6 @@
 package com.polaris.home;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -20,6 +21,10 @@ import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.HomeListCommand;
 import com.polaris.home.command.IdCheckCommand;
 import com.polaris.home.command.MyCommand;
+
+import com.polaris.home.command.LoginOkCommand;
+import com.polaris.home.command.MemberListCommand;
+
 import com.polaris.home.command.OrderSearchCommand;
 import com.polaris.home.command.RegisterCommand;
 import com.polaris.home.command.SearchCommand;
@@ -175,46 +180,21 @@ public class HomeController {
 	    return "search";
 	}
 
+
 	
-	
-	@RequestMapping(value = "memlist", method = RequestMethod.GET)
-	public String detail(HttpServletRequest request, Model model) {
-        
-		String memlist = request.getParameter("memlist");
-		model.addAttribute("request", request);
-        model.addAttribute("memlist", memlist);
-        
-        command = new MyCommand();
-        command.execute(model);
-                
-		return "detail";	// detail.jsp 호출!!!
-	}
-	
-	@RequestMapping(value = "loanList", method = RequestMethod.GET)
-	public String loanlist(HttpServletRequest request, Model model) {
-        
-		String loanlist = request.getParameter("loanlist");
-		model.addAttribute("request", request);
-        model.addAttribute("loanlist", loanlist);
-        
-        command = new MyCommand();
-        command.execute(model);
-                
-		return "detail";	// detail.jsp 호출!!!
-	}
-	
-	@RequestMapping(value = "interest", method = RequestMethod.GET)
-	public String interest(HttpServletRequest request, Model model) {
-        
-		String interest = request.getParameter("interest");
-		model.addAttribute("request", request);
-        model.addAttribute("interest", interest);
-        
-        command = new MyCommand();
-        command.execute(model);
-                
-		return "detail";	// detail.jsp 호출!!!
-	}
+	/*
+	 * @RequestMapping(value = "interest", method = RequestMethod.GET) public String
+	 * interest(HttpServletRequest request, Model model) {
+	 * 
+	 * String interest = request.getParameter("interest");
+	 * model.addAttribute("request", request); model.addAttribute("mypageresult",
+	 * interest);
+	 * 
+	 * command = new MyCommand(); command.execute(model);
+	 * model.addAttribute("pageType", "interest");
+	 * 
+	 * return "mypage"; // mypage.jsp 호출!!! }
+	 */
 
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
 	public String bookinfo(HttpServletRequest request, Model model) {
@@ -227,27 +207,18 @@ public class HomeController {
 	    
 	    return "detail";
 	}
-	
-	
-	@RequestMapping(value="mypage")
-	public String mypage(HttpServletRequest request, Model model) {
-		String bookloan = request.getParameter("bookloan");
-		model.addAttribute("bookloan", bookloan);
-		
-		return "mypage";
-	}
+
 	
 	@RequestMapping(value = "mypage", method = RequestMethod.GET)
 	public String bookloan(HttpServletRequest request, Model model) {
-		String bookloan = request.getParameter("bookloan");
-		model.addAttribute("request", request);
-		model.addAttribute("bookloan", bookloan);
 		
 		command = new MyCommand();
 		command.execute(model);
 		
 		return "mypage";	// detail.jsp 호출!!!
+	
 	}
+	
 	
 	@RequestMapping(value = "register")
 	public String register(Model model) {
@@ -276,23 +247,56 @@ public class HomeController {
 	}
 
 	@RequestMapping("/loginok")
-	public String loginok(HttpServletRequest request, Model model){
+	public String loginok(HttpServletRequest request,HttpServletResponse response, Model model) throws IOException{
 		model.addAttribute("request", request);
 //		command = new LoginOkCommand();
 //		command.execute(model);
 		PolarisDAO dao = new PolarisDAO();
+		PrintWriter out = response.getWriter();
 		int rs = dao.loginOk(request.getParameter("userid"), request.getParameter("userpass"));
 		if(rs == 0) {
+			response.setContentType("text/html; charset=UTF-8");
+			out.println("<script>");
+			out.println("alert('로그인에 실패했습니다.');");
+			out.println("location.href=('/home/login')");
+			out.println("</script>");
+			out.close();
 			return "redirect:login";
 		}else {
+			response.setContentType("text/html; charset=UTF-8");
 			HttpSession session = request.getSession();
 			session.setAttribute("userid", request.getParameter("userid"));
+			out.println("<script>");
+			out.println("alert('로그인에 성공했습니다.');");
+			out.println("location.href=('/home')");
+			out.println("</script>");
+			out.close();
 			return "redirect:/";
 		}
 	}
+	@RequestMapping(value = "/logout")
+	public String logout(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		HttpSession session = request.getSession();
+		PrintWriter out = response.getWriter();
+		session.invalidate();
+		out.println("<script>");
+		out.println("alert('로그아웃이 되었습니다.');");
+		out.println("location.href=('/home')");
+		out.println("</script>");
+		out.close();
+		return "redirect:/";	// 로그아웃!!!
+	}
 	
 	@RequestMapping(value = "member")
-	public String member(Model model) {
+	public String member(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		String userid = (String)session.getAttribute("userid");
+		request.setAttribute("userid", userid);
+		model.addAttribute("request", request);
+		command = new MemberListCommand();
+		command.execute(model);
 		return "member";	// member.jsp 호출!!!
 	}
 }
+

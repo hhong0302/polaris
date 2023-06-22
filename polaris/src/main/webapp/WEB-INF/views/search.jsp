@@ -16,7 +16,7 @@
     <c:when test="${not empty searchresult}">
         <div class="search-result">
             <div class="result-title">
-                <h3><c:out value="'${searchresult}'"/> 검색결과</h3>
+                <h3><c:out value="'${searchresult}'" /> 검색결과</h3>
 			<p>총 <c:choose>
 			      <c:when test="${searchType eq 'search'}">${fn:length(search)}</c:when>
 			      <c:when test="${searchType eq 'totalsearch'}">${fn:length(totalsearch)}</c:when>
@@ -62,7 +62,7 @@
 	                    </div>
 	                    <div class="btn-box">
 	                        <div class="detail-btn">
-	                            <a href="detail">상세보기</a>
+	                            <a href="detail?bookinfo=${book.bookcode}">상세보기</a>
 	                        </div>
 	                        <div class="rental-btn">
 	                            <button type="submit" class="search-rental-btn">대여하기</button>

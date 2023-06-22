@@ -75,6 +75,7 @@ body {
 	align-items: center;
 	color: #797979;
 	margin-bottom: 25px;
+	cursor: pointer;
 }
 .likeBtn-detail img {
 	margin-right: 10px;
@@ -88,6 +89,7 @@ button.readNow-detail {
 	font-size: 18px;
 	font-weight: bolder;
 	color: #fff;
+	cursor: pointer;
 }
 button.rental-detail {
 	margin-bottom: 10px;
