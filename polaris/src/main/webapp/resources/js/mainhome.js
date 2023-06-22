@@ -187,6 +187,9 @@ function hg_hotmenubtnclick(hg_what,num)
 				hg_hotmenubtn[i].classList.remove("active");
 			}
 			hg_hotmenubtn[num].classList.add("active");
+			if(hg_what=="popular") document.getElementById("hg_morewatch").href = "ordersearch?order=인기순";
+			if(hg_what=="recent") document.getElementById("hg_morewatch").href = "ordersearch?order=최신순";
+			if(hg_what=="lotsloan") document.getElementById("hg_morewatch").href = "ordersearch?order=대여순";
   		},
   		error : function() {
   		console.log("error");

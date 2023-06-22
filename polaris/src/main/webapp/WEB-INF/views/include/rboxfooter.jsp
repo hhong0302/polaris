@@ -11,17 +11,18 @@
 	</div>
 
 	<h1>내 도서관</h1>
-	
-	<!-- 로그인 안했을 시 -->
-	<c:if test="${sessionScope.userid eq null || empty sessionScope.userid}">
+	<c:choose>
+	<%-- 로그인 안했을 시 --%>
+	<c:when test="${sessionScope.userid eq null || empty sessionScope.userid}">
 		<span class="hg-afterlogin">
 			<a href="login">로그인</a> 후<br/>이용해주세요.
 		</span>
-		<div class="hg-returnbox"></div>
-	</c:if>
-	<!-- 로그인 안했을 시 -->
-		<!-- 로그인 했을 시 -->
-		<c:if test="${sessionScope.userid eq not null || not empty sessionScope.userid}">
+		<div class="hg-returnbox" style="display:none;"></div>
+		<div class="hg_returnvalidbox" style="display:none;"></div>
+	</c:when>
+	<%-- 로그인 안했을 시 --%>
+	<%-- 로그인 했을 시 --%>
+	<c:otherwise>
 		<a class="hg-mmlinks" href="mypage">마이페이지</a>
 		<a class="hg-mmlinks" href="javascript:void(0)">회원정보 수정</a>
 		
@@ -31,49 +32,40 @@
 			곧 반납 도서
 		</div>
 
-		<!-- 반납 있을 경우 -->
+		<%-- 반납 있을 경우 --%>
 		
-		<!-- 반납 2개 이상 시 반복 -->
-		<div class="hg-returnbox">
-			<img src="resources/bookimg/spaceboy.jpg" class="hg-rtimg" alt="spaceboy" />
-			
-			<span class="hg-righttitle">
-				당신은 결국 무엇이든 해내는 사람
-			</span>
-			
-			<span class="hg-howmuch">
-				1일 남음
-			</span>
-		</div>
-		<!-- 반납 2개 이상 시 반복 -->
-		
-		<div class="hg-returnbox">
-			<img src="resources/bookimg/spaceboy.jpg" class="hg-rtimg" alt="spaceboy" />
-			
-			<span class="hg-righttitle">
-				당신은 결국 무엇이든 해내는 사람
-			</span>
-			
-			<span class="hg-howmuch">
-				1일 남음
-			</span>
-		</div>
+		<%-- 반납 2개 이상 시 반복 --%>
+		<div class="hg_returnvalidbox">
+			<div class="hg-returnbox">
+				<img src="resources/bookimg/spaceboy.jpg" class="hg-rtimg" alt="spaceboy" />
 				
-		<!-- 2개 이상일 시 나오는 더보기 버튼 -->
-		<div class="hg-rightline"></div>
-		
-		<button class="hg-rboxbtn" onclick="rboxbtn(this)">+더보기</button>
-		<!-- 2개 이상일 시 나오는 더보기 버튼 -->
-		
-		<!-- 반납 있을 경우 -->
-		
-		<!-- 반납 도서가 없을 시 -->
-		<!-- <div class="hg-returnbox">
-			<img src="resources/images/home_noloan.png" class="hg-rtimg" alt="noloan" />
-		</div> -->
-		<!-- 반납 도서가 없을 시 -->
-		</c:if>
-		<!-- 로그인 했을 시 -->
+				<span class="hg-righttitle">
+					당신은 결국 무엇이든 해내는 사람
+				</span>
+				
+				<span class="hg-howmuch">
+					1일 남음
+				</span>
+			</div>
+			<%-- 반납 2개 이상 시 반복 --%>
+					
+			<%-- 2개 이상일 시 나오는 더보기 버튼 --%>
+			<%--<div class="hg-rightline"></div>
+			
+			<button class="hg-rboxbtn" onclick="rboxbtn(this)">+더보기</button>--%>
+			<%-- 2개 이상일 시 나오는 더보기 버튼 --%>
+			
+			<%-- 반납 있을 경우 --%>
+			
+			<%-- 반납 도서가 없을 시 --%>
+					<%-- <div class="hg-returnbox">
+						<img src="resources/images/home_noloan.png" class="hg-rtimg" alt="noloan" />
+					</div> --%>
+			<%-- 반납 도서가 없을 시 --%>
+		</div>
+	</c:otherwise>
+	<%-- 로그인 했을 시 --%>
+	</c:choose>
 </div>
 
 
