@@ -24,7 +24,7 @@
 	<%-- 로그인 했을 시 --%>
 	<c:otherwise>
 		<a class="hg-mmlinks" href="mypage">마이페이지</a>
-		<a class="hg-mmlinks" href="javascript:void(0)">회원정보 수정</a>
+		<a class="hg-mmlinks" href="member">회원정보 수정</a>
 		
 		<div class="hg-rightline"></div>
 		
