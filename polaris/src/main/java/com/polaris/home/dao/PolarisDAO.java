@@ -118,7 +118,7 @@ public class PolarisDAO {
 	
 	//alice Start
 	public ArrayList<BookDTO> bookinfo(String bookcode) { 
-	    String sql = "select * from book where bookcode like ";
+	    String sql = "select * from book where bookcode = ";
 	    sql +="'" + bookcode + "'";
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
