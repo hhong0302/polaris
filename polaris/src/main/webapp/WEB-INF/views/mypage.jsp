@@ -105,23 +105,25 @@
         <div class="choi-jjim">
             <p>찜한 목록</p>
             <div class="choi-jjim-book">
+            <c:forEach var ="my" items= "${interest }"> 
                 <div class="choi-jjim-innerbook">
                     <div class="choi-jjim-img">
-                        <img src="resources/bookimg/bad.jpg" alt="">
+                        <img src="resources/bookimg/${my.bookcode }.jpg" alt="book">
                     </div>
                     <div class="choi-jjim-text">
                     	<div class = "choi-close-btn">
                     		<img src="resources/images/Vector.png" alt="" />
                     	</div>
                     	<div class = "choi-jjim-text-top">
-	                        <p>안 귀여운 곰돌이 푸</p>
+	                        <p>${my.booktitle}</p>
                     	</div>
     					<div class = "choi-jjim-text-bottom">
-	                        <span>곰돌이 푸 저자</span>
-	                        <span>지은이 푸</span>
+	                        <span>${my.author }</span>
+	                        <span>${my.publisher }</span>
     					</div>
                     </div>
                 </div>
+                </c:forEach>
             </div>
         </div>
 

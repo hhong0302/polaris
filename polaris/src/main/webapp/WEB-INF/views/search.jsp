@@ -45,9 +45,9 @@
 	                            <img src="resources/bookimg/${book.bookcode}.jpg" alt="book" />
 	                        </div>
 	                        <div class="search-context">
-	                            <h3>${book.booktitle}</h3>
-	                           <p>${book.author} • ${book.publisher}</p>
-	                            <p>${book.genre}</p>
+	                            <h3><a href="search?query=${book.booktitle}">${book.booktitle}</a></h3>
+	                           <p><a href="search?query=${book.author}">${book.author}</a> • <a href="search?query=${book.publisher}">${book.publisher}</a></p>
+	                            <p><a href="search?query=${book.genre}">${book.genre}</a></p>
 	                            <p><span class="search-book-context">${book.hash}</span></p>
 	                        </div>
 	                    </div>
