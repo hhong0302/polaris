@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="resources/css/reset.css" />
 <link rel="stylesheet" href="resources/css/header.css" />
+<%
+	String userid = (String)session.getAttribute("userid");
+%>
 <header>
 <div class="container">
 	<div class="logo_area">
@@ -28,16 +31,19 @@
 		</ul>
 		<div class="member">
 			<div class="top-nav">
-				<c:choose>
-					<c:when test="">
-						<a href="#">로그인</a>  •
-						<a href="#">회원가입</a> 
-					</c:when>
-				<c:otherwise>	
+				<%
+					if(userid == null || userid.equals("")){
+				%>
+					<a href="#">로그인</a>  •
+					<a href="#">회원가입</a>
+				<%
+					}else{
+				%>
 					<a href="#">로그아웃</a>  •
-					<a href="#">회원수정</a>
-				</c:otherwise>
-				</c:choose>
+					<a href="#">마이페이지</a>
+				<%
+				}
+				%>
 			</div>
 		</div>
 	</div>
