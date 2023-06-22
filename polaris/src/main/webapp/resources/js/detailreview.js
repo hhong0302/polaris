@@ -6,28 +6,32 @@ const rvbox_detail = document.getElementsByClassName("reviewBox-detail")[0];
 const review_deletebtn=document.getElementsByClassName("review-deletebtn")[0];
 const listNav_recent=document.getElementById("recent");
 const listNav_like=document.getElementById("like");
+const rvbox_detail_num = document.getElementsByClassName("reviewBox-detail")[0].scrollHeight;
 const rv_title_value=rv_title.value;
 const rvbox_detail_value=rvbox_detail.innerHTML;
 
 window.onload=function()
 {
+	if(rvbox_detail_num<=95)
+	{
+		document.getElementById("rvcontentmoreWatchbtnbox").innerHTML="";
+	}
 	listNav_recent.click();
 }
 
 //리뷰작성/수정/삭제 부분
 function reviewModify()
-{
-	const rv_writespan=document.getElementsByClassName("review-writedspan")[0];
-	const rv_title=document.getElementById("reviewtitle");
-	const rvbox_detail = document.getElementsByClassName("reviewBox-detail")[0];
-	const review_deletebtn=document.getElementsByClassName("review-deletebtn")[0];
-	
+{	
 	if(reviewCount==0)
 	{
 		rv_writespan.style.display="none";
 		rv_title.setAttribute("type","text");
 		rvbox_detail.readOnly=false;
 		rvbox_detail.classList.remove("review-writedarea");
+		rvbox_detail.classList.remove("active");
+		rvbox_detail.classList.add("action");
+		document.getElementById("rvcontentmoreWatchbtnbox").innerHTML="";
+		rvbox_detail.style.height="130px";
 		review_deletebtn.innerHTML="수정 취소";
 		reviewCount=1;
 	}
@@ -47,12 +51,36 @@ function reviewModifyCancel()
 		rv_title.setAttribute("type","hidden");
 		rvbox_detail.readOnly=true;
 		rvbox_detail.classList.add("review-writedarea");
+		rvbox_detail.classList.add("active");
+		rvbox_detail.classList.remove("action");
+		rvbox_detail.style.height="95px";
+		rvbox_detail.scrollTo({ top: 0, left:0}); 
+		if(rvbox_detail_num>95)
+		{
+		document.getElementById("rvcontentmoreWatchbtnbox").innerHTML=`<button type="button" class="rvcontentmoreWatchbtn" onclick="rvmoreWatch(this)">모두보기<i class="fa-solid fa-angle-down"></i></button>`;
+		}
 		review_deletebtn.innerHTML="리뷰 삭제";
 		reviewCount=0;
 	}
 	else
 	{
-		
+		//리뷰삭제 메소드
+	}
+}
+
+function rvmoreWatch(e)
+{
+	if(rvbox_detail.clientHeight==95)
+	{
+		e.innerHTML= `접기<i class="fa-solid fa-angle-up"></i>`;
+		rvbox_detail.style.height=rvbox_detail.scrollHeight+"px";
+		rvbox_detail.classList.remove("active");
+	}
+	else
+	{
+		e.innerHTML= `모두보기<i class="fa-solid fa-angle-down"></i>`;
+		rvbox_detail.style.height="95px";
+		rvbox_detail.classList.add("active");
 	}
 }
 //리뷰 작성/수정/삭제 부분
@@ -102,45 +130,6 @@ function listNav_click(reviewType,bookcode)
 			else
 			{
 				allReviewDatas=Math.ceil(datas.length/5);
-				for(let i=0;i<5;i++)
-				{
-					reviewList+=`<div class="reviewComment-detail">
-			    		<div class="reviewTop-detail">
-				    		<div class="reviewInfo-detail">
-					    		<h1 class="reviewtitle-detail">
-					    			${datas[i].booktitle}
-					    		</h1>
-				    			<textarea class="reviewComment-content" readonly>${datas[i].bookcontent}</textarea>
-				    		</div>
-			    		</div>
-			    		<div class="reviewBottom-detail">
-		    				<div class="likeBox-detail-span">
-				    			<span class="reviewUser-detail">${datas[i].bookcode}</span>
-				    			<span class="reviewDate-detail">${datas[i].date}</span>
-			    			</div>`;
-			    	$.ajax({
-					url : "reviewLikeController",
-					type: "GET",
-					dataType: "json",
-					data:{"bookcode":bookcode,
-					"writer":datas[i].userid},
-					async:false,
-					contentType: "application/json",
-					success : function(hg_number) {
-						if(hg_number>0) reviewList+=`<button class="likeBox-detail-like active">
-					   					<img alt="like" src="resources/images/like-detail.png">${datas[i].like}
-				   			 		</button>`;
-						else reviewList+=`<button class="likeBox-detail-like">
-					   					<img alt="like" src="resources/images/dislike-detail.png">${datas[i].like}
-				   			 		</button>`;
-			  		},
-			  		error : function() {
-			  		console.log("error");
-			  		}
-					});
-					reviewList+=`</div>
-				    	</div>`;
-				}
 				
 				let listCount=0;
 				let rvButtonList="";
@@ -162,11 +151,7 @@ function listNav_click(reviewType,bookcode)
   		console.log("error");
   		}
 		});
-			document.getElementsByClassName("pageNum-pagebtn")[0].click();	
-		for(let i=0;i<rvcmtcontent.length;i++)
-		{
-			rvcmtcontent[i].style.height=rvcmtcontent[i].scrollHeight+"px";
-		}
+		document.getElementsByClassName("pageNum-pagebtn")[0].click();	
 }
 
 //1,2,3,4,5 그 버튼
@@ -190,8 +175,11 @@ function pageNumBtnClick(e,listNumber,lstType,bookcode)
 					    		<h1 class="reviewtitle-detail">
 					    			${datas[i].booktitle}
 					    		</h1>
-				    			<textarea class="reviewComment-content" readonly>${datas[i].bookcontent}</textarea>
-				    		</div>
+				    			<textarea class="reviewComment-content active" readonly>${datas[i].bookcontent}</textarea>
+								<div class="moreWatchbtnbox">
+									<button class="moreWatchbtn" onclick="moreWatch(this,${i})">모두보기<i class="fa-solid fa-angle-down"></i></button>
+				    			</div>
+							</div>
 			    		</div>
 			    		<div class="reviewBottom-detail">
 		    				<div class="likeBox-detail-span">
@@ -227,6 +215,14 @@ function pageNumBtnClick(e,listNumber,lstType,bookcode)
   		console.log("error");
   		}
 		});
+		for(let i=0;i<rvcmtcontent.length;i++)
+		{
+			if(rvcmtcontent[i].scrollHeight<=43)
+			{
+				document.getElementsByClassName("moreWatchbtnbox")[i].innerHTML="";
+			}
+		}
+	
 	if(scrollCount>0) window.scrollTo({ top: 2600, behavior: "smooth" }); 
 	scrollCount=1;
 	for(let i=0;i<pgNum_pgbtn.length;i++)
@@ -276,6 +272,23 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 
 	if(listPageNum==(allReviewDatas/5)-1) pgbtn_next.classList.remove("active");
 	else pgbtn_next.classList.add("active");
+}
+
+//모두보기 누르면 나왔다 들어갔다 버튼
+function moreWatch(e,hg_number)
+{
+	if(rvcmtcontent[hg_number].clientHeight==43)
+	{
+		e.innerHTML= `접기<i class="fa-solid fa-angle-up"></i>`;
+		rvcmtcontent[hg_number].style.height=rvcmtcontent[hg_number].scrollHeight+"px";
+		rvcmtcontent[hg_number].classList.remove("active");
+	}
+	else
+	{
+		e.innerHTML= `모두보기<i class="fa-solid fa-angle-down"></i>`;
+		rvcmtcontent[hg_number].style.height="43px";
+		rvcmtcontent[hg_number].classList.add("active");
+	}
 }
 
 
