@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
@@ -19,17 +20,19 @@
         <div class = "choi-top">
             <span>홈 > 메인페이지</span>
         </div>
+        <c:forEach var = "mem" items = "${memlist }">
         <div class="choi-info">
-        <c:if test="${choi_memlist eq 'mdto' }"></c:if>
             <div class="choi-line1">
-                <p>${mdto.test } 님 환영합니다.</p>
-                <span>${mdto.useremail }</span>
+
+                <p>${mem.userid }</p>
+                <span>${mem.useremail }</span>
+
             </div>
             <div class="choi-line2">
                 <span><a href="#">내 정보 수정</a></span>
             </div>
         </div>
-        
+</c:forEach>
 	<div class="row">
         <div class="col">
           <p></p>
