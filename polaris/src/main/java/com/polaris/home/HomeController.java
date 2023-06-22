@@ -3,7 +3,6 @@ package com.polaris.home;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,14 +21,17 @@ import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.HomeListCommand;
 import com.polaris.home.command.IdCheckCommand;
 import com.polaris.home.command.MyCommand;
+
 import com.polaris.home.command.LoginOkCommand;
 import com.polaris.home.command.MemberListCommand;
+
 import com.polaris.home.command.OrderSearchCommand;
 import com.polaris.home.command.RegisterCommand;
 import com.polaris.home.command.SearchCommand;
 import com.polaris.home.command.SpCommand;
 import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.BookDTO;
+import com.polaris.home.dto.BookloanDTO;
 import com.polaris.home.util.Static;
 
 
@@ -55,7 +57,7 @@ public class HomeController {
 
 	//home
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Model model) {
 		SpCommand command = new HomeListCommand();
 		command.execute(model);
 		
@@ -78,9 +80,15 @@ public class HomeController {
 	//rightbox 반납도서 체크
 	@ResponseBody
 	@RequestMapping(value = "/rightboxLoanController")
-	public void rightboxLoanController(HttpServletRequest req,HttpServletResponse res) throws Exception
+	public void rightboxLoanController(HttpServletRequest req,HttpServletResponse res,Model model) throws Exception
 	{
-		
+		PolarisDAO dao = new PolarisDAO();
+        HttpSession session = req.getSession();
+		List<BookloanDTO> dto = dao.hg_bookLoanDate((String)session.getAttribute("userid"));
+		PrintWriter out = res.getWriter();
+		String gson = new Gson().toJson(dto);
+		out.println(gson);
+		out.close();
 	}
 	
 	//리뷰 내역

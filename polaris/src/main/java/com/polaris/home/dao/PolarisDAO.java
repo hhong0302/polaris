@@ -63,6 +63,12 @@ public class PolarisDAO {
 		return (List<InterestDTO>)template.query(sql,new BeanPropertyRowMapper<InterestDTO>(InterestDTO.class));
 	}
 	
+	public List<BookloanDTO> hg_bookLoanDate(String userid)
+	{
+		String sql = "select * from bookloan where userid='"+userid+"' and loan=1 order by loandate asc limit 0,2;";
+		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
+	}
+	
 	public List<BookDTO> hg_homenovel()
 	{
 		String sql = "select * from book where genre='소설/시' order by date desc";

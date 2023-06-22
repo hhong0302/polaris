@@ -15,7 +15,6 @@ public class HomeListCommand implements SpCommand {
 	public void execute(Model model) {
 
 		PolarisDAO dao = new PolarisDAO();
-		Map<String,Object> map = model.asMap();
 		List<InterestDTO> idto = dao.hg_homeinterest();
 		List<BookDTO> ndto = dao.hg_homenovel();
 		List<BookDTO> edto = dao.hg_homeessay();
