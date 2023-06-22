@@ -299,7 +299,7 @@
 	               		<!-- <button class="pageNum-pagebtn active">1</button> -->
 	                </div>
 	                <button onclick="rvListPrevNxtBtn(1,'bookcode')">
-	                	<span class="nxt active"><i class="fa-solid fa-angle-right"></i></span>
+	                	<span class="nxt"><i class="fa-solid fa-angle-right"></i></span>
 	                </button>
 	                
                 </div>
