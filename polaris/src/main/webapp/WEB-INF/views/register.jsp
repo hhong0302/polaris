@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+pageEncoding="UTF-8" session="true"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +12,10 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="resources/css/register.css" />
 <div class="container my-container">
 <h1>회원 정보 입력</h1>
+<%
+	String id = (String) session.getAttribute("userid");
+%>
+	<p><%=id %></p>
 	<div class="form-con">
 		<form action="registerok" method="post" class="registerform" name="registerform" >
 			<label class="label-name" for="userid">아이디</label>
