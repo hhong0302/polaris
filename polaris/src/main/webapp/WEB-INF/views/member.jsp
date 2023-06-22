@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" session="true"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +19,7 @@
                             이름
                         </div>
                         <div class="right">
-                            홍길동
+                            ${userInfo.username }
                         </div>
                     </div>
                     <div class="block">
@@ -27,7 +27,7 @@
                             아이디
                         </div>
                         <div class="right">
-                            example123
+                            ${userInfo.userid }
                         </div>
                     </div>
                 </div>

@@ -158,7 +158,7 @@
 			</div>
 		</div>
 		<div class="hg-hothright">
-			<a href="javascript:void(0)">+ 더보기</a>
+			<a id="hg_morewatch" href="javascript:void(0)">+ 더보기</a>
 		</div>
 	</div>
 	

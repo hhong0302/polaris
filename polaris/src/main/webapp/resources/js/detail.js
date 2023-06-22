@@ -39,3 +39,7 @@ navOn();
 $(window).scroll(function() {
     navOn();
 });
+
+function reject() {
+	alert("로그인후 이용가능합니다")
+}

@@ -63,6 +63,12 @@ public class PolarisDAO {
 		return (List<InterestDTO>)template.query(sql,new BeanPropertyRowMapper<InterestDTO>(InterestDTO.class));
 	}
 	
+	public List<BookloanDTO> hg_bookLoanDate(String userid)
+	{
+		String sql = "select * from bookloan where userid='"+userid+"' and loan=1 order by loandate asc limit 0,2;";
+		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
+	}
+	
 	public List<BookDTO> hg_homenovel()
 	{
 		String sql = "select * from book where genre='소설/시' order by date desc";
@@ -113,7 +119,12 @@ public class PolarisDAO {
 	}
 	
 	public List<BookloanDTO> choi_loanList(){
-		String sql = "select*from bookloan";
+		String sql = "select*from bookloan where loan >=1";
+		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
+	}
+	
+	public List<BookloanDTO> choi_pastloanList(){
+		String sql = "select*from bookloan where loan < 1";
 		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
 	}
 	
@@ -169,6 +180,14 @@ public class PolarisDAO {
 		String sql = "select count(*) from members where userid = '"+userid+"' and userpass = '"+userpass+"'";
 		return template.queryForObject(sql, Integer.class);
 	}
+	
+	
+	public MembersDTO memberInfo(String userid) { 
+	    String sql = "select * from members where userid = '"+userid+"'";
+	   System.out.println(sql);
+	    return template.queryForObject(sql, new BeanPropertyRowMapper<MembersDTO>(MembersDTO.class));
+	}
+	
 
 
 	
