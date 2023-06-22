@@ -1,6 +1,9 @@
 @charset "UTF-8";
+html {
+	scroll-behavior:smooth;
+}
 body {
-	font-family: ‘Pretendard’, ‘Noto Sans KR’, sans-serif
+	font-family: ‘Pretendard’, ‘Noto Sans KR’, sans-serif;
 }
 .container-detail {
 	width: 1200px;
@@ -34,6 +37,7 @@ body {
 	font-size: 14px;
 	font-weight: 600;
 	line-height: 24px;
+	margin-bottom: 16px;
 }
 .bookRental-detail {
 	display: flex;
@@ -71,6 +75,7 @@ body {
 	align-items: center;
 	color: #797979;
 	margin-bottom: 25px;
+	cursor: pointer;
 }
 .likeBtn-detail img {
 	margin-right: 10px;
@@ -84,6 +89,7 @@ button.readNow-detail {
 	font-size: 18px;
 	font-weight: bolder;
 	color: #fff;
+	cursor: pointer;
 }
 button.rental-detail {
 	margin-bottom: 10px;
@@ -183,7 +189,7 @@ button.readNow-detail {
 	margin-bottom: 30px;
 }
 .hashRecom-detail {
-	width: 620px;
+	width: 100%;
 	margin-bottom: 40px;
 }
 .hashRecom-detail p {
@@ -193,10 +199,11 @@ button.readNow-detail {
 	margin-bottom: 20px;
 	font-weight: bold;
 }
-.sumRecom-detail pre {
+.sumRecom-detail p {
 	font-size: 16px;
 	line-height: 24px;
 	color: #999;
+	margin-bottom: 20px;
 }
 .defaultInfo-detail {
 	border-bottom: 1px solid #ccc;
@@ -318,8 +325,8 @@ button.readNow-detail {
 }
 .reviewBox-detail {
 	width: 940px;
-    height: 130px;
-    padding: 10px 10px 100px;
+	height:95px;
+    padding: 10px 10px;
     border: 2px solid #ccc;
     outline: none;
     border-radius: 4px;
@@ -328,9 +335,40 @@ button.readNow-detail {
     resize:none;
     overflow:hidden;
 }
+.reviewBox-detail.active
+{
+	text-overflow: ellipsis;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+.reviewBox-detail.action
+{
+	overflow-y:auto;
+}
 .reviewBox-detail::placeholder
 {
 	color:#ccc;
+}
+.rvcontentmoreWatchbtn
+{
+	background:none;
+	padding:0;
+	margin:0;
+	margin-top:15px;
+	margin-left:10px;
+	border:none;
+	outline:none;
+	font-size:14px;
+	color:#999;
+	border-bottom:1px solid #4563FF;
+	cursor:pointer;
+}
+.rvcontentmoreWatchbtn i
+{
+	padding-left:10px;
+	color:#999;
 }
 .reviewWrt-detail-title .review-writedspan
 {
@@ -428,6 +466,7 @@ button.readNow-detail {
 .reviewComment-content
 {
 	width:945px;
+	height:43px;
 	font-size:16px;
 	color:#797979;
 	padding:0;
@@ -435,7 +474,35 @@ button.readNow-detail {
 	border:none;
 	outline:none;
 	resize:none;
-	overflow:hidden;
+    overflow: hidden;
+}
+.reviewComment-content.active
+{
+	text-overflow: ellipsis;
+    word-break: break-word;
+    
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.moreWatchbtn
+{
+	display:block;
+	font-size:14px;
+	color:#999;
+	background:none;
+	padding:0;
+	margin:0;
+	margin-top:20px;
+	border:none;
+	border-bottom:1px solid #4563FF;
+	outline:none;
+	cursor:pointer;
+}
+.moreWatchbtn i
+{
+	padding-left:10px;
+	color:#999;
 }
 .reviewBottom-detail {
 	display: flex;

@@ -16,11 +16,28 @@
     <c:when test="${not empty searchresult}">
         <div class="search-result">
             <div class="result-title">
-                <h3><c:out value="'${searchresult}'"/> 검색결과</h3>
-                <p>총 <c:out value="${searchType eq 'search' ? fn:length(search) : searchType eq 'totalsearch' ? fn:length(totalsearch) : fn:length(genresearch)}" /> 건</p>
+                <h3><c:out value="'${searchresult}'" /> 검색결과</h3>
+			<p>총 <c:choose>
+			      <c:when test="${searchType eq 'search'}">${fn:length(search)}</c:when>
+			      <c:when test="${searchType eq 'totalsearch'}">${fn:length(totalsearch)}</c:when>
+			      <c:when test="${searchType eq 'genresearch'}">${fn:length(genresearch)}</c:when>
+			      <c:when test="${searchType eq 'ordersearch'}">${fn:length(ordersearch)}</c:when>
+			      <c:otherwise>0</c:otherwise>
+			</c:choose> 건</p>
             </div>
+            <c:if test="${searchType eq 'genresearch'}">
+	  			<c:set var="searchResult" value="${genresearch}" />
+			</c:if>
+			<c:if test="${searchType eq 'ordersearch'}">
+	 			<c:set var="searchResult" value="${ordersearch}" />
+			</c:if>
             <c:if test="${searchType eq 'search'}">
-            <c:forEach var="book" items="${search}">
+            	 <c:set var="searchResult" value="${search}" />
+			</c:if>
+			<c:if test="${searchType eq 'totalsearch'}">
+			     <c:set var="searchResult" value="${totalsearch}" />
+			</c:if>
+            <c:forEach var="book" items="${searchResult}">
             	<div class="book-box">
 	            <div class="search-content">
 	                    <div class="book-information">
@@ -37,41 +54,10 @@
 	                
 	                <div class="rental-box">
 	                    <div class="search-like">
-	                        <img src="resources/images/heartline.jpg" alt="heart" />
-	                        <p>찜 1,240</p>
-	                    </div>
-	                    <div class="btn-box">
-	                        <div class="detail-btn">
-	                            <a href="detail">상세보기</a>
-	                        </div>
-	                        <div class="rental-btn">
-	                            <button type="submit" class="search-rental-btn">대여하기</button>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	            </div>
-            </c:forEach>
-            </c:if>
-            <c:if test="${searchType eq 'totalsearch'}">
-            <c:forEach var="book" items="${totalsearch}" >
-            	<div class="book-box">
-	            <div class="search-content">
-	                    <div class="book-information">
-	                        <div class="search-img">
-	                            <img src="resources/bookimg/${book.bookcode}.jpg" alt="book" />
-	                        </div>
-	                        <div class="search-context">
-	                            <h3>${book.booktitle}</h3>
-	                            <p>${book.author} • ${book.publisher}</p>
-	                            <p>${book.genre}</p>
-	                            <p><span class="search-book-context">${book.bookcontent}</span></p>
-	                        </div>
-	                    </div>
-	                
-	                <div class="rental-box">
-	                    <div class="search-like">
-	                        <img src="resources/images/heartline.jpg" alt="heart" />
+	                       <a href="#" class="likeimgsw">
+				             <img src="resources/images/emptyheart.png" class="likeimg1" alt="emptyheart" />
+				             <img src="resources/images/fillheart.png" class="likeimg2" alt="fillheart" style="display:none"/>
+				           </a>
 	                        <p>찜 1,240</p>
 	                    </div>
 	                    <div class="btn-box">
@@ -86,51 +72,20 @@
 	            </div>
 	            </div>
             </c:forEach>
-            </c:if>
-            <c:if test="${searchType eq 'genresearch'}">
-            <c:forEach var="book" items="${genresearch}">
-            	<div class="book-box">
-	            <div class="search-content">
-	                    <div class="book-information">
-	                        <div class="search-img">
-	                            <img src="resources/bookimg/${book.bookcode}.jpg" alt="book" />
-	                        </div>
-	                        <div class="search-context">
-	                            <h3>${book.booktitle}</h3>
-	                            <p>${book.author} • ${book.publisher}</p>
-	                            <p>${book.genre}</p>
-	                            <p><span class="search-book-context">${book.bookcontent}</span></p>
-	                        </div>
-	                    </div>
-	                
-	                <div class="rental-box">
-	                    <div class="search-like">
-	                    	<a href="#" id="likeimg" onclick="switchlike()">
-	                        	<img src="resources/images/heartline.jpg" alt="heart" />
-	                        </a>
-	                        <p>찜 1,240</p>
-	                    </div>
-	                    <div class="btn-box">
-	                        <div class="detail-btn">
-	                            <a href="detail">상세보기</a>
-	                        </div>
-	                        <div class="rental-btn">
-	                            <button type="submit" class="search-rental-btn">대여하기</button>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	            </div>
-            </c:forEach>
-            </c:if>
         </div>
         </c:when>
+         <c:otherwise>
+                <div class="search-empty">
+                    <h3>검색 결과가 없습니다.</h3>
+                    <p>다른 검색어로 다시 시도해주세요.</p>
+                </div>
+            </c:otherwise>
         </c:choose>
         <div class="search-banner">
             <img src="resources/banner/banner_band01.jpg" alt="banner" />
         </div>
     </div>
-
+<script src="resources/js/searchpage.js"></script>
     <%@ include file="include/rboxfooter.jsp" %>
 
 </body>

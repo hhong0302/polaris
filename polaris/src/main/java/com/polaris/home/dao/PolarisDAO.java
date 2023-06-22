@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 
 import com.polaris.home.dto.BookDTO;
+import com.polaris.home.dto.BookloanDTO;
 import com.polaris.home.dto.InterestDTO;
 import com.polaris.home.dto.MembersDTO;
 import com.polaris.home.dto.ReviewDTO;
@@ -42,6 +43,15 @@ public class PolarisDAO {
 	    String sql = "SELECT * FROM book WHERE genre LIKE ";
 	    sql +="'%" + genre + "%'";
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+	}
+	public ArrayList<BookDTO> ordersearch(String order)
+	{
+		String sql = "";
+		if(order.equals("인기순")||order=="인기순") sql="select * from book order by likecount desc";
+		if(order.equals("최신순")||order=="최신순") sql="select * from book order by date desc";
+		if(order.equals("대여순")||order=="대여순") sql="select * from book order by loancount desc";
+		
+		return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	//gyu End
 	
@@ -97,15 +107,32 @@ public class PolarisDAO {
 	
 	//바지조장 Start
 	public List<MembersDTO> choi_memList(){
-		String sql = "select * from members wherhe userid=?";
-		return (ArrayList<MembersDTO>) template.query(sql, new BeanPropertyRowMapper<>(MembersDTO.class));
+
+		String sql = "select * from members where userid = 'test'";
+		return (List<MembersDTO>)template.query(sql,new BeanPropertyRowMapper<MembersDTO>(MembersDTO.class));
+	}
+	
+	public List<BookloanDTO> choi_loanList(){
+		String sql = "select*from bookloan where loan >=1";
+		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
+	}
+	
+	public List<BookloanDTO> choi_pastloanList(){
+		String sql = "select*from bookloan where loan < 1";
+		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
+	}
+	
+	public List<InterestDTO> choi_interest(){
+		String sql = "select*from interest";
+		return (List<InterestDTO>)template.query(sql,new BeanPropertyRowMapper<InterestDTO>(InterestDTO.class));
+
 	}
 	//바지조장 End
 	
 	
 	//alice Start
 	public ArrayList<BookDTO> bookinfo(String bookcode) { 
-	    String sql = "select * from book where bookcode like ";
+	    String sql = "select * from book where bookcode = ";
 	    sql +="'" + bookcode + "'";
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}

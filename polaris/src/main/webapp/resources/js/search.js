@@ -1,8 +1,7 @@
-  function submitSearch() {
-    var searchInput = document.getElementById('searchInput');
-    var query = searchInput.value;
+function submitSearch() {
+  var searchInput = document.getElementById('searchInput');
+  var query = searchInput.value;
 
-    var searchUrl = 'search?query=' + encodeURIComponent(query);
-    window.location.href = searchUrl;
-  }
-  
+  var searchForm = document.getElementById('searchForm');
+  searchForm.submit();
+}
