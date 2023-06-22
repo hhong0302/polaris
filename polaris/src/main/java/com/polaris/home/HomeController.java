@@ -21,6 +21,7 @@ import com.mysql.cj.Session;
 import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.HomeListCommand;
 import com.polaris.home.command.IdCheckCommand;
+import com.polaris.home.command.MyCommand;
 import com.polaris.home.command.LoginOkCommand;
 import com.polaris.home.command.RegisterCommand;
 import com.polaris.home.command.SearchCommand;
@@ -151,11 +152,42 @@ public class HomeController {
 
 	
 	
-	@RequestMapping(value = "detail")
+	@RequestMapping(value = "memlist", method = RequestMethod.GET)
 	public String detail(HttpServletRequest request, Model model) {
-        String bookcode = request.getParameter("bookinfo");
-        model.addAttribute("bookcode", bookcode);
         
+		String memlist = request.getParameter("memlist");
+		model.addAttribute("request", request);
+        model.addAttribute("memlist", memlist);
+        
+        command = new MyCommand();
+        command.execute(model);
+                
+		return "detail";	// detail.jsp 호출!!!
+	}
+	
+	@RequestMapping(value = "loanList", method = RequestMethod.GET)
+	public String loanlist(HttpServletRequest request, Model model) {
+        
+		String loanlist = request.getParameter("loanlist");
+		model.addAttribute("request", request);
+        model.addAttribute("loanlist", loanlist);
+        
+        command = new MyCommand();
+        command.execute(model);
+                
+		return "detail";	// detail.jsp 호출!!!
+	}
+	
+	@RequestMapping(value = "interest", method = RequestMethod.GET)
+	public String interest(HttpServletRequest request, Model model) {
+        
+		String interest = request.getParameter("interest");
+		model.addAttribute("request", request);
+        model.addAttribute("interest", interest);
+        
+        command = new MyCommand();
+        command.execute(model);
+                
 		return "detail";	// detail.jsp 호출!!!
 	}
 
@@ -172,8 +204,23 @@ public class HomeController {
 	}
 	
 	
-	@RequestMapping(value = "mypage")
-	public String mypage(Model model) {
+	@RequestMapping(value="mypage")
+	public String mypage(HttpServletRequest request, Model model) {
+		String bookloan = request.getParameter("bookloan");
+		model.addAttribute("bookloan", bookloan);
+		
+		return "mypage";
+	}
+	
+	@RequestMapping(value = "mypage", method = RequestMethod.GET)
+	public String bookloan(HttpServletRequest request, Model model) {
+		String bookloan = request.getParameter("bookloan");
+		model.addAttribute("request", request);
+		model.addAttribute("bookloan", bookloan);
+		
+		command = new MyCommand();
+		command.execute(model);
+		
 		return "mypage";	// detail.jsp 호출!!!
 	}
 	
