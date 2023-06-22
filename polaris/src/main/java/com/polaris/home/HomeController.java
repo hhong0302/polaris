@@ -1,5 +1,6 @@
 package com.polaris.home;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Locale;
@@ -22,6 +23,7 @@ import com.polaris.home.command.HomeListCommand;
 import com.polaris.home.command.IdCheckCommand;
 import com.polaris.home.command.MyCommand;
 import com.polaris.home.command.LoginOkCommand;
+import com.polaris.home.command.MemberListCommand;
 import com.polaris.home.command.OrderSearchCommand;
 import com.polaris.home.command.RegisterCommand;
 import com.polaris.home.command.SearchCommand;
@@ -271,23 +273,55 @@ public class HomeController {
 	}
 
 	@RequestMapping("/loginok")
-	public String loginok(HttpServletRequest request, Model model){
+	public String loginok(HttpServletRequest request,HttpServletResponse response, Model model) throws IOException{
 		model.addAttribute("request", request);
 //		command = new LoginOkCommand();
 //		command.execute(model);
 		PolarisDAO dao = new PolarisDAO();
+		PrintWriter out = response.getWriter();
 		int rs = dao.loginOk(request.getParameter("userid"), request.getParameter("userpass"));
 		if(rs == 0) {
+			response.setContentType("text/html; charset=UTF-8");
+			out.println("<script>");
+			out.println("alert('로그인에 실패했습니다.');");
+			out.println("location.href=('/home/login')");
+			out.println("</script>");
+			out.close();
 			return "redirect:login";
 		}else {
+			response.setContentType("text/html; charset=UTF-8");
 			HttpSession session = request.getSession();
 			session.setAttribute("userid", request.getParameter("userid"));
+			out.println("<script>");
+			out.println("alert('로그인에 성공했습니다.');");
+			out.println("location.href=('/home')");
+			out.println("</script>");
+			out.close();
 			return "redirect:/";
 		}
 	}
+	@RequestMapping(value = "/logout")
+	public String logout(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		HttpSession session = request.getSession();
+		PrintWriter out = response.getWriter();
+		session.invalidate();
+		out.println("<script>");
+		out.println("alert('로그아웃이 되었습니다.');");
+		out.println("location.href=('/home')");
+		out.println("</script>");
+		out.close();
+		return "redirect:/";	// 로그아웃!!!
+	}
 	
 	@RequestMapping(value = "member")
-	public String member(Model model) {
+	public String member(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		String userid = (String)session.getAttribute("userid");
+		request.setAttribute("userid", userid);
+		model.addAttribute("request", request);
+		command = new MemberListCommand();
+		command.execute(model);
 		return "member";	// member.jsp 호출!!!
 	}
 }

@@ -174,6 +174,14 @@ public class PolarisDAO {
 		String sql = "select count(*) from members where userid = '"+userid+"' and userpass = '"+userpass+"'";
 		return template.queryForObject(sql, Integer.class);
 	}
+	
+	
+	public MembersDTO memberInfo(String userid) { 
+	    String sql = "select * from members where userid = '"+userid+"'";
+	   System.out.println(sql);
+	    return template.queryForObject(sql, new BeanPropertyRowMapper<MembersDTO>(MembersDTO.class));
+	}
+	
 
 
 	
