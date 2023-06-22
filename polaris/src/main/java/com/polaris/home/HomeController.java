@@ -253,10 +253,17 @@ public class HomeController {
 	@RequestMapping("/loginok")
 	public String loginok(HttpServletRequest request, Model model){
 		model.addAttribute("request", request);
-		command = new LoginOkCommand();
-		command.execute(model);
-		
-		return "redirect:home";
+//		command = new LoginOkCommand();
+//		command.execute(model);
+		PolarisDAO dao = new PolarisDAO();
+		int rs = dao.loginOk(request.getParameter("userid"), request.getParameter("userpass"));
+		if(rs == 0) {
+			return "redirect:login";
+		}else {
+			HttpSession session = request.getSession();
+			session.setAttribute("userid", request.getParameter("userid"));
+			return "redirect:/";
+		}
 	}
 	
 	@RequestMapping(value = "member")

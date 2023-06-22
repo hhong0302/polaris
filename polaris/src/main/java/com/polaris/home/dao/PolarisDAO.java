@@ -118,7 +118,7 @@ public class PolarisDAO {
 	
 	//alice Start
 	public ArrayList<BookDTO> bookinfo(String bookcode) { 
-	    String sql = "select * from book where bookcode like ";
+	    String sql = "select * from book where bookcode = ";
 	    sql +="'" + bookcode + "'";
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
@@ -153,9 +153,11 @@ public class PolarisDAO {
 		String sql = "select count(*) from  members where userid = '" + userid + "'";
 		return template.queryForObject(sql, Integer.class);
 	}
+	
+	
 
 	public int loginOk(String userid, String userpass){
-		String sql = "select * from members where userid = ? and userpass = ?";
+		String sql = "select count(*) from members where userid = '"+userid+"' and userpass = '"+userpass+"'";
 		return template.queryForObject(sql, Integer.class);
 	}
 
