@@ -15,23 +15,25 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.gson.Gson;
 import com.polaris.home.command.DetailCommand;
+import com.polaris.home.command.DetailReviewCommand;
 import com.polaris.home.command.HomeListCommand;
 import com.polaris.home.command.IdCheckCommand;
-import com.polaris.home.command.MyCommand;
-
-import com.polaris.home.command.LoginOkCommand;
 import com.polaris.home.command.MemberListCommand;
-
+import com.polaris.home.command.MyCommand;
 import com.polaris.home.command.OrderSearchCommand;
 import com.polaris.home.command.RegisterCommand;
+import com.polaris.home.command.ReviewWriteCommand;
 import com.polaris.home.command.SearchCommand;
 import com.polaris.home.command.SpCommand;
 import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.BookDTO;
 import com.polaris.home.dto.BookloanDTO;
+import com.polaris.home.dto.ReviewDTO;
 import com.polaris.home.util.Static;
 
 
@@ -91,15 +93,26 @@ public class HomeController {
 		out.close();
 	}
 	
-	//리뷰 내역
+	//리뷰작성
+	@RequestMapping(value = "reviewWriteController")
+	public RedirectView reviewWriteController(HttpServletRequest req,Model model,RedirectAttributes attributes) throws Exception{
+		model.addAttribute("req", req);
+		
+		command = new ReviewWriteCommand();
+		command.execute(model);
+		attributes.addAttribute("bookinfo", req.getParameter("bookcode"));
+		attributes.addAttribute("isReviewWrited",1);
+		return new RedirectView("detail");
+	}
+	
+	//리뷰 내역(최신순/좋아요 순)
 	@ResponseBody
 	@RequestMapping(value = "/reviewController")
 	public void reviewController(HttpServletRequest req,HttpServletResponse res) throws Exception{
 		PolarisDAO dao = new PolarisDAO();
 		String bookcode = req.getParameter("bookcode");
 		String rvType = req.getParameter("reviewType");
-		//List <ReviewDTO> dto = dao.hg_reviewList(bookcode,rvType);
-		List <BookDTO> dto = dao.hg_sample();
+		List <ReviewDTO> dto = dao.hg_reviewList(bookcode,rvType);
 		PrintWriter out = res.getWriter();
 		String gson = new Gson().toJson(dto);
 		out.println(gson);
@@ -112,7 +125,9 @@ public class HomeController {
 	public void reviewListController(HttpServletRequest req,HttpServletResponse res) throws Exception{
 		PolarisDAO dao = new PolarisDAO();
 		int listnum = 5*Integer.parseInt(req.getParameter("listnum"));
-		List <BookDTO> dto = dao.hg_reviewList(listnum);
+		String listType = req.getParameter("listType");
+		String bookcode = req.getParameter("bookcode");
+		List <ReviewDTO> dto = dao.hg_reviewList(listnum,listType,bookcode);
 		PrintWriter out = res.getWriter();
 		String gson = new Gson().toJson(dto);
 		out.println(gson);
@@ -205,6 +220,8 @@ public class HomeController {
 	    command = new DetailCommand();
 	    command.execute(model);
 	    
+	    SpCommand drcommand = new DetailReviewCommand();
+	    drcommand.execute(model);
 	    return "detail";
 	}
 
