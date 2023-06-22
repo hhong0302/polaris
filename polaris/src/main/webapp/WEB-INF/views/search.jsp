@@ -37,7 +37,10 @@
 	                
 	                <div class="rental-box">
 	                    <div class="search-like">
-	                        <img src="resources/images/heartline.jpg" alt="heart" />
+	                       <a href="#" class="likeimgsw">
+				             <img src="resources/images/emptyheart.png" class="likeimg1" alt="emptyheart" />
+				             <img src="resources/images/fillheart.png" class="likeimg2" alt="fillheart" style="display:none"/>
+				           </a>
 	                        <p>찜 1,240</p>
 	                    </div>
 	                    <div class="btn-box">
@@ -54,38 +57,41 @@
             </c:forEach>
             </c:if>
             <c:if test="${searchType eq 'totalsearch'}">
-            <c:forEach var="book" items="${totalsearch}" >
-            	<div class="book-box">
-	            <div class="search-content">
-	                    <div class="book-information">
-	                        <div class="search-img">
-	                            <img src="resources/bookimg/${book.bookcode}.jpg" alt="book" />
-	                        </div>
-	                        <div class="search-context">
-	                            <h3>${book.booktitle}</h3>
-	                            <p>${book.author} • ${book.publisher}</p>
-	                            <p>${book.genre}</p>
-	                            <p><span class="search-book-context">${book.bookcontent}</span></p>
-	                        </div>
-	                    </div>
-	                
-	                <div class="rental-box">
-	                    <div class="search-like">
-	                        <img src="resources/images/heartline.jpg" alt="heart" />
-	                        <p>찜 1,240</p>
-	                    </div>
-	                    <div class="btn-box">
-	                        <div class="detail-btn">
-	                            <a href="detail?bookinfo=${book.bookcode}">상세보기</a>
-	                        </div>
-	                        <div class="rental-btn">
-	                            <button type="submit" class="search-rental-btn">대여하기</button>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	            </div>
-            </c:forEach>
+			<c:forEach var="book" items="${totalsearch}">
+			  <div class="book-box">
+			    <div class="search-content">
+			      <div class="book-information">
+			        <div class="search-img">
+			          <img src="resources/bookimg/${book.bookcode}.jpg" alt="book" />
+			        </div>
+			        <div class="search-context">
+			          <h3>${book.booktitle}</h3>
+			          <p>${book.author} • ${book.publisher}</p>
+			          <p>${book.genre}</p>
+			          <p><span class="search-book-context">${book.bookcontent}</span></p>
+			        </div>
+			      </div>
+			
+			      <div class="rental-box">
+			        <div class="search-like">
+			          <a href="#" class="likeimgsw">
+			            <img src="resources/images/emptyheart.png" class="likeimg1" alt="emptyheart" />
+			            <img src="resources/images/fillheart.png" class="likeimg2" alt="fillheart" style="display:none"/>
+			          </a>
+			          <p>찜 1,240</p>
+			        </div>
+			        <div class="btn-box">
+			          <div class="detail-btn">
+			            <a href="detail?bookinfo=${book.bookcode}">상세보기</a>
+			          </div>
+			          <div class="rental-btn">
+			            <button type="submit" class="search-rental-btn">대여하기</button>
+			          </div>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+			</c:forEach>
             </c:if>
             <c:if test="${searchType eq 'genresearch'}">
             <c:forEach var="book" items="${genresearch}">
@@ -105,9 +111,10 @@
 	                
 	                <div class="rental-box">
 	                    <div class="search-like">
-	                    	<a href="#" id="likeimg" onclick="switchlike()">
-	                        	<img src="resources/images/heartline.jpg" alt="heart" />
-	                        </a>
+				          <a href="#" class="likeimgsw">
+				            <img src="resources/images/emptyheart.png" class="likeimg1" alt="emptyheart" />
+				            <img src="resources/images/fillheart.png" class="likeimg2" alt="fillheart" style="display:none"/>
+				          </a>
 	                        <p>찜 1,240</p>
 	                    </div>
 	                    <div class="btn-box">
@@ -130,7 +137,7 @@
             <img src="resources/banner/banner_band01.jpg" alt="banner" />
         </div>
     </div>
-
+<script src="resources/js/searchpage.js"></script>
     <%@ include file="include/rboxfooter.jsp" %>
 
 </body>

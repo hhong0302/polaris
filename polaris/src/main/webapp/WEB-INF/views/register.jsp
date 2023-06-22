@@ -33,7 +33,7 @@ pageEncoding="UTF-8"%>
 			<label class="label-name" for="userpass">비밀번호</label>
 			<div class="show-pass">
 			<input type="password" name="userpass" class="passinput" id="userpass" placeholder="비밀번호" />
-			<div class="eye"><i class="fa-solid fa-eye"></i></div>
+			<div class="eye show"><img src="resources/images/show-pass.png" alt="show-pass"></div>
 			</div>
 			<div class="passcheckno">
 				<span></span><span id="passcheckno-message">비밀번호를 다시 입력해주세요.</span>
@@ -47,7 +47,7 @@ pageEncoding="UTF-8"%>
 			<label class="label-name" for="reuserpass">비밀번호 확인</label>
 			<div class="show-repass">
 			<input type="password" name="reuserpass" class="repassinput" id="reuserpass" placeholder="비밀번호 확인" />
-			<div class="eye"><i class="fa-solid fa-eye"></i></div>
+			<div class="eye"><img src="resources/images/show-pass.png" alt="show-pass"></div>
 			</div>
 			<div class="repasscheckno">
 				<span></span><span id="repasscheckno-message">비밀번호가 일치하지 않습니다.</span>

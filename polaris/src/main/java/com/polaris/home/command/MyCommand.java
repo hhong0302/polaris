@@ -14,6 +14,7 @@ import com.polaris.home.dto.MembersDTO;
 
 public class MyCommand implements SpCommand {
 	
+
 	@Override
 	public void execute(Model model) {
 		
