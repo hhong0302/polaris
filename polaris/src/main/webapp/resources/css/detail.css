@@ -34,6 +34,7 @@ body {
 	font-size: 14px;
 	font-weight: 600;
 	line-height: 24px;
+	margin-bottom: 16px;
 }
 .bookRental-detail {
 	display: flex;
@@ -183,7 +184,7 @@ button.readNow-detail {
 	margin-bottom: 30px;
 }
 .hashRecom-detail {
-	width: 620px;
+	width: 100%;
 	margin-bottom: 40px;
 }
 .hashRecom-detail p {
