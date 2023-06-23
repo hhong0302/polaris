@@ -276,6 +276,18 @@ public void changeBirth(String userid, String newBirth) {
 		
 	});
 }
+
+public void exit(String userid) {
+	String sql = "delete from members where userid = ?";
+	template.update(sql, new PreparedStatementSetter() {
+		
+		@Override
+		public void setValues(PreparedStatement pstmt) throws SQLException{
+				pstmt.setString(1, userid);
+			}
+		
+	});
+}
 	
 
 
