@@ -232,6 +232,7 @@ function pageNumBtnClick(e,listNumber,lstType,bookcode)
 			    		<div class="reviewBottom-detail">
 		    				<div class="likeBox-detail-span">
 				    			<span class="reviewUser-detail">${datas[i].userid}</span>
+								<span id="hg-dottes"></span>
 				    			<span class="reviewDate-detail">${datas[i].redate}</span>
 			    			</div>`;
 			    	$.ajax({
@@ -244,10 +245,10 @@ function pageNumBtnClick(e,listNumber,lstType,bookcode)
 					contentType: "application/json",
 					success : function(hg_number) {
 						if(hg_number>0) reviewList+=`<button class="likeBox-detail-like active">
-					   					<img alt="like" src="resources/images/like-detail.png">${datas[i].like}
+					   					<img alt="like" src="resources/images/like-detail.png">${datas[i].relike}
 				   			 		</button>`;
 						else reviewList+=`<button class="likeBox-detail-like">
-					   					<img alt="like" src="resources/images/dislike-detail.png">${datas[i].like}
+					   					<img alt="like" src="resources/images/dislike-detail.png">${datas[i].relike}
 				   			 		</button>`;
 			  		},
 			  		error : function() {
@@ -262,17 +263,78 @@ function pageNumBtnClick(e,listNumber,lstType,bookcode)
   		error : function() {
   		console.log("error");
   		}
-		});
-		for(let i=0;i<rvcmtcontent.length;i++)
+	});
+	for(let i=0;i<rvcmtcontent.length;i++)
+	{
+		if(rvcmtcontent[i].scrollHeight<=43)
 		{
-			if(rvcmtcontent[i].scrollHeight<=43)
-			{
-				document.getElementsByClassName("moreWatchbtnbox")[i].innerHTML="";
-			}
+			document.getElementsByClassName("moreWatchbtnbox")[i].innerHTML="";
 		}
+	}
+	
+	const reviewUser_detail = document.getElementsByClassName("reviewUser-detail");
+	for(let i=0;i<reviewUser_detail.length;i++)
+	{
+		const reviewUser_detail_innerHTML = reviewUser_detail[i].innerHTML;
+		reviewUser_detail[i].innerHTML = reviewUser_detail_innerHTML.substring(0,4)+"****";
+	}
+	
+	const reviewDate_detail = document.getElementsByClassName("reviewDate-detail");
+	for(let i=0;i<reviewDate_detail.length;i++)
+	{
+		const reviewDate_detail_innerHTML = reviewDate_detail[i].innerHTML;
+		const after_days = 
+		reviewDate_detail_innerHTML.substring(0,reviewDate_detail_innerHTML.indexOf(" ")).replaceAll("-",".");
+		const nowDate = new Date();
+		const rvDate = new Date(reviewDate_detail_innerHTML);
+		hg_minusDate = nowDate - rvDate;
+		const hg_years = Math.floor(hg_minusDate / (365*24*60*60*1000));
+		const hg_month = Math.floor(hg_minusDate / (30*24*60*60*1000));
+		const hg_days = Math.floor((hg_minusDate / (24*60*60*1000))%365);
+		const hg_hours = Math.floor((hg_minusDate / (60*60*1000))%24);
+		const hg_minutes = Math.floor((hg_minusDate / (60*1000))%60);
+		const hg_seconds = Math.floor((hg_minusDate / 1000)%60);
+
+		if(hg_years==0)
+		{
+		    if(hg_month==0)
+		    {
+		        if(hg_days==0)
+		        {
+		             if(hg_hours==0)
+		             {
+		                 if(hg_minutes==0)
+		                 {
+		                    reviewDate_detail[i].innerHTML = hg_seconds+"초 전";
+		                 }
+		                 else
+		                 {
+		                    reviewDate_detail[i].innerHTML = hg_minutes+"분 전";
+		                 }
+		             }
+		             else
+		             {
+		                reviewDate_detail[i].innerHTML = hg_hours+"시간 전";
+		             }
+		         }
+		         else
+		         {
+		             reviewDate_detail[i].innerHTML = after_days;
+		         }
+		     }
+		     else
+		     {
+		         reviewDate_detail[i].innerHTML = after_days;
+		     }
+		}
+		else
+		{
+		     reviewDate_detail[i].innerHTML = after_days;
+		}
+	}
 	
 	if(scrollCount>0) window.scrollTo({ top: 
-	window.pageYOffset+document.getElementById("move2").getBoundingClientRect().top-70, behavior: "smooth" }); 
+	window.pageYOffset+document.getElementById("listTile-detail").getBoundingClientRect().top-70, behavior: "smooth" }); 
 	scrollCount=1;
 	for(let i=0;i<pgNum_pgbtn.length;i++)
 	{
@@ -285,6 +347,8 @@ function pageNumBtnClick(e,listNumber,lstType,bookcode)
 //이전,다음 버튼
 function rvListPrevNxtBtn(hg_number,bookcode)
 {
+	console.log(Math.floor(allReviewDatas/5));
+	console.log(listPageNum);
 	const pgNum_pgbtn = document.getElementsByClassName("pageNum-pagebtn");
 	listPageNum+=hg_number;
 	if(listPageNum<0)
@@ -292,9 +356,9 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 		listPageNum=0;
 		return false;
 	}
-	if(listPageNum>(allReviewDatas/5)-1)
+	if(listPageNum>Math.floor(allReviewDatas/5))
 	{
-		listPageNum=(allReviewDatas/5)-1;
+		listPageNum=Math.floor(allReviewDatas/5);
 		return false;
 	}
 	let rvButtonList="";
@@ -319,7 +383,7 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 	if(listPageNum==0) pgbtn_prev.classList.remove("active");
 	else pgbtn_prev.classList.add("active");
 
-	if(listPageNum==(allReviewDatas/5)-1) pgbtn_next.classList.remove("active");
+	if(listPageNum==Math.floor(allReviewDatas/5)) pgbtn_next.classList.remove("active");
 	else pgbtn_next.classList.add("active");
 }
 
