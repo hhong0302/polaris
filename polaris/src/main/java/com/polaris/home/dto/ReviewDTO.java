@@ -8,7 +8,7 @@ public class ReviewDTO {
 	private String retitle;
 	private String recontent;
 	private String redate;
-	private int like;
+	private int relike;
 	
 	public int getNum() {
 		return num;
@@ -46,11 +46,11 @@ public class ReviewDTO {
 	public void setRedate(String redate) {
 		this.redate = redate;
 	}
-	public int getLike() {
-		return like;
+	public int getRelike() {
+		return relike;
 	}
-	public void setLike(int like) {
-		this.like = like;
+	public void setRelike(int relike) {
+		this.relike = relike;
 	}
 
 }

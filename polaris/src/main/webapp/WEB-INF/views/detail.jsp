@@ -200,6 +200,7 @@
 								<img id="review-detail-after-login" src="resources/images/detail-after-login.png" alt="after-login" />
 							</a>
 						</div>
+						<div id="rvcontentmoreWatchbtnbox" style="display:none;"></div>
 						<button type="button" class="submitBtn-detail">리뷰 남기기</button>
 					</div>
 				</div>
@@ -270,7 +271,7 @@
 			</div>
 			
 			<div class="reviewList-detail">
-				<div class="listTile-detail">
+				<div class="listTile-detail" id="listTile-detail">
 					<h2>리뷰(${getReviewCount})</h2>
 					<div class="listNav-detail">
 					    <button id="recent" class="recent" onclick="listNav_click('recent','${bookcode}')">
@@ -322,13 +323,13 @@
 			    
 			     <div class="pageNum-detail">
                
-	               	<button onclick="rvListPrevNxtBtn(-1,'bookcode')">
+	               	<button onclick="rvListPrevNxtBtn(-1,'${bookcode}')">
 	                    <span class="prv"><i class="fa-solid fa-angle-left"></i></span>
 	                </button>
 	             	<div class="pageNum-detail-btnbox">
 	               		<!-- <button class="pageNum-pagebtn active">1</button> -->
 	                </div>
-	                <button onclick="rvListPrevNxtBtn(1,'bookcode')">
+	                <button onclick="rvListPrevNxtBtn(1,'${bookcode}')">
 	                	<span class="nxt"><i class="fa-solid fa-angle-right"></i></span>
 	                </button>
 	                
