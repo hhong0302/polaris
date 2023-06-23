@@ -20,15 +20,22 @@ window.onload=function()
 	listNav_recent.click();
 }
 
+rv_title.addEventListener('keydown', function(event) {
+  if (event.keyCode === 13) {
+	rvbox_detail.focus();
+    event.preventDefault();
+  };
+}, true);
+
 //리뷰 최초 작성
 function reviewSubmit()
 {
-	if(rvbox_detail.value.replace(/\s/gi, "")=="")
+	if(rv_title.value.replace(/\s/gi, "")=="")
 	{
 		alert("공백을 제외하고 한 글자 이상 입력하세요.");
 		return false;
 	}
-	if(rv_title.value.replace(/\s/gi, "")=="")
+	if(rvbox_detail.value.replace(/\s/gi, "")=="")
 	{
 		alert("공백을 제외하고 한 글자 이상 입력하세요.");
 		return false;
@@ -54,12 +61,12 @@ function reviewModify()
 	}
 	else
 	{
-		if(rvbox_detail.value.replace(/\s/gi, "")=="")
+		if(rv_title.value.replace(/\s/gi, "")=="")
 		{
 			alert("공백을 제외하고 한 글자 이상 입력하세요.");
 			return false;
 		}
-		if(rv_title.value.replace(/\s/gi, "")=="")
+		if(rvbox_detail.value.replace(/\s/gi, "")=="")
 		{
 			alert("공백을 제외하고 한 글자 이상 입력하세요.");
 			return false;
