@@ -33,6 +33,7 @@ import com.polaris.home.command.ReviewWriteCommand;
 import com.polaris.home.command.SearchCommand;
 import com.polaris.home.command.SpChangeBirthCommand;
 import com.polaris.home.command.SpCommand;
+import com.polaris.home.command.SpExitCommand;
 import com.polaris.home.command.SpUpdatePassCommand;
 import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.BookDTO;
@@ -169,6 +170,7 @@ public class HomeController {
 		out.close();
 	}
 	
+	//검색 기능
 	@RequestMapping(value = "search", method = RequestMethod.GET)
 	public String search(HttpServletRequest request,Model model) {
 		String query = request.getParameter("query");
@@ -180,7 +182,8 @@ public class HomeController {
 	    model.addAttribute("searchType", "search");
 	    return "search";
 	}
-
+	
+	//젠체 검색
 	@RequestMapping(value = "totalsearch")
 	public String totalsearch(HttpServletRequest request,Model model) {
 		
@@ -193,6 +196,7 @@ public class HomeController {
 	    	return "search"; 
 	}
 	
+	//장르 검색
 	@RequestMapping(value = "genresearch", method = RequestMethod.GET)
 	public String genresearch(HttpServletRequest request, Model model) {
 		String genre = request.getParameter("genre");
@@ -348,6 +352,10 @@ public class HomeController {
 			response.setContentType("text/html; charset=UTF-8");
 			HttpSession session = request.getSession();
 			session.setAttribute("userid", request.getParameter("userid"));
+			out.println("<script>");
+			out.println("location.href=('/home')");
+			out.println("</script>");
+			out.close();
 		}
 	}
 	@RequestMapping(value = "/logout")
@@ -404,6 +412,25 @@ public class HomeController {
 		out.println("<script>");
 		out.println("alert('생년월일 변경이 완료되었습니다.');");
 		out.println("location.href=('/home/member')");
+		out.println("</script>");
+		out.close();
+	}
+	@RequestMapping(value = "exit", method = RequestMethod.GET)
+	public void exit (HttpServletRequest request, HttpServletResponse response, Model model) throws IOException{
+		model.addAttribute("request", request);
+		HttpSession session = request.getSession();
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		String userid = (String)session.getAttribute("userid");
+		request.setAttribute("userid", userid);
+		command = new SpExitCommand();
+		
+		command.execute(model);
+		session.invalidate();
+		
+		out.println("<script>");
+		out.println("alert('회원탈퇴가 완료되었습니다. 그동안 이용해 주셔서 감사합니다.');");
+		out.println("location.href=('/home')");
 		out.println("</script>");
 		out.close();
 	}

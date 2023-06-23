@@ -118,7 +118,7 @@
                 </div>
                 <div class="sixth d-flex justify-between align-center">
                     <div class="leave">회원탈퇴</div>
-                        <a href="#" class="leave-box">탈퇴하기</a>
+                        <a href="exit" onclick="return confirm('정말로 회원을 탈퇴하시겠습니까?')" class="leave-box">탈퇴하기</a>
                 </div>
               </div>
              </div>
