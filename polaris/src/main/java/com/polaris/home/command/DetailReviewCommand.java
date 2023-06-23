@@ -21,9 +21,10 @@ public class DetailReviewCommand implements SpCommand {
 	    PolarisDAO dao = new PolarisDAO();
 	    String bookcode = req.getParameter("bookinfo");
 	    String userid = (String) session.getAttribute("userid");
-	    
+	    int getReviewCount = dao.hg_reviewAllCount(bookcode);
 	    List<ReviewDTO> dto = dao.hg_ifyouWriteReview(userid,bookcode);
 	    model.addAttribute("hg_isReview",dto);
+	    model.addAttribute("getReviewCount",getReviewCount);
 	}
 
 }
