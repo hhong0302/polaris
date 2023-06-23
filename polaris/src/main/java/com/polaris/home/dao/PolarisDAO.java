@@ -167,6 +167,45 @@ public class PolarisDAO {
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	
+	public void insertLike(String bookcode, String userid, String booktitle, String author, String publisher) {
+		template.update(new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
+				String sql = "insert into interest (bookcode, userid, booktitle, author, publisher)"
+						+ " values (?,?,?,?,?)";
+				PreparedStatement pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, bookcode);
+					pstmt.setString(2, userid);
+					pstmt.setString(3, booktitle);
+					pstmt.setString(4, author);
+					pstmt.setString(5, publisher);
+					return pstmt;
+				}
+		});
+	}
+	public void deleteLike(String bookcode, String userid) {
+		template.update(new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
+				String sql = "delete from interest where bookcode = ? and userid = ?";
+				PreparedStatement pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, bookcode);
+					pstmt.setString(2, userid);
+					return pstmt;
+				}
+		});
+	}
+	public int likeCount(String bookcode) {
+		String sql = "select count(*) from interest where bookcode ='" + bookcode + "'";
+		return template.queryForObject(sql, Integer.class);
+	}
+	public int userLike(String bookcode, String userid){
+		String sql = "select count(*) from interest where bookcode = '" + bookcode + "' and userid = '" + userid + "'";
+		return template.queryForObject(sql, Integer.class);
+	}
+	
 	//alice End
 	
 	
