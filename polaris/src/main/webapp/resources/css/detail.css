@@ -516,10 +516,30 @@ button.readNow-detail {
 	padding-bottom: 30px;
 	border-bottom:1px solid #797979;
 }
+.reviewBottom-detail .likeBox-detail-span
+{
+	display:flex;
+	align-items:center;
+}
 .reviewBottom-detail .reviewUser-detail {
 	font-size: 16px;
-	color: #797979;
-	font-weight: bold;
+	color: #999;
+	font-weight: 600;
+}
+.reviewBottom-detail #hg-dottes
+{
+	display:inline-block;
+	width:3px;
+	height:3px;
+	margin:0 10px;
+	border-radius:50%;
+	background-color:#999;
+}
+.reviewBottom-detail .reviewDate-detail
+{
+	font-size:13px;
+	color:#999;
+	font-weight:600;
 }
 .likeBox-detail-like
 {
