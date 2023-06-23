@@ -251,6 +251,32 @@ public class PolarisDAO {
 	    return template.queryForObject(sql, new BeanPropertyRowMapper<MembersDTO>(MembersDTO.class));
 	}
 	
+public void passUpdate(String userid, String newPass) {
+		String sql = "update members set userpass = ? where userid = ?";
+		template.update(sql, new PreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement pstmt) throws SQLException{
+					pstmt.setString(1, newPass);
+					pstmt.setString(2, userid);
+				}
+			
+		});
+	}
+
+public void changeBirth(String userid, String newBirth) {
+	String sql = "update members set birth = ? where userid = ?";
+	template.update(sql, new PreparedStatementSetter() {
+		
+		@Override
+		public void setValues(PreparedStatement pstmt) throws SQLException{
+				pstmt.setString(1, newBirth);
+				pstmt.setString(2, userid);
+			}
+		
+	});
+}
+	
 
 
 	

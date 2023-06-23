@@ -30,7 +30,9 @@ import com.polaris.home.command.OrderSearchCommand;
 import com.polaris.home.command.RegisterCommand;
 import com.polaris.home.command.ReviewWriteCommand;
 import com.polaris.home.command.SearchCommand;
+import com.polaris.home.command.SpChangeBirthCommand;
 import com.polaris.home.command.SpCommand;
+import com.polaris.home.command.SpUpdatePassCommand;
 import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.BookDTO;
 import com.polaris.home.dto.BookloanDTO;
@@ -307,7 +309,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/loginok")
-	public String loginok(HttpServletRequest request,HttpServletResponse response, Model model) throws IOException{
+	public void loginok(HttpServletRequest request,HttpServletResponse response, Model model) throws IOException{
 		model.addAttribute("request", request);
 //		command = new LoginOkCommand();
 //		command.execute(model);
@@ -321,16 +323,14 @@ public class HomeController {
 			out.println("location.href=('/home/login')");
 			out.println("</script>");
 			out.close();
-			return "redirect:login";
 		}else {
 			response.setContentType("text/html; charset=UTF-8");
 			HttpSession session = request.getSession();
 			session.setAttribute("userid", request.getParameter("userid"));
-			return "redirect:/";
 		}
 	}
 	@RequestMapping(value = "/logout")
-	public String logout(HttpServletRequest request,HttpServletResponse response) throws IOException {
+	public void logout(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		HttpSession session = request.getSession();
 		PrintWriter out = response.getWriter();
@@ -339,8 +339,7 @@ public class HomeController {
 		out.println("alert('로그아웃이 되었습니다.');");
 		out.println("location.href=('/home')");
 		out.println("</script>");
-		out.close();
-		return "redirect:/";	// 로그아웃!!!
+		out.close();	// 로그아웃!!!
 	}
 	
 	@RequestMapping(value = "member")
@@ -352,6 +351,40 @@ public class HomeController {
 		command = new MemberListCommand();
 		command.execute(model);
 		return "member";	// member.jsp 호출!!!
+	}
+	
+	@RequestMapping(value = "passUpdate", method = RequestMethod.POST)
+	public void updatePass(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+		model.addAttribute("request", request);
+		HttpSession session = request.getSession();
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		String userid = (String)session.getAttribute("userid");
+		request.setAttribute("userid", userid);
+		command = new SpUpdatePassCommand();
+		command.execute(model);
+		out.println("<script>");
+		out.println("alert('비밀번호 변경이 완료되었습니다.');");
+		out.println("location.href=('/home/member')");
+		out.println("</script>");
+		out.close();
+	}
+	
+	@RequestMapping(value = "changeBirth", method = RequestMethod.POST)
+	public void changeBirth(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException{
+		model.addAttribute("request", request);
+		HttpSession session = request.getSession();
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		String userid = (String)session.getAttribute("userid");
+		request.setAttribute("userid", userid);
+		command = new SpChangeBirthCommand();
+		command.execute(model);
+		out.println("<script>");
+		out.println("alert('생년월일 변경이 완료되었습니다.');");
+		out.println("location.href=('/home/member')");
+		out.println("</script>");
+		out.close();
 	}
 }
 
