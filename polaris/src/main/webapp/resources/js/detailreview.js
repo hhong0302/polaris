@@ -23,6 +23,16 @@ window.onload=function()
 //리뷰 최초 작성
 function reviewSubmit()
 {
+	if(rvbox_detail.value.replace(/\s/gi, "")=="")
+	{
+		alert("공백을 제외하고 한 글자 이상 입력하세요.");
+		return false;
+	}
+	if(rv_title.value.replace(/\s/gi, "")=="")
+	{
+		alert("공백을 제외하고 한 글자 이상 입력하세요.");
+		return false;
+	}
 	document.reviewWriteForm.submit();
 }
 
@@ -44,7 +54,17 @@ function reviewModify()
 	}
 	else
 	{
-		
+		if(rvbox_detail.value.replace(/\s/gi, "")=="")
+		{
+			alert("공백을 제외하고 한 글자 이상 입력하세요.");
+			return false;
+		}
+		if(rv_title.value.replace(/\s/gi, "")=="")
+		{
+			alert("공백을 제외하고 한 글자 이상 입력하세요.");
+			return false;
+		}
+		document.reviewModifyForm.submit();
 	}
 }
 
@@ -72,6 +92,22 @@ function reviewModifyCancel()
 	else
 	{
 		//리뷰삭제 메소드
+		const hg_bookcode = document.getElementById("hg-bookcode").value;
+		let y = confirm("정말로 삭제하시겠습니까?");
+		if(y) $.ajax({
+		url : "reviewDeleteController",
+		type: "GET",
+		dataType: "json",
+		data:{"bookcode":hg_bookcode},
+		async:false,
+		contentType: "application/json",
+		success : function() {
+			
+		},
+  		error : function() {
+  		location.reload();
+  		}
+		});
 	}
 }
 
@@ -96,7 +132,7 @@ function rvmoreWatch(e)
 let listPageNum=0;
 let listType;
 let allReviewDatas=0;
-let scrollCount=document.getElementById("isReviewWrited").value;
+let scrollCount=0;
 const rvcmtcontent = document.getElementsByClassName("reviewComment-content");
 const reviewcommentlist = document.getElementsByClassName("reviewcommentlist-detail")[0];
 const rvmenu_detail = document.getElementsByClassName("reviewMenu-detail");
@@ -133,13 +169,16 @@ function listNav_click(reviewType,bookcode)
 		async:false,
 		contentType: "application/json",
 		success : function(datas) {
-		  	if(datas==null||datas==""||datas==0) return;
+			let listCount=0;
+			let rvButtonList="";
+		  	if(datas==null||datas==""||datas==0)
+			{
+				rvButtonList+=`<button class="pageNum-pagebtn">1</button>`;
+			}
 			else
 			{
 				allReviewDatas=Math.ceil(datas.length/5);
 				
-				let listCount=0;
-				let rvButtonList="";
 				if(datas.length<25) listCount=Math.ceil(datas.length/5);
 				else
 				{
@@ -150,9 +189,9 @@ function listNav_click(reviewType,bookcode)
 				{
 					rvButtonList+=`<button class="pageNum-pagebtn" onclick="pageNumBtnClick(this,${i-1},'${listType}','${bookcode}')">${i}</button>`;
 				}
+			}
 				reviewcommentlist.innerHTML=reviewList;
 				pgnum_detail_btnbox.innerHTML=rvButtonList;
-			}
   		},
   		error : function() {
   		console.log("error");
