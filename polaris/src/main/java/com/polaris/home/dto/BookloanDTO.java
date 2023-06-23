@@ -6,6 +6,8 @@ public class BookloanDTO {
 	private String bookcode;
 	private String userid;
 	private String booktitle;
+	private String author;
+	private String publisher;
 	private String loan;
 	private String loandate;
 	
@@ -32,6 +34,18 @@ public class BookloanDTO {
 	}
 	public void setBooktitle(String booktitle) {
 		this.booktitle = booktitle;
+	}
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	public String getPublisher() {
+		return publisher;
+	}
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
 	}
 	public String getLoan() {
 		return loan;
