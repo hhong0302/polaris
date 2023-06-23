@@ -15,23 +15,29 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.gson.Gson;
+import com.polaris.home.command.DeleteLikeCommand;
 import com.polaris.home.command.DetailCommand;
+import com.polaris.home.command.DetailReviewCommand;
 import com.polaris.home.command.HomeListCommand;
 import com.polaris.home.command.IdCheckCommand;
-import com.polaris.home.command.MyCommand;
-
-import com.polaris.home.command.LoginOkCommand;
 import com.polaris.home.command.MemberListCommand;
-
+import com.polaris.home.command.MyCommand;
 import com.polaris.home.command.OrderSearchCommand;
 import com.polaris.home.command.RegisterCommand;
+import com.polaris.home.command.ReviewModifyCommand;
+import com.polaris.home.command.ReviewWriteCommand;
 import com.polaris.home.command.SearchCommand;
+import com.polaris.home.command.SpChangeBirthCommand;
 import com.polaris.home.command.SpCommand;
+import com.polaris.home.command.SpUpdatePassCommand;
 import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.BookDTO;
 import com.polaris.home.dto.BookloanDTO;
+import com.polaris.home.dto.ReviewDTO;
 import com.polaris.home.util.Static;
 
 
@@ -91,15 +97,46 @@ public class HomeController {
 		out.close();
 	}
 	
-	//리뷰 내역
+	//리뷰 작성
+	@RequestMapping(value = "reviewWriteController")
+	public RedirectView reviewWriteController(HttpServletRequest req,Model model,RedirectAttributes attributes) throws Exception{
+		model.addAttribute("req", req);
+		
+		command = new ReviewWriteCommand();
+		command.execute(model);
+		attributes.addAttribute("bookinfo", req.getParameter("bookcode"));
+		return new RedirectView("detail");
+	}
+	
+	//리뷰 수정
+	@RequestMapping(value = "reviewModifyController")
+	public RedirectView reviewModifyController(HttpServletRequest req,Model model,RedirectAttributes attributes) throws Exception{
+		model.addAttribute("req", req);
+		
+		command = new ReviewModifyCommand();
+		command.execute(model);
+		attributes.addAttribute("bookinfo", req.getParameter("bookcode"));
+		return new RedirectView("detail");
+	}
+	
+	//리뷰 삭제
+	@RequestMapping(value = "/reviewDeleteController")
+	public void reviewDeleteController(HttpServletRequest req,HttpServletResponse res) throws Exception{
+		PolarisDAO dao = new PolarisDAO();
+		String bookcode = req.getParameter("bookcode");
+        HttpSession session = req.getSession();
+        String userid = (String)session.getAttribute("userid");
+        dao.hg_reviewDelete(userid,bookcode);
+	}
+	
+	//리뷰 내역(최신순/좋아요 순)
 	@ResponseBody
 	@RequestMapping(value = "/reviewController")
 	public void reviewController(HttpServletRequest req,HttpServletResponse res) throws Exception{
 		PolarisDAO dao = new PolarisDAO();
 		String bookcode = req.getParameter("bookcode");
 		String rvType = req.getParameter("reviewType");
-		//List <ReviewDTO> dto = dao.hg_reviewList(bookcode,rvType);
-		List <BookDTO> dto = dao.hg_sample();
+		List <ReviewDTO> dto = dao.hg_reviewList(bookcode,rvType);
 		PrintWriter out = res.getWriter();
 		String gson = new Gson().toJson(dto);
 		out.println(gson);
@@ -112,7 +149,9 @@ public class HomeController {
 	public void reviewListController(HttpServletRequest req,HttpServletResponse res) throws Exception{
 		PolarisDAO dao = new PolarisDAO();
 		int listnum = 5*Integer.parseInt(req.getParameter("listnum"));
-		List <BookDTO> dto = dao.hg_reviewList(listnum);
+		String listType = req.getParameter("listType");
+		String bookcode = req.getParameter("bookcode");
+		List <ReviewDTO> dto = dao.hg_reviewList(listnum,listType,bookcode);
 		PrintWriter out = res.getWriter();
 		String gson = new Gson().toJson(dto);
 		out.println(gson);
@@ -208,9 +247,53 @@ public class HomeController {
 	    command = new DetailCommand();
 	    command.execute(model);
 	    
+	    SpCommand drcommand = new DetailReviewCommand();
+	    drcommand.execute(model);
 	    return "detail";
 	}
-
+	@RequestMapping(value = "likeCount")
+	public String likeCount(HttpServletRequest request, Model model){
+		model.addAttribute("request", request);
+		
+		command = new DetailCommand();
+		command.execute(model);
+		return "detail";
+	}
+	@RequestMapping(value = "userLike")
+	public String userLike(HttpServletRequest request, Model model){
+		model.addAttribute("request", request);
+		
+		command = new DetailCommand();
+		command.execute(model);
+		return "detail";
+	}
+	@RequestMapping("/insertLike")
+	public String insertLike(HttpServletRequest request, Model model) {
+		String bookcode = request.getParameter("bookcode");
+		String userLike = request.getParameter("userLike");
+		model.addAttribute("request", request);
+		model.addAttribute("bookcode", bookcode);
+		model.addAttribute("userLike", userLike);
+		command = new DetailCommand();
+		command.execute(model);
+		
+		return "insertLike";
+		
+	}
+	@RequestMapping("/deleteLike")
+	public String deleteLike(HttpServletRequest request, Model model) {
+		String bookcode = request.getParameter("bookcode");
+		String userLike = request.getParameter("userLike");
+		model.addAttribute("request", request);
+		model.addAttribute("bookcode", bookcode);
+		model.addAttribute("userLike", userLike);
+		command = new DetailCommand();
+		command.execute(model);
+		
+		return "detail";
+		
+	}
+	
 	
 	@RequestMapping(value = "mypage", method = RequestMethod.GET)
 	public String bookloan(HttpServletRequest request, Model model) {
@@ -250,7 +333,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/loginok")
-	public String loginok(HttpServletRequest request,HttpServletResponse response, Model model) throws IOException{
+	public void loginok(HttpServletRequest request,HttpServletResponse response, Model model) throws IOException{
 		model.addAttribute("request", request);
 //		command = new LoginOkCommand();
 //		command.execute(model);
@@ -260,25 +343,18 @@ public class HomeController {
 		if(rs == 0) {
 			response.setContentType("text/html; charset=UTF-8");
 			out.println("<script>");
-			out.println("alert('로그인에 실패했습니다.');");
+			out.println("alert('아이디 또는 비밀번호가 틀립니다.');");
 			out.println("location.href=('/home/login')");
 			out.println("</script>");
 			out.close();
-			return "redirect:login";
 		}else {
 			response.setContentType("text/html; charset=UTF-8");
 			HttpSession session = request.getSession();
 			session.setAttribute("userid", request.getParameter("userid"));
-			out.println("<script>");
-			out.println("alert('로그인에 성공했습니다.');");
-			out.println("location.href=('/home')");
-			out.println("</script>");
-			out.close();
-			return "redirect:/";
 		}
 	}
 	@RequestMapping(value = "/logout")
-	public String logout(HttpServletRequest request,HttpServletResponse response) throws IOException {
+	public void logout(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		HttpSession session = request.getSession();
 		PrintWriter out = response.getWriter();
@@ -287,8 +363,7 @@ public class HomeController {
 		out.println("alert('로그아웃이 되었습니다.');");
 		out.println("location.href=('/home')");
 		out.println("</script>");
-		out.close();
-		return "redirect:/";	// 로그아웃!!!
+		out.close();	// 로그아웃!!!
 	}
 	
 	@RequestMapping(value = "member")
@@ -300,6 +375,40 @@ public class HomeController {
 		command = new MemberListCommand();
 		command.execute(model);
 		return "member";	// member.jsp 호출!!!
+	}
+	
+	@RequestMapping(value = "passUpdate", method = RequestMethod.POST)
+	public void updatePass(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+		model.addAttribute("request", request);
+		HttpSession session = request.getSession();
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		String userid = (String)session.getAttribute("userid");
+		request.setAttribute("userid", userid);
+		command = new SpUpdatePassCommand();
+		command.execute(model);
+		out.println("<script>");
+		out.println("alert('비밀번호 변경이 완료되었습니다.');");
+		out.println("location.href=('/home/member')");
+		out.println("</script>");
+		out.close();
+	}
+	
+	@RequestMapping(value = "changeBirth", method = RequestMethod.POST)
+	public void changeBirth(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException{
+		model.addAttribute("request", request);
+		HttpSession session = request.getSession();
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		String userid = (String)session.getAttribute("userid");
+		request.setAttribute("userid", userid);
+		command = new SpChangeBirthCommand();
+		command.execute(model);
+		out.println("<script>");
+		out.println("alert('생년월일 변경이 완료되었습니다.');");
+		out.println("location.href=('/home/member')");
+		out.println("</script>");
+		out.close();
 	}
 }
 
