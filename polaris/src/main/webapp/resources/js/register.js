@@ -114,18 +114,17 @@ userpass.addEventListener('keyup', function(){
     }
 
 });
-reuserpass.addEventListener('focusout', function(){
+reuserpass.addEventListener('keyup', function(){
     if(reuserpass.value == '' && reuserpass.value == userpass.value){
         repasscheckno.style.display = 'none';
         repasscheckok.style.display = 'none';
 
     }else if(reuserpass.value != userpass.value){
         repasscheckno.style.display = 'flex';
-        passcheckno.style.display = 'flex';
         repasscheckok.style.display = 'none';
         passcheckok.style.display = 'none';
         
-    }else if(reuserpass.value == userpass.value){
+    }else if(reuserpass.value == userpass.value && passcheck.test(userpass.value)){
         repasscheckno.style.display = 'none';
         repasscheckok.style.display = 'flex';
         passcheckok.style.display = 'flex';
