@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.gson.Gson;
+import com.polaris.home.command.DeleteLikeCommand;
 import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.DetailReviewCommand;
 import com.polaris.home.command.HomeListCommand;
@@ -224,7 +225,49 @@ public class HomeController {
 	    drcommand.execute(model);
 	    return "detail";
 	}
-
+	@RequestMapping(value = "likeCount")
+	public String likeCount(HttpServletRequest request, Model model){
+		model.addAttribute("request", request);
+		
+		command = new DetailCommand();
+		command.execute(model);
+		return "detail";
+	}
+	@RequestMapping(value = "userLike")
+	public String userLike(HttpServletRequest request, Model model){
+		model.addAttribute("request", request);
+		
+		command = new DetailCommand();
+		command.execute(model);
+		return "detail";
+	}
+	@RequestMapping("/insertLike")
+	public String insertLike(HttpServletRequest request, Model model) {
+		String bookcode = request.getParameter("bookcode");
+		String userLike = request.getParameter("userLike");
+		model.addAttribute("request", request);
+		model.addAttribute("bookcode", bookcode);
+		model.addAttribute("userLike", userLike);
+		command = new DetailCommand();
+		command.execute(model);
+		
+		return "insertLike";
+		
+	}
+	@RequestMapping("/deleteLike")
+	public String deleteLike(HttpServletRequest request, Model model) {
+		String bookcode = request.getParameter("bookcode");
+		String userLike = request.getParameter("userLike");
+		model.addAttribute("request", request);
+		model.addAttribute("bookcode", bookcode);
+		model.addAttribute("userLike", userLike);
+		command = new DetailCommand();
+		command.execute(model);
+		
+		return "detail";
+		
+	}
+	
 	
 	@RequestMapping(value = "mypage", method = RequestMethod.GET)
 	public String bookloan(HttpServletRequest request, Model model) {
