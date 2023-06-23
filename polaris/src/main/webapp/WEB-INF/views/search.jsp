@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>검색 결과</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="resources/css/search.css" />
 </head>
 <body>
@@ -64,11 +65,11 @@
                                                 <p>찜 1,240</p>
                                             </div>
                                             <div class="btn-box">
-                                                <div class="detail-btn">
-                                                    <a href="detail?bookinfo=${book.bookcode}">상세보기</a>
+                                                <div class="detail-btn-box">
+                                                    <a href="detail?bookinfo=${book.bookcode}" class="detail-btn">상세보기</a>
                                                 </div>
                                                 <div class="rental-btn">
-                                                    <button type="submit" class="search-rental-btn">대여하기</button>
+                                                    <a href="#" class="search-rental-btn">대여하기</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -79,14 +80,16 @@
                 </div>
                 <c:if test="${fn:length(searchResult) > 10}">
 				    <div id="loadMoreButton">
-				        <button type="submit" onclick="showNextResults()">더보기 (
+				        <button type="submit">더보기 (
+							<span id="nowcount"></span>	/
 				        	<c:choose>
                               <c:when test="${searchType eq 'search'}">${fn:length(search)}</c:when>
                               <c:when test="${searchType eq 'totalsearch'}">${fn:length(totalsearch)}</c:when>
                               <c:when test="${searchType eq 'genresearch'}">${fn:length(genresearch)}</c:when>
                               <c:when test="${searchType eq 'ordersearch'}">${fn:length(ordersearch)}</c:when>
                               <c:otherwise>0</c:otherwise>
-                            </c:choose>) </button>
+                            </c:choose>) <i class="fa-solid fa-chevron-down che-down"></i>
+                       </button>
 				    </div>
 				</c:if>
             </c:when>
