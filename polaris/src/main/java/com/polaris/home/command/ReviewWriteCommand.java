@@ -22,7 +22,9 @@ public class ReviewWriteCommand implements SpCommand {
 	    String userid = (String) session.getAttribute("userid");
 	    String reviewtitle = req.getParameter("reviewtitle");
 	    String reviewcontent = req.getParameter("reviewcontent");
-	    dao.hg_reviewWrite(bookcode,userid,reviewtitle,reviewcontent);
+	    int isReview = dao.hg_reviewWriteCount(bookcode, userid);
+	    if(isReview==0) dao.hg_reviewWrite(bookcode,userid,reviewtitle,reviewcontent);
+	    else dao.hg_reviewModify(bookcode, userid, reviewtitle, reviewcontent);
 	    //model.addAttribute("isReviewWrited",1);
 	}
 
