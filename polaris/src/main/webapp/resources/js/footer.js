@@ -19,10 +19,10 @@ $(document).ready(function()
 			else if(data.length==1)
 			{
 				rightboxLoanList+=`<div class="hg-returnbox">
-					<img src="resources/bookimg/${data[i].bookcode}.jpg" class="hg-rtimg" alt="${data[i].bookcode}" />
+					<img src="resources/bookimg/${data[0].bookcode}.jpg" class="hg-rtimg" alt="${data[0].bookcode}" />
 					
 					<span class="hg-righttitle">
-						${data[i].booktitle}
+						${data[0].booktitle}
 					</span>
 					
 					<span class="hg-howmuch">

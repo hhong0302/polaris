@@ -20,6 +20,12 @@ window.onload=function()
 	listNav_recent.click();
 }
 
+//리뷰 최초 작성
+function reviewSubmit()
+{
+	document.reviewWriteForm.submit();
+}
+
 //리뷰작성/수정/삭제 부분
 function reviewModify()
 {	
@@ -90,7 +96,7 @@ function rvmoreWatch(e)
 let listPageNum=0;
 let listType;
 let allReviewDatas=0;
-let scrollCount=0;
+let scrollCount=document.getElementById("isReviewWrited").value;
 const rvcmtcontent = document.getElementsByClassName("reviewComment-content");
 const reviewcommentlist = document.getElementsByClassName("reviewcommentlist-detail")[0];
 const rvmenu_detail = document.getElementsByClassName("reviewMenu-detail");
@@ -164,7 +170,9 @@ function pageNumBtnClick(e,listNumber,lstType,bookcode)
 		url : "reviewListController",
 		type: "GET",
 		dataType: "json",
-		data:{"listnum":listNumber,"listType":lstType},
+		data:{"listnum":listNumber,
+		"listType":lstType,
+		"bookcode":bookcode},
 		async:false,
 		contentType: "application/json",
 		success : function(datas) {
@@ -174,9 +182,9 @@ function pageNumBtnClick(e,listNumber,lstType,bookcode)
 			    		<div class="reviewTop-detail">
 				    		<div class="reviewInfo-detail">
 					    		<h1 class="reviewtitle-detail">
-					    			${datas[i].booktitle}
+					    			${datas[i].retitle}
 					    		</h1>
-				    			<textarea class="reviewComment-content active" readonly>${datas[i].bookcontent}</textarea>
+				    			<textarea class="reviewComment-content active" readonly>${datas[i].recontent}</textarea>
 								<div class="moreWatchbtnbox">
 									<button class="moreWatchbtn" onclick="moreWatch(this,${i})">모두보기<i class="fa-solid fa-angle-down"></i></button>
 				    			</div>
@@ -184,8 +192,8 @@ function pageNumBtnClick(e,listNumber,lstType,bookcode)
 			    		</div>
 			    		<div class="reviewBottom-detail">
 		    				<div class="likeBox-detail-span">
-				    			<span class="reviewUser-detail">${datas[i].bookcode}</span>
-				    			<span class="reviewDate-detail">${datas[i].date}</span>
+				    			<span class="reviewUser-detail">${datas[i].userid}</span>
+				    			<span class="reviewDate-detail">${datas[i].redate}</span>
 			    			</div>`;
 			    	$.ajax({
 					url : "reviewLikeController",
@@ -224,7 +232,8 @@ function pageNumBtnClick(e,listNumber,lstType,bookcode)
 			}
 		}
 	
-	if(scrollCount>0) window.scrollTo({ top: 2600, behavior: "smooth" }); 
+	if(scrollCount>0) window.scrollTo({ top: 
+	window.pageYOffset+document.getElementById("move2").getBoundingClientRect().top-70, behavior: "smooth" }); 
 	scrollCount=1;
 	for(let i=0;i<pgNum_pgbtn.length;i++)
 	{

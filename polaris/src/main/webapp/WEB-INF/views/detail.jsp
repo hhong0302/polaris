@@ -18,7 +18,7 @@
 	<%
 		String uid = (String) session.getAttribute("userid");
 	%>
-	
+	<input type="hidden" name="userid" value="<%= uid%>">
 	<div class="container-detail">
 		
 		<c:forEach var="book" items="${bookinfo}">
@@ -29,7 +29,7 @@
 				<p>메인<i class="ri-arrow-drop-right-line"></i><span class="ftBlack-detail">${book.genre}</span></p>
 			</div>
 			
-			<form class="bookRental-detail" action="javascript:void(0)">
+			<form class="bookRental-detail" action="detail/loanBook">
 				<div class="hash-detail">					
 					<p class="bookHash-detail">
 					${fn:replace(book.hash, replaceHash, "</p> <p>")}
@@ -42,16 +42,22 @@
 				<c:if test="${empty book.trans}">
 					<div class="bookInfoBox-detail">
 						<h2>${book.booktitle}</h2>
+						<input type="hidden" name="booktitle" value="${book.booktitle}">
 						<p>${book.author} 저자<br>
 							${book.publisher} 출판</p>
+						<input type="hidden" name="author" value="${book.author}">
+						<input type="hidden" name="publisher" value="${book.publisher}">
 						<p>${book.date} 출간</p>
 					</div>
 				</c:if>
 				<c:if test="${ not empty book.trans}">
 					<div class="bookInfoBox-detail">
 						<h2>${book.booktitle}</h2>
+						<input type="hidden" name="booktitle" value="${book.booktitle}">
 						<p>${book.author} 저자 · ${book.trans} 옮김<br>
 							${book.publisher} 출판</p>
+						<input type="hidden" name="author" value="${book.author}">
+						<input type="hidden" name="publisher" value="${book.publisher}">
 						<p>${book.date} 출간</p>
 					</div>
 				</c:if>
@@ -61,7 +67,7 @@
 					<div onclick="reject()" class="rentalBtn-detail">
 						<div class="likeBtn-detail">
 							<img alt="like" src="resources/images/emptyheart.png">
-							찜 1,240
+							찜 ${likeCount}
 						</div>
 						<button type="button" class="rental-detail">대여하기</button>
 						<button type="button" class="readNow-detail">바로 읽기</button>
@@ -70,11 +76,18 @@
 					}else {
 				%>				
 					<div class="rentalBtn-detail">
-						
-						<div class="likeBtn-detail">
-							<img alt="like" src="resources/images/emptyheart.png">
-							찜 1,240
-						</div>
+						<c:if test="${userLike == 0}">
+							<a class="likeBtn-detail" href='/home/detail?bookinfo=${bookcode}&userLike=1'>
+								<img alt="like" src="resources/images/emptyheart.png">
+								찜 ${likeCount} / ${userLike}
+							</a>
+						</c:if>
+						<c:if test="${userLike != 0}">
+							<a onclik='return submit2(this.form)' class="likeBtn-detail" >
+								<img alt="like" src="resources/images/fillheart.png">
+								찜 ${likeCount} / ${userLike}
+							</a>
+						</c:if>
 						<button type="submit" class="rental-detail">대여하기</button>
 						<button type="button" class="readNow-detail">바로 읽기</button>
 					</div>
@@ -164,13 +177,13 @@
 		</c:forEach>
 			
 			<!-- REVIEW START -->
-			
+			<input type="hidden" id="isReviewWrited" value="<%=request.getParameter("isReviewWrited")%>" />
 			<div id="move2" class="reviewWrtBox-detail">
 				<h2>리뷰작성</h2>
-				
-				<!-- 로그인 안했을 시 -->
-				
-				<!-- <div class="reviewWrt-detail">
+			<c:choose>
+				<%-- 로그인 안했을 시 --%>
+				<c:when test="${sessionScope.userid eq null || empty sessionScope.userid}">
+				<div class="reviewWrt-detail">
 					<div class="reviewWrt-detail-title">
 						<h1 class="reviewWrt-detail-h1">
 							제목
@@ -182,20 +195,20 @@
 							내용
 						</h1>
 						<div class="reviewWrt-textareabox">
-							<textarea name="reviewcontent" class="reviewBox-detail" maxlength="600" style="background-color:#f0f0f0;" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 작성하면 비공개 처리될 수 있습니다. (최대 600자)" readonly></textarea>
+							<textarea name="reviewcontent" class="reviewBox-detail nowrited" maxlength="600" style="background-color:#f0f0f0;" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 작성하면 비공개 처리될 수 있습니다. (최대 600자)" readonly></textarea>
 							<a href="login">
 								<img id="review-detail-after-login" src="resources/images/detail-after-login.png" alt="after-login" />
 							</a>
 						</div>
 						<button type="button" class="submitBtn-detail">리뷰 남기기</button>
 					</div>
-				</div> -->
-				
-				<!-- 로그인 안했을 시 -->
-				
-				<!-- 로그인 했으면서 리뷰 작성 안했을 시 -->
-				
-				<!-- <form class="reviewWrt-detail" method="post">
+				</div>
+				</c:when>
+				<%-- 로그인 안했을 시 --%>
+				<c:otherwise>
+				<%-- 로그인 했으면서 리뷰 작성 안했을 시 --%>
+				<c:if test="${empty hg_isReview}">
+				<form name="reviewWriteForm" class="reviewWrt-detail" action="reviewWriteController" method="post">
 					<div class="reviewWrt-detail-title">
 						<h1 class="reviewWrt-detail-h1">
 							제목
@@ -208,25 +221,28 @@
 							내용
 						</h1>
 						<div class="reviewWrt-textareabox">
-							<textarea name="reviewcontent" class="reviewBox-detail" maxlength="600" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 작성하면 비공개 처리될 수 있습니다. (최대 600자)"></textarea>
+							<textarea name="reviewcontent" class="reviewBox-detail action nowrited" maxlength="600" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 작성하면 비공개 처리될 수 있습니다. (최대 600자)"></textarea>
 						</div>
+						<div id="rvcontentmoreWatchbtnbox" style="display:none;"></div>
+						<input type="hidden" name="bookcode" value="${bookcode}" />
 						<button type="button" onclick="reviewSubmit()" class="submitBtn-detail">리뷰 남기기</button>
 					</div>
-				</form> -->
+				</form>
+				</c:if>
+				<%-- 로그인 했으면서 리뷰 작성 안했을 시 --%>
 				
-				<!-- 로그인 했으면서 리뷰 작성 안했을 시 -->
-				
-				<!-- 리뷰작성 했을 시 -->
-				
-				<form class="reviewWrt-detail" method="post">
+				<%-- 리뷰작성 했을 시 --%>
+				<c:if test="${not empty hg_isReview}">
+				<c:forEach var="hg_isReview" items="${hg_isReview}">
+				<form name="reviewModifyForm" class="reviewWrt-detail" method="post">
 					<div class="reviewWrt-detail-title">
 						<h1 class="reviewWrt-detail-h1">
 							제목
 						</h1>
 						<span class="review-writed review-writedspan">
-							재밌어요 호호
+							${hg_isReview.retitle}
 						</span>
-						<input type="hidden" id="reviewtitle" name="reviewtitle" maxlength="70" placeholder="남기시는 리뷰의 제목을 적어주세요. (최대 70자)" value="재밌어요 호호" />
+						<input type="hidden" id="reviewtitle" name="reviewtitle" maxlength="70" placeholder="남기시는 리뷰의 제목을 적어주세요. (최대 70자)" value="${hg_isReview.retitle}" />
 						
 						<button type="button" onclick="reviewModifyCancel()" class="review-deletebtn">리뷰 삭제</button>
 						
@@ -238,16 +254,19 @@
 						<div class="reviewWrt-textareabox">
 							<textarea name="reviewcontent" class="reviewBox-detail active review-writedarea" maxlength="600" 
 							placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 작성하면 비공개 처리될 수 있습니다. (최대 600자)" 
-							readonly>재밌네요 호호재밌네요 호호</textarea>
+							readonly>${hg_isReview.recontent}</textarea>
 							<div id="rvcontentmoreWatchbtnbox">
 							</div>
+							<input type="hidden" name="bookcode" value="${bookcode}" />
 						</div>
 						<button type="button" onclick="reviewModify()" class="submitBtn-detail">리뷰 수정</button>
 					</div>
 				</form>
-				
-				<!-- 리뷰작성 했을 시 -->
-				
+				</c:forEach>
+				</c:if>
+				<%-- 리뷰작성 했을 시 --%>
+				</c:otherwise>
+			</c:choose>
 			</div>
 			
 			<div class="reviewList-detail">

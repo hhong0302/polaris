@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 
 import com.polaris.home.dto.BookDTO;
 import com.polaris.home.dto.BookloanDTO;
@@ -91,22 +92,45 @@ public class PolarisDAO {
 		return template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	
+	public void hg_reviewWrite(String bookcode,String userid,String retitle,String recontent)
+	{
+		String sql = "insert into review(bookcode,userid,retitle,recontent) values(?,?,?,?)";
+		template.update(sql,new PreparedStatementSetter()
+		{
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException
+			{
+				ps.setString(1, bookcode);
+				ps.setString(2, userid);
+				ps.setString(3, retitle);
+				ps.setString(4, recontent);
+			}
+		});
+	}
+	
+	//전체 리스트 수
 	public List<ReviewDTO> hg_reviewList(String bookcode,String rvType)
 	{
-		String sql="select * from review where bookcode='"+bookcode+"'";
+		String sql="select * from review where bookcode='"+bookcode+"' ";
 		if(rvType=="recent"||rvType.equals("recent")) sql+="order by redate desc";
-		else sql+="order by relike desc";
+		else sql+="order by relike desc, redate desc";
 		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
 	}
-	public List<BookDTO> hg_sample()
+	
+	//번호 눌렀을 때 나오는 리스트
+	public List<ReviewDTO> hg_reviewList(int listnum,String listType,String bookcode)
 	{
-		String sql = "select * from book";
-		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+		String sql = "select * from review where bookcode='"+bookcode+"' ";
+		if(listType=="recent"||listType.equals("recent")) sql+="order by redate desc";
+		else sql+="order by relike desc, redate desc";
+		sql+=" limit "+listnum+", 5";
+		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
 	}
-	public List<BookDTO> hg_reviewList(int listnum)
+	
+	public List<ReviewDTO> hg_ifyouWriteReview(String userid,String bookcode)
 	{
-		String sql = "select * from book limit "+listnum+", 5";
-		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+		String sql = "select * from review where userid='"+userid+"' and bookcode='"+bookcode+"'";
+		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
 	}
 	//wonhong End
 	
@@ -114,7 +138,7 @@ public class PolarisDAO {
 	//바지조장 Start
 	public List<MembersDTO> choi_memList(){
 
-		String sql = "select * from members where userid = 'test'";
+		String sql = "select * from members ";
 		return (List<MembersDTO>)template.query(sql,new BeanPropertyRowMapper<MembersDTO>(MembersDTO.class));
 	}
 	
@@ -141,6 +165,45 @@ public class PolarisDAO {
 	    String sql = "select * from book where bookcode = ";
 	    sql +="'" + bookcode + "'";
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+	}
+	
+	public void insertLike(String bookcode, String userid, String booktitle, String author, String publisher) {
+		template.update(new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
+				String sql = "insert into interest (bookcode, userid, booktitle, author, publisher)"
+						+ " values (?,?,?,?,?)";
+				PreparedStatement pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, bookcode);
+					pstmt.setString(2, userid);
+					pstmt.setString(3, booktitle);
+					pstmt.setString(4, author);
+					pstmt.setString(5, publisher);
+					return pstmt;
+				}
+		});
+	}
+	public void deleteLike(String bookcode, String userid) {
+		template.update(new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
+				String sql = "delete from interest where bookcode = ? and userid = ?";
+				PreparedStatement pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, bookcode);
+					pstmt.setString(2, userid);
+					return pstmt;
+				}
+		});
+	}
+	public int likeCount(String bookcode) {
+		String sql = "select count(*) from interest where bookcode ='" + bookcode + "'";
+		return template.queryForObject(sql, Integer.class);
+	}
+	public int userLike(String bookcode, String userid){
+		String sql = "select count(*) from interest where bookcode = '" + bookcode + "' and userid = '" + userid + "'";
+		return template.queryForObject(sql, Integer.class);
 	}
 	
 	//alice End
