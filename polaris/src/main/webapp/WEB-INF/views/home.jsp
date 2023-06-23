@@ -84,9 +84,9 @@
 					</a>
 					<h3 class="hg-bname"><a href="detail?bookinfo=${dto.bookcode}">${dto.booktitle}</a></h3>
 					<div class="hg-ap">
-						<span><a href="javascript:void(0)">${dto.author}</a> 저자</span>
+						<span><a href="search?query=${dto.author}">${dto.author}</a> 저자</span>
 						<span class="hg-dotted">·</span>
-						<span>${dto.publisher}</span>
+						<span><a href="search?query=${dto.publisher}">${dto.publisher}</a></span>
 					</div>
 					<div class="hg-content">
 						${dto.bookcontent}
@@ -126,9 +126,9 @@
 						</a>
 						<h3 class="hg-bname"><a href="detail?bookinfo=${dto.bookcode}">${dto.booktitle}</a></h3>
 						<div class="hg-ap">
-							<span><a href="javascript:void(0)">${dto.author}</a> 저자</span>
+							<span><a href="search?query=${dto.author}">${dto.author}</a> 저자</span>
 							<span class="hg-dotted">·</span>
-							<span>${dto.publisher}</span>
+							<span><a href="search?query=${dto.publisher}">${dto.publisher}</a></span>
 						</div>
 						<div class="hg-content">
 							${dto.bookcontent}

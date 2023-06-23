@@ -168,9 +168,9 @@ function hg_hotmenubtnclick(hg_what,num)
 				</a>
 				<h3 class="hg-bname"><a href="detail?bookinfo=${data[i].bookcode}">${data[i].booktitle}</a></h3>
 				<div class="hg-ap">
-					<span><a href="javascript:void(0)">${data[i].author}</a> 저자</span>
+					<span><a href="search?query=${data[i].author}">${data[i].author}</a> 저자</span>
 					<span class="hg-dotted">·</span>
-					<span>${data[i].publisher}</span>
+					<span><a href="search?query=${data[i].publisher}">${data[i].publisher}</a></span>
 				</div>
 				<div class="hg-content">
 					${data[i].bookcontent}

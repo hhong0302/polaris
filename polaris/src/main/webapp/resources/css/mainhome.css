@@ -181,6 +181,9 @@
 	font-size:16px;
 	font-weight:700;
 	letter-spacing:-1px;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .hg-novellist .hg-ap,
@@ -266,6 +269,9 @@
 	font-size:16px;
 	font-weight:700;
 	color:#fff;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .hg-essaylist .hg-ap
