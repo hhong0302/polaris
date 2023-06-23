@@ -108,7 +108,7 @@
 			</a>
 			<a class="review" onclick="scroll_move('2')">
 				<span class="navMenu-detail"></span>
-				<span class="menuTitle-detail">리뷰(7)</span>
+				<span class="menuTitle-detail">리뷰(${getReviewCount})</span>
 			</a>
 		</div>
 	</div>
