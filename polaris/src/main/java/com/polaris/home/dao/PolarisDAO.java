@@ -92,6 +92,13 @@ public class PolarisDAO {
 		
 		return template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
+	//작성한 리뷰 있는지 확인(count)
+	//리스트 전체 수
+		public int hg_reviewWriteCount(String bookcode,String userid)
+		{
+			String sql = "select count(*) from review where bookcode='"+bookcode+"' and userid='"+userid+"'";
+			return template.queryForObject(sql, Integer.class);
+		}
 	//리뷰작성하기
 	public void hg_reviewWrite(String bookcode,String userid,String retitle,String recontent)
 	{
