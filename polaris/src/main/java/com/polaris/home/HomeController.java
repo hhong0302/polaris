@@ -130,6 +130,7 @@ public class HomeController {
 		out.close();
 	}
 	
+	//검색 기능
 	@RequestMapping(value = "search", method = RequestMethod.GET)
 	public String search(HttpServletRequest request,Model model) {
 		String query = request.getParameter("query");
@@ -141,7 +142,8 @@ public class HomeController {
 	    model.addAttribute("searchType", "search");
 	    return "search";
 	}
-
+	
+	//젠체 검색
 	@RequestMapping(value = "totalsearch")
 	public String totalsearch(HttpServletRequest request,Model model) {
 		
@@ -154,6 +156,7 @@ public class HomeController {
 	    	return "search"; 
 	}
 	
+	//장르 검색
 	@RequestMapping(value = "genresearch", method = RequestMethod.GET)
 	public String genresearch(HttpServletRequest request, Model model) {
 		String genre = request.getParameter("genre");
