@@ -103,3 +103,8 @@
 .search-banner{
 	margin-top: 200px;
 }
+#loadMoreButton button {
+	border: 0;
+  	background-color: transparent;
+  	cursor: pointer;
+}

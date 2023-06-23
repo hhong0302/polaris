@@ -58,30 +58,31 @@ public class PolarisDAO {
 	
 	
 	//wonhong Start
+	// 관심순
 	public List<InterestDTO> hg_homeinterest()
 	{
 		String sql = "select * from book order by likecount desc limit 0,5";
 		return (List<InterestDTO>)template.query(sql,new BeanPropertyRowMapper<InterestDTO>(InterestDTO.class));
 	}
-	
+	//곧 반납 도서
 	public List<BookloanDTO> hg_bookLoanDate(String userid)
 	{
 		String sql = "select * from bookloan where userid='"+userid+"' and loan=1 order by loandate asc limit 0,2;";
 		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
 	}
-	
+	//소설/시 뿌리기
 	public List<BookDTO> hg_homenovel()
 	{
 		String sql = "select * from book where genre='소설/시' order by date desc";
 		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
-	
+	//에세이 뿌리기
 	public List<BookDTO> hg_homeessay()
 	{
 		String sql = "select * from book where genre='에세이' order by date desc";
 		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
-	
+	//인기.최신.대여순 뿌리기
 	public List<BookDTO> hg_hotList(String name)
 	{
 		String sql = "";
@@ -91,7 +92,7 @@ public class PolarisDAO {
 		
 		return template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
-	
+	//리뷰작성하기
 	public void hg_reviewWrite(String bookcode,String userid,String retitle,String recontent)
 	{
 		String sql = "insert into review(bookcode,userid,retitle,recontent) values(?,?,?,?)";
@@ -107,8 +108,49 @@ public class PolarisDAO {
 			}
 		});
 	}
-	
-	//전체 리스트 수
+	//리뷰 수정
+	public void hg_reviewModify(String bookcode,String userid,String retitle,String recontent)
+	{
+		String sql = "update review set retitle=?,recontent=? where bookcode=? and userid=?";
+		template.update(sql,new PreparedStatementSetter()
+		{
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException
+			{
+				ps.setString(1, retitle);
+				ps.setString(2, recontent);
+				ps.setString(3, bookcode);
+				ps.setString(4, userid);
+			}
+		});
+	}
+	//리뷰 삭제
+	public void hg_reviewDelete(String userid,String bookcode)
+	{
+		String sql = "delete from review where userid=? and bookcode=?";
+		template.update(sql,new PreparedStatementSetter()
+		{
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException
+			{
+				ps.setString(1, userid);
+				ps.setString(2,bookcode);
+			}
+		});
+	}
+	//리뷰 작성한거 있으면 뿌려주기
+	public List<ReviewDTO> hg_ifyouWriteReview(String userid,String bookcode)
+	{
+		String sql = "select * from review where userid='"+userid+"' and bookcode='"+bookcode+"'";
+		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
+	}
+	//리스트 전체 수
+	public int hg_reviewAllCount(String bookcode)
+	{
+		String sql = "select count(*) from review where bookcode='"+bookcode+"' ";
+		return template.queryForObject(sql, Integer.class);
+	}
+	//리스트 목록 뿌리기
 	public List<ReviewDTO> hg_reviewList(String bookcode,String rvType)
 	{
 		String sql="select * from review where bookcode='"+bookcode+"' ";
@@ -116,20 +158,13 @@ public class PolarisDAO {
 		else sql+="order by relike desc, redate desc";
 		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
 	}
-	
-	//번호 눌렀을 때 나오는 리스트
+	//번호 눌렀을 때 나오는 리스트 1,2,3,4,5
 	public List<ReviewDTO> hg_reviewList(int listnum,String listType,String bookcode)
 	{
 		String sql = "select * from review where bookcode='"+bookcode+"' ";
 		if(listType=="recent"||listType.equals("recent")) sql+="order by redate desc";
 		else sql+="order by relike desc, redate desc";
 		sql+=" limit "+listnum+", 5";
-		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
-	}
-	
-	public List<ReviewDTO> hg_ifyouWriteReview(String userid,String bookcode)
-	{
-		String sql = "select * from review where userid='"+userid+"' and bookcode='"+bookcode+"'";
 		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
 	}
 	//wonhong End

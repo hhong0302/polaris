@@ -28,6 +28,7 @@ import com.polaris.home.command.MemberListCommand;
 import com.polaris.home.command.MyCommand;
 import com.polaris.home.command.OrderSearchCommand;
 import com.polaris.home.command.RegisterCommand;
+import com.polaris.home.command.ReviewModifyCommand;
 import com.polaris.home.command.ReviewWriteCommand;
 import com.polaris.home.command.SearchCommand;
 import com.polaris.home.command.SpChangeBirthCommand;
@@ -97,7 +98,7 @@ public class HomeController {
 		out.close();
 	}
 	
-	//리뷰작성
+	//리뷰 작성
 	@RequestMapping(value = "reviewWriteController")
 	public RedirectView reviewWriteController(HttpServletRequest req,Model model,RedirectAttributes attributes) throws Exception{
 		model.addAttribute("req", req);
@@ -105,8 +106,28 @@ public class HomeController {
 		command = new ReviewWriteCommand();
 		command.execute(model);
 		attributes.addAttribute("bookinfo", req.getParameter("bookcode"));
-		attributes.addAttribute("isReviewWrited",1);
 		return new RedirectView("detail");
+	}
+	
+	//리뷰 수정
+	@RequestMapping(value = "reviewModifyController")
+	public RedirectView reviewModifyController(HttpServletRequest req,Model model,RedirectAttributes attributes) throws Exception{
+		model.addAttribute("req", req);
+		
+		command = new ReviewModifyCommand();
+		command.execute(model);
+		attributes.addAttribute("bookinfo", req.getParameter("bookcode"));
+		return new RedirectView("detail");
+	}
+	
+	//리뷰 삭제
+	@RequestMapping(value = "/reviewDeleteController")
+	public void reviewDeleteController(HttpServletRequest req,HttpServletResponse res) throws Exception{
+		PolarisDAO dao = new PolarisDAO();
+		String bookcode = req.getParameter("bookcode");
+        HttpSession session = req.getSession();
+        String userid = (String)session.getAttribute("userid");
+        dao.hg_reviewDelete(userid,bookcode);
 	}
 	
 	//리뷰 내역(최신순/좋아요 순)
@@ -149,6 +170,7 @@ public class HomeController {
 		out.close();
 	}
 	
+	//검색 기능
 	@RequestMapping(value = "search", method = RequestMethod.GET)
 	public String search(HttpServletRequest request,Model model) {
 		String query = request.getParameter("query");
@@ -160,7 +182,8 @@ public class HomeController {
 	    model.addAttribute("searchType", "search");
 	    return "search";
 	}
-
+	
+	//젠체 검색
 	@RequestMapping(value = "totalsearch")
 	public String totalsearch(HttpServletRequest request,Model model) {
 		
@@ -173,6 +196,7 @@ public class HomeController {
 	    	return "search"; 
 	}
 	
+	//장르 검색
 	@RequestMapping(value = "genresearch", method = RequestMethod.GET)
 	public String genresearch(HttpServletRequest request, Model model) {
 		String genre = request.getParameter("genre");
