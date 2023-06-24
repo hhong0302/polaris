@@ -182,19 +182,19 @@ public class HomeController {
 
 
 	
-	/*
-	 * @RequestMapping(value = "interest", method = RequestMethod.GET) public String
-	 * interest(HttpServletRequest request, Model model) {
-	 * 
-	 * String interest = request.getParameter("interest");
-	 * model.addAttribute("request", request); model.addAttribute("mypageresult",
-	 * interest);
-	 * 
-	 * command = new MyCommand(); command.execute(model);
-	 * model.addAttribute("pageType", "interest");
-	 * 
-	 * return "mypage"; // mypage.jsp 호출!!! }
-	 */
+	
+	  @RequestMapping(value = "interest", method = RequestMethod.GET) 
+	  public String interest(HttpServletRequest request, Model model) {
+	  
+	  String interest = request.getParameter("interest");
+	  model.addAttribute("request", request); model.addAttribute("mypageresult",
+	  interest);
+	  
+	  command = new MyCommand(); command.execute(model);
+	  model.addAttribute("pageType", "interest");
+	  
+	  return "mypage"; // mypage.jsp 호출!!! }
+	  }
 
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
 	public String bookinfo(HttpServletRequest request, Model model) {
@@ -214,8 +214,9 @@ public class HomeController {
 		
 		command = new MyCommand();
 		command.execute(model);
+
 		
-		return "mypage";	// detail.jsp 호출!!!
+		return "mypage";	// mypage.jsp 호출!!!
 	
 	}
 	
