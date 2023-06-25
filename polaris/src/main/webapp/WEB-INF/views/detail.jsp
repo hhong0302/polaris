@@ -108,7 +108,7 @@
 			</a>
 			<a class="review" onclick="scroll_move('2')">
 				<span class="navMenu-detail"></span>
-				<span class="menuTitle-detail">리뷰(7)</span>
+				<span class="menuTitle-detail">리뷰(${getReviewCount})</span>
 			</a>
 		</div>
 	</div>
@@ -177,7 +177,7 @@
 		</c:forEach>
 			
 			<!-- REVIEW START -->
-			<input type="hidden" id="isReviewWrited" value="<%=request.getParameter("isReviewWrited")%>" />
+			<%-- <input type="hidden" id="isReviewWrited" value="<%=request.getParameter("isReviewWrited")%>" /> --%>
 			<div id="move2" class="reviewWrtBox-detail">
 				<h2>리뷰작성</h2>
 			<c:choose>
@@ -200,6 +200,7 @@
 								<img id="review-detail-after-login" src="resources/images/detail-after-login.png" alt="after-login" />
 							</a>
 						</div>
+						<div id="rvcontentmoreWatchbtnbox" style="display:none;"></div>
 						<button type="button" class="submitBtn-detail">리뷰 남기기</button>
 					</div>
 				</div>
@@ -234,7 +235,7 @@
 				<%-- 리뷰작성 했을 시 --%>
 				<c:if test="${not empty hg_isReview}">
 				<c:forEach var="hg_isReview" items="${hg_isReview}">
-				<form name="reviewModifyForm" class="reviewWrt-detail" method="post">
+				<form name="reviewModifyForm" action="reviewModifyController" class="reviewWrt-detail" method="post">
 					<div class="reviewWrt-detail-title">
 						<h1 class="reviewWrt-detail-h1">
 							제목
@@ -257,7 +258,7 @@
 							readonly>${hg_isReview.recontent}</textarea>
 							<div id="rvcontentmoreWatchbtnbox">
 							</div>
-							<input type="hidden" name="bookcode" value="${bookcode}" />
+							<input type="hidden" name="bookcode" id="hg-bookcode" value="${bookcode}" />
 						</div>
 						<button type="button" onclick="reviewModify()" class="submitBtn-detail">리뷰 수정</button>
 					</div>
@@ -270,8 +271,8 @@
 			</div>
 			
 			<div class="reviewList-detail">
-				<div class="listTile-detail">
-					<h2>리뷰(7)</h2>
+				<div class="listTile-detail" id="listTile-detail">
+					<h2>리뷰(${getReviewCount})</h2>
 					<div class="listNav-detail">
 					    <button id="recent" class="recent" onclick="listNav_click('recent','${bookcode}')">
 					    	<span class="reviewMenu-detail action"></span>
@@ -311,23 +312,24 @@
 			    </div>
 			    
 			    <!-- 리뷰 없을 때 -->
-			    
-			    <!-- <div class="reviewBox-noncomment">
-			    	아직 등록된 리뷰가 없습니다.<br/>
-			    	첫 번째 리뷰를 남겨주세요.
-			    </div> -->
+			    <c:if test="${getReviewCount eq 0}">
+				    <div class="reviewBox-noncomment">
+				    	아직 등록된 리뷰가 없습니다.<br/>
+				    	첫 번째 리뷰를 남겨주세요.
+				    </div>
+			    </c:if>
 			    
 			    <!-- 리뷰 없을 때 -->
 			    
 			     <div class="pageNum-detail">
                
-	               	<button onclick="rvListPrevNxtBtn(-1,'bookcode')">
+	               	<button onclick="rvListPrevNxtBtn(-1,'${bookcode}')">
 	                    <span class="prv"><i class="fa-solid fa-angle-left"></i></span>
 	                </button>
 	             	<div class="pageNum-detail-btnbox">
 	               		<!-- <button class="pageNum-pagebtn active">1</button> -->
 	                </div>
-	                <button onclick="rvListPrevNxtBtn(1,'bookcode')">
+	                <button onclick="rvListPrevNxtBtn(1,'${bookcode}')">
 	                	<span class="nxt"><i class="fa-solid fa-angle-right"></i></span>
 	                </button>
 	                

@@ -16,26 +16,27 @@
 </head>
 <body>
 <%
-	String loan = (String)session.getAttribute("loan");
+	int loan = (Integer)session.getAttribute("loan");
 %>
 <%@include file = "include/header.jsp" %>
     <div class="container">
         <div class = "choi-top">
             <span>홈 > 메인페이지</span>
         </div>
-
         <c:forEach var = "my" items = "${memlist }">
-        <div class="choi-info">
-            <div class="choi-line1">
-
-                <p>${my.userid }</p>
-                <span>${my.useremail }</span>
-
-            </div>
-            <div class="choi-line2">
-                <span><a href="#">내 정보 수정</a></span>
-            </div>
-        </div>
+			<c:if test="${my.userid eq userid }">
+		        <div class="choi-info">
+		            <div class="choi-line1">
+		
+		                <p>${my.userid }</p>
+		                <span>${my.useremail }</span>
+		
+		            </div>
+		            <div class="choi-line2">
+		                <span><a href="#">내 정보 수정</a></span>
+		            </div>
+		        </div>
+			</c:if>
 </c:forEach>
  
 	<div class="row">
@@ -48,13 +49,25 @@
                 <a class="nav-link" data-toggle="tab" href="#asd">• 지난 대여 목록</a>
               </li>
             </ul>
-            <div class="tab-content">
-	 				<c:forEach var ="my" items= "${loanList }">
+            <div class="tab-content">				
               <div class="tab-pane fade show active" id="qwe">
+              <c:choose>
+	          <c:when test="${empty loanList}">
 	                 <div class = "choi-booklist">
 	                    <div class="choi-current-book">
-	                        <div class="choi-book-img">
-	                            <img src="resources/bookimg/${my.bookcode }.jpg" alt="">
+	                   		 <div class="choi-book-img">
+	                            <img src="resources/bookimg/blankBook.png" alt="bookimg">
+	                        </div>
+	                     </div>
+	                   </div>
+	            </c:when>   
+	              
+	            <c:otherwise>
+	               <c:forEach var ="my" items= "${loanList }">
+	                    <div class = "choi-booklist">
+	                    <div class="choi-current-book">
+	                     <div class="choi-book-img">
+	                            <img src="resources/bookimg/${my.bookcode }.jpg" alt="bookimg">
 	                        </div>
 	                        <div class="choi-book-text">
 	                        	<div class="choi-book-text-top">
@@ -71,10 +84,22 @@
 	                            </div>
 	                        </div>
 	                    </div> 
-	               </div>                   
-              </div>
-	                 </c:forEach> 
+	                </div>                   
+                  </c:forEach> 
+	            </c:otherwise>
+            	</c:choose> 
+             </div>
+	         
               <div class="tab-pane fade" id="asd">
+              <c:choose>
+	          <c:when test="${empty pastloanList}">
+	          	<div class="choi-past-book">
+                    <div class="choi-jjim-img">
+                        <img src="resources/bookimg/jjimblank.png" alt="book">
+                    </div>
+                 </div>
+	          </c:when>
+	           <c:otherwise>
                <c:forEach var ="my" items= "${pastloanList }"> 
 	                <div class="choi-past-book">
                     <div class="choi-jjim-img">
@@ -93,7 +118,9 @@
     					</div>
                     </div>
                 </div>
-	                </c:forEach> 
+	            </c:forEach> 
+	            </c:otherwise>
+	            </c:choose>
               </div>             
             </div>
          
@@ -101,13 +128,22 @@
       </div>
 
 
-		<!--------------찜한목록------------------>
+	
 		
 		
         <div class="choi-jjim">
             <p>찜한 목록</p>
             <div class="choi-jjim-book">
-            <c:forEach var ="my" items= "${interest }"> 
+            <c:choose>
+	        <c:when test="${sessionScope.interest eq null || empty sessionScope.interest}}">
+	       		 <div class="choi-jjim-innerbook">
+                    <div class="choi-jjim-img">
+                        <img src="resources/bookimg/jjimblank.png" alt="book">
+                    </div>
+                    </div>
+              </c:when>
+              <c:otherwise>
+     	      <c:forEach var ="my" items= "${interest }"> 
                 <div class="choi-jjim-innerbook">
                     <div class="choi-jjim-img">
                         <img src="resources/bookimg/${my.bookcode }.jpg" alt="book">
@@ -126,6 +162,8 @@
                     </div>
                 </div>
                 </c:forEach>
+                </c:otherwise>
+                </c:choose>
             </div>
         </div>
 

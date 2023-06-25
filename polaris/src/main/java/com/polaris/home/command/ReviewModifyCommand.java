@@ -9,11 +9,10 @@ import org.springframework.ui.Model;
 
 import com.polaris.home.dao.PolarisDAO;
 
-public class ReviewWriteCommand implements SpCommand {
+public class ReviewModifyCommand implements SpCommand {
 
 	@Override
 	public void execute(Model model) {
-
 		Map<String, Object> map = model.asMap();
 	    HttpServletRequest req = (HttpServletRequest) map.get("req");
 	    HttpSession session = req.getSession();
@@ -22,10 +21,7 @@ public class ReviewWriteCommand implements SpCommand {
 	    String userid = (String) session.getAttribute("userid");
 	    String reviewtitle = req.getParameter("reviewtitle");
 	    String reviewcontent = req.getParameter("reviewcontent");
-	    int isReview = dao.hg_reviewWriteCount(bookcode, userid);
-	    if(isReview==0) dao.hg_reviewWrite(bookcode,userid,reviewtitle,reviewcontent);
-	    else dao.hg_reviewModify(bookcode, userid, reviewtitle, reviewcontent);
-	    //model.addAttribute("isReviewWrited",1);
+	    dao.hg_reviewModify(bookcode,userid,reviewtitle,reviewcontent);
 	}
 
 }

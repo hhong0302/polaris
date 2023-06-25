@@ -28,9 +28,13 @@ import com.polaris.home.command.MemberListCommand;
 import com.polaris.home.command.MyCommand;
 import com.polaris.home.command.OrderSearchCommand;
 import com.polaris.home.command.RegisterCommand;
+import com.polaris.home.command.ReviewModifyCommand;
 import com.polaris.home.command.ReviewWriteCommand;
 import com.polaris.home.command.SearchCommand;
+import com.polaris.home.command.SpChangeBirthCommand;
 import com.polaris.home.command.SpCommand;
+import com.polaris.home.command.SpExitCommand;
+import com.polaris.home.command.SpUpdatePassCommand;
 import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.BookDTO;
 import com.polaris.home.dto.BookloanDTO;
@@ -94,7 +98,7 @@ public class HomeController {
 		out.close();
 	}
 	
-	//리뷰작성
+	//리뷰 작성
 	@RequestMapping(value = "reviewWriteController")
 	public RedirectView reviewWriteController(HttpServletRequest req,Model model,RedirectAttributes attributes) throws Exception{
 		model.addAttribute("req", req);
@@ -102,8 +106,28 @@ public class HomeController {
 		command = new ReviewWriteCommand();
 		command.execute(model);
 		attributes.addAttribute("bookinfo", req.getParameter("bookcode"));
-		attributes.addAttribute("isReviewWrited",1);
 		return new RedirectView("detail");
+	}
+	
+	//리뷰 수정
+	@RequestMapping(value = "reviewModifyController")
+	public RedirectView reviewModifyController(HttpServletRequest req,Model model,RedirectAttributes attributes) throws Exception{
+		model.addAttribute("req", req);
+		
+		command = new ReviewModifyCommand();
+		command.execute(model);
+		attributes.addAttribute("bookinfo", req.getParameter("bookcode"));
+		return new RedirectView("detail");
+	}
+	
+	//리뷰 삭제
+	@RequestMapping(value = "/reviewDeleteController")
+	public void reviewDeleteController(HttpServletRequest req,HttpServletResponse res) throws Exception{
+		PolarisDAO dao = new PolarisDAO();
+		String bookcode = req.getParameter("bookcode");
+        HttpSession session = req.getSession();
+        String userid = (String)session.getAttribute("userid");
+        dao.hg_reviewDelete(userid,bookcode);
 	}
 	
 	//리뷰 내역(최신순/좋아요 순)
@@ -146,6 +170,7 @@ public class HomeController {
 		out.close();
 	}
 	
+	//검색 기능
 	@RequestMapping(value = "search", method = RequestMethod.GET)
 	public String search(HttpServletRequest request,Model model) {
 		String query = request.getParameter("query");
@@ -157,7 +182,8 @@ public class HomeController {
 	    model.addAttribute("searchType", "search");
 	    return "search";
 	}
-
+	
+	//젠체 검색
 	@RequestMapping(value = "totalsearch")
 	public String totalsearch(HttpServletRequest request,Model model) {
 		
@@ -170,6 +196,7 @@ public class HomeController {
 	    	return "search"; 
 	}
 	
+	//장르 검색
 	@RequestMapping(value = "genresearch", method = RequestMethod.GET)
 	public String genresearch(HttpServletRequest request, Model model) {
 		String genre = request.getParameter("genre");
@@ -198,19 +225,19 @@ public class HomeController {
 
 
 	
-	/*
-	 * @RequestMapping(value = "interest", method = RequestMethod.GET) public String
-	 * interest(HttpServletRequest request, Model model) {
-	 * 
-	 * String interest = request.getParameter("interest");
-	 * model.addAttribute("request", request); model.addAttribute("mypageresult",
-	 * interest);
-	 * 
-	 * command = new MyCommand(); command.execute(model);
-	 * model.addAttribute("pageType", "interest");
-	 * 
-	 * return "mypage"; // mypage.jsp 호출!!! }
-	 */
+	
+	  @RequestMapping(value = "interest", method = RequestMethod.GET) 
+	  public String interest(HttpServletRequest request, Model model) {
+	  
+	  String interest = request.getParameter("interest");
+	  model.addAttribute("request", request); model.addAttribute("mypageresult",
+	  interest);
+	  
+	  command = new MyCommand(); command.execute(model);
+	  model.addAttribute("pageType", "interest");
+	  
+	  return "mypage"; // mypage.jsp 호출!!! }
+	  }
 
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
 	public String bookinfo(HttpServletRequest request, Model model) {
@@ -274,8 +301,9 @@ public class HomeController {
 		
 		command = new MyCommand();
 		command.execute(model);
+
 		
-		return "mypage";	// detail.jsp 호출!!!
+		return "mypage";	// mypage.jsp 호출!!!
 	
 	}
 	
@@ -307,7 +335,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/loginok")
-	public String loginok(HttpServletRequest request,HttpServletResponse response, Model model) throws IOException{
+	public void loginok(HttpServletRequest request,HttpServletResponse response, Model model) throws IOException{
 		model.addAttribute("request", request);
 //		command = new LoginOkCommand();
 //		command.execute(model);
@@ -321,16 +349,18 @@ public class HomeController {
 			out.println("location.href=('/home/login')");
 			out.println("</script>");
 			out.close();
-			return "redirect:login";
 		}else {
 			response.setContentType("text/html; charset=UTF-8");
 			HttpSession session = request.getSession();
 			session.setAttribute("userid", request.getParameter("userid"));
-			return "redirect:/";
+			out.println("<script>");
+			out.println("location.href=('/home')");
+			out.println("</script>");
+			out.close();
 		}
 	}
 	@RequestMapping(value = "/logout")
-	public String logout(HttpServletRequest request,HttpServletResponse response) throws IOException {
+	public void logout(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		HttpSession session = request.getSession();
 		PrintWriter out = response.getWriter();
@@ -339,8 +369,7 @@ public class HomeController {
 		out.println("alert('로그아웃이 되었습니다.');");
 		out.println("location.href=('/home')");
 		out.println("</script>");
-		out.close();
-		return "redirect:/";	// 로그아웃!!!
+		out.close();	// 로그아웃!!!
 	}
 	
 	@RequestMapping(value = "member")
@@ -352,6 +381,59 @@ public class HomeController {
 		command = new MemberListCommand();
 		command.execute(model);
 		return "member";	// member.jsp 호출!!!
+	}
+	
+	@RequestMapping(value = "passUpdate", method = RequestMethod.POST)
+	public void updatePass(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+		model.addAttribute("request", request);
+		HttpSession session = request.getSession();
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		String userid = (String)session.getAttribute("userid");
+		request.setAttribute("userid", userid);
+		command = new SpUpdatePassCommand();
+		command.execute(model);
+		out.println("<script>");
+		out.println("alert('비밀번호 변경이 완료되었습니다.');");
+		out.println("location.href=('/home/member')");
+		out.println("</script>");
+		out.close();
+	}
+	
+	@RequestMapping(value = "changeBirth", method = RequestMethod.POST)
+	public void changeBirth(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException{
+		model.addAttribute("request", request);
+		HttpSession session = request.getSession();
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		String userid = (String)session.getAttribute("userid");
+		request.setAttribute("userid", userid);
+		command = new SpChangeBirthCommand();
+		command.execute(model);
+		out.println("<script>");
+		out.println("alert('생년월일 변경이 완료되었습니다.');");
+		out.println("location.href=('/home/member')");
+		out.println("</script>");
+		out.close();
+	}
+	@RequestMapping(value = "exit", method = RequestMethod.GET)
+	public void exit (HttpServletRequest request, HttpServletResponse response, Model model) throws IOException{
+		model.addAttribute("request", request);
+		HttpSession session = request.getSession();
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		String userid = (String)session.getAttribute("userid");
+		request.setAttribute("userid", userid);
+		command = new SpExitCommand();
+		
+		command.execute(model);
+		session.invalidate();
+		
+		out.println("<script>");
+		out.println("alert('회원탈퇴가 완료되었습니다. 그동안 이용해 주셔서 감사합니다.');");
+		out.println("location.href=('/home')");
+		out.println("</script>");
+		out.close();
 	}
 }
 

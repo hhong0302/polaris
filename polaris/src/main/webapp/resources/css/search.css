@@ -69,16 +69,20 @@
 	margin: 7px 5px;
 	color: #797979;
 }
-.detail-btn{
+.detail-btn-box{
+	width: 184px;
+	height: 43px;
+}
+.detail-btn{	
 	text-align: center;
 	background-color: #797979;
 	border: 1px solid #797979;
 	border-radius: 5px;
 	font-weight: bold;
-	font-size: 17px;
+	font-size: 18px;
 	color: #fff;
-	padding: 13px;
-	cursor: pointer;
+	padding: 8px 54px;
+	white-space: nowrap;
 }
 .search-rental-btn{
 	background-color: #4563ff;
@@ -86,8 +90,9 @@
 	border-radius: 5px;
 	font-weight: bold;
 	color: #fff;
-	padding: 12px 55px;
-	font-size: 16px;
+	padding: 8px 54px;
+	font-size: 18px;
+	white-space: nowrap;
 }
 .btn-box{
 	margin-left: 30px;
@@ -95,6 +100,8 @@
 	width: 178px;
 }
 .rental-btn{
+	width: 184px;
+	height: 43px;
 	margin-top: 6px;
 }
 .search-rental-btn{
@@ -102,4 +109,18 @@
 }
 .search-banner{
 	margin-top: 200px;
+}
+#loadMoreButton button {
+	border: 0;
+  	background-color: transparent;
+  	cursor: pointer;
+  	color : #797979;
+  	font-size: 16px;
+}
+#loadMoreButton{
+	text-align: center;
+	margin-top: 50px;
+}
+.che-down{
+	color : #797979;
 }
