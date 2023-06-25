@@ -261,7 +261,7 @@ public class HomeController {
 		model.addAttribute("request", request);
 		model.addAttribute("bookcode", bookcode);
 		model.addAttribute("userLike", userLike);
-		command = new DetailCommand();
+		command = new DeleteLikeCommand();
 		command.execute(model);
 		
 		return "detail";
