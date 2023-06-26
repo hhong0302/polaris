@@ -235,8 +235,14 @@ public class HomeController {
 		out.close();
 	}
 	
+	@RequestMapping(value="findpassword")
+	public String findpassword()
+	{
+		return "findpassword";
+	}
+	
 	@RequestMapping(value="findPasswordController")
-	public String findpassword(HttpServletRequest req,Model model)
+	public String findpasswordController(HttpServletRequest req,Model model)
 	{
 		command = new FindPwCommand();
 		model.addAttribute("req", req);
