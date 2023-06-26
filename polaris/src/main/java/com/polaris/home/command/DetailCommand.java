@@ -30,9 +30,6 @@ public class DetailCommand implements SpCommand {
 	        ArrayList<BookDTO> binfo = dao.bookinfo(bookcode);	        
 			
 	        
-//	        if(userLike == 0) dao.insertLike(bookcode, (String)session.getAttribute("userid"), booktitle, author, publisher);
-//	        else dao.deleteLike(bookcode, (String)session.getAttribute("userid"));
-
 	        model.addAttribute("bookinfo", binfo);
 	        model.addAttribute("likeCount", likeCount);
 	        model.addAttribute("userLike", userLike);
