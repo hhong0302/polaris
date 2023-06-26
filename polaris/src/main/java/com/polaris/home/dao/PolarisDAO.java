@@ -269,16 +269,18 @@ public class PolarisDAO {
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
 				String sql = "update bookloan set loan = 0 where bookcode = '" + bookcode + "' and userid = '" + userid + "'";
 				PreparedStatement pstmt = con.prepareStatement(sql);
+				System.out.println(pstmt);
 					return pstmt;
 				}
 		});
 	}
-	/*
+	
 	public int loanStatus(String bookcode, String userid){
-		String sql ="select loan from bookloan where bookcode = '" + bookcode +"' and userid = '" + userid + "'"; System.out.println(sql); return
-		template.queryForObject(sql, Integer.class);
+		String sql ="select count(*) from bookloan where bookcode = '" + bookcode +"' and userid = '" + userid + "' and loan = 1";
+		System.out.println(sql);
+		return template.queryForObject(sql, Integer.class);
 	}
-	*/
+	
 	
 	
 	//alice End

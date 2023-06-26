@@ -29,7 +29,7 @@
 				<p>메인<i class="ri-arrow-drop-right-line"></i><span class="ftBlack-detail">${book.genre}</span></p>
 			</div>
 			
-			<form class="bookRental-detail" action="detailloan" method="post">
+			<form action="bookloan?bookinfo=${bookcode}" class="bookRental-detail" method="post">
 				<div class="hash-detail">					
 					<p class="bookHash-detail">
 					${fn:replace(book.hash, replaceHash, "</p> <p>")}
@@ -91,14 +91,14 @@
 								</a>
 							</c:otherwise>
 						</c:choose>
-						<%--<c:choose>
+						<c:choose>
 							<c:when test="${loanStatus == 0}">
 								<button type="submit" class="rental-detail">대여하기</button>
 							</c:when>
 							<c:otherwise>
 								<button type="submit" class="rental-detail">반납하기</button>
 							</c:otherwise>
-						</c:choose> --%>
+						</c:choose>
 						<button type="button" class="readNow-detail">바로 읽기</button>
 					</div>
 				<%

@@ -292,14 +292,17 @@ public class HomeController {
 		
 		return "redirect:/detail";
 		
-	}
-	@RequestMapping(value = "detailloan")
-	public String detailloan(HttpServletRequest request, Model model) {
+	}	
+	@RequestMapping("/bookloan")
+	public String loanbook(HttpServletRequest request, Model model, RedirectAttributes re) {
+		String bookcode = request.getParameter("bookinfo");
 		model.addAttribute("request", request);
+		re.addAttribute("bookinfo", bookcode);
+		
 		command = new DetailLoanCommand();
 		command.execute(model);
 		
-		return "redirect:/";
+		return "redirect:/detail";
 		
 	}
 	@RequestMapping(value = "loanStatus")

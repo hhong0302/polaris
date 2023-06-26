@@ -23,7 +23,7 @@ public class LikeCommand implements SpCommand {
         String booktitle = request.getParameter("booktitle");
 		String author = request.getParameter("author");
 		String publisher = request.getParameter("publisher");
-		System.out.println(userLike);
+		
                 
 		
         if(userLike == 1) dao.deleteLike(bookcode, (String)session.getAttribute("userid"));
