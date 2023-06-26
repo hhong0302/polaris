@@ -44,8 +44,3 @@ function reject() {
 	alert("로그인후 이용가능합니다")
 }
 
-function submit2(frm) { 
-    frm.action='/home/detail?bookinfo=${bookcode}&userLike=0'; 
-    frm.submit(); 
-    return true; 
-  } 
