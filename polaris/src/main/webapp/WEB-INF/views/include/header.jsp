@@ -15,7 +15,7 @@
 	<div class="search_box">
 	<form id="searchForm" action="search" method="GET" autocomplete="off">
 	  <input type="text" name="query" class="search" id="searchInput" placeholder="검색어를 입력해주세요." />
-	  <a href="#" onclick="submitSearch()">
+	  <a href="#" onclick="submitSearch(event)">
 	    <img src="resources/images/search.jpg" alt="search-icon" />
 	  </a>
 	</form>

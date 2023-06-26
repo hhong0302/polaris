@@ -72,8 +72,9 @@
                     <c:otherwise>
                         <div class="search-empty">
                             <h3><c:out value="'${searchresult}'" />검색 결과가 없습니다.</h3>
-                            <p>다른 검색어로 다시 시도해주세요.</p>
+                            <p>총 ${fn:length(search)} 건</p>       
                         </div>
+                        <img class="search-empty-img" src="resources/images/nosearchresult.png" alt="nosearchresult" />
                     </c:otherwise>
                 </c:choose>
             </c:when>
