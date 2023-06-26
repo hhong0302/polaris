@@ -340,7 +340,15 @@ public class PolarisDAO {
 		System.out.println(sql);
 		return template.queryForObject(sql, Integer.class);
 	}
-	
+	public String sgGenre(String bookcode){
+		String sql = "select genre from book where bookcode = '" + bookcode + "'";
+		return template.queryForObject(sql, String.class);
+	}
+	public ArrayList<BookDTO> suggest(String bookcode, String genre) { 
+	    String sql = "select * from book where genre = '" + genre + "' and bookcode not in ('"+ bookcode + "') order by rand() limit 4";
+	    System.out.println(sql);
+	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+	}
 	
 	
 	//alice End

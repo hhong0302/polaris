@@ -79,15 +79,16 @@
 					<div class="rentalBtn-detail">
 						<c:choose>
 							<c:when test="${userLike == 0}">
-								<a class="likeBtn-detail" href="/home/insertLike?bookinfo=${bookcode}&userLike=1">
+								<a class="likeBtn-detail"
+								   href="/home/insertLike?bookinfo=${bookcode}&booktitle=${book.booktitle}&author=${book.author}&publisher=${book.publisher}">
 									<img alt="like" src="resources/images/emptyheart.png">
-									찜 ${likeCount} / ${userLike}
+									찜 ${likeCount}
 								</a>
 							</c:when>
 							<c:otherwise>
-								<a class="likeBtn-detail" href="/home/deleteLike?bookinfo=${bookcode}&userLike=0">
+								<a class="likeBtn-detail" href="/home/deleteLike?bookinfo=${bookcode}">
 									<img alt="like" src="resources/images/fillheart.png">
-									찜 ${likeCount} / ${userLike}
+									찜 ${likeCount}
 								</a>
 							</c:otherwise>
 						</c:choose>
@@ -348,41 +349,23 @@
             <script src="resources/js/detailreview.js"></script>
             <!-- REVIEW END -->
             
+            
+            
             <div class="suggest-detail">
             	<h2>추천 도서</h2>
             	<div class="suggestBook-detail">
+            	<c:forEach var="sg" items="${suggest}">
+            	
             		<div class="suggestBookBox-detail">
-            			<img alt="suggestBookImg" src="resources/bookimg/goodgirl.jpg" class="suggestbookImg-detail">
-            			<div class="suggestInfo-detail">
-            				<h4>블랙 쇼맨과 환상의 여자</h4>
-            				<p><span>히가시노 게이고 저자</span> · <span>알에이치코리아(RHK)</span></p>
-            			</div>
+            			<a href="/home/detail?bookinfo=${sg.bookcode}">
+	            			<img alt="suggestBookImg" src="resources/bookimg/${sg.bookcode}.jpg" class="suggestbookImg-detail">
+	            			<span class="suggestInfo-detail">
+	            				<h4>${sg.booktitle}</h4>
+	            				<p><span>${sg.author}</span> · <span>${sg.publisher}</span></p>
+	            			</span>
+            			</a>
             		</div>
-            		
-            		<div class="suggestBookBox-detail">
-            			<img alt="suggestBookImg" src="resources/bookimg/commitment.jpg" class="suggestbookImg-detail">
-            			<div class="suggestInfo-detail">
-            				<h4>용의자 X의 헌신</h4>
-            				<p><span>히가시노 게이고 저자</span> · <span>재인</span></p>
-            			</div>
-            		</div>
-            		
-            		<div class="suggestBookBox-detail">
-            			<img alt="suggestBookImg" src="resources/bookimg/fighter.jpg" class="suggestbookImg-detail">
-            			<div class="suggestInfo-detail">
-            				<h4>완득이</h4>
-            				<p><span>창비 저자</span> · <span>창비</span></p>
-            			</div>
-            		</div>
-            		
-            		<div class="suggestBookBox-detail">
-            			<img alt="suggestBookImg" src="resources/bookimg/argument.jpg" class="suggestbookImg-detail">
-            			<div class="suggestInfo-detail">
-            				<h4>변론의 법칙</h4>
-            				<p><span>마이클 코넬리 저자</span> · <span>재인</span></p>
-            			</div>
-            		</div>
-            		
+            	</c:forEach>
             	</div>
             	
             		
