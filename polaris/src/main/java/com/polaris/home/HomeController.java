@@ -232,6 +232,12 @@ public class HomeController {
 		out.close();
 	}
 	
+	@RequestMapping(value="findpassword")
+	public String findpassword()
+	{
+		return "findpassword";
+	}
+	
 	//검색 기능
 	@RequestMapping(value = "search", method = RequestMethod.GET)
 	public String search(HttpServletRequest request,Model model) {
