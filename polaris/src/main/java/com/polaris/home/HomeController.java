@@ -21,6 +21,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.google.gson.Gson;
 import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.DetailReviewCommand;
+import com.polaris.home.command.FindPwCommand;
 import com.polaris.home.command.HomeListCommand;
 import com.polaris.home.command.IdCheckCommand;
 import com.polaris.home.command.MemberListCommand;
@@ -232,9 +233,12 @@ public class HomeController {
 		out.close();
 	}
 	
-	@RequestMapping(value="findpassword")
-	public String findpassword()
+	@RequestMapping(value="findPasswordController")
+	public String findpassword(HttpServletRequest req,Model model)
 	{
+		command = new FindPwCommand();
+		model.addAttribute("req", req);
+		command.execute(model);
 		return "findpassword";
 	}
 	
