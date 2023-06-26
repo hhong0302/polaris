@@ -14,16 +14,13 @@ public class LikeCommand implements SpCommand {
 	public void execute(Model model) {
 		Map<String, Object> map = model.asMap();
         HttpServletRequest request = (HttpServletRequest) map.get("request");
-        System.out.println();
         PolarisDAO dao = new PolarisDAO();
         HttpSession session = request.getSession();
         String bookcode = request.getParameter("bookinfo");
-        
-        int userLike = dao.userLike(bookcode, (String)session.getAttribute("userid"));
         String booktitle = request.getParameter("booktitle");
 		String author = request.getParameter("author");
 		String publisher = request.getParameter("publisher");
-		
+		int userLike = dao.userLike(bookcode, (String)session.getAttribute("userid"));
                 
 		
         if(userLike == 1) dao.deleteLike(bookcode, (String)session.getAttribute("userid"));

@@ -622,7 +622,12 @@ button.readNow-detail {
 }
 .suggestBook-detail {
 	display: flex;
-	justify-content: space-between;
+}
+.suggestBookBox-detail {
+	margin-right: 26.5px;
+}
+.suggestBookBox-detail:last-child {
+	margin: 0px;
 }
 .suggest-detail h2 {
 	font-size: 30px;

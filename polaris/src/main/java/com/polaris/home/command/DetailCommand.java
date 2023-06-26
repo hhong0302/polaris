@@ -26,13 +26,9 @@ public class DetailCommand implements SpCommand {
 	        int likeCount = dao.likeCount(bookcode);
 	        int userLike = dao.userLike(bookcode, (String)session.getAttribute("userid"));
 	        int loanStatus = dao.loanStatus(bookcode, (String)session.getAttribute("userid"));
-	        System.out.println(loanStatus);
 	        ArrayList<BookDTO> binfo = dao.bookinfo(bookcode);	        
 			
 	        
-//	        if(userLike == 0) dao.insertLike(bookcode, (String)session.getAttribute("userid"), booktitle, author, publisher);
-//	        else dao.deleteLike(bookcode, (String)session.getAttribute("userid"));
-
 	        model.addAttribute("bookinfo", binfo);
 	        model.addAttribute("likeCount", likeCount);
 	        model.addAttribute("userLike", userLike);

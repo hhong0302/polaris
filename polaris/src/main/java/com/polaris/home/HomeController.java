@@ -23,6 +23,7 @@ import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.DetailLoanCommand;
 import com.polaris.home.command.DetailReviewCommand;
 import com.polaris.home.command.FindIdCommand;
+import com.polaris.home.command.DetailSuggestCommand;
 import com.polaris.home.command.FindPwCommand;
 import com.polaris.home.command.HomeListCommand;
 import com.polaris.home.command.IdCheckCommand;
@@ -333,6 +334,10 @@ public class HomeController {
 	    
 	    SpCommand drcommand = new DetailReviewCommand();
 	    drcommand.execute(model);
+	    
+	    SpCommand sgcommand = new DetailSuggestCommand();
+	    sgcommand.execute(model);
+	    
 	    return "detail";
 	}
 	@RequestMapping(value = "likeCount")
@@ -395,6 +400,15 @@ public class HomeController {
 		command.execute(model);
 		return "loanStatus";
 	}
+	@RequestMapping(value = "sgGenre")
+	public String sgGenre(HttpServletRequest request, Model model){
+		model.addAttribute("request", request);
+		
+		command = new DetailSuggestCommand();
+		command.execute(model);
+		return "sgGenre";
+	}
+	
 	
 	
 	@RequestMapping(value = "mypage", method = RequestMethod.GET)
