@@ -19,28 +19,23 @@ public class DetailCommand implements SpCommand {
 	public void execute(Model model) {
 		 Map<String, Object> map = model.asMap();
 	        HttpServletRequest request = (HttpServletRequest) map.get("request");
-	        String bookcode = request.getParameter("bookinfo");
-	        String booktitle = request.getParameter("booktitle");
-			String author = request.getParameter("author");
-			String publisher = request.getParameter("publisher");
-			
-	        HttpSession session = request.getSession();
-	       
-	        
 	        PolarisDAO dao = new PolarisDAO();
-	        ArrayList<BookDTO> binfo = dao.bookinfo(bookcode);	        
-			
+	        HttpSession session = request.getSession();
+	        String bookcode = request.getParameter("bookinfo");
 	        
 	        int likeCount = dao.likeCount(bookcode);
 	        int userLike = dao.userLike(bookcode, (String)session.getAttribute("userid"));
+	        //int loanStatus = dao.loanStatus(bookcode, (String)session.getAttribute("userid"));
 	        
-	        dao.deleteLike(bookcode, (String)session.getAttribute("userid"));
-	        dao.insertLike(bookcode, (String)session.getAttribute("userid"), booktitle, author, publisher);
+	        ArrayList<BookDTO> binfo = dao.bookinfo(bookcode);	        
+			
 	        
-	        
+//	        if(userLike == 0) dao.insertLike(bookcode, (String)session.getAttribute("userid"), booktitle, author, publisher);
+//	        else dao.deleteLike(bookcode, (String)session.getAttribute("userid"));
 
 	        model.addAttribute("bookinfo", binfo);
 	        model.addAttribute("likeCount", likeCount);
 	        model.addAttribute("userLike", userLike);
+	        //model.addAttribute("loanStatus", loanStatus);
     }
 }

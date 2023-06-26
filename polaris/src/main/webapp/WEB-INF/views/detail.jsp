@@ -29,7 +29,7 @@
 				<p>메인<i class="ri-arrow-drop-right-line"></i><span class="ftBlack-detail">${book.genre}</span></p>
 			</div>
 			
-			<form class="bookRental-detail" action="detail/loanBook">
+			<form class="bookRental-detail" action="detailloan" method="post">
 				<div class="hash-detail">					
 					<p class="bookHash-detail">
 					${fn:replace(book.hash, replaceHash, "</p> <p>")}
@@ -37,6 +37,7 @@
 				</div>
 				<div class="infoImg-detail">
 					<img alt="bookImg" src="resources/bookimg/${book.bookcode}.jpg" class="bookImg-detail">
+					<input type="hidden" name="bookinfo" value="${book.bookcode}">
 				</div>
 				<div class="rentalBox-detail">
 				<c:if test="${empty book.trans}">
@@ -76,19 +77,28 @@
 					}else {
 				%>				
 					<div class="rentalBtn-detail">
-						<c:if test="${userLike == 0}">
-							<a class="likeBtn-detail" href='/home/detail?bookinfo=${bookcode}&userLike=1'>
-								<img alt="like" src="resources/images/emptyheart.png">
-								찜 ${likeCount} / ${userLike}
-							</a>
-						</c:if>
-						<c:if test="${userLike != 0}">
-							<a onclik='return submit2(this.form)' class="likeBtn-detail" >
-								<img alt="like" src="resources/images/fillheart.png">
-								찜 ${likeCount} / ${userLike}
-							</a>
-						</c:if>
-						<button type="submit" class="rental-detail">대여하기</button>
+						<c:choose>
+							<c:when test="${userLike == 0}">
+								<a class="likeBtn-detail" href="/home/insertLike?bookinfo=${bookcode}&userLike=1">
+									<img alt="like" src="resources/images/emptyheart.png">
+									찜 ${likeCount} / ${userLike}
+								</a>
+							</c:when>
+							<c:otherwise>
+								<a class="likeBtn-detail" href="/home/deleteLike?bookinfo=${bookcode}&userLike=0">
+									<img alt="like" src="resources/images/fillheart.png">
+									찜 ${likeCount} / ${userLike}
+								</a>
+							</c:otherwise>
+						</c:choose>
+						<%--<c:choose>
+							<c:when test="${loanStatus == 0}">
+								<button type="submit" class="rental-detail">대여하기</button>
+							</c:when>
+							<c:otherwise>
+								<button type="submit" class="rental-detail">반납하기</button>
+							</c:otherwise>
+						</c:choose> --%>
 						<button type="button" class="readNow-detail">바로 읽기</button>
 					</div>
 				<%

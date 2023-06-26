@@ -19,11 +19,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.gson.Gson;
-import com.polaris.home.command.DeleteLikeCommand;
 import com.polaris.home.command.DetailCommand;
+import com.polaris.home.command.DetailLoanCommand;
 import com.polaris.home.command.DetailReviewCommand;
 import com.polaris.home.command.HomeListCommand;
 import com.polaris.home.command.IdCheckCommand;
+import com.polaris.home.command.LikeCommand;
 import com.polaris.home.command.MemberListCommand;
 import com.polaris.home.command.MyCommand;
 import com.polaris.home.command.OrderSearchCommand;
@@ -258,7 +259,7 @@ public class HomeController {
 		
 		command = new DetailCommand();
 		command.execute(model);
-		return "detail";
+		return "likeCount";
 	}
 	@RequestMapping(value = "userLike")
 	public String userLike(HttpServletRequest request, Model model){
@@ -266,33 +267,48 @@ public class HomeController {
 		
 		command = new DetailCommand();
 		command.execute(model);
-		return "detail";
+		return "userLike";
 	}
 	@RequestMapping("/insertLike")
-	public String insertLike(HttpServletRequest request, Model model) {
-		String bookcode = request.getParameter("bookcode");
-		String userLike = request.getParameter("userLike");
+	public String insertLike(HttpServletRequest request, Model model, RedirectAttributes re) {
+		String bookcode = request.getParameter("bookinfo");
 		model.addAttribute("request", request);
-		model.addAttribute("bookcode", bookcode);
-		model.addAttribute("userLike", userLike);
-		command = new DetailCommand();
+		re.addAttribute("bookinfo", bookcode);
+		
+		command = new LikeCommand();
 		command.execute(model);
 		
-		return "insertLike";
+		return "redirect:/detail";
 		
 	}
 	@RequestMapping("/deleteLike")
-	public String deleteLike(HttpServletRequest request, Model model) {
-		String bookcode = request.getParameter("bookcode");
-		String userLike = request.getParameter("userLike");
+	public String deleteLike(HttpServletRequest request, Model model, RedirectAttributes re) {
+		String bookcode = request.getParameter("bookinfo");
 		model.addAttribute("request", request);
-		model.addAttribute("bookcode", bookcode);
-		model.addAttribute("userLike", userLike);
-		command = new DeleteLikeCommand();
+		re.addAttribute("bookinfo", bookcode);
+		
+		command = new LikeCommand();
 		command.execute(model);
 		
-		return "detail";
+		return "redirect:/detail";
 		
+	}
+	@RequestMapping(value = "detailloan")
+	public String detailloan(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		command = new DetailLoanCommand();
+		command.execute(model);
+		
+		return "redirect:/";
+		
+	}
+	@RequestMapping(value = "loanStatus")
+	public String loanStatus(HttpServletRequest request, Model model){
+		model.addAttribute("request", request);
+		
+		command = new DetailLoanCommand();
+		command.execute(model);
+		return "loanStatus";
 	}
 	
 	
