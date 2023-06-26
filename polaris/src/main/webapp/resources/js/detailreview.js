@@ -354,8 +354,8 @@ function pageNumBtnClick(e,listNumber,lstType,bookcode)
 //이전,다음 버튼
 function rvListPrevNxtBtn(hg_number,bookcode)
 {
-	console.log(Math.floor(allReviewDatas/5));
-	console.log(listPageNum);
+	/*console.log(Math.floor(allReviewDatas/5));
+	console.log(listPageNum);*/
 	const pgNum_pgbtn = document.getElementsByClassName("pageNum-pagebtn");
 	listPageNum+=hg_number;
 	if(listPageNum<0)
@@ -363,9 +363,9 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 		listPageNum=0;
 		return false;
 	}
-	if(listPageNum>Math.floor(allReviewDatas/5))
+	if(listPageNum>Math.floor(allReviewDatas/5)-1)
 	{
-		listPageNum=Math.floor(allReviewDatas/5);
+		listPageNum=Math.floor(allReviewDatas/5-1);
 		return false;
 	}
 	let rvButtonList="";
@@ -390,7 +390,7 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 	if(listPageNum==0) pgbtn_prev.classList.remove("active");
 	else pgbtn_prev.classList.add("active");
 
-	if(listPageNum==Math.floor(allReviewDatas/5)) pgbtn_next.classList.remove("active");
+	if(listPageNum==Math.floor(allReviewDatas/5)-1) pgbtn_next.classList.remove("active");
 	else pgbtn_next.classList.add("active");
 }
 
