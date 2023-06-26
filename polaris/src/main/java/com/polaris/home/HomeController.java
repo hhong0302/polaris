@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.DetailLoanCommand;
 import com.polaris.home.command.DetailReviewCommand;
+import com.polaris.home.command.FindIdCommand;
 import com.polaris.home.command.DetailSuggestCommand;
 import com.polaris.home.command.FindPwCommand;
 import com.polaris.home.command.HomeListCommand;
@@ -485,6 +486,13 @@ public class HomeController {
 		out.println("</script>");
 		out.close();	// 로그아웃!!!
 	}
+	@RequestMapping(value = "findidok")
+	public String findidok(HttpServletRequest request, Model model) {
+		command = new FindIdCommand();
+		model.addAttribute("request", request);
+		command.execute(model);
+		return "findid";
+	}
 	
 	@RequestMapping(value = "member")
 	public String member(HttpServletRequest request, Model model) {
@@ -548,6 +556,10 @@ public class HomeController {
 		out.println("location.href=('/home')");
 		out.println("</script>");
 		out.close();
+	}
+	@RequestMapping(value="findid")
+	public String findid(){
+		return "findid";
 	}
 }
 

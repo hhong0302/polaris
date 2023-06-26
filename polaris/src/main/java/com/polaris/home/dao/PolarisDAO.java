@@ -449,6 +449,11 @@ public void exit(String userid) {
 		
 	});
 }
+
+public String findMyId(String username, String birth, String tel) {
+	String sql = "select userid from members where username='"+username+"' and birth='"+birth+"' and usertel='"+tel+"' ";
+	return template.queryForObject(sql, String.class);
+}
 	
 
 
