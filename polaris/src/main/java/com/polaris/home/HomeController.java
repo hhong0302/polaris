@@ -19,12 +19,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.gson.Gson;
-import com.polaris.home.command.DeleteLikeCommand;
 import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.DetailReviewCommand;
 import com.polaris.home.command.HomeListCommand;
 import com.polaris.home.command.IdCheckCommand;
 import com.polaris.home.command.MemberListCommand;
+import com.polaris.home.command.MenuSearchCommand;
 import com.polaris.home.command.MyCommand;
 import com.polaris.home.command.OrderSearchCommand;
 import com.polaris.home.command.RegisterCommand;
@@ -180,6 +180,7 @@ public class HomeController {
 	    command = new SearchCommand();
 	    command.execute(model);
 	    model.addAttribute("searchType", "search");
+	    
 	    return "search";
 	}
 	
@@ -190,9 +191,10 @@ public class HomeController {
 		model.addAttribute("request", request);
 		model.addAttribute("searchresult", "전체");
 
-	    command = new SearchCommand();
+	    command = new MenuSearchCommand();
 	    command.execute(model);
 	    model.addAttribute("searchType", "totalsearch");
+	    
 	    	return "search"; 
 	}
 	
@@ -203,7 +205,7 @@ public class HomeController {
 		model.addAttribute("request", request);
 		model.addAttribute("searchresult", genre);
 
-	    command = new SearchCommand();
+	    command = new MenuSearchCommand();
 	    command.execute(model);
 	    model.addAttribute("searchType", "genresearch");
 	    
