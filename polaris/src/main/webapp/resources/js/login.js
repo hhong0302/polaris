@@ -75,4 +75,59 @@ function findid()
 	
 	window.open(url, "popup", `width=${width}, height=${height}, left=${left}, top=${top}`);
 }
+
+const mjname = document.getElementById('mj-name');
+const mjbirth = document.getElementById('mj-birth');
+const mjtel = document.getElementById('mj-tel');
+
+const nameno = document.getElementsByClassName('nameno')[0];
+const birthno = document.getElementsByClassName('birthno')[0];
+const telno = document.getElementsByClassName('telno')[0];
+const findidbtn = document.getElementsByClassName('findid-btn')[0];
+
+mjname.addEventListener('focusout', function(){
+	if(mjname.value == ''){
+		nameno.style.display = 'block';
+	}else{
+		nameno.style.display = 'none';
+	}
+});
+mjbirth.addEventListener('focusout', function(){
+	if(mjbirth.value == ''){
+		birthno.style.display = 'block';
+	}else{
+		birthno.style.display = 'none';
+	}
+});
+mjtel.addEventListener('focusout', function(){
+	if(mjtel.value == ''){
+		telno.style.display = 'block';
+	}else{
+		telno.style.display = 'none';
+	}
+});
+
+document.addEventListener('focusout', function(){
+	if(mjname.value != '' && mjbirth.value != '' && mjtel.value != ''){
+		findidbtn.style.backgroundColor = '#4563FF';
+	}
+});
+
+function findidok(){
+	if(mjname.value == ''){
+		alert('이름을 입력하세요.');
+		mjname.focus();
+		return false;
+	}else if(mjbirth.value == ''){
+		alert('생년월일을 입력하세요.');
+		mjbirth.focus();
+		return false;
+	}else if(mjtel.value == ''){
+		alert('휴대폰 번호를 입력하세요.')
+		mjtel.focus();
+		return false;
+	}else{
+		document.findid.submit();
+	}
+}
 //ID
