@@ -165,6 +165,66 @@ public class PolarisDAO {
 		else sql+="order by relike desc, redate desc";
 		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
 	}
+	//리뷰 작성자의 아이디값 받아오기(좋아요)
+	public String rvIdFind(int reviewNum)
+	{
+		String sql = "select userid from review where num="+reviewNum;
+		return template.queryForObject(sql, String.class);
+	}
+	//리뷰 좋아요를 눌렀는지 확인
+	public int isClick(String bookcode, String writer, String pusher)
+	{
+		String sql = "select count(*) from clicklist where bookcode='"+bookcode+"' and writer='"+writer+"' and pusher='"+pusher+"' ";
+		return template.queryForObject(sql, Integer.class);
+	}
+	//좋아요 누른 부분 삭제
+	public void delRevLike(String bookcode, String writer, String pusher, int isClick)
+	{
+		String sql = "delete from clicklist where bookcode=? and writer=? and pusher=?";
+		template.update(sql,new PreparedStatementSetter()
+		{
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException
+			{
+				ps.setString(1, bookcode);
+				ps.setString(2,writer);
+				ps.setString(3,pusher);
+			}
+		});
+		String sql2 = "update review set relike=relike-1 where num=?";
+		template.update(sql2,new PreparedStatementSetter()
+		{
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException
+			{
+				ps.setInt(1,isClick);
+			}
+		});
+	}
+	//좋아요 누르면 insert
+	public void upRevLike(String bookcode, String writer, String pusher, int isClick)
+	{
+		String sql = "insert into clicklist(bookcode,writer,pusher) values(?,?,?)";
+		template.update(sql,new PreparedStatementSetter()
+		{
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException
+			{
+				ps.setString(1, bookcode);
+				ps.setString(2,writer);
+				ps.setString(3,pusher);
+			}
+		});
+		String sql2 = "update review set relike=relike+1 where num=?";
+		template.update(sql2,new PreparedStatementSetter()
+		{
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException
+			{
+				ps.setInt(1,isClick);
+			}
+		});
+	}
 	//번호 눌렀을 때 나오는 리스트 1,2,3,4,5
 	public List<ReviewDTO> hg_reviewList(int listnum,String listType,String bookcode)
 	{

@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+/* password */
+.hg-pwcontainer
+{
+	width:285px;
+	margin:auto;
+}
+
+.hg-logo
+{
+	margin:30px auto;
+	text-align:center;
+}
+
+.hg-pwh1
+{
+	letter-spacing:-1px;
+	font-size:20px;
+	font-weight:bold;
+}
+
+#findpassword
+{
+	margin-top:30px;
+	margin-bottom:30px;
+}
+
+.hg-pwinfobox
+{
+	margin-top:30px;
+}
+
+.hg-pwinfobox label
+{
+	font-size:16px;
+	font-weight:600;
+	letter-spacing:-1px;
+}
+
+.hg-pwinfobox input
+{
+	width:100%;
+	height:44px;
+	border:1px solid #797979;
+	border-radius:4px;
+	margin-top:10px;
+	padding:13px 15px;
+	outline:none;
+}
+
+.hg-pwinfobox input::placeholder
+{
+	color:#BDBDBD;
+}
+
+.hg-pwinfobox input:-webkit-autofill { -webkit-box-shadow: 0 0 0 30px #fff inset ; -webkit-text-fill-color: #000; }
+.hg-pwinfobox input:-webkit-autofill, .hg-pwinfobox input:-webkit-autofill:hover, .hg-pwinfobox input:-webkit-autofill:focus, .hg-pwinfobox input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0s; }
+
+.hg-findpwalrt
+{
+	display:none;
+	width:100%;
+	margin-top:5px;
+	font-size:12px;
+	font-weight:600;
+	letter-spacing:-1px;
+	color:#C30000;
+}
+
+.hg-findpwalrt.active
+{
+	display:inline-block;
+}
+
+#findpwbtn
+{
+	width:100%;
+	margin-top:40px;
+	padding:10px 0;
+	background-color:#ccc;
+	border:none;
+	border-radius:8px;
+	font-size:18px;
+	color:#fff;
+	cursor:pointer;
+	outline:none;
+}
+
+#findpwbtn.active
+{
+	background-color:#4563FF;
+}
+/* password */
+
+
+/* ID */
+
+/* ID */

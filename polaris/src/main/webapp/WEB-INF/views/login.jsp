@@ -26,7 +26,7 @@
 
 	<ul class="find">
 		<li><a href="#">아이디 찾기</a></li>
-		<li><a href="#">비밀번호 찾기</a></li>
+		<li><a style="cursor:pointer;" onclick="findPw()">비밀번호 찾기</a></li>
 		<li><a href="#">회원가입</a></li>
 	</ul>
 	<div class="sns-login">
@@ -35,5 +35,7 @@
 		<a class="g-login" href="#">구글 아이디로 로그인</a>
 	</div>
 	</div>
+	
+	<script src="resources/js/login.js"></script>
 </body>
 </html>
