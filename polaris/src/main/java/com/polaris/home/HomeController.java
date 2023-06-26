@@ -159,14 +159,76 @@ public class HomeController {
 		out.close();
 	}
 	
-	//리뷰 좋아요
+	//리뷰 좋아요 누르기
+	@ResponseBody
+	@RequestMapping(value = "/reviewLikeClickController")
+	public void reviewLikeClickController(HttpServletRequest req,HttpServletResponse res) throws Exception{
+		String bookcode = req.getParameter("bookcode");
+		int reviewNum = Integer.parseInt(req.getParameter("reviewNum"));
+		HttpSession session = req.getSession();
+		String userid="";
+		try
+		{
+			userid = (String) session.getAttribute("userid");	
+			if(userid.equals(null)) userid="empty userid!!!";
+		}
+		catch(Exception e)
+		{
+			userid="empty userid!!!";
+		}
+		int isClick = 0;
+		PolarisDAO dao = new PolarisDAO();
+		if(userid.equals("empty userid!!!"))
+		{
+			isClick = -1;
+		}
+		else
+		{
+			String writer = dao.rvIdFind(reviewNum);
+			isClick=dao.isClick(bookcode,writer,userid);
+			if(isClick>0)
+			{
+				dao.delRevLike(bookcode,writer,userid,reviewNum);
+			}
+			else
+			{
+				dao.upRevLike(bookcode,writer,userid,reviewNum);
+			}
+		}
+		PrintWriter out = res.getWriter();
+		out.println(isClick);
+		out.close();
+	}
+	
+	//리뷰 좋아요 눌렀는지
 	@ResponseBody
 	@RequestMapping(value = "/reviewLikeController")
 	public void reviewLikeController(HttpServletRequest req,HttpServletResponse res) throws Exception{
+		String bookcode = req.getParameter("bookcode");
+		String writer = req.getParameter("writer");
 		HttpSession session = req.getSession();
-		
+		String userid="";
+		try
+		{
+			userid = (String) session.getAttribute("userid");	
+			if(userid.equals(null)) userid="empty userid!!!";
+		}
+		catch(Exception e)
+		{
+			userid="empty userid!!!";
+		}
+		int isClick=0;
+		PolarisDAO dao = new PolarisDAO();
+		if(userid.equals("empty userid!!!"))
+		{
+			isClick = -1;
+		}
+		else
+		{
+			isClick=dao.isClick(bookcode,writer,userid);
+		}
 		PrintWriter out = res.getWriter();
-		out.println(0);
+		out.println(isClick);
 		out.close();
 	}
 	

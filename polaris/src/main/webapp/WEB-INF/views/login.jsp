@@ -35,5 +35,7 @@
 		<a class="g-login" href="#">구글 아이디로 로그인</a>
 	</div>
 	</div>
+	
+	<script src="resources/js/login.js"></script>
 </body>
 </html>
