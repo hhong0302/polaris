@@ -25,7 +25,7 @@
 	<label for="save-id" class="save-id">아이디 저장</label>
 
 	<ul class="find">
-		<li><a href="#">아이디 찾기</a></li>
+		<li><a style="cursor:pointer;" onclick="findid()">아이디 찾기</a></li>
 		<li><a style="cursor:pointer;" onclick="findPw()">비밀번호 찾기</a></li>
 		<li><a href="#">회원가입</a></li>
 	</ul>

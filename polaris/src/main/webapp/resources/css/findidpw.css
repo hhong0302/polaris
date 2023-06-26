@@ -10,11 +10,13 @@
 .hg-logo
 {
 	margin:30px auto;
+	margin-bottom:0px;
 	text-align:center;
 }
 
 .hg-pwh1
 {
+	margin-top:30px;
 	letter-spacing:-1px;
 	font-size:20px;
 	font-weight:bold;
@@ -91,9 +93,112 @@
 {
 	background-color:#4563FF;
 }
+
+#findpwbtn.active:hover
+{
+	background-color:#384DBC;
+}
+
+#hg-notfoundId
+{
+    display: inline-block;
+    width: 100%;
+	margin: 50px auto;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.hg-pwbtn
+{
+	width:138px;
+	padding:10px 0;
+	font-size:15px;
+	font-weight:600;
+	color:#fff;
+	border-radius:8px;
+	cursor:pointer;
+	border:none;
+	outline:none;
+}
+
+.hg-pwbtn.hg-wtagain
+{
+	background-color:#0C174F;
+}
+
+.hg-pwbtn.hg-wtagain:hover
+{
+	background-color:#060E35;
+}
+
+.hg-pwbtn.hg-gotoregi
+{
+	background-color:#4563FF;
+}
+
+.hg-pwbtn.hg-gotoregi:hover
+{
+	background-color:#384DBC;
+}
+
+.hg-newpwforyou
+{
+	margin:50px auto;
+	margin-bottom:0;
+	text-align:center;
+}
+
+.hg-newpwforyou span
+{
+	display:inline-block;
+	width:100%;
+	font-size:14px;
+	font-weight:600;
+	line-height:18px;
+}
+
+#hg-newpw
+{
+	margin:20px auto;
+	margin-bottom:50px;
+	text-align:center;
+	font-size:18px;
+	font-weight:bolder;
+	color:#0C174F;
+}
+
+#hg-gotologin
+{
+	display:inline-block;
+	width:100%;
+	padding:10px 0;
+	background-color:#4563FF;
+	border-radius:8px;
+	font-size:18px;
+	font-weight:600;
+	color:#fff;
+	border:none;
+	outline:none;
+	cursor:pointer;
+}
 /* password */
 
 
 /* ID */
+.id-container{
+	margin: auto;
+	width: 285px;
+}
+.ID-logo{
+	margin: 30px auto;
+	text-align: center;
+}
+.id-container h1{
+	letter-spacing:-1px;
+	font-size:20px;
+	font-weight:bold;
+}
+
 
 /* ID */

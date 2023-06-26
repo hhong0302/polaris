@@ -234,6 +234,26 @@ public class PolarisDAO {
 		sql+=" limit "+listnum+", 5";
 		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
 	}
+	//비밀번호 찾기
+	public int findId(String userid,String username,String birth,String usertel)
+	{
+		String sql = "select count(*) from members where userid='"+userid+"' and username='"+username+"' and birth='"+birth+"' and usertel='"+usertel+"' ";
+		return template.queryForObject(sql, Integer.class);
+	}
+	//임시 비밀번호 발급
+	public void setNewPass(String newPw,String userid)
+	{
+		String sql = "update members set userpass=? where userid=?";
+		template.update(sql,new PreparedStatementSetter()
+		{
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException
+			{
+				ps.setString(1, newPw);
+				ps.setString(2, userid);
+			}
+		});
+	}
 	//wonhong End
 	
 	
@@ -340,7 +360,15 @@ public class PolarisDAO {
 		System.out.println(sql);
 		return template.queryForObject(sql, Integer.class);
 	}
-	
+	public String sgGenre(String bookcode){
+		String sql = "select genre from book where bookcode = '" + bookcode + "'";
+		return template.queryForObject(sql, String.class);
+	}
+	public ArrayList<BookDTO> suggest(String bookcode, String genre) { 
+	    String sql = "select * from book where genre = '" + genre + "' and bookcode not in ('"+ bookcode + "') order by rand() limit 4";
+	    System.out.println(sql);
+	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+	}
 	
 	
 	//alice End
