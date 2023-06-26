@@ -221,6 +221,9 @@ function register(){
         alert("비밀번호 확인을 입력하세요.");
         reuserpass.focus();
         return false;
+    }else if(reuserpass.value != userpass.value){
+        alert("비밀번를 확인해주세요.");
+        return false;
     }
     else if(username.value == ''){
         alert("이름를 입력하세요.");
@@ -235,6 +238,10 @@ function register(){
     else if(tel.value == ''){
         alert("휴대폰 번호를 입력하세요.");
         tel.focus();
+        return false;
+    }
+    else if(emailcheck.test(email.value)){
+        email.focus();
         return false;
     }
     else if(email.value == ''){

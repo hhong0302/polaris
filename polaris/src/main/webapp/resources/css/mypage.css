@@ -41,7 +41,7 @@ span{
 .row{
 	margin-top : 60px;
 }
-.tab-pane {
+.tab-content>.active {
     display: flex;
 }
 .tab-content{
