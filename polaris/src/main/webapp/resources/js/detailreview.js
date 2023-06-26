@@ -75,6 +75,7 @@ function reviewModify()
 	}
 }
 
+//리뷰수정 취소
 function reviewModifyCancel()
 {
 	if(reviewCount==1)
@@ -118,6 +119,7 @@ function reviewModifyCancel()
 	}
 }
 
+//더보기 버튼
 function rvmoreWatch(e)
 {
 	if(rvbox_detail.clientHeight==95)
@@ -251,11 +253,11 @@ function pageNumBtnClick(e,listNumber,lstType,bookcode)
 					async:false,
 					contentType: "application/json",
 					success : function(hg_number) {
-						if(hg_number>0) reviewList+=`<button class="likeBox-detail-like active">
-					   					<img alt="like" src="resources/images/like-detail.png">${datas[i].relike}
+						if(hg_number>0) reviewList+=`<button class="likeBox-detail-like active" onclick="reviewLike('${bookcode}',${datas[i].num},${i})">
+					   					<img alt="like" class="review-like-images" src="resources/images/like-detail.png"><span class="review-like-count">${datas[i].relike}</span>
 				   			 		</button>`;
-						else reviewList+=`<button class="likeBox-detail-like">
-					   					<img alt="like" src="resources/images/dislike-detail.png">${datas[i].relike}
+						else reviewList+=`<button class="likeBox-detail-like" onclick="reviewLike('${bookcode}',${datas[i].num},${i})">
+					   					<img alt="like" class="review-like-images" src="resources/images/dislike-detail.png"><span class="review-like-count">${datas[i].relike}</span>
 				   			 		</button>`;
 			  		},
 			  		error : function() {
@@ -409,6 +411,42 @@ function moreWatch(e,hg_number)
 		rvcmtcontent[hg_number].style.height="43px";
 		rvcmtcontent[hg_number].classList.add("active");
 	}
+}
+
+//리뷰 좋아요 버튼
+function reviewLike(bookcode,reviewNum,rvNumber)
+{
+	const review_like_images=document.getElementsByClassName("review-like-images");
+	const review_like_count=document.getElementsByClassName("review-like-count");
+	$.ajax({
+			url : "reviewLikeClickController",
+			type: "GET",
+			dataType: "json",
+			data:{"bookcode":bookcode,
+			"reviewNum":reviewNum},
+			async:false,
+			contentType: "application/json",
+			success : function(isClick) {
+				if(isClick<0) alert("로그인 후 이용해주세요");
+				else if(isClick>0)
+				{
+					//좋아요 삭제
+					review_like_images[rvNumber].setAttribute("src","resources/images/dislike-detail.png");
+					rvcountNum = review_like_count[rvNumber].innerHTML;
+					review_like_count[rvNumber].innerHTML = Number(rvcountNum)-1;
+				}
+				else
+				{
+					//좋아요 추가
+					review_like_images[rvNumber].setAttribute("src","resources/images/like-detail.png");
+					rvcountNum = review_like_count[rvNumber].innerHTML;
+					review_like_count[rvNumber].innerHTML = Number(rvcountNum)+1;
+				}
+			},
+		 	error : function() {
+		 	alert("로그인 후 이용해주세요");
+		  	}
+			});
 }
 
 

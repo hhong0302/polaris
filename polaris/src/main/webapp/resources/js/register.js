@@ -1,4 +1,5 @@
 var idck = 0;
+var finalok = 0;
 $(function(){
     $("#idcheck").click(function(){
         var userid = $("#userid").val();
@@ -14,16 +15,18 @@ $(function(){
                     $(".alreadyid").css("display", "flex");
                     $(".idcheckok").css("display", "none");
                     $(".idcheckno").css("display", "none");
-                }else if(data == 0){
+                }else if(data == 0 && $("#userid").val() != '' && idcheck.test($("#userid").val())){
                     $(".alreadyid").css("display", "none");
                     $(".idcheckok").css("display", "flex");
                     $(".idcheckno").css("display", "none");
+                    $("#userid").attr('readonly', 'readonly');
                     idck = 1;
-                }else{
+                }else if(data < 0 || $("#userid").val() == ''){
                     $(".alreadyid").css("display", "none");
                     $(".idcheckok").css("display", "none");
                     $(".idcheckno").css("display", "flex");
                 }
+                return false;
             },
             error: function(error){
                 console.log("error : " + error);
@@ -85,8 +88,8 @@ let birthcheck = /[0-9]{8,8}$/;
 
 
 
-
 userid.addEventListener('keyup', function(){
+    alreadyid.style.display = 'none';
     if(!idcheck.test(userid.value)){
         idcheckno.style.display = 'flex';
         checkbtn.style.backgroundColor = '#CCCCCC';
@@ -112,8 +115,14 @@ userpass.addEventListener('keyup', function(){
         passcheckno.style.display = 'none';
         passcheckok.style.display = "flex";
     }
-
 });
+userpass.addEventListener('keyup', function(){
+    if(userpass.value != reuserpass.value){
+        repasscheckok.style.display = 'none';
+    }else{
+        repasscheckok.style.display = 'flex';
+    }
+})
 reuserpass.addEventListener('keyup', function(){
     if(reuserpass.value == '' && reuserpass.value == userpass.value){
         repasscheckno.style.display = 'none';
@@ -122,13 +131,10 @@ reuserpass.addEventListener('keyup', function(){
     }else if(reuserpass.value != userpass.value){
         repasscheckno.style.display = 'flex';
         repasscheckok.style.display = 'none';
-        passcheckok.style.display = 'none';
         
     }else if(reuserpass.value == userpass.value && passcheck.test(userpass.value)){
         repasscheckno.style.display = 'none';
         repasscheckok.style.display = 'flex';
-        passcheckok.style.display = 'flex';
-        passcheckno.style.display = 'none';
     }else{
         return false;
     }
@@ -196,7 +202,10 @@ document.addEventListener('focusout', function(){
     if(userid.value != '' && userpass.value != '' && reuserpass.value != '' && username.value != '' && birth.value != '' && tel.value != '' && email.value != ''){
         fregister.style.backgroundColor = '#4563ff';
     }
-})
+});
+
+
+
 
 
 function register(){
@@ -252,9 +261,35 @@ function register(){
         alert("id중복체크를 해주세요");
     }else{
         
-        document.registerform.submit();
+        // $(function(){
+        //     $("#finalok").click(function(){
+        //         var userid = $("#userid").val();
+        //         $.ajax({
+        //             async: true,
+        //             type: 'POST',
+        //             url: "idcheck?userid="+userid,
+        //             dataType: "json",
+        //             contentType: "application/json; charset=UTF-8",
+        //             success: function(data){
+        //                 console.log(data);
+        //                 if(data == 0){
+        //                     finalok = 0;
+        //                 }
+        //             },
+        //             error: function(error){
+        //                 console.log("error : " + error);
+        //             }
+        //         });
+        //     });
+        // });
+        // if(finalok == 1){
+            document.registerform.submit();
+        // }else{
+            // alert("아이디를 다시 확인하세요.");
+            // return false;
+        }
     }
-}
+// }
 
 
 

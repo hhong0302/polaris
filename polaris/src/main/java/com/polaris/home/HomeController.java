@@ -20,9 +20,12 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.gson.Gson;
 import com.polaris.home.command.DetailCommand;
+import com.polaris.home.command.DetailLoanCommand;
 import com.polaris.home.command.DetailReviewCommand;
+import com.polaris.home.command.FindPwCommand;
 import com.polaris.home.command.HomeListCommand;
 import com.polaris.home.command.IdCheckCommand;
+import com.polaris.home.command.LikeCommand;
 import com.polaris.home.command.MemberListCommand;
 import com.polaris.home.command.MenuSearchCommand;
 import com.polaris.home.command.MyCommand;
@@ -159,15 +162,86 @@ public class HomeController {
 		out.close();
 	}
 	
-	//리뷰 좋아요
+	//리뷰 좋아요 누르기
+	@ResponseBody
+	@RequestMapping(value = "/reviewLikeClickController")
+	public void reviewLikeClickController(HttpServletRequest req,HttpServletResponse res) throws Exception{
+		String bookcode = req.getParameter("bookcode");
+		int reviewNum = Integer.parseInt(req.getParameter("reviewNum"));
+		HttpSession session = req.getSession();
+		String userid="";
+		try
+		{
+			userid = (String) session.getAttribute("userid");	
+			if(userid.equals(null)) userid="empty userid!!!";
+		}
+		catch(Exception e)
+		{
+			userid="empty userid!!!";
+		}
+		int isClick = 0;
+		PolarisDAO dao = new PolarisDAO();
+		if(userid.equals("empty userid!!!"))
+		{
+			isClick = -1;
+		}
+		else
+		{
+			String writer = dao.rvIdFind(reviewNum);
+			isClick=dao.isClick(bookcode,writer,userid);
+			if(isClick>0)
+			{
+				dao.delRevLike(bookcode,writer,userid,reviewNum);
+			}
+			else
+			{
+				dao.upRevLike(bookcode,writer,userid,reviewNum);
+			}
+		}
+		PrintWriter out = res.getWriter();
+		out.println(isClick);
+		out.close();
+	}
+	
+	//리뷰 좋아요 눌렀는지
 	@ResponseBody
 	@RequestMapping(value = "/reviewLikeController")
 	public void reviewLikeController(HttpServletRequest req,HttpServletResponse res) throws Exception{
+		String bookcode = req.getParameter("bookcode");
+		String writer = req.getParameter("writer");
 		HttpSession session = req.getSession();
-		
+		String userid="";
+		try
+		{
+			userid = (String) session.getAttribute("userid");	
+			if(userid.equals(null)) userid="empty userid!!!";
+		}
+		catch(Exception e)
+		{
+			userid="empty userid!!!";
+		}
+		int isClick=0;
+		PolarisDAO dao = new PolarisDAO();
+		if(userid.equals("empty userid!!!"))
+		{
+			isClick = -1;
+		}
+		else
+		{
+			isClick=dao.isClick(bookcode,writer,userid);
+		}
 		PrintWriter out = res.getWriter();
-		out.println(0);
+		out.println(isClick);
 		out.close();
+	}
+	
+	@RequestMapping(value="findPasswordController")
+	public String findpassword(HttpServletRequest req,Model model)
+	{
+		command = new FindPwCommand();
+		model.addAttribute("req", req);
+		command.execute(model);
+		return "findpassword";
 	}
 	
 	//검색 기능
@@ -260,7 +334,7 @@ public class HomeController {
 		
 		command = new DetailCommand();
 		command.execute(model);
-		return "detail";
+		return "likeCount";
 	}
 	@RequestMapping(value = "userLike")
 	public String userLike(HttpServletRequest request, Model model){
@@ -268,33 +342,51 @@ public class HomeController {
 		
 		command = new DetailCommand();
 		command.execute(model);
-		return "detail";
+		return "userLike";
 	}
 	@RequestMapping("/insertLike")
-	public String insertLike(HttpServletRequest request, Model model) {
-		String bookcode = request.getParameter("bookcode");
-		String userLike = request.getParameter("userLike");
+	public String insertLike(HttpServletRequest request, Model model, RedirectAttributes re) {
+		String bookcode = request.getParameter("bookinfo");
 		model.addAttribute("request", request);
-		model.addAttribute("bookcode", bookcode);
-		model.addAttribute("userLike", userLike);
-		command = new DetailCommand();
+		re.addAttribute("bookinfo", bookcode);
+		
+		command = new LikeCommand();
 		command.execute(model);
 		
-		return "insertLike";
+		return "redirect:/detail";
 		
 	}
 	@RequestMapping("/deleteLike")
-	public String deleteLike(HttpServletRequest request, Model model) {
-		String bookcode = request.getParameter("bookcode");
-		String userLike = request.getParameter("userLike");
+	public String deleteLike(HttpServletRequest request, Model model, RedirectAttributes re) {
+		String bookcode = request.getParameter("bookinfo");
 		model.addAttribute("request", request);
-		model.addAttribute("bookcode", bookcode);
-		model.addAttribute("userLike", userLike);
-		command = new DetailCommand();
+		re.addAttribute("bookinfo", bookcode);
+		
+		command = new LikeCommand();
 		command.execute(model);
 		
-		return "detail";
+		return "redirect:/detail";
 		
+	}	
+	@RequestMapping("/bookloan")
+	public String loanbook(HttpServletRequest request, Model model, RedirectAttributes re) {
+		String bookcode = request.getParameter("bookinfo");
+		model.addAttribute("request", request);
+		re.addAttribute("bookinfo", bookcode);
+		
+		command = new DetailLoanCommand();
+		command.execute(model);
+		
+		return "redirect:/detail";
+		
+	}
+	@RequestMapping(value = "loanStatus")
+	public String loanStatus(HttpServletRequest request, Model model){
+		model.addAttribute("request", request);
+		
+		command = new DetailLoanCommand();
+		command.execute(model);
+		return "loanStatus";
 	}
 	
 	

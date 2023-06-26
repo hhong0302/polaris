@@ -165,6 +165,66 @@ public class PolarisDAO {
 		else sql+="order by relike desc, redate desc";
 		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
 	}
+	//리뷰 작성자의 아이디값 받아오기(좋아요)
+	public String rvIdFind(int reviewNum)
+	{
+		String sql = "select userid from review where num="+reviewNum;
+		return template.queryForObject(sql, String.class);
+	}
+	//리뷰 좋아요를 눌렀는지 확인
+	public int isClick(String bookcode, String writer, String pusher)
+	{
+		String sql = "select count(*) from clicklist where bookcode='"+bookcode+"' and writer='"+writer+"' and pusher='"+pusher+"' ";
+		return template.queryForObject(sql, Integer.class);
+	}
+	//좋아요 누른 부분 삭제
+	public void delRevLike(String bookcode, String writer, String pusher, int isClick)
+	{
+		String sql = "delete from clicklist where bookcode=? and writer=? and pusher=?";
+		template.update(sql,new PreparedStatementSetter()
+		{
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException
+			{
+				ps.setString(1, bookcode);
+				ps.setString(2,writer);
+				ps.setString(3,pusher);
+			}
+		});
+		String sql2 = "update review set relike=relike-1 where num=?";
+		template.update(sql2,new PreparedStatementSetter()
+		{
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException
+			{
+				ps.setInt(1,isClick);
+			}
+		});
+	}
+	//좋아요 누르면 insert
+	public void upRevLike(String bookcode, String writer, String pusher, int isClick)
+	{
+		String sql = "insert into clicklist(bookcode,writer,pusher) values(?,?,?)";
+		template.update(sql,new PreparedStatementSetter()
+		{
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException
+			{
+				ps.setString(1, bookcode);
+				ps.setString(2,writer);
+				ps.setString(3,pusher);
+			}
+		});
+		String sql2 = "update review set relike=relike+1 where num=?";
+		template.update(sql2,new PreparedStatementSetter()
+		{
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException
+			{
+				ps.setInt(1,isClick);
+			}
+		});
+	}
 	//번호 눌렀을 때 나오는 리스트 1,2,3,4,5
 	public List<ReviewDTO> hg_reviewList(int listnum,String listType,String bookcode)
 	{
@@ -235,6 +295,7 @@ public class PolarisDAO {
 				PreparedStatement pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, bookcode);
 					pstmt.setString(2, userid);
+					System.out.println(pstmt);
 					return pstmt;
 				}
 		});
@@ -247,6 +308,40 @@ public class PolarisDAO {
 		String sql = "select count(*) from interest where bookcode = '" + bookcode + "' and userid = '" + userid + "'";
 		return template.queryForObject(sql, Integer.class);
 	}
+	public void loanBook(String bookcode, String userid, String booktitle) {
+			template.update(new PreparedStatementCreator() {
+				@Override
+				public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
+					String sql = "insert into bookloan values (num, ?,?,?,1, sysdate())";
+					PreparedStatement pstmt = con.prepareStatement(sql);
+						pstmt.setString(1, bookcode);
+						pstmt.setString(2, userid);
+						pstmt.setString(3, booktitle);
+						return pstmt;
+					}
+				
+		});
+	}
+	public void returnBook(String bookcode, String userid) {
+		template.update(new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
+				String sql = "update bookloan set loan = 0 where bookcode = '" + bookcode + "' and userid = '" + userid + "'";
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				System.out.println(pstmt);
+					return pstmt;
+				}
+		});
+	}
+	
+	public int loanStatus(String bookcode, String userid){
+		String sql ="select count(*) from bookloan where bookcode = '" + bookcode +"' and userid = '" + userid + "' and loan = 1";
+		System.out.println(sql);
+		return template.queryForObject(sql, Integer.class);
+	}
+	
+	
 	
 	//alice End
 	
