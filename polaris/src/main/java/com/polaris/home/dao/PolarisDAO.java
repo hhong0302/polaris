@@ -234,6 +234,26 @@ public class PolarisDAO {
 		sql+=" limit "+listnum+", 5";
 		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
 	}
+	//비밀번호 찾기
+	public int findId(String userid,String username,String birth,String usertel)
+	{
+		String sql = "select count(*) from members where userid='"+userid+"' and username='"+username+"' and birth='"+birth+"' and usertel='"+usertel+"' ";
+		return template.queryForObject(sql, Integer.class);
+	}
+	//임시 비밀번호 발급
+	public void setNewPass(String newPw,String userid)
+	{
+		String sql = "update members set userpass=? where userid=?";
+		template.update(sql,new PreparedStatementSetter()
+		{
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException
+			{
+				ps.setString(1, newPw);
+				ps.setString(2, userid);
+			}
+		});
+	}
 	//wonhong End
 	
 	
