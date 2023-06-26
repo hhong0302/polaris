@@ -234,6 +234,26 @@ public class PolarisDAO {
 		sql+=" limit "+listnum+", 5";
 		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
 	}
+	//비밀번호 찾기
+	public int findId(String userid,String username,String birth,String usertel)
+	{
+		String sql = "select count(*) from members where userid='"+userid+"' and username='"+username+"' and birth='"+birth+"' and usertel='"+usertel+"' ";
+		return template.queryForObject(sql, Integer.class);
+	}
+	//임시 비밀번호 발급
+	public void setNewPass(String newPw,String userid)
+	{
+		String sql = "update members set userpass=? where userid=?";
+		template.update(sql,new PreparedStatementSetter()
+		{
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException
+			{
+				ps.setString(1, newPw);
+				ps.setString(2, userid);
+			}
+		});
+	}
 	//wonhong End
 	
 	
@@ -295,6 +315,7 @@ public class PolarisDAO {
 				PreparedStatement pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, bookcode);
 					pstmt.setString(2, userid);
+					System.out.println(pstmt);
 					return pstmt;
 				}
 		});
@@ -307,6 +328,40 @@ public class PolarisDAO {
 		String sql = "select count(*) from interest where bookcode = '" + bookcode + "' and userid = '" + userid + "'";
 		return template.queryForObject(sql, Integer.class);
 	}
+	public void loanBook(String bookcode, String userid, String booktitle) {
+			template.update(new PreparedStatementCreator() {
+				@Override
+				public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
+					String sql = "insert into bookloan values (num, ?,?,?,1, sysdate())";
+					PreparedStatement pstmt = con.prepareStatement(sql);
+						pstmt.setString(1, bookcode);
+						pstmt.setString(2, userid);
+						pstmt.setString(3, booktitle);
+						return pstmt;
+					}
+				
+		});
+	}
+	public void returnBook(String bookcode, String userid) {
+		template.update(new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
+				String sql = "update bookloan set loan = 0 where bookcode = '" + bookcode + "' and userid = '" + userid + "'";
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				System.out.println(pstmt);
+					return pstmt;
+				}
+		});
+	}
+	
+	public int loanStatus(String bookcode, String userid){
+		String sql ="select count(*) from bookloan where bookcode = '" + bookcode +"' and userid = '" + userid + "' and loan = 1";
+		System.out.println(sql);
+		return template.queryForObject(sql, Integer.class);
+	}
+	
+	
 	
 	//alice End
 	
