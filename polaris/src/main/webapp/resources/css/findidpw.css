@@ -288,22 +288,22 @@
 	outline:none;
 }
 
-.mj-pwbtn.hg-wtagain
+.mj-pwbtn.mj-wtagain
 {
 	background-color:#0C174F;
 }
 
-.mj-pwbtn.hg-wtagain:hover
+.mj-pwbtn.mj-wtagain:hover
 {
 	background-color:#060E35;
 }
 
-.mj-pwbtn.hg-gotoregi
+.mj-pwbtn.mj-gotoregi
 {
 	background-color:#4563FF;
 }
 
-.mj-pwbtn.hg-gotoregi:hover
+.mj-pwbtn.mj-gotoregi:hover
 {
 	background-color:#384DBC;
 }

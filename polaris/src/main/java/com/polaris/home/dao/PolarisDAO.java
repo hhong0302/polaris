@@ -344,7 +344,7 @@ public class PolarisDAO {
 			template.update(new PreparedStatementCreator() {
 				@Override
 				public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
-					String sql = "insert into bookloan values (num, ?,?,?,1, sysdate())";
+					String sql = "insert into bookloan (bookcode, userid, booktitle, loan) values (?,?,?,1)";
 					PreparedStatement pstmt = con.prepareStatement(sql);
 						pstmt.setString(1, bookcode);
 						pstmt.setString(2, userid);
@@ -465,7 +465,12 @@ public void exit(String userid) {
 
 public String findMyId(String username, String birth, String tel) {
 	String sql = "select userid from members where username='"+username+"' and birth='"+birth+"' and usertel='"+tel+"' ";
-	return template.queryForObject(sql, String.class);
+	try {
+		return template.queryForObject(sql, String.class);		
+	}catch(Exception e) {
+		return "NotFoundYourId";
+	}
+	
 }
 	
 
