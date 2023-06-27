@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.gson.Gson;
+import com.polaris.home.command.AutoReturnCommand;
 import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.DetailLoanCommand;
 import com.polaris.home.command.DetailReviewCommand;
@@ -237,12 +238,14 @@ public class HomeController {
 		out.close();
 	}
 	
+	//비밀번호 찾기 페이지
 	@RequestMapping(value="findpassword")
 	public String findpassword()
 	{
 		return "findpassword";
 	}
 	
+	//비밀번호 찾기
 	@RequestMapping(value="findPasswordController")
 	public String findpasswordController(HttpServletRequest req,Model model)
 	{
@@ -250,6 +253,15 @@ public class HomeController {
 		model.addAttribute("req", req);
 		command.execute(model);
 		return "findpassword";
+	}
+	
+	//자동반납 기능
+	@RequestMapping(value="AutoReturn")
+	public String AutoReturn(Model model)
+	{
+		command = new AutoReturnCommand();
+		command.execute(model);
+		return "home";
 	}
 	
 	//검색 기능
