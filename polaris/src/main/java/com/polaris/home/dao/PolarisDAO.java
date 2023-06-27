@@ -331,7 +331,7 @@ public class PolarisDAO {
 			template.update(new PreparedStatementCreator() {
 				@Override
 				public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
-					String sql = "insert into bookloan values (num, ?,?,?,1, sysdate())";
+					String sql = "insert into bookloan (bookcode, userid, booktitle, loan) values (?,?,?,1)";
 					PreparedStatement pstmt = con.prepareStatement(sql);
 						pstmt.setString(1, bookcode);
 						pstmt.setString(2, userid);
