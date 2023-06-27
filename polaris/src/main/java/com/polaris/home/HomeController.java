@@ -194,11 +194,11 @@ public class HomeController {
 			isClick=dao.isClick(bookcode,writer,userid);
 			if(isClick>0)
 			{
-				dao.delRevLike(bookcode,writer,userid,reviewNum);
+				dao.delRevLike(bookcode,writer,userid);
 			}
 			else
 			{
-				dao.upRevLike(bookcode,writer,userid,reviewNum);
+				dao.upRevLike(bookcode,writer,userid);
 			}
 		}
 		PrintWriter out = res.getWriter();

@@ -183,7 +183,7 @@ public class PolarisDAO {
 		return template.queryForObject(sql, Integer.class);
 	}
 	//좋아요 누른 부분 삭제
-	public void delRevLike(String bookcode, String writer, String pusher, int isClick)
+	public void delRevLike(String bookcode, String writer, String pusher)
 	{
 		String sql = "delete from clicklist where bookcode=? and writer=? and pusher=?";
 		template.update(sql,new PreparedStatementSetter()
@@ -196,18 +196,19 @@ public class PolarisDAO {
 				ps.setString(3,pusher);
 			}
 		});
-		String sql2 = "update review set relike=relike-1 where num=?";
+		String sql2 = "update review set relike=relike-1 where bookcode=? and userid=?";
 		template.update(sql2,new PreparedStatementSetter()
 		{
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException
 			{
-				ps.setInt(1,isClick);
+				ps.setString(1,bookcode);
+				ps.setString(2, writer);
 			}
 		});
 	}
 	//좋아요 누르면 insert
-	public void upRevLike(String bookcode, String writer, String pusher, int isClick)
+	public void upRevLike(String bookcode, String writer, String pusher)
 	{
 		String sql = "insert into clicklist(bookcode,writer,pusher) values(?,?,?)";
 		template.update(sql,new PreparedStatementSetter()
@@ -220,13 +221,14 @@ public class PolarisDAO {
 				ps.setString(3,pusher);
 			}
 		});
-		String sql2 = "update review set relike=relike+1 where num=?";
+		String sql2 = "update review set relike=relike+1 where bookcode=? and userid=?";
 		template.update(sql2,new PreparedStatementSetter()
 		{
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException
 			{
-				ps.setInt(1,isClick);
+				ps.setString(1,bookcode);
+				ps.setString(2, writer);
 			}
 		});
 	}
