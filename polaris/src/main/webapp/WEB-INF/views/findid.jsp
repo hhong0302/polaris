@@ -51,7 +51,7 @@
 	</div>
 	</c:when>
 	<c:otherwise>
-	<%-- 비밀번호 알려주기 --%>
+	<%-- 아이디 알려주기 --%>
 	<div class="mj-newpwforyou">
 		<span>회원님의 아이디 정보입니다.</span>
 	</div>
