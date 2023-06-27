@@ -14,7 +14,6 @@ public class LikeCommand implements SpCommand {
 	public void execute(Model model) {
 		Map<String, Object> map = model.asMap();
         HttpServletRequest request = (HttpServletRequest) map.get("request");
-        System.out.println();
         PolarisDAO dao = new PolarisDAO();
         HttpSession session = request.getSession();
         String bookcode = request.getParameter("bookinfo");
