@@ -214,7 +214,7 @@ footer
 {
 	margin-top:12px;
 	display:flex;
-	justify-content:flex-start;
+	justify-content:space-between;
 	align-items:flex-end;
 }
 
@@ -235,6 +235,11 @@ footer
 {
 	margin-left: 20px;
 	margin-right: 20px;
+}
+
+.hg-ftop .hg-familysite
+{
+	
 }
 
 .hg-fbottom

@@ -365,9 +365,9 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 		listPageNum=0;
 		return false;
 	}
-	if(listPageNum>Math.floor(allReviewDatas/5)-1)
+	if(listPageNum>Math.floor(allReviewDatas/5))
 	{
-		listPageNum=Math.floor(allReviewDatas/5-1);
+		listPageNum=Math.floor(allReviewDatas/5);
 		return false;
 	}
 	let rvButtonList="";
@@ -392,7 +392,7 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 	if(listPageNum==0) pgbtn_prev.classList.remove("active");
 	else pgbtn_prev.classList.add("active");
 
-	if(listPageNum==Math.floor(allReviewDatas/5)-1) pgbtn_next.classList.remove("active");
+	if(listPageNum==Math.floor(allReviewDatas/5)) pgbtn_next.classList.remove("active");
 	else pgbtn_next.classList.add("active");
 }
 
