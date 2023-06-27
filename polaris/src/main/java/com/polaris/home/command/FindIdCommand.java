@@ -19,13 +19,14 @@ public class FindIdCommand implements SpCommand {
 	    String tel = request.getParameter("mj-tel");
 	    PolarisDAO dao = new PolarisDAO();
 	    String findMyId = dao.findMyId(username,birth,tel);
-	    if(!findMyId.equals(""))
+	    if(findMyId.equals("") || findMyId == "canNotFind")
 	    {
-	    	model.addAttribute("userid", findMyId);
+	    	model.addAttribute("userid", "NotFoundYourId");
+	    	
 	    }
 	    else
 	    {
-	    	model.addAttribute("userid", "NotFoundYourId");
+	    	model.addAttribute("userid", findMyId);
 	    }
 	    
 	}
