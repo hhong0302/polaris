@@ -2,6 +2,7 @@ package com.polaris.home.dao;
 
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -134,14 +135,18 @@ public class PolarisDAO {
 	//리뷰 삭제
 	public void hg_reviewDelete(String userid,String bookcode)
 	{
-		String sql = "delete from review where userid=? and bookcode=?";
+		String sql = "DELETE FROM a, b"
+				+ " USING review AS a"
+				+ " LEFT JOIN clicklist AS b"
+				+ " ON a.userid = b.writer "
+				+ "WHERE a.num = (select num from (select num from review where bookcode=? and userid=?) tmp)";
 		template.update(sql,new PreparedStatementSetter()
 		{
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException
 			{
-				ps.setString(1, userid);
-				ps.setString(2,bookcode);
+				ps.setString(1,bookcode);
+				ps.setString(2,userid);
 			}
 		});
 	}
@@ -253,6 +258,12 @@ public class PolarisDAO {
 				ps.setString(2, userid);
 			}
 		});
+	}
+	//
+	public Date getLoanDate()
+	{
+		String sql = "select loandate from bookloan where userid='wonhong0302'";
+		return template.queryForObject(sql, Date.class);
 	}
 	//wonhong End
 	
