@@ -20,9 +20,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.gson.Gson;
+import com.polaris.home.command.AutoReturnCommand;
 import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.DetailLoanCommand;
 import com.polaris.home.command.DetailReviewCommand;
+import com.polaris.home.command.FindIdCommand;
 import com.polaris.home.command.DetailSuggestCommand;
 import com.polaris.home.command.FindPwCommand;
 import com.polaris.home.command.HomeListCommand;
@@ -193,11 +195,11 @@ public class HomeController {
 			isClick=dao.isClick(bookcode,writer,userid);
 			if(isClick>0)
 			{
-				dao.delRevLike(bookcode,writer,userid,reviewNum);
+				dao.delRevLike(bookcode,writer,userid);
 			}
 			else
 			{
-				dao.upRevLike(bookcode,writer,userid,reviewNum);
+				dao.upRevLike(bookcode,writer,userid);
 			}
 		}
 		PrintWriter out = res.getWriter();
@@ -237,12 +239,14 @@ public class HomeController {
 		out.close();
 	}
 	
+	//비밀번호 찾기 페이지
 	@RequestMapping(value="findpassword")
 	public String findpassword()
 	{
 		return "findpassword";
 	}
 	
+	//비밀번호 찾기
 	@RequestMapping(value="findPasswordController")
 	public String findpasswordController(HttpServletRequest req,Model model)
 	{
@@ -250,6 +254,15 @@ public class HomeController {
 		model.addAttribute("req", req);
 		command.execute(model);
 		return "findpassword";
+	}
+	
+	//자동반납 기능
+	@RequestMapping(value="AutoReturn")
+	public String AutoReturn(Model model)
+	{
+		command = new AutoReturnCommand();
+		command.execute(model);
+		return "home";
 	}
 	
 	//검색 기능
@@ -497,6 +510,13 @@ public class HomeController {
 		out.println("</script>");
 		out.close();	// 로그아웃!!!
 	}
+	@RequestMapping(value = "findidok")
+	public String findidok(HttpServletRequest request, Model model) {
+		command = new FindIdCommand();
+		model.addAttribute("request", request);
+		command.execute(model);
+		return "findid";
+	}
 	
 	@RequestMapping(value = "member")
 	public String member(HttpServletRequest request, Model model) {
@@ -560,6 +580,10 @@ public class HomeController {
 		out.println("location.href=('/home')");
 		out.println("</script>");
 		out.close();
+	}
+	@RequestMapping(value="findid")
+	public String findid(){
+		return "findid";
 	}
 }
 

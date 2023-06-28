@@ -1,5 +1,4 @@
 var idck = 0;
-var finalok = 0;
 $(function(){
     $("#idcheck").click(function(){
         var userid = $("#userid").val();
@@ -10,7 +9,6 @@ $(function(){
             dataType: "json",
             contentType: "application/json; charset=UTF-8",
             success: function(data){
-                console.log(data);
                 if(data > 0){
                     $(".alreadyid").css("display", "flex");
                     $(".idcheckok").css("display", "none");
@@ -20,29 +18,41 @@ $(function(){
                     $(".idcheckok").css("display", "flex");
                     $(".idcheckno").css("display", "none");
                     $("#userid").attr('readonly', 'readonly');
-                    idck = 1;
+                    idck = idck + 1;
                 }else if(data < 0 || $("#userid").val() == ''){
                     $(".alreadyid").css("display", "none");
                     $(".idcheckok").css("display", "none");
                     $(".idcheckno").css("display", "flex");
+                    return false;
                 }
-                return false;
             },
             error: function(error){
                 console.log("error : " + error);
             }
         });
     });
-    $('.eye').on('click',function(){
-        $('input').toggleClass('active');
-        if($('input').hasClass('active')){
-            $('.show img').attr('src',"resources/images/hide-pass.png")
-            .prev('input[name=userpass]').prop('type',"text");
-        }else{
-            $(this).attr('src',"resources/images/show-pass.png")
-            .prev('input[name=userpass]').prop('type','password');
-        }
-}); 
+    $('.eye').click(function(){
+        if($(this).hasClass('active')){
+            $(this).removeClass("active");
+            $(this).find('.fa-solid').removeClass('fa-eye').addClass('fa-eye-slash');
+          $('.passinput').attr('type', 'password');
+        }else{    
+          $(this).addClass("active");
+          $(this).find('.fa-solid').removeClass('fa-eye-slash').addClass('fa-eye');
+          $('.passinput').attr('type', 'text');
+        }  
+       });
+       $('.eye1').click(function(){
+        if($(this).hasClass('active')){
+            $(this).removeClass("active");
+            $(this).find('.fa-solid').removeClass('fa-eye').addClass('fa-eye-slash');
+          $('.repassinput').attr('type', 'password');
+        }else{    
+          $(this).addClass("active");
+          $(this).find('.fa-solid').removeClass('fa-eye-slash').addClass('fa-eye');
+          $('.repassinput').attr('type', 'text');
+        }  
+       });
 });//jquery
 
 
@@ -82,7 +92,7 @@ let idcheck = /^[a-zA-Z0-9]{6,18}$/;
 let passcheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/;
 let passcheck1 = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])/;
 let passcheck2 = /(?=.*[0-9]).{8,20}$/;
-let emailcheck = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+let emailcheck = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/
 let phonecheck = /[0-9]{11,11}$/;
 let birthcheck = /[0-9]{8,8}$/;
 
@@ -249,8 +259,9 @@ function register(){
         tel.focus();
         return false;
     }
-    else if(emailcheck.test(email.value)){
+    else if(!emailcheck.test(email.value)){
         email.focus();
+        alert("이건 뭐임");
         return false;
     }
     else if(email.value == ''){
@@ -259,37 +270,12 @@ function register(){
         return false;
     }else if(idck == 0){
         alert("id중복체크를 해주세요");
+        return false;
     }else{
-        
-        // $(function(){
-        //     $("#finalok").click(function(){
-        //         var userid = $("#userid").val();
-        //         $.ajax({
-        //             async: true,
-        //             type: 'POST',
-        //             url: "idcheck?userid="+userid,
-        //             dataType: "json",
-        //             contentType: "application/json; charset=UTF-8",
-        //             success: function(data){
-        //                 console.log(data);
-        //                 if(data == 0){
-        //                     finalok = 0;
-        //                 }
-        //             },
-        //             error: function(error){
-        //                 console.log("error : " + error);
-        //             }
-        //         });
-        //     });
-        // });
-        // if(finalok == 1){
+    		console.log(idck);
             document.registerform.submit();
-        // }else{
-            // alert("아이디를 다시 확인하세요.");
-            // return false;
         }
     }
-// }
 
 
 

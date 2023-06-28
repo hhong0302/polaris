@@ -2,6 +2,7 @@ package com.polaris.home.dao;
 
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -134,14 +135,18 @@ public class PolarisDAO {
 	//리뷰 삭제
 	public void hg_reviewDelete(String userid,String bookcode)
 	{
-		String sql = "delete from review where userid=? and bookcode=?";
+		String sql = "DELETE FROM a, b"
+				+ " USING review AS a"
+				+ " LEFT JOIN clicklist AS b"
+				+ " ON a.userid = b.writer "
+				+ "WHERE a.num = (select num from (select num from review where bookcode=? and userid=?) tmp)";
 		template.update(sql,new PreparedStatementSetter()
 		{
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException
 			{
-				ps.setString(1, userid);
-				ps.setString(2,bookcode);
+				ps.setString(1,bookcode);
+				ps.setString(2,userid);
 			}
 		});
 	}
@@ -178,7 +183,7 @@ public class PolarisDAO {
 		return template.queryForObject(sql, Integer.class);
 	}
 	//좋아요 누른 부분 삭제
-	public void delRevLike(String bookcode, String writer, String pusher, int isClick)
+	public void delRevLike(String bookcode, String writer, String pusher)
 	{
 		String sql = "delete from clicklist where bookcode=? and writer=? and pusher=?";
 		template.update(sql,new PreparedStatementSetter()
@@ -191,18 +196,19 @@ public class PolarisDAO {
 				ps.setString(3,pusher);
 			}
 		});
-		String sql2 = "update review set relike=relike-1 where num=?";
+		String sql2 = "update review set relike=relike-1 where bookcode=? and userid=?";
 		template.update(sql2,new PreparedStatementSetter()
 		{
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException
 			{
-				ps.setInt(1,isClick);
+				ps.setString(1,bookcode);
+				ps.setString(2, writer);
 			}
 		});
 	}
 	//좋아요 누르면 insert
-	public void upRevLike(String bookcode, String writer, String pusher, int isClick)
+	public void upRevLike(String bookcode, String writer, String pusher)
 	{
 		String sql = "insert into clicklist(bookcode,writer,pusher) values(?,?,?)";
 		template.update(sql,new PreparedStatementSetter()
@@ -215,13 +221,14 @@ public class PolarisDAO {
 				ps.setString(3,pusher);
 			}
 		});
-		String sql2 = "update review set relike=relike+1 where num=?";
+		String sql2 = "update review set relike=relike+1 where bookcode=? and userid=?";
 		template.update(sql2,new PreparedStatementSetter()
 		{
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException
 			{
-				ps.setInt(1,isClick);
+				ps.setString(1,bookcode);
+				ps.setString(2, writer);
 			}
 		});
 	}
@@ -253,6 +260,12 @@ public class PolarisDAO {
 				ps.setString(2, userid);
 			}
 		});
+	}
+	//
+	public Date getLoanDate()
+	{
+		String sql = "select loandate from bookloan where userid='wonhong0302'";
+		return template.queryForObject(sql, Date.class);
 	}
 	//wonhong End
 	
@@ -315,7 +328,6 @@ public class PolarisDAO {
 				PreparedStatement pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, bookcode);
 					pstmt.setString(2, userid);
-					System.out.println(pstmt);
 					return pstmt;
 				}
 		});
@@ -332,7 +344,7 @@ public class PolarisDAO {
 			template.update(new PreparedStatementCreator() {
 				@Override
 				public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
-					String sql = "insert into bookloan values (num, ?,?,?,1, sysdate())";
+					String sql = "insert into bookloan (bookcode, userid, booktitle, loan) values (?,?,?,1)";
 					PreparedStatement pstmt = con.prepareStatement(sql);
 						pstmt.setString(1, bookcode);
 						pstmt.setString(2, userid);
@@ -349,7 +361,6 @@ public class PolarisDAO {
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
 				String sql = "update bookloan set loan = 0 where bookcode = '" + bookcode + "' and userid = '" + userid + "'";
 				PreparedStatement pstmt = con.prepareStatement(sql);
-				System.out.println(pstmt);
 					return pstmt;
 				}
 		});
@@ -357,7 +368,6 @@ public class PolarisDAO {
 	
 	public int loanStatus(String bookcode, String userid){
 		String sql ="select count(*) from bookloan where bookcode = '" + bookcode +"' and userid = '" + userid + "' and loan = 1";
-		System.out.println(sql);
 		return template.queryForObject(sql, Integer.class);
 	}
 	public String sgGenre(String bookcode){
@@ -366,7 +376,6 @@ public class PolarisDAO {
 	}
 	public ArrayList<BookDTO> suggest(String bookcode, String genre) { 
 	    String sql = "select * from book where genre = '" + genre + "' and bookcode not in ('"+ bookcode + "') order by rand() limit 4";
-	    System.out.println(sql);
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	
@@ -452,6 +461,16 @@ public void exit(String userid) {
 			}
 		
 	});
+}
+
+public String findMyId(String username, String birth, String tel) {
+	String sql = "select userid from members where username='"+username+"' and birth='"+birth+"' and usertel='"+tel+"' ";
+	try {
+		return template.queryForObject(sql, String.class);		
+	}catch(Exception e) {
+		return "NotFoundYourId";
+	}
+	
 }
 	
 
