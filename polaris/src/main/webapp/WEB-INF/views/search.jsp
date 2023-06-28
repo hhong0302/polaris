@@ -65,7 +65,7 @@
 										%>
 											<div  class="rental-box">
 												<div class="search-like" onclick="likeSuccess()">
-													<img src="resources/images/emptyheart.png" class="likeimg1" alt="emptyheart" />
+													<img src="resources/images/emptyheart.png" class="likeimg1 likeimg1-${book.bookcode}" alt="emptyheart" />
 													<p>찜 ${book.likecount}</p>
 												</div>
 												<div class="btn-box">
@@ -148,16 +148,16 @@
 											if (uid == null){
 										%>
 											<div  class="rental-box">
-												<div class="search-like" onclick="reject()">
-													<img src="resources/images/emptyheart.png" class="likeimg1" alt="emptyheart" />
+												<div class="search-like">
+													<img src="resources/images/emptyheart.png" class="likeimg1" alt="emptyheart" onclick="reject()"/>
 													<p>찜 ${book.likecount}</p>
 												</div>
 												<div class="btn-box">
 													<div class="detail-btn-box">
 														<a href="detail?bookinfo=${book.bookcode}" class="detail-btn">상세보기</a>
 													</div>
-													<div onclick="reject()" class="rental-btn">
-														<button type="button" class="search-rental-btn">대여하기</button>
+													<div  class="rental-btn">
+														<button type="button" class="search-rental-btn" onclick="reject()">대여하기</button>
 													</div>
 												</div>
 											</div>
@@ -165,9 +165,9 @@
 										}else{
 										%>
 											<div  class="rental-box">
-												<div class="search-like" onclick="likeSuccess('${book.bookcode}', '${uid}', '${book.booktitle}', '${book.author}', '${book.publisher}')">
-													<img src="resources/images/emptyheart.png" class="likeimg1" alt="emptyheart" />
-													<p>찜 ${book.likecount}</p>
+												<div class="search-like" >
+												    <img src="resources/images/emptyheart.png" class="likeimg1 likeimg1-${book.bookcode}" alt="emptyheart" onclick="likeSuccess('${book.bookcode}', '${uid}', '${book.booktitle}', '${book.author}', '${book.publisher}', this)"/>
+												    <p>찜 ${book.likecount}</p>
 												</div>
 												<div class="btn-box">
 													<div class="detail-btn-box">
