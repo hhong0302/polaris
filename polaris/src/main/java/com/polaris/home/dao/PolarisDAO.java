@@ -55,6 +55,10 @@ public class PolarisDAO {
 		
 		return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
+	public int searchUserLike(String bookcode, String userid){
+		String sql = "select count(*) from interest where bookcode = '" + bookcode + "' and userid = '" + userid + "'";
+		return template.queryForObject(sql, Integer.class);
+	}
 	//gyu End
 	
 	
