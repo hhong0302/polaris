@@ -11,13 +11,13 @@
 <body>
 <div class="container">
 	<div class="logo">
-		<img class="login-logo" src="resources/images/textlogo_black.svg" alt="LOGO" />
+		<a href="/home"><img class="login-logo" src="resources/images/textlogo_black.svg" alt="LOGO" /></a>
 	</div>
 	<form action="loginok" method="post" name="login-form" class="login-form">
 		<input type="text" name="userid" placeholder="아이디" class="id-area">
 	<div class="show-pass">
 		<input type="password" name="userpass" placeholder="비밀번호" class="pass-area">
-		<div class="eye"><i class="fa-solid fa-eye" style="color: #bbb;"></i></div>
+		<div class="eye show"><i class="fa-solid fa-eye-slash fa-lg"></i></div>
 	</div>
 		<button type="submit" class="login-btn">로그인</button>
 	</form>
@@ -35,7 +35,8 @@
 		<a class="g-login" href="#">구글 아이디로 로그인</a>
 	</div>
 	</div>
-	
+	<script src="https://code.jquery.com/jquery.min.js"></script>
 	<script src="resources/js/login.js"></script>
+	<script src="resources/js/login-page.js"></script>
 </body>
 </html>
