@@ -2,7 +2,9 @@ package com.polaris.home;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,8 +26,8 @@ import com.polaris.home.command.AutoReturnCommand;
 import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.DetailLoanCommand;
 import com.polaris.home.command.DetailReviewCommand;
-import com.polaris.home.command.FindIdCommand;
 import com.polaris.home.command.DetailSuggestCommand;
+import com.polaris.home.command.FindIdCommand;
 import com.polaris.home.command.FindPwCommand;
 import com.polaris.home.command.HomeListCommand;
 import com.polaris.home.command.IdCheckCommand;
@@ -45,6 +47,9 @@ import com.polaris.home.command.SpUpdatePassCommand;
 import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.BookDTO;
 import com.polaris.home.dto.BookloanDTO;
+import com.polaris.home.dto.InterestDTO;
+import com.polaris.home.dto.PageMakerDTO;
+import com.polaris.home.dto.PagingCriteriaDTO;
 import com.polaris.home.dto.ReviewDTO;
 import com.polaris.home.util.Static;
 
@@ -173,7 +178,10 @@ public class HomeController {
 		String bookcode = req.getParameter("bookcode");
 		int reviewNum = Integer.parseInt(req.getParameter("reviewNum"));
 		HttpSession session = req.getSession();
+		PolarisDAO dao = new PolarisDAO();
 		String userid="";
+		int isClick = 0;
+		int Allcount = dao.getReviewCount(reviewNum);
 		try
 		{
 			userid = (String) session.getAttribute("userid");	
@@ -183,27 +191,39 @@ public class HomeController {
 		{
 			userid="empty userid!!!";
 		}
-		int isClick = 0;
-		PolarisDAO dao = new PolarisDAO();
 		if(userid.equals("empty userid!!!"))
 		{
 			isClick = -1;
 		}
 		else
 		{
-			String writer = dao.rvIdFind(reviewNum);
-			isClick=dao.isClick(bookcode,writer,userid);
-			if(isClick>0)
+			try
 			{
-				dao.delRevLike(bookcode,writer,userid);
+				String writer = dao.rvIdFind(reviewNum);				
+				isClick=dao.isClick(bookcode,writer,userid);
+				if(isClick>0)
+				{
+					dao.delRevLike(bookcode,writer,userid);
+				}
+				else
+				{
+					dao.upRevLike(bookcode,writer,userid);
+				}
 			}
-			else
+			catch(Exception e)
 			{
-				dao.upRevLike(bookcode,writer,userid);
+				isClick=-2;
 			}
 		}
+		Gson gsonObj = new Gson();
+		Map<String, Integer> inputMap = new HashMap<String, Integer>();
+		inputMap.put("isClick", isClick);
+		inputMap.put("Allcount", Allcount);
+		        
+		// MAP -> JSON 예제
+		String jsonStr = gsonObj.toJson(inputMap);
 		PrintWriter out = res.getWriter();
-		out.println(isClick);
+		out.println(jsonStr);
 		out.close();
 	}
 	
@@ -279,7 +299,7 @@ public class HomeController {
 	    return "search";
 	}
 	
-	//젠체 검색
+	//전체 검색
 	@RequestMapping(value = "totalsearch")
 	public String totalsearch(HttpServletRequest request,Model model) {
 		
@@ -329,8 +349,23 @@ public class HomeController {
 		command = new LikeCommand();
 		command.execute(model);
 	    
-	    return "search";
-			
+	    return "search";			
+	}
+	@RequestMapping(value = "/searchUserLike", method = { RequestMethod.GET })
+	@ResponseBody 
+	public void searchUserLike(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
+		String bookcode = request.getParameter("bookcode");
+		HttpSession session = request.getSession();
+		String userid=(String) session.getAttribute("userid");
+		
+		int likeClick=0;
+		PolarisDAO dao = new PolarisDAO();
+
+		likeClick=dao.searchUserLike(bookcode,userid);
+	
+		PrintWriter out = response.getWriter();
+		out.println(likeClick);
+		out.close();
 	}
 
 	
@@ -347,6 +382,30 @@ public class HomeController {
 	  return "mypage"; // mypage.jsp 호출!!! }
 	  }
 
+	  @RequestMapping(value="mypage", method = RequestMethod.POST)
+	  public String pageList(HttpServletRequest request, Model model) {
+		  PolarisDAO dao = new PolarisDAO();
+		  String interest = request.getParameter("interest");
+		  PagingCriteriaDTO cri = new PagingCriteriaDTO();
+		  
+		  int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		  int amount = Integer.parseInt(request.getParameter("amount"));
+		  cri.setPageNum(pageNum);
+		  cri.setAmount(amount);
+		  
+		  int total = dao.choi_pagingTotal();
+		  PageMakerDTO pagemaker = new PageMakerDTO(cri, total);
+		  
+		  List<InterestDTO> interestdto = dao.choi_InterestList(cri);
+		  
+		  model.addAttribute("pagemaker", pagemaker);
+		  model.addAttribute("interest", interest);
+		  
+		  return "mypage";
+		  
+	  }
+	  
+	  
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
 	public String bookinfo(HttpServletRequest request, Model model) {
 		String bookcode = request.getParameter("bookinfo");

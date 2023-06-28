@@ -19,6 +19,7 @@ import com.polaris.home.dto.BookDTO;
 import com.polaris.home.dto.BookloanDTO;
 import com.polaris.home.dto.InterestDTO;
 import com.polaris.home.dto.MembersDTO;
+import com.polaris.home.dto.PagingCriteriaDTO;
 import com.polaris.home.dto.ReviewDTO;
 import com.polaris.home.util.Static;
 
@@ -55,6 +56,10 @@ public class PolarisDAO {
 		
 		return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
+	public int searchUserLike(String bookcode, String userid){
+		String sql = "select count(*) from interest where bookcode = '" + bookcode + "' and userid = '" + userid + "'";
+		return template.queryForObject(sql, Integer.class);
+	}
 	//gyu End
 	
 	
@@ -71,16 +76,10 @@ public class PolarisDAO {
 		String sql = "select * from bookloan where userid='"+userid+"' and loan=1 order by loandate asc limit 0,2;";
 		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
 	}
-	//소설/시 뿌리기
-	public List<BookDTO> hg_homenovel()
+	//소설/시 · 에세이 뿌리기
+	public List<BookDTO> hg_homeList(String genre)
 	{
-		String sql = "select * from book where genre='소설/시' order by date desc";
-		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
-	}
-	//에세이 뿌리기
-	public List<BookDTO> hg_homeessay()
-	{
-		String sql = "select * from book where genre='에세이' order by date desc";
+		String sql = "select * from book where genre='"+genre+"' order by date desc";
 		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	//인기.최신.대여순 뿌리기
@@ -169,6 +168,11 @@ public class PolarisDAO {
 		if(rvType=="recent"||rvType.equals("recent")) sql+="order by redate desc";
 		else sql+="order by relike desc, redate desc";
 		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
+	}
+	public int getReviewCount(int reviewNum)
+	{
+		String sql = "select relike from review where num="+reviewNum;
+		return template.queryForObject(sql, Integer.class);
 	}
 	//리뷰 작성자의 아이디값 받아오기(좋아요)
 	public String rvIdFind(int reviewNum)
@@ -290,8 +294,22 @@ public class PolarisDAO {
 	public List<InterestDTO> choi_interest(){
 		String sql = "select*from interest";
 		return (List<InterestDTO>)template.query(sql,new BeanPropertyRowMapper<InterestDTO>(InterestDTO.class));
-
 	}
+	
+	public List<InterestDTO> choi_InterestList(PagingCriteriaDTO cri) {
+	    String sql = "SELECT * FROM interest LIMIT ? OFFSET ?";
+	    int limit = cri.getAmount();
+	    int offset = (cri.getPageNum() - 1) * cri.getAmount();
+
+	    return template.query(sql, new BeanPropertyRowMapper<>(InterestDTO.class), limit, offset);
+	}
+	
+	public int choi_pagingTotal() {
+	    String sql = "SELECT COUNT(*) FROM interest";
+	    return template.queryForObject(sql, Integer.class);
+	}
+	
+	
 	//바지조장 End
 	
 	
