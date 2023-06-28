@@ -31,16 +31,28 @@ $(function(){
             }
         });
     });
-    $('.eye').on('click',function(){
-        $('input').toggleClass('active');
-        if($('input').hasClass('active')){
-            $('.show img').attr('src',"resources/images/hide-pass.png")
-            .prev('input[name=userpass]').prop('type',"text");
-        }else{
-            $(this).attr('src',"resources/images/show-pass.png")
-            .prev('input[name=userpass]').prop('type','password');
-        }
-}); 
+    $('.eye').click(function(){
+        if($(this).hasClass('active')){
+            $(this).removeClass("active");
+            $(this).find('.fa-solid').removeClass('fa-eye').addClass('fa-eye-slash');
+          $('.passinput').attr('type', 'password');
+        }else{    
+          $(this).addClass("active");
+          $(this).find('.fa-solid').removeClass('fa-eye-slash').addClass('fa-eye');
+          $('.passinput').attr('type', 'text');
+        }  
+       });
+       $('.eye1').click(function(){
+        if($(this).hasClass('active')){
+            $(this).removeClass("active");
+            $(this).find('.fa-solid').removeClass('fa-eye').addClass('fa-eye-slash');
+          $('.repassinput').attr('type', 'password');
+        }else{    
+          $(this).addClass("active");
+          $(this).find('.fa-solid').removeClass('fa-eye-slash').addClass('fa-eye');
+          $('.repassinput').attr('type', 'text');
+        }  
+       });
 });//jquery
 
 
