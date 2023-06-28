@@ -99,11 +99,15 @@ input[type="number"]::-webkit-inner-spin-button {
 .show-repass{
 	position: relative;
 }
-.eye{
+.eye, .eye1{
 	position: absolute;
-	top: 22px;
+	top: 24px;
 	right: 10px;
 	cursor: pointer;
+}
+.fa-eye-slash,
+.fa-eye{
+	color: #bdbdbd;
 }
 #check-option0{
 	color: #bdbdbd;
