@@ -8,3 +8,6 @@
       searchForm.submit();
     }
   }
+  function reject() {
+	alert("로그인후 이용가능합니다")
+}

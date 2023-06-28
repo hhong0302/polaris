@@ -1,22 +1,3 @@
-const likeimgswList = document.querySelectorAll(".likeimgsw");
-
-likeimgswList.forEach(function(likeimgsw) {
-    likeimgsw.addEventListener("click", function(event) {
-        event.preventDefault();
-
-        const likeimg1 = this.querySelector(".likeimg1");
-        const likeimg2 = this.querySelector(".likeimg2");
-
-        if (likeimg1.style.display === "none") {
-            likeimg1.style.display = "block";
-            likeimg2.style.display = "none";
-        } else {
-            likeimg1.style.display = "none";
-            likeimg2.style.display = "block";
-        }
-    });
-});
-
 var searchResults = document.querySelectorAll(".book-box"); // 검색 결과 요소들
 var loadMoreButton = document.getElementById("loadMoreButton");
 
@@ -50,3 +31,30 @@ for (var i = 0; i < searchResults.length; i++) {
 
 // "더보기" 버튼 클릭 시 추가 결과 표시
 loadMoreButton.addEventListener("click", showNextResults);
+
+
+//찜하기 insert,delete
+function likeSuccess(bookcode, uid, booktitle, author, publisher) {
+    $.ajax({
+        url: "searchLike",
+        type: 'GET',
+        data: {
+            bookinfo: bookcode,
+            userid: uid,
+            booktitle: booktitle,
+            author: author,
+            publisher: publisher
+        },
+        success: function(data) {
+            if (data.userLike == 1) {
+                $(".likeimg1").attr("src", "resources/images/fillheart.png");
+            } else {
+                $(".likeimg1").attr("src", "resources/images/emptyheart.png");
+            }
+            $(".search-like p").text("찜 " + data.likecount);
+        },
+        error: function() {
+            alert("error");
+        }
+    });
+}
