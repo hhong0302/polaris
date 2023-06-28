@@ -19,6 +19,7 @@ import com.polaris.home.dto.BookDTO;
 import com.polaris.home.dto.BookloanDTO;
 import com.polaris.home.dto.InterestDTO;
 import com.polaris.home.dto.MembersDTO;
+import com.polaris.home.dto.PagingCriteriaDTO;
 import com.polaris.home.dto.ReviewDTO;
 import com.polaris.home.util.Static;
 
@@ -290,8 +291,22 @@ public class PolarisDAO {
 	public List<InterestDTO> choi_interest(){
 		String sql = "select*from interest";
 		return (List<InterestDTO>)template.query(sql,new BeanPropertyRowMapper<InterestDTO>(InterestDTO.class));
-
 	}
+	
+	public List<InterestDTO> choi_InterestList(PagingCriteriaDTO cri) {
+	    String sql = "SELECT * FROM interest LIMIT ? OFFSET ?";
+	    int limit = cri.getAmount();
+	    int offset = (cri.getPageNum() - 1) * cri.getAmount();
+
+	    return template.query(sql, new BeanPropertyRowMapper<>(InterestDTO.class), limit, offset);
+	}
+	
+	public int choi_pagingTotal() {
+	    String sql = "SELECT COUNT(*) FROM interest";
+	    return template.queryForObject(sql, Integer.class);
+	}
+	
+	
 	//바지조장 End
 	
 	

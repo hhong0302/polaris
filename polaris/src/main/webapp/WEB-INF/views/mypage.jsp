@@ -8,8 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="resources/css/mypage.css" />
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="resources/css/mypage.css" />
 <style>
    p { margin:20px 0px; }
 </style>
@@ -165,10 +165,30 @@
                 </c:otherwise>
                 </c:choose>
             </div>
+            
+          <div class = "choi-jjim-paging">
+            <c:if test = "${pageList.prev }">
+          		<a href = "?pageNum=${pageList.startPage-1 }"><img src="slide_left.png" alt="slide_left" /></a>
+          	</c:if>
+          	<c:forEach var="pageNum" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+		        <c:choose>
+		            <c:when test="${pageNum eq pageMaker.getCri().getPageNum()}">
+		                <a class="active" href="?pageNum=${pageNum}">${pageNum}</a>
+		            </c:when>
+		            <c:otherwise>
+		                <a href="?pageNum=${pageNum}">${pageNum}</a>
+		            </c:otherwise>
+		        </c:choose>
+		    </c:forEach>
+			<c:if test = "${pageList.next }">
+          		<a href = "?pageNum=${pageList.startPage+1 }"><img src="slide_right.png" alt="slide_right" /></a>   
+          	</c:if>
+            </div>
         </div>
 
     </div>
     
+     
      
      
      
