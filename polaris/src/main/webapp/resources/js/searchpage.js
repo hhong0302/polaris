@@ -35,26 +35,43 @@ loadMoreButton.addEventListener("click", showNextResults);
 
 //찜하기 insert,delete
 function likeSuccess(bookcode, uid, booktitle, author, publisher) {
-    $.ajax({
-        url: "searchLike",
+	$.ajax({
+		url: "searchLike",
+		type: 'GET',
+		data: {
+			bookinfo: bookcode,
+			userid: uid,
+			booktitle: booktitle,
+			author: author,
+			publisher: publisher
+		},
+		success: function(data) {
+
+		},
+		error: function() {
+			alert("error");
+		}
+	});
+	 $.ajax({
+        url: "searchUserLike",
         type: 'GET',
         data: {
-            bookinfo: bookcode,
-            userid: uid,
+            bookcode: bookcode,
+            uid: uid,
             booktitle: booktitle,
             author: author,
             publisher: publisher
         },
         success: function(data) {
-            if (data.userLike == 1) {
+            var likeClick = parseInt(data); // Parse the response as an integer
+            if (likeClick === 1) {
                 $(".likeimg1").attr("src", "resources/images/fillheart.png");
             } else {
                 $(".likeimg1").attr("src", "resources/images/emptyheart.png");
             }
-            $(".search-like p").text("찜 " + data.likecount);
         },
         error: function() {
-            alert("error");
+            alert("Error occurred while retrieving user like information.");
         }
     });
 }
