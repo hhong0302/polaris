@@ -2,7 +2,9 @@ package com.polaris.home;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,8 +26,8 @@ import com.polaris.home.command.AutoReturnCommand;
 import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.DetailLoanCommand;
 import com.polaris.home.command.DetailReviewCommand;
-import com.polaris.home.command.FindIdCommand;
 import com.polaris.home.command.DetailSuggestCommand;
+import com.polaris.home.command.FindIdCommand;
 import com.polaris.home.command.FindPwCommand;
 import com.polaris.home.command.HomeListCommand;
 import com.polaris.home.command.IdCheckCommand;
@@ -173,7 +175,10 @@ public class HomeController {
 		String bookcode = req.getParameter("bookcode");
 		int reviewNum = Integer.parseInt(req.getParameter("reviewNum"));
 		HttpSession session = req.getSession();
+		PolarisDAO dao = new PolarisDAO();
 		String userid="";
+		int isClick = 0;
+		int Allcount = dao.getReviewCount(reviewNum);
 		try
 		{
 			userid = (String) session.getAttribute("userid");	
@@ -183,27 +188,39 @@ public class HomeController {
 		{
 			userid="empty userid!!!";
 		}
-		int isClick = 0;
-		PolarisDAO dao = new PolarisDAO();
 		if(userid.equals("empty userid!!!"))
 		{
 			isClick = -1;
 		}
 		else
 		{
-			String writer = dao.rvIdFind(reviewNum);
-			isClick=dao.isClick(bookcode,writer,userid);
-			if(isClick>0)
+			try
 			{
-				dao.delRevLike(bookcode,writer,userid);
+				String writer = dao.rvIdFind(reviewNum);				
+				isClick=dao.isClick(bookcode,writer,userid);
+				if(isClick>0)
+				{
+					dao.delRevLike(bookcode,writer,userid);
+				}
+				else
+				{
+					dao.upRevLike(bookcode,writer,userid);
+				}
 			}
-			else
+			catch(Exception e)
 			{
-				dao.upRevLike(bookcode,writer,userid);
+				isClick=-2;
 			}
 		}
+		Gson gsonObj = new Gson();
+		Map<String, Integer> inputMap = new HashMap<String, Integer>();
+		inputMap.put("isClick", isClick);
+		inputMap.put("Allcount", Allcount);
+		        
+		// MAP -> JSON 예제
+		String jsonStr = gsonObj.toJson(inputMap);
 		PrintWriter out = res.getWriter();
-		out.println(isClick);
+		out.println(jsonStr);
 		out.close();
 	}
 	

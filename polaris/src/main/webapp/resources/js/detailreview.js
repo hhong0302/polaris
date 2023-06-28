@@ -426,25 +426,24 @@ function reviewLike(bookcode,reviewNum,rvNumber)
 			"reviewNum":reviewNum},
 			async:false,
 			contentType: "application/json",
-			success : function(isClick) {
-				if(isClick<0) alert("로그인 후 이용해주세요");
-				else if(isClick>0)
+			success : function(data) {
+				if(data.isClick==-1) alert("로그인 후 이용해주세요");
+				else if(data.isClick==-2) alert("삭제된 리뷰이거나 잘못된 접근입니다.");
+				else if(data.isClick>0)
 				{
 					//좋아요 삭제
 					review_like_images[rvNumber].setAttribute("src","resources/images/dislike-detail.png");
-					rvcountNum = review_like_count[rvNumber].innerHTML;
-					review_like_count[rvNumber].innerHTML = Number(rvcountNum)-1;
+					review_like_count[rvNumber].innerHTML = data.Allcount-1;
 				}
 				else
 				{
 					//좋아요 추가
 					review_like_images[rvNumber].setAttribute("src","resources/images/like-detail.png");
-					rvcountNum = review_like_count[rvNumber].innerHTML;
-					review_like_count[rvNumber].innerHTML = Number(rvcountNum)+1;
+					review_like_count[rvNumber].innerHTML = data.Allcount+1;
 				}
 			},
 		 	error : function() {
-		 	alert("로그인 후 이용해주세요");
+		 	alert("잘못된 접근입니다.");
 		  	}
 			});
 }
