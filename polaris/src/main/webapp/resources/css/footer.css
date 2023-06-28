@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+#hg-footer
+{
+	min-width:1200px;
+	width:100%;
+}
+
 .hg-rightbox
 {
 	position:fixed;
@@ -49,10 +55,14 @@
 	width:65px;
 	height:50px;
 	background-color:#fff;
+    padding-bottom: 5px;
+	font-size: 18px;
 	border:none;
 	border-radius:8px;
 	box-shadow:0 2px 8px rgba(0,0,0,0.2);
 	outline:none;
+	font-family: inherit;
+    line-height: inherit;
 	cursor:pointer;
 }
 

@@ -33,13 +33,19 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
-html
+html,body
 {
 	font-family: 'Pretendard-Regular';
+	width: 100%;
+    min-width: 1500px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 body {
-	font-family: 'Pretendard-Regular';
 	line-height: 1;
+	overflow: auto;
+    overflow-y: scroll;
 }
 a {
   color: inherit;
