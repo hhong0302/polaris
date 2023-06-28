@@ -23,7 +23,7 @@
 		<!-- 버튼 인기순으로 5개 -->
 		<c:forEach items="${hg_interest}" var="dto" varStatus="status">
 			<button class="hg-lboxbtn" onclick="lboxbtn(this,'${dto.bookcode}','${dto.booktitle}')">
-				베스트${status.count}
+				베스트 ${status.count}
 			</button>
 		</c:forEach>
 		<!-- 버튼 인기순으로 5개 -->
