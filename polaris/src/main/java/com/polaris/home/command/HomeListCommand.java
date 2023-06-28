@@ -16,8 +16,8 @@ public class HomeListCommand implements SpCommand {
 
 		PolarisDAO dao = new PolarisDAO();
 		List<InterestDTO> idto = dao.hg_homeinterest();
-		List<BookDTO> ndto = dao.hg_homenovel();
-		List<BookDTO> edto = dao.hg_homeessay();
+		List<BookDTO> ndto = dao.hg_homeList("소설/시");
+		List<BookDTO> edto = dao.hg_homeList("에세이");
 		
 		model.addAttribute("hg_novel",ndto);
 		model.addAttribute("hg_essay",edto);
