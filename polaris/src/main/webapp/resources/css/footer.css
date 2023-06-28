@@ -95,8 +95,7 @@
 	margin-left:15px;
 	margin-bottom:5px;
 	font-size:18px;
-	font-weight:bolder;
-	letter-spacing:-1px;
+	font-weight:600;
 }
 
 .hg-rightbox span.hg-afterlogin
@@ -104,7 +103,6 @@
 	display:inline-block;
 	font-size:14px;
 	color:#797979;
-	letter-spacing:-1.5px;
 	margin-top:20px;
 	margin-left:15px;
 	line-height:20px;
@@ -121,8 +119,7 @@
 	margin-top:15px;
 	margin-left:15px;
 	font-size:15px;
-	font-weight:600;
-	letter-spacing:-1px;
+	font-weight:500;
 	color:#333;
 	text-decoration: none;
 }
@@ -144,10 +141,9 @@
 .hg-rightbox .hg-return
 {
 	color:#C30000;
-	font-size:15px;
-	font-weight:bolder;
+	font-size:16px;
+	font-weight:600;
 	text-align:center;
-	letter-spacing:-1px;
 }
 
 .hg-returnbox
@@ -170,8 +166,7 @@
 	margin-top:10px;
 	text-align:left;
 	font-size:14px;
-	font-weight:bold;
-	letter-spacing:-1.5px;
+	font-weight:500;
 	line-height:18px;
 	text-overflow: ellipsis;
     overflow: hidden;
@@ -189,9 +184,8 @@
 	margin:auto;
 	text-align:left;
 	font-size:12px;
-	color:#f30000;
+	color:#C30000;
 	margin-top:8px;
-	letter-spacing:-1px;
 	font-weight:600;
 }
 
@@ -230,7 +224,7 @@ footer
 
 .hg-ftop span
 {
-	font-size:12px;
+	font-size:14px;
 	font-weight:300;
 	margin-bottom:7px;
 	color:#fff;
@@ -274,7 +268,7 @@ footer
 
 .hg-fbottom span
 {
-	font-size:12px;
+	font-size:13px;
 	font-weight:300;
 	color:#CED1DC;
 }
