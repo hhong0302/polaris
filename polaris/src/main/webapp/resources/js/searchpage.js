@@ -46,32 +46,33 @@ function likeSuccess(bookcode, uid, booktitle, author, publisher) {
 			publisher: publisher
 		},
 		success: function(data) {
-
+			$.ajax({
+			    url: "searchUserLike",
+			    type: 'GET',
+			    data: {
+			        bookcode: bookcode,
+			        uid: uid,
+			        booktitle: booktitle,
+			        author: author,
+			        publisher: publisher
+			    },
+			    success: function(data) {
+			        var likeClick = parseInt(data);
+			        var code = bookcode;
+			        if (likeClick === 1) {
+			            $(".likeimg1-" + code).attr("src", "resources/images/fillheart.png");
+			        } else {
+			            $(".likeimg1-" + code).attr("src", "resources/images/emptyheart.png");
+			        }
+			    },
+			    error: function() {
+        alert("Error");
+    }
+});
 		},
 		error: function() {
 			alert("error");
 		}
 	});
-	 $.ajax({
-        url: "searchUserLike",
-        type: 'GET',
-        data: {
-            bookcode: bookcode,
-            uid: uid,
-            booktitle: booktitle,
-            author: author,
-            publisher: publisher
-        },
-        success: function(data) {
-            var likeClick = parseInt(data); // Parse the response as an integer
-            if (likeClick === 1) {
-                $(".likeimg1").attr("src", "resources/images/fillheart.png");
-            } else {
-                $(".likeimg1").attr("src", "resources/images/emptyheart.png");
-            }
-        },
-        error: function() {
-            alert("Error occurred while retrieving user like information.");
-        }
-    });
+	
 }
