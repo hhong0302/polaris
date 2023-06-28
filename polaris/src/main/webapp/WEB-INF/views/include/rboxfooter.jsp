@@ -29,7 +29,7 @@
 		<div class="hg-rightline"></div>
 		
 		<div class="hg-return">
-			곧 반납 도서
+			대여 중인 도서
 		</div>
 
 		<%-- 반납 있을 경우 --%>
