@@ -11,13 +11,24 @@
 </div>
 
 <script>
+const hg_gototopbtn = document.getElementsByClassName("hg-gototop")[0];
+window.addEventListener('scroll', function(){
+	if(window.pageYOffset>160)
+	{
+		hg_gototopbtn.classList.add("active");
+	}
+	else
+	{
+		hg_gototopbtn.classList.remove("active");
+	}
+});
 function hg_gototop()
 {
 	window.scrollTo({ top: 0, behavior: "smooth" }); 
 }
 </script>
 
-<footer>
+<footer id="hg-footer">
 	<div class="container hg-footer">
 		<div class="hg-ftop">
 			<div>

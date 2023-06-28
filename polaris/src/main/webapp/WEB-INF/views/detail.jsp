@@ -334,7 +334,7 @@
 			    
 			     <div class="pageNum-detail">
                
-	               	<button onclick="rvListPrevNxtBtn(-1,'${bookcode}')">
+	               	<button id="prev-list-btn" onclick="rvListPrevNxtBtn(-1,'${bookcode}')">
 	                    <span class="prv"><i class="fa-solid fa-angle-left"></i></span>
 	                </button>
 	             	<div class="pageNum-detail-btnbox">

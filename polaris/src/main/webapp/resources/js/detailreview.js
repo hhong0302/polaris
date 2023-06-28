@@ -40,6 +40,8 @@ function reviewSubmit()
 		alert("공백을 제외하고 한 글자 이상 입력하세요.");
 		return false;
 	}
+	rv_title.value=rv_title.value.trim();
+	rvbox_detail.value=rvbox_detail.value.trim();
 	document.reviewWriteForm.submit();
 }
 
@@ -71,6 +73,8 @@ function reviewModify()
 			alert("공백을 제외하고 한 글자 이상 입력하세요.");
 			return false;
 		}
+		rv_title.value=rv_title.value.trim();
+		rvbox_detail.value=rvbox_detail.value.trim();
 		document.reviewModifyForm.submit();
 	}
 }
@@ -206,7 +210,9 @@ function listNav_click(reviewType,bookcode)
   		console.log("error");
   		}
 		});
-		document.getElementsByClassName("pageNum-pagebtn")[0].click();	
+		document.getElementsByClassName("pageNum-pagebtn")[0].click();
+		listPageNum=0;
+		document.getElementById("prev-list-btn").click();
 }
 
 //1,2,3,4,5 그 버튼
@@ -363,11 +369,13 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 	if(listPageNum<0)
 	{
 		listPageNum=0;
+		pgbtn_prev.classList.remove("active");
 		return false;
 	}
 	if(listPageNum>Math.floor(allReviewDatas/5))
 	{
 		listPageNum=Math.floor(allReviewDatas/5);
+		pgbtn_next.classList.remove("active");
 		return false;
 	}
 	let rvButtonList="";
