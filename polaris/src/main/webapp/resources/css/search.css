@@ -1,15 +1,15 @@
 @charset "UTF-8";
 
-.result-title{
+.result-title, .search-empty{
 	display: flex;
 	padding-top : 30px;
 }
-.result-title h3{
+.result-title h3, .search-empty h3{
 	color: #333;
 	font-size: 17px;
 	font-weight: bold;
 }
-.result-title p{
+.result-title p, .search-empty p{
 	color: #797979;
 	padding-left: 20px;
 }
@@ -109,6 +109,7 @@
 }
 .search-banner{
 	margin-top: 200px;
+	margin-bottom: 80px;
 }
 #loadMoreButton button {
 	border: 0;
@@ -123,4 +124,7 @@
 }
 .che-down{
 	color : #797979;
+}
+.search-empty-img{
+	margin-top: 50px;
 }
