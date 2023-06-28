@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -194,11 +195,11 @@ public class HomeController {
 			isClick=dao.isClick(bookcode,writer,userid);
 			if(isClick>0)
 			{
-				dao.delRevLike(bookcode,writer,userid,reviewNum);
+				dao.delRevLike(bookcode,writer,userid);
 			}
 			else
 			{
-				dao.upRevLike(bookcode,writer,userid,reviewNum);
+				dao.upRevLike(bookcode,writer,userid);
 			}
 		}
 		PrintWriter out = res.getWriter();
@@ -306,6 +307,7 @@ public class HomeController {
 	    return "search";
 	}
 	
+	//인기순/최신순/대여순 검색
 	@RequestMapping(value = "ordersearch", method = RequestMethod.GET)
 	public String ordersearch(HttpServletRequest request, Model model) {
 		String order = request.getParameter("order");
@@ -318,9 +320,19 @@ public class HomeController {
 	    
 	    return "search";
 	}
+	@RequestMapping(value = "/searchLike", method = { RequestMethod.GET })	
+	public String test(HttpServletRequest request, Model model, RedirectAttributes re,@RequestParam("bookinfo") String bookinfo,@RequestParam("userid") String userid,@RequestParam(
+	"booktitle") String booktitle, @RequestParam("author") String author, @RequestParam("publisher") String publisher) {
+	 
+		model.addAttribute("request", request);
+		
+		command = new LikeCommand();
+		command.execute(model);
+	    
+	    return "search";
+			
+	}
 
-
-	
 	
 	  @RequestMapping(value = "interest", method = RequestMethod.GET) 
 	  public String interest(HttpServletRequest request, Model model) {
