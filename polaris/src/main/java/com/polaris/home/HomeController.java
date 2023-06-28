@@ -296,7 +296,7 @@ public class HomeController {
 	    return "search";
 	}
 	
-	//젠체 검색
+	//전체 검색
 	@RequestMapping(value = "totalsearch")
 	public String totalsearch(HttpServletRequest request,Model model) {
 		
@@ -346,8 +346,23 @@ public class HomeController {
 		command = new LikeCommand();
 		command.execute(model);
 	    
-	    return "search";
-			
+	    return "search";			
+	}
+	@RequestMapping(value = "/searchUserLike", method = { RequestMethod.GET })
+	@ResponseBody 
+	public void searchUserLike(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
+		String bookcode = request.getParameter("bookcode");
+		HttpSession session = request.getSession();
+		String userid=(String) session.getAttribute("userid");
+		
+		int likeClick=0;
+		PolarisDAO dao = new PolarisDAO();
+
+		likeClick=dao.searchUserLike(bookcode,userid);
+	
+		PrintWriter out = response.getWriter();
+		out.println(likeClick);
+		out.close();
 	}
 
 	
