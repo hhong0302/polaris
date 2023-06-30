@@ -33,19 +33,23 @@ public class PolarisDAO {
 	}
 	
 	//gyu Start
+	//검색
 	public ArrayList<BookDTO> search(String query) {
 		String sql = "SELECT * FROM book WHERE booktitle LIKE '%" + query + "%' OR author LIKE '%" + query + "%' OR genre LIKE '%" + query + "%' OR publisher LIKE '%" + query + "%' ";
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
+	//전체
 	public ArrayList<BookDTO> totalsearch() {
 	    String sql = "SELECT * FROM book";
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
+	//장르
 	public ArrayList<BookDTO> genresearch(String genre) { 
 	    String sql = "SELECT * FROM book WHERE genre LIKE ";
 	    sql +="'%" + genre + "%'";
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
+	//인기순, 대여순, 최신순 
 	public ArrayList<BookDTO> ordersearch(String order)
 	{
 		String sql = "";
@@ -54,11 +58,17 @@ public class PolarisDAO {
 		if(order.equals("대여순")||order=="대여순") sql="select * from book order by loancount desc";
 		
 		return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
-	}
+	} 
+	//유저가 좋아요를 눌렀는지 아닌지
 	public int searchUserLike(String bookcode, String userid){
 		String sql = "select count(*) from interest where bookcode = '" + bookcode + "' and userid = '" + userid + "'";
 		return template.queryForObject(sql, Integer.class);
 	}
+	public int searchLikeCount(String bookcode) {
+		String sql = "select count(*) from interest where bookcode ='" + bookcode + "'";
+		return template.queryForObject(sql, Integer.class);
+	}
+	
 	//gyu End
 	
 	

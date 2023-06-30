@@ -347,6 +347,18 @@ public class HomeController {
 		out.println(likeClick);
 		out.close();
 	}
+	@RequestMapping(value = "/searchLikeCount", method = { RequestMethod.GET })
+	@ResponseBody 
+	public void searchLikeCount(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
+		String bookcode = request.getParameter("bookcode");
+		
+		PolarisDAO dao = new PolarisDAO();
+		int likeCount=dao.searchLikeCount(bookcode);
+	
+		PrintWriter out = response.getWriter();
+		out.println(likeCount);
+		out.close();
+	}
 
 	
 	  @RequestMapping(value = "interest", method = RequestMethod.GET) 
