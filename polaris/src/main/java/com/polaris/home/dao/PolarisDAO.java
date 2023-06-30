@@ -67,7 +67,9 @@ public class PolarisDAO {
 	// 관심순
 	public List<InterestDTO> hg_homeinterest()
 	{
-		String sql = "select * from book order by likecount desc limit 0,5";
+		String sql = "select a.*, b.likecount from book as a left join "
+				+ "(select bookcode, count(bookcode) as likecount from interest group by bookcode order by likecount desc) as b "
+				+ "on a.bookcode=b.bookcode order by b.likecount desc limit 0,5";
 		return (List<InterestDTO>)template.query(sql,new BeanPropertyRowMapper<InterestDTO>(InterestDTO.class));
 	}
 	//곧 반납 도서
@@ -86,9 +88,13 @@ public class PolarisDAO {
 	public List<BookDTO> hg_hotList(String name)
 	{
 		String sql = "";
-		if(name.equals("popular")||name=="popular") sql="select * from book order by likecount desc limit 0,10";
+		if(name.equals("popular")||name=="popular") sql="select a.* from book as a left join "
+		+ "(select bookcode, count(bookcode) as likecount from interest group by bookcode order by likecount desc) as b "
+		+ "on a.bookcode=b.bookcode order by b.likecount desc limit 0,10";
 		if(name.equals("recent")||name=="recent") sql="select * from book order by date desc limit 0,10";
-		if(name.equals("lotsloan")||name=="lotsloan") sql="select * from book order by loancount desc limit 0,10";
+		if(name.equals("lotsloan")||name=="lotsloan") sql="select a.* from book as a left join "
+		+ "(select bookcode, count(bookcode) as loancount from bookloan group by bookcode order by loancount desc) as b "
+		+ "on a.bookcode=b.bookcode order by b.loancount desc limit 0,10";
 		
 		return template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
