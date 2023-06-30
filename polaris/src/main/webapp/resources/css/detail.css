@@ -464,6 +464,7 @@ button.readNow-detail {
 }
 .reviewTop-detail .reviewInfo-detail h1
 {
+	height:18px;
 	font-size:18px;
 	font-weight:600;
 	color:#797979;
