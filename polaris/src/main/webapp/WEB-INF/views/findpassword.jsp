@@ -63,9 +63,30 @@
 	<button id="hg-gotologin" onclick="self.close();">로그인하기</button>
 	</c:otherwise>
 	</c:choose>
+	<input type="hidden" id="mj-name" class="hg-hidden" style="display:none;" />
+	<input type="hidden" id="mj-birth" class="hg-hidden" style="display:none;" />
+	<input type="hidden" id="mj-tel" class="hg-hidden" style="display:none;" />
 	</div>
-	
-	
+	<script>
+	function noEvent() {
+	    if (event.keyCode == 116) {
+	        event.keyCode= 2;
+	        return false;
+	    }
+	    else if(event.ctrlKey && (event.keyCode==78 || event.keyCode == 82))
+	    {
+	        return false;
+	    }
+	}
+	document.onkeydown = noEvent;
+	//스택 추가
+	history.pushState(null, null, location.href); 
+
+	// 뒤로라기 이벤트감지 -> 현재페이지로 이동
+	window.onpopstate = function() { 
+		history.go(1); 
+	}
+	</script>
 	<script src="resources/js/login.js"></script>
 </body>
 </html>
