@@ -7,7 +7,7 @@ span{
     margin-top: 10px;
 }
 .choi-info{
-    width: 100%;
+    width: 1200px;
     height: 107px;
     background: navy;
     border-radius: 8px;
@@ -41,6 +41,15 @@ span{
 .row{
 	margin-top : 60px;
 }
+.nav-item a{
+	color : #ddd;
+}
+.nav-link.active{
+	color : #3345A4;
+}
+.tab-pane{
+	width : 1200px;
+}
 .tab-content>.active {
     display: flex;
 }
@@ -57,7 +66,7 @@ span{
     margin-right: 25px;
 }
 .choi-current-book{
-    width: 367px;
+    width: 387px;
     height: 230px;
     display: flex;
     justify-content: space-between;
@@ -67,14 +76,19 @@ span{
     margin-right : 19px;
 }
 .choi-past-book{
-	background-color: #f1f1f1;
+	background-color: #fff;
     border-radius: 8px;
     display: flex;
     justify-content: space-between;
-    width: 190px;
-    height: 110px;
-    padding : 10px;
-    margin-top : 20px;
+    border : 1px solid #ccc;
+    width: 387px;
+    height: 230px;
+    padding : 20px 25px;
+    margin-right : 19px;
+}
+.choi-post-book-img img{
+	width : 130px;
+	height : 190px;
 }
 .choi-book-text>div{
 	margin-bottom : 15px;
@@ -89,6 +103,8 @@ span{
 }
 .choi-book-text{
     display: block;
+    width : 187px;
+    height : 128px;
 }
 .choi-book-text-top p{
 	font-size : 16px;
@@ -131,6 +147,9 @@ span{
 .choi-jjim {
 	margin-top : 100px;
 	margin-bottom : 200px;
+	width : 1200px;
+	height : 303px;
+	
 }
 .choi-jjim p{
     font-size: 20px;
@@ -145,11 +164,19 @@ span{
     width: 190px;
     height: 110px;
     padding : 10px;
+    margin-top : 10px;
+    margin-left: 12px;
+    margin-bottom: 10px;
+}
+.choi-jjim-innerbook:first-child{
+	margin-left : 0;
+}
+.choi-jjim-innerbook:nth-child(7){
+	margin-left : 0;
 }
 .choi-jjim-book{
-	margin-top : 10px;
-    margin-right: 12px;
-    margin-bottom: 10px;
+    display: inline-flex;
+    flex-wrap: wrap;
 }
 .choi-jjim-img img{
     width : 54px;
