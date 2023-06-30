@@ -109,7 +109,7 @@
                     </div>
                     <div class="choi-jjim-text">
                     	<div class = "choi-close-btn">
-                    		<img src="resources/images/Vector.png" alt="x" onclick="deleteBtn();'"/>
+                    		<img src="resources/images/Vector.png" alt="x" onclick="delete-btn();'"/>
                     	</div>
                     	<div class = "choi-jjim-text-top">
 	                        <p>${my.booktitle}</p>
@@ -198,7 +198,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<script src = "resources/js/paging.js"></script>
+
  <%@include file = "include/footer.jsp" %>
 
 </body>
