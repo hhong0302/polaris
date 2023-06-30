@@ -21,7 +21,7 @@
 <%@include file = "include/header.jsp" %>
     <div class="container">
         <div class = "choi-top">
-            <span>홈 > 메인페이지</span>
+            <span>홈 > 마이페이지</span>
         </div>
         <c:forEach var = "my" items = "${memlist }">
 			<c:if test="${my.userid eq userid }">
@@ -75,8 +75,9 @@
 		                            <span>저자 . 글쓴이</span>
 	                            </div>
 	                            <div class="choi-book-text-mid">
+	                            <c:set var = "TextValue" value="${my.loandate }" />
 		                            <span>대여 기간</span>
-		                            <p>${my.loandate }</p>
+		                            <p>${fn:substring(TextValue, 0,11)} ~</p>
 		                            <span class="choi-dday">반납일까지 남았습니다.</span>
 	                            </div>
 	                            <div class="choi-book-text-last">
@@ -91,11 +92,12 @@
              </div>
 	         
               <div class="tab-pane fade" id="asd">
+              <div class = "choi-booklist">
               <c:choose>
 	          <c:when test="${empty pastloanList}">
 	          	<div class="choi-past-book">
-                    <div class="choi-jjim-img">
-                        <img src="resources/bookimg/jjimblank.png" alt="book">
+                    <div class="choi-post-book-img">
+                        <img src="resources/images/blankBook.png" alt="book">
                     </div>
                  </div>
 	          </c:when>
@@ -107,7 +109,7 @@
                     </div>
                     <div class="choi-jjim-text">
                     	<div class = "choi-close-btn">
-                    		<img src="resources/images/Vector.png" alt="" />
+                    		<img src="resources/images/Vector.png" alt="x" onclick="deleteBtn();'"/>
                     	</div>
                     	<div class = "choi-jjim-text-top">
 	                        <p>${my.booktitle}</p>
@@ -122,6 +124,7 @@
 	            </c:otherwise>
 	            </c:choose>
               </div>             
+            </div>
             </div>
          
         </div>
@@ -140,7 +143,7 @@
                     <div class="choi-jjim-img">
                         <img src="resources/bookimg/jjimblank.png" alt="book">
                     </div>
-                    </div>
+                </div>
               </c:when>
               <c:otherwise>
      	      <c:forEach var ="my" items= "${interest }"> 
@@ -195,7 +198,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
+<script src = "resources/js/paging.js"></script>
  <%@include file = "include/footer.jsp" %>
 
 </body>
