@@ -66,7 +66,7 @@
 											<div  class="rental-box">
 												<div class="search-like" onclick="likeSuccess()">
 													<img src="resources/images/emptyheart.png" class="likeimg1 likeimg1-${book.bookcode}" alt="emptyheart" />
-													<p>찜 ${book.likecount}</p>
+													<p class="likecount likecount-${book.bookcode}">찜 ${book.likecount}</p>
 												</div>
 												<div class="btn-box">
 													<div class="detail-btn-box">
@@ -167,7 +167,7 @@
 											<div  class="rental-box">
 												<div class="search-like" >
 												    <img src="resources/images/emptyheart.png" class="likeimg1 likeimg1-${book.bookcode}" alt="emptyheart" onclick="likeSuccess('${book.bookcode}', '${uid}', '${book.booktitle}', '${book.author}', '${book.publisher}', this)"/>
-												    <p>찜 ${book.likecount}</p>
+												    <p class="likecount likecount-${book.bookcode}">찜 ${book.likecount}</p>
 												</div>
 												<div class="btn-box">
 													<div class="detail-btn-box">
