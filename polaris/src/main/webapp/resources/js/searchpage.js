@@ -35,26 +35,57 @@ loadMoreButton.addEventListener("click", showNextResults);
 
 //찜하기 insert,delete
 function likeSuccess(bookcode, uid, booktitle, author, publisher) {
-    $.ajax({
-        url: "searchLike",
-        type: 'GET',
-        data: {
-            bookinfo: bookcode,
-            userid: uid,
-            booktitle: booktitle,
-            author: author,
-            publisher: publisher
-        },
-        success: function(data) {
-            if (data.userLike == 1) {
-                $(".likeimg1").attr("src", "resources/images/fillheart.png");
-            } else {
-                $(".likeimg1").attr("src", "resources/images/emptyheart.png");
-            }
-            $(".search-like p").text("찜 " + data.likecount);
-        },
-        error: function() {
-            alert("error");
-        }
-    });
+	$.ajax({
+		url: "searchLike",
+		type: 'GET',
+		data: {
+			bookinfo: bookcode,
+			userid: uid,
+			booktitle: booktitle,
+			author: author,
+			publisher: publisher
+		},
+		success: function(data) {
+			$.ajax({
+			    url: "searchUserLike",
+			    type: 'GET',
+			    data: {
+			        bookcode: bookcode
+			    },
+			    success: function(data) {
+			    	$.ajax({
+			    	url: "searchLikeCount",
+			    	type: 'GET',
+			    	data: {
+			        	bookcode: bookcode
+			    	},
+			    	success: function(data) {
+			        	var likeCount = parseInt(data);
+			       		var likeClick = parseInt(data);
+			        	var code = bookcode;
+			        	if (likeClick === 1) {
+			        		$(".likeimg1-" + code).attr("src", "resources/images/fillheart.png");
+			           		$(".likecount-" + code).text("찜 "+likeCount);			            
+			        	} else {
+			        		$(".likeimg1-" + code).attr("src", "resources/images/emptyheart.png");
+			            	$(".likecount-" + code).text("찜 "+likeCount);
+			        	}
+			    	},
+			    	error: function() {
+        				alert("Error");
+    				}
+			});
+
+			},
+			    error: function() {
+        			alert("Error");
+    			}
+				});
+		},
+		error: function() {
+			alert("error");
+		}
+	});
+
+	
 }

@@ -2,7 +2,9 @@ package com.polaris.home;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -176,7 +178,10 @@ public class HomeController {
 		String bookcode = req.getParameter("bookcode");
 		int reviewNum = Integer.parseInt(req.getParameter("reviewNum"));
 		HttpSession session = req.getSession();
+		PolarisDAO dao = new PolarisDAO();
 		String userid="";
+		int isClick = 0;
+		int Allcount = dao.getReviewCount(reviewNum);
 		try
 		{
 			userid = (String) session.getAttribute("userid");	
@@ -186,27 +191,39 @@ public class HomeController {
 		{
 			userid="empty userid!!!";
 		}
-		int isClick = 0;
-		PolarisDAO dao = new PolarisDAO();
 		if(userid.equals("empty userid!!!"))
 		{
 			isClick = -1;
 		}
 		else
 		{
-			String writer = dao.rvIdFind(reviewNum);
-			isClick=dao.isClick(bookcode,writer,userid);
-			if(isClick>0)
+			try
 			{
-				dao.delRevLike(bookcode,writer,userid);
+				String writer = dao.rvIdFind(reviewNum);				
+				isClick=dao.isClick(bookcode,writer,userid);
+				if(isClick>0)
+				{
+					dao.delRevLike(bookcode,writer,userid);
+				}
+				else
+				{
+					dao.upRevLike(bookcode,writer,userid);
+				}
 			}
-			else
+			catch(Exception e)
 			{
-				dao.upRevLike(bookcode,writer,userid);
+				isClick=-2;
 			}
 		}
+		Gson gsonObj = new Gson();
+		Map<String, Integer> inputMap = new HashMap<String, Integer>();
+		inputMap.put("isClick", isClick);
+		inputMap.put("Allcount", Allcount);
+		        
+		// MAP -> JSON 예제
+		String jsonStr = gsonObj.toJson(inputMap);
 		PrintWriter out = res.getWriter();
-		out.println(isClick);
+		out.println(jsonStr);
 		out.close();
 	}
 	
@@ -282,7 +299,7 @@ public class HomeController {
 	    return "search";
 	}
 	
-	//젠체 검색
+	//전체 검색
 	@RequestMapping(value = "totalsearch")
 	public String totalsearch(HttpServletRequest request,Model model) {
 		
@@ -332,8 +349,35 @@ public class HomeController {
 		command = new LikeCommand();
 		command.execute(model);
 	    
-	    return "search";
-			
+	    return "search";			
+	}
+	@RequestMapping(value = "/searchUserLike", method = { RequestMethod.GET })
+	@ResponseBody 
+	public void searchUserLike(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
+		String bookcode = request.getParameter("bookcode");
+		HttpSession session = request.getSession();
+		String userid=(String) session.getAttribute("userid");
+		
+		int likeClick=0;
+		PolarisDAO dao = new PolarisDAO();
+
+		likeClick=dao.searchUserLike(bookcode,userid);
+	
+		PrintWriter out = response.getWriter();
+		out.println(likeClick);
+		out.close();
+	}
+	@RequestMapping(value = "/searchLikeCount", method = { RequestMethod.GET })
+	@ResponseBody 
+	public void searchLikeCount(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
+		String bookcode = request.getParameter("bookcode");
+		
+		PolarisDAO dao = new PolarisDAO();
+		int likeCount=dao.searchLikeCount(bookcode);
+	
+		PrintWriter out = response.getWriter();
+		out.println(likeCount);
+		out.close();
 	}
 
 	

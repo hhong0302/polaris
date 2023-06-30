@@ -15,7 +15,7 @@ const hg_pwinput = document.getElementsByClassName("pw-input");
 const hg_findpwalrt = document.getElementsByClassName("hg-findpwalrt");
 for(let i=0;i<hg_pwinput.length;i++)
 {
-	hg_pwinput[i].addEventListener("focusout",function()
+	hg_pwinput[i].addEventListener("keyup",function()
 	{
 		if(hg_pwinput[i].value.replace(/\s/gi, "")=="") hg_findpwalrt[i].classList.add("active");
 		else hg_findpwalrt[i].classList.remove("active");

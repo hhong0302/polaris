@@ -40,6 +40,8 @@ function reviewSubmit()
 		alert("공백을 제외하고 한 글자 이상 입력하세요.");
 		return false;
 	}
+	rv_title.value=rv_title.value.trim();
+	rvbox_detail.value=rvbox_detail.value.trim();
 	document.reviewWriteForm.submit();
 }
 
@@ -71,6 +73,8 @@ function reviewModify()
 			alert("공백을 제외하고 한 글자 이상 입력하세요.");
 			return false;
 		}
+		rv_title.value=rv_title.value.trim();
+		rvbox_detail.value=rvbox_detail.value.trim();
 		document.reviewModifyForm.submit();
 	}
 }
@@ -206,7 +210,9 @@ function listNav_click(reviewType,bookcode)
   		console.log("error");
   		}
 		});
-		document.getElementsByClassName("pageNum-pagebtn")[0].click();	
+		document.getElementsByClassName("pageNum-pagebtn")[0].click();
+		listPageNum=0;
+		document.getElementById("prev-list-btn").click();
 }
 
 //1,2,3,4,5 그 버튼
@@ -363,11 +369,13 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 	if(listPageNum<0)
 	{
 		listPageNum=0;
+		pgbtn_prev.classList.remove("active");
 		return false;
 	}
 	if(listPageNum>Math.floor(allReviewDatas/5))
 	{
 		listPageNum=Math.floor(allReviewDatas/5);
+		pgbtn_next.classList.remove("active");
 		return false;
 	}
 	let rvButtonList="";
@@ -426,25 +434,24 @@ function reviewLike(bookcode,reviewNum,rvNumber)
 			"reviewNum":reviewNum},
 			async:false,
 			contentType: "application/json",
-			success : function(isClick) {
-				if(isClick<0) alert("로그인 후 이용해주세요");
-				else if(isClick>0)
+			success : function(data) {
+				if(data.isClick==-1) alert("로그인 후 이용해주세요");
+				else if(data.isClick==-2) alert("삭제된 리뷰이거나 잘못된 접근입니다.");
+				else if(data.isClick>0)
 				{
 					//좋아요 삭제
 					review_like_images[rvNumber].setAttribute("src","resources/images/dislike-detail.png");
-					rvcountNum = review_like_count[rvNumber].innerHTML;
-					review_like_count[rvNumber].innerHTML = Number(rvcountNum)-1;
+					review_like_count[rvNumber].innerHTML = data.Allcount-1;
 				}
 				else
 				{
 					//좋아요 추가
 					review_like_images[rvNumber].setAttribute("src","resources/images/like-detail.png");
-					rvcountNum = review_like_count[rvNumber].innerHTML;
-					review_like_count[rvNumber].innerHTML = Number(rvcountNum)+1;
+					review_like_count[rvNumber].innerHTML = data.Allcount+1;
 				}
 			},
 		 	error : function() {
-		 	alert("로그인 후 이용해주세요");
+		 	alert("잘못된 접근입니다.");
 		  	}
 			});
 }

@@ -34,19 +34,23 @@ public class PolarisDAO {
 	}
 	
 	//gyu Start
+	//검색
 	public ArrayList<BookDTO> search(String query) {
 		String sql = "SELECT * FROM book WHERE booktitle LIKE '%" + query + "%' OR author LIKE '%" + query + "%' OR genre LIKE '%" + query + "%' OR publisher LIKE '%" + query + "%' ";
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
+	//전체
 	public ArrayList<BookDTO> totalsearch() {
 	    String sql = "SELECT * FROM book";
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
+	//장르
 	public ArrayList<BookDTO> genresearch(String genre) { 
 	    String sql = "SELECT * FROM book WHERE genre LIKE ";
 	    sql +="'%" + genre + "%'";
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
+	//인기순, 대여순, 최신순 
 	public ArrayList<BookDTO> ordersearch(String order)
 	{
 		String sql = "";
@@ -55,7 +59,17 @@ public class PolarisDAO {
 		if(order.equals("대여순")||order=="대여순") sql="select * from book order by loancount desc";
 		
 		return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+	} 
+	//유저가 좋아요를 눌렀는지 아닌지
+	public int searchUserLike(String bookcode, String userid){
+		String sql = "select count(*) from interest where bookcode = '" + bookcode + "' and userid = '" + userid + "'";
+		return template.queryForObject(sql, Integer.class);
 	}
+	public int searchLikeCount(String bookcode) {
+		String sql = "select count(*) from interest where bookcode ='" + bookcode + "'";
+		return template.queryForObject(sql, Integer.class);
+	}
+	
 	//gyu End
 	
 	
@@ -63,7 +77,9 @@ public class PolarisDAO {
 	// 관심순
 	public List<InterestDTO> hg_homeinterest()
 	{
-		String sql = "select * from book order by likecount desc limit 0,5";
+		String sql = "select a.*, b.likecount from book as a left join "
+				+ "(select bookcode, count(bookcode) as likecount from interest group by bookcode order by likecount desc) as b "
+				+ "on a.bookcode=b.bookcode order by b.likecount desc limit 0,5";
 		return (List<InterestDTO>)template.query(sql,new BeanPropertyRowMapper<InterestDTO>(InterestDTO.class));
 	}
 	//곧 반납 도서
@@ -72,25 +88,23 @@ public class PolarisDAO {
 		String sql = "select * from bookloan where userid='"+userid+"' and loan=1 order by loandate asc limit 0,2;";
 		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
 	}
-	//소설/시 뿌리기
-	public List<BookDTO> hg_homenovel()
+	//소설/시 · 에세이 뿌리기
+	public List<BookDTO> hg_homeList(String genre)
 	{
-		String sql = "select * from book where genre='소설/시' order by date desc";
-		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
-	}
-	//에세이 뿌리기
-	public List<BookDTO> hg_homeessay()
-	{
-		String sql = "select * from book where genre='에세이' order by date desc";
+		String sql = "select * from book where genre='"+genre+"' order by date desc";
 		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	//인기.최신.대여순 뿌리기
 	public List<BookDTO> hg_hotList(String name)
 	{
 		String sql = "";
-		if(name.equals("popular")||name=="popular") sql="select * from book order by likecount desc limit 0,10";
+		if(name.equals("popular")||name=="popular") sql="select a.* from book as a left join "
+		+ "(select bookcode, count(bookcode) as likecount from interest group by bookcode order by likecount desc) as b "
+		+ "on a.bookcode=b.bookcode order by b.likecount desc limit 0,10";
 		if(name.equals("recent")||name=="recent") sql="select * from book order by date desc limit 0,10";
-		if(name.equals("lotsloan")||name=="lotsloan") sql="select * from book order by loancount desc limit 0,10";
+		if(name.equals("lotsloan")||name=="lotsloan") sql="select a.* from book as a left join "
+		+ "(select bookcode, count(bookcode) as loancount from bookloan group by bookcode order by loancount desc) as b "
+		+ "on a.bookcode=b.bookcode order by b.loancount desc limit 0,10";
 		
 		return template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
@@ -170,6 +184,11 @@ public class PolarisDAO {
 		if(rvType=="recent"||rvType.equals("recent")) sql+="order by redate desc";
 		else sql+="order by relike desc, redate desc";
 		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
+	}
+	public int getReviewCount(int reviewNum)
+	{
+		String sql = "select relike from review where num="+reviewNum;
+		return template.queryForObject(sql, Integer.class);
 	}
 	//리뷰 작성자의 아이디값 받아오기(좋아요)
 	public String rvIdFind(int reviewNum)

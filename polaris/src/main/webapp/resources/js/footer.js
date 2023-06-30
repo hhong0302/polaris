@@ -16,37 +16,24 @@ $(document).ready(function()
 						<img src="resources/images/home_noloan.png" class="hg-rtimg" alt="noloan" />
 					</div>`;
 			}
-			else if(data.length==1)
-			{
-				rightboxLoanList+=`<div class="hg-returnbox">
-					<img src="resources/bookimg/${data[0].bookcode}.jpg" class="hg-rtimg" alt="${data[0].bookcode}" />
-					
-					<span class="hg-righttitle">
-						${data[0].booktitle}
-					</span>
-					
-					<span class="hg-howmuch">
-						1일 남음
-					</span>
-				</div>`;
-			}
 			else
 			{
 				for(let i=0;i<data.length;i++)
 				{
-					rightboxLoanList+=`<div class="hg-returnbox" ${i==data.length-1?"style='display:none;'":""}>
-						<img src="resources/bookimg/${data[i].bookcode}.jpg" class="hg-rtimg" alt="${data[i].bookcode}" />
-						
-						<span class="hg-righttitle">
-							${data[i].booktitle}
-						</span>
-						
+					rightboxLoanList+=`<div class="hg-returnbox" ${i==data.length-1&&i!=0?"style='display:none;'":""}>
+						<a href="detail?bookinfo=${data[i].bookcode}">
+							<img src="resources/bookimg/${data[i].bookcode}.jpg" class="hg-rtimg" alt="${data[i].bookcode}" />
+							
+							<span class="hg-righttitle">
+								${data[i].booktitle}
+							</span>
+						</a>
 						<span class="hg-howmuch">
 							1일 남음
 						</span>
 					</div>`;
 				}
-				rightboxLoanList+=`<div class="hg-rightline"></div>
+				if(data.length==2) rightboxLoanList+=`<div class="hg-rightline"></div>
 					<button class="hg-rboxbtn" onclick="rboxbtn(this)">+더보기</button>`;
 			}
 			

@@ -29,7 +29,7 @@
 		<div class="hg-rightline"></div>
 		
 		<div class="hg-return">
-			곧 반납 도서
+			대여 중인 도서
 		</div>
 
 		<%-- 반납 있을 경우 --%>
@@ -79,10 +79,10 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="resources/js/footer.js"></script>
 	
-<footer>
+<footer id="hg-footer">
 	<div class="container hg-footer">
 		<div class="hg-ftop">
-			<div>
+			<div class="hg-ftopleft">
 				<a href="/home">
 					<img src="resources/images/textlogo_white.svg" alt="logo" />
 				</a>
@@ -95,7 +95,11 @@
 				<span>청소년 보호정책</span>
 			</div>
 			<div class="hg-familysite">
-				
+				<a href="javascript:void(0)" target="_blank"><span id="hg-prositetxt">Profile Site</span></a>
+				<div class="hg-familysitebox">
+					<span id="hg-fmysitetxt">Family Site</span>
+					<div id="hg-fmysitebox"></div>
+				</div>
 			</div>
 		</div>
 		<div class="hg-fbottom">
@@ -115,3 +119,15 @@
 		</div>
 	</div>
 </footer>
+
+<script>
+	const hg_familysite = document.getElementsByClassName("hg-familysite")[0];
+	const hg_prositetxt = document.getElementById("hg-prositetxt");
+	const hg_fmysitebox = document.getElementById("hg-fmysitebox");
+	hg_familysite.addEventListener("click",function()
+	{
+		hg_familysite.classList.toggle("active");
+		hg_prositetxt.classList.toggle("active");
+		hg_fmysitebox.classList.toggle("active");
+	});
+</script>
