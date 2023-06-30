@@ -82,7 +82,7 @@
 <footer id="hg-footer">
 	<div class="container hg-footer">
 		<div class="hg-ftop">
-			<div>
+			<div class="hg-ftopleft">
 				<a href="/home">
 					<img src="resources/images/textlogo_white.svg" alt="logo" />
 				</a>
@@ -95,7 +95,11 @@
 				<span>청소년 보호정책</span>
 			</div>
 			<div class="hg-familysite">
-				
+				<a href="javascript:void(0)" target="_blank"><span id="hg-prositetxt">Profile Site</span></a>
+				<div class="hg-familysitebox">
+					<span id="hg-fmysitetxt">Family Site</span>
+					<div id="hg-fmysitebox"></div>
+				</div>
 			</div>
 		</div>
 		<div class="hg-fbottom">
@@ -115,3 +119,15 @@
 		</div>
 	</div>
 </footer>
+
+<script>
+	const hg_familysite = document.getElementsByClassName("hg-familysite")[0];
+	const hg_prositetxt = document.getElementById("hg-prositetxt");
+	const hg_fmysitebox = document.getElementById("hg-fmysitebox");
+	hg_familysite.addEventListener("click",function()
+	{
+		hg_familysite.classList.toggle("active");
+		hg_prositetxt.classList.toggle("active");
+		hg_fmysitebox.classList.toggle("active");
+	});
+</script>
