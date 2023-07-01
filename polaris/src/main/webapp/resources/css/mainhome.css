@@ -8,7 +8,6 @@
 .hg-leftbox
 {
 	width: 100px;
-	height: 350px;
 	position:absolute;
 	top:0;
 	left:-130px;
@@ -19,11 +18,10 @@
 .hg-leftbox h1
 {
 	margin-top:10px;
-	margin-left:5px;
+	margin-left:10px;
 	font-size:16px;
 	font-weight:bold;
 	color:#4563FF;
-	letter-spacing:-2px;
 }
 
 .hg-leftbox img
@@ -42,7 +40,7 @@
 	width:80px;
 	min-height:32px;
 	font-size:14px;
-	font-weight:bold;
+	font-weight:500;
 	letter-spacing:-1px;
 	line-height:16px;
 	text-overflow: ellipsis;
@@ -56,7 +54,7 @@
 
 .hg-lbtnbox
 {
-	margin:15px 8px 10px;
+	margin:15px 10px 10px;
 }
 
 .hg-lbtnbox .hg-lboxbtn
@@ -68,9 +66,8 @@
 	padding:0;
 	cursor:pointer;
 	color:#BDBDBD;
-	font-size:13px;
-	font-weight:bold;
-	letter-spacing:-1px;
+	font-size:14px;
+	font-weight:600;
 }
 
 .hg-lbtnbox .hg-lboxbtn.active
@@ -124,7 +121,6 @@
 	font-size:30px;
 	font-weight:bold;
 	margin:30px 0;
-	letter-spacing:-3px;
 }
 
 .hg-novelbox,
@@ -175,12 +171,10 @@
 .hg-novellist .hg-bname,
 .hg-hotlist .hg-bname
 {
-	font-family: ‘Pretendard’, ‘Noto Sans KR’, sans-serif ;
 	margin-top:20px;
 	margin-bottom:10px;
 	font-size:16px;
 	font-weight:700;
-	letter-spacing:-1px;
 	white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -195,7 +189,7 @@
 .hg-novellist .hg-ap span,
 .hg-hotlist .hg-ap span
 {
-	font-size:13px;
+	font-size:14px;
 	font-weight:600;
 	color:#797979;
 }
@@ -203,7 +197,7 @@
 .hg-novellist .hg-content,
 .hg-hotlist .hg-content
 {
-	font-size:13px;
+	font-size:14px;
 	font-weight:500;
 	color:#797979;
 }
@@ -236,7 +230,7 @@
 	font-size:30px;
 	font-weight:bold;
 	padding-top:25px;
-	letter-spacing:-3px;
+	letter-spacing:-1px;
 	color:#fff;
 }
 
@@ -263,11 +257,11 @@
 
 .hg-essaylist .hg-bname
 {
-	font-family: ‘Pretendard’, ‘Noto Sans KR’, sans-serif ;
 	margin-top:20px;
 	margin-bottom:10px;
 	font-size:16px;
-	font-weight:700;
+	font-weight:600;
+	letter-spacing:1px;
 	color:#fff;
 	white-space: nowrap;
     overflow: hidden;
@@ -282,8 +276,8 @@
 .hg-essaylist .hg-ap span,
 .hg-essaylist .hg-content
 {
-	font-size:13px;
-	font-weight:600;
+	font-size:14px;
+	font-weight:500;
 	color:#D3D6E4;
 }
 
@@ -328,8 +322,7 @@
 	border:none;
 	background:none;
 	font-size:17px;
-	font-weight:bold;
-	letter-spacing:-2px;
+	font-weight:600;
 	outline:none;
 	cursor:pointer;
 }

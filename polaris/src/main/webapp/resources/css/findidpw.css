@@ -1,5 +1,8 @@
 @charset "UTF-8";
-
+html,body
+{
+	min-width:285px;
+}
 /* password */
 .hg-pwcontainer
 {
@@ -17,7 +20,6 @@
 .hg-pwh1
 {
 	margin-top:30px;
-	letter-spacing:-1px;
 	font-size:20px;
 	font-weight:bold;
 }
@@ -37,7 +39,6 @@
 {
 	font-size:16px;
 	font-weight:600;
-	letter-spacing:-1px;
 }
 
 .hg-pwinfobox input
@@ -48,6 +49,7 @@
 	border-radius:4px;
 	margin-top:10px;
 	padding:13px 15px;
+	font-size:15px;
 	outline:none;
 }
 
@@ -66,7 +68,6 @@
 	margin-top:5px;
 	font-size:12px;
 	font-weight:600;
-	letter-spacing:-1px;
 	color:#C30000;
 }
 
