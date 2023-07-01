@@ -358,15 +358,16 @@ public class PolarisDAO {
 		String sql = "select count(*) from interest where bookcode = '" + bookcode + "' and userid = '" + userid + "'";
 		return template.queryForObject(sql, Integer.class);
 	}
-	public void loanBook(String bookcode, String userid, String booktitle) {
+	public void loanBook(String bookcode, String userid, String booktitle, String author) {
 			template.update(new PreparedStatementCreator() {
 				@Override
 				public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
-					String sql = "insert into bookloan (bookcode, userid, booktitle, loan) values (?,?,?,1)";
+					String sql = "insert into bookloan (bookcode, userid, booktitle, loan, author) values (?,?,?,1,?)";
 					PreparedStatement pstmt = con.prepareStatement(sql);
 						pstmt.setString(1, bookcode);
 						pstmt.setString(2, userid);
 						pstmt.setString(3, booktitle);
+						pstmt.setString(4, author);
 						return pstmt;
 					}
 				
