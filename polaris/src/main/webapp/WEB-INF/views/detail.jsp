@@ -332,19 +332,25 @@
 			    
 			    <!-- 리뷰 없을 때 -->
 			    
+			    <!-- 페이징 처리 -->
 			     <div class="pageNum-detail">
-               
+               		
+               		<!-- 이전으로 가는 버튼 -->
 	               	<button id="prev-list-btn" onclick="rvListPrevNxtBtn(-1,'${bookcode}')">
 	                    <span class="prv"><i class="fa-solid fa-angle-left"></i></span>
 	                </button>
 	             	<div class="pageNum-detail-btnbox">
 	               		<!-- <button class="pageNum-pagebtn active">1</button> -->
+	               		<!-- 여기 안에 페이지 들어감 -->
 	                </div>
+	                
+	                <!-- 이후로 가는 버튼 -->
 	                <button onclick="rvListPrevNxtBtn(1,'${bookcode}')">
 	                	<span class="nxt"><i class="fa-solid fa-angle-right"></i></span>
 	                </button>
 	                
                 </div>
+                <!-- 페이징 처리 -->
             </div>
             <script src="resources/js/detailreview.js"></script>
             <!-- REVIEW END -->
