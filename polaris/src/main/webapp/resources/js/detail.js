@@ -1,13 +1,3 @@
-$('a.info').click(function(){
-    $('a.review>span').removeClass('action');
-    $('a.info>span').addClass('action');
-});
-$('a.review').click(function(){
-    $('a.info>span').removeClass('action');
-    $('a.review>span').addClass('action');
-});
-
-
 function scroll_move(seq){
     var offset = $("#move" + seq).offset();
     $('html, body').animate({scrollTop : offset.top-60}, 0);
