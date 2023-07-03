@@ -13,7 +13,40 @@ $(function(){
             $('.changeBirthArea').css("display","none");
 
         }
-    })
+    });
+    $('.eye').click(function(){
+        if($(this).hasClass('active')){
+            $(this).removeClass("active");
+            $(this).find('.fa-solid').removeClass('fa-eye').addClass('fa-eye-slash');
+          $('.passinput').attr('type', 'password');
+        }else{    
+          $(this).addClass("active");
+          $(this).find('.fa-solid').removeClass('fa-eye-slash').addClass('fa-eye');
+          $('.passinput').attr('type', 'text');
+        }  
+       });
+       $('.eye1').click(function(){
+        if($(this).hasClass('active')){
+            $(this).removeClass("active");
+            $(this).find('.fa-solid').removeClass('fa-eye').addClass('fa-eye-slash');
+          $('.newpassinput').attr('type', 'password');
+        }else{    
+          $(this).addClass("active");
+          $(this).find('.fa-solid').removeClass('fa-eye-slash').addClass('fa-eye');
+          $('.newpassinput').attr('type', 'text');
+        }  
+       });
+       $('.eye2').click(function(){
+        if($(this).hasClass('active')){
+            $(this).removeClass("active");
+            $(this).find('.fa-solid').removeClass('fa-eye').addClass('fa-eye-slash');
+          $('.repassinput').attr('type', 'password');
+        }else{    
+          $(this).addClass("active");
+          $(this).find('.fa-solid').removeClass('fa-eye-slash').addClass('fa-eye');
+          $('.repassinput').attr('type', 'text');
+        }  
+       });
 })
 
 const nowPass = document.getElementById('now-pass');
@@ -74,6 +107,9 @@ function changePass(){
     }else if(nowPass.value == newPass.value){
         alert("이전에 사용했던 비밀번호는 사용할 수 없습니다.");
         newPass.focus();
+        return false;
+    }else if(newPass.value != rePass.value){
+        alert("비밀번호가 일치하지 않습니다.");
         return false;
     }
     else{

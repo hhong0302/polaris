@@ -27,7 +27,7 @@
 	<ul class="find">
 		<li><a style="cursor:pointer;" onclick="findid()">아이디 찾기</a></li>
 		<li><a style="cursor:pointer;" onclick="findPw()">비밀번호 찾기</a></li>
-		<li><a href="#">회원가입</a></li>
+		<li><a href="/home/register">회원가입</a></li>
 	</ul>
 	<div class="sns-login">
 		<a class="n-login" href="#">네이버 아이디로 로그인</a>
