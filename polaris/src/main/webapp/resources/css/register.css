@@ -143,6 +143,7 @@ input[type="number"]::-webkit-inner-spin-button {
 	height: 44px;
 	font-size: 20px;
 	border-radius: 4px;
+	cursor: pointer;
 }
 .blue{
 	color: #0000ff !important;
