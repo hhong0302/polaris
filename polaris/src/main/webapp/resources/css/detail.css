@@ -2,7 +2,7 @@
 html {
 	scroll-behavior:smooth;
 }
-body {
+html, body {
 	font-family: ‘Pretendard’, ‘Noto Sans KR’, sans-serif;
 }
 .container-detail {
@@ -121,20 +121,24 @@ button.readNow-detail {
 	background: #797979;
 	border-radius: 50%;
 	margin-right: 8px;
+	transition: all 40ms;
 }
 .navMenu-detail.action {
 	width: 10px;
 	height: 10px;
 	background: #3345a4;
 	border-radius: 50%;
+	transition: all 40ms;
 }
 .menuTitle-detail {
 	color: #797979;
 	font-size: 18px;
 	font-weight: bolder;
+	transition: all 40ms;
 }
 .menuTitle-detail.action {
 	color: #3345a4;
+	transition: all 40ms;
 }
 .sticky {
 	position: sticky;
@@ -464,6 +468,7 @@ button.readNow-detail {
 }
 .reviewTop-detail .reviewInfo-detail h1
 {
+	height:18px;
 	font-size:18px;
 	font-weight:600;
 	color:#797979;
