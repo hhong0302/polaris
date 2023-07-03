@@ -52,6 +52,7 @@ div.container{
     border-radius: 8px;
     height: 60px;
     margin-top: 24px;
+    cursor: pointer;
 }
 #save-id{
     margin-top: 30px;

@@ -129,8 +129,10 @@ userpass.addEventListener('keyup', function(){
 userpass.addEventListener('keyup', function(){
     if(userpass.value != reuserpass.value){
         repasscheckok.style.display = 'none';
+        repasscheckno.style.display = 'flex';
     }else{
         repasscheckok.style.display = 'flex';
+        repasscheckno.style.display = 'none';
     }
 })
 reuserpass.addEventListener('keyup', function(){
@@ -199,11 +201,9 @@ userpass.addEventListener('keyup', function(){
     if(passcheck2.test(userpass.value)){
         document.querySelector('#check-option2').classList.add('blue');
         document.querySelector(".check-down").classList.add('blue');
-        checkemo.style.color = 'blue';
     }else{
             document.querySelector('#check-option2').classList.remove('blue');
             document.querySelector(".check-down").classList.remove('blue');
-            checkemo.style.color = '#bdbdbd';
 
     }
 });
@@ -261,7 +261,7 @@ function register(){
     }
     else if(!emailcheck.test(email.value)){
         email.focus();
-        alert("이건 뭐임");
+        alert("이메일을 형식에 맞게 입력하세요.");
         return false;
     }
     else if(email.value == ''){
