@@ -65,33 +65,22 @@
 				<%
 					if (uid == null){
 				%>
-					<div onclick="reject()" class="rentalBtn-detail">
+					<div class="rentalBtn-detail">
 						<div class="likeBtn-detail">
-							<img alt="like" src="resources/images/emptyheart.png">
-							찜 ${likeCount}
+							<img src="resources/images/emptyheart.png" class="likeimg" alt="emptyheart" onclick="reject()">
+							<p>찜 ${book.likecount}</p>
 						</div>
-						<button type="button" class="rental-detail">대여하기</button>
-						<button type="button" class="readNow-detail">바로 읽기</button>
+						<button type="button" class="rental-detail" onclick="reject()">대여하기</button>
+						<button type="button" class="readNow-detail" onclick="reject()">바로 읽기</button>
 					</div>
 				<%
 					}else {
 				%>				
 					<div class="rentalBtn-detail">
-						<c:choose>
-							<c:when test="${userLike == 0}">
-								<a class="likeBtn-detail"
-								   href="/home/insertLike?bookinfo=${bookcode}&booktitle=${book.booktitle}&author=${book.author}&publisher=${book.publisher}">
-									<img alt="like" src="resources/images/emptyheart.png">
-									찜 ${likeCount}
-								</a>
-							</c:when>
-							<c:otherwise>
-								<a class="likeBtn-detail" href="/home/deleteLike?bookinfo=${bookcode}">
-									<img alt="like" src="resources/images/fillheart.png">
-									찜 ${likeCount}
-								</a>
-							</c:otherwise>
-						</c:choose>
+						<div class="likeBtn-detail" >
+						    <img src="resources/images/emptyheart.png" class="likeimg likeimg-${book.bookcode}" alt="emptyheart" onclick="interest('${book.bookcode}', '${userid}', '${book.booktitle}', '${book.author}', '${book.publisher}', this)"/>
+						    <p class="likecount likecount-${book.bookcode}">찜 ${book.likecount}</p>
+						</div>
 						<c:choose>
 							<c:when test="${loanStatus == 0}">
 								<button type="submit" class="rental-detail">대여하기</button>
