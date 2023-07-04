@@ -1,4 +1,5 @@
 var idck = 0;
+var idck2 = 0;
 $(function(){
     $("#idcheck").click(function(){
         var userid = $("#userid").val();
@@ -31,6 +32,30 @@ $(function(){
             }
         });
     });
+    $("#finalok").click(function(){
+        var userid = $("#userid").val();
+        $.ajax({
+            async: true,
+            type: 'POST',
+            url: "idcheck?userid="+userid,
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            success: function(data){
+                if(data > 0){
+                    idck2 = 0;
+                }else if(data == 0 && $("#userid").val() != '' && idcheck.test($("#userid").val())){
+                    idck2 = idck2 + 1;
+                }else if(data < 0 || $("#userid").val() == ''){
+                    return false;
+                }
+                register();
+            },
+            error: function(error){
+                console.log("error : " + error);
+            }
+        });
+    });
+
     $('.eye').click(function(){
         if($(this).hasClass('active')){
             $(this).removeClass("active");
@@ -53,6 +78,7 @@ $(function(){
           $('.repassinput').attr('type', 'text');
         }  
        });
+    
 });//jquery
 
 
@@ -269,12 +295,16 @@ function register(){
         email.focus();
         return false;
     }else if(idck == 0){
-        alert("id중복체크를 해주세요");
+        alert("id를 다시 입력하세요.");
         return false;
     }else{
-    		console.log(idck);
-            document.registerform.submit();
+        if(idck != 0 && idck2 != 0){
+        document.registerform.submit();
+        }else{
+            alert('아이디를 다시 확인해 주세요.');
+            return false;
         }
+    }
     }
 
 

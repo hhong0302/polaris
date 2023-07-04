@@ -80,7 +80,7 @@ pageEncoding="UTF-8" session="true"%>
 			<div class="mailcheckno">
 				<span></span><span id="mailcheckno-message">올바른 이메일 형식이 아닙니다.</span>
 			</div>
-			<button id="finalok" type="button" class="fregister" onclick="register()">입력 완료</button>
+			<button id="finalok" type="button" class="fregister">입력 완료</button>
 		</form>
 	</div>
 </div>
