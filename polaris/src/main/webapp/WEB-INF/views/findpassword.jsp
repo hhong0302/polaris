@@ -63,9 +63,12 @@
 	<button id="hg-gotologin" onclick="self.close();">로그인하기</button>
 	</c:otherwise>
 	</c:choose>
+	
+	<!-- 아무 값도 없음 -->
 	<input type="hidden" id="mj-name" class="hg-hidden" style="display:none;" />
 	<input type="hidden" id="mj-birth" class="hg-hidden" style="display:none;" />
 	<input type="hidden" id="mj-tel" class="hg-hidden" style="display:none;" />
+	<!-- 아무 값도 없음 -->
 	</div>
 	<script>
 	function noEvent() {
