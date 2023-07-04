@@ -42,7 +42,7 @@ pageEncoding="UTF-8" session="true"%>
 			<div class="passcheckok">
 				<span></span><span id="passcheckok-message">사용 가능한 비밀번호입니다.</span>
 			</div>
-			<p id="check-option1" class="option1"><i class="fa-solid fa-check check-up" style="color: #bdbdbd;" ></i>영문,숫자,특수문자 조합</p>
+			<p id="check-option1" class="option1"><i class="fa-solid fa-check check-up" style="color: #bdbdbd;"></i>영문,숫자,특수문자 조합</p>
 			<p id="check-option2" class="option2"><i class="fa-solid fa-check check-down" style="color: #bdbdbd;"></i>8자리 이상 20자리 이하</p>
 			
 			<label class="label-name" for="reuserpass">비밀번호 확인</label>
@@ -64,13 +64,13 @@ pageEncoding="UTF-8" session="true"%>
 			</div>
 			
 			<label class="label-name" for="birth">생년월일</label>
-			<input type="number" name="birth" id="birth" placeholder="생년월일 8자" minlength="8" maxlength="8" />
+			<input type="text" name="birth" id="birth" placeholder="생년월일 8자" maxlength="8" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
 			<div class="birthcheckno">
 				<span></span><span id="namecheckno-message">생년월일 8자를 입력해주세요</span>
 			</div>
 			
 			<label class="label-name" for="tel">휴대폰 번호</label>
-			<input type="tel" name="tel" id="tel" placeholder="숫자만 입력 (01012345678)" minlength="11" maxlength="11" />
+			<input type="tel" name="tel" id="tel" placeholder="숫자만 입력 (01012345678)" maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
 			<div class="telcheckno">
 				<span></span><span id="telcheckno-message">올바른 번호를 입력해주세요.</span>
 			</div>
@@ -80,7 +80,7 @@ pageEncoding="UTF-8" session="true"%>
 			<div class="mailcheckno">
 				<span></span><span id="mailcheckno-message">올바른 이메일 형식이 아닙니다.</span>
 			</div>
-			<button id="finalok" type="button" class="fregister" onclick="register()">입력 완료</button>
+			<button id="finalok" type="button" class="fregister">입력 완료</button>
 		</form>
 	</div>
 </div>

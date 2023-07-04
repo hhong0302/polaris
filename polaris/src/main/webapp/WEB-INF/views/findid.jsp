@@ -56,6 +56,9 @@
 		<span>회원님의 아이디 정보입니다.</span>
 	</div>
 	<div id="mj-newpw">${userid}</div>
+	<div>
+	<button id="hg-gotologin" onclick="self.close();">로그인하기</button>
+	</div>
 	</c:otherwise>
 	</c:choose>
 	</div>
