@@ -325,6 +325,23 @@ public class PolarisDAO {
 	    return template.queryForObject(sql, Integer.class);
 	}
 	
+	public void choi_bookLoan(String bookcode, int num) {
+		template.update(new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
+				String sql = "update bookloan set loan = 0 where bookcode = '" + bookcode + "' and num = '" + num + "'";
+				PreparedStatement pstmt = con.prepareStatement(sql);
+					return pstmt;
+				}
+		});
+	}
+	public List<BookloanDTO> choi_pageAllList() {
+		String sql = "select*from bookloan where loan = 0";
+		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
+	}
+
+	
 	
 	//바지조장 End
 	
