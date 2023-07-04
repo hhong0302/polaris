@@ -56,7 +56,7 @@
 	                 <div class = "choi-booklist">
 	                    <div class="choi-current-book">
 	                   		 <div class="choi-book-img">
-	                            <img src="resources/bookimg/blankBook.png" alt="bookimg">
+	                            <img src="resources/images/blankBook.png" alt="bookimg">
 	                        </div>
 	                     </div>
 	                   </div>
@@ -80,9 +80,10 @@
 		                            <p>${fn:substring(TextValue, 0,11)} ~</p>
 		                            <span class="choi-dday">반납일까지 남았습니다.</span>
 	                            </div>
-	                            <div class="choi-book-text-last">
-	                            	<button type="button">반납하기</button>
-	                            </div>
+		                            <div class="choi-book-text-last">
+		                          		<button type="submit" id = "booklook" class="booklook" >바로보기</button>
+		                            	<button type="submit" id = "bookloan" class="bookloan" onclick="returnBook('${bookcode}', '${num}')" >반납하기</button>
+		                            </div>
 	                        </div>
 	                    </div> 
 	                </div>                   
@@ -97,32 +98,39 @@
 	          <c:when test="${empty pastloanList}">
 	          	<div class="choi-past-book">
                     <div class="choi-post-book-img">
-                        <img src="resources/images/blankBook.png" alt="book">
+                        <img src="resources/images/past-nothing.png" alt="book">
                     </div>
                  </div>
 	          </c:when>
 	           <c:otherwise>
                <c:forEach var ="my" items= "${pastloanList }"> 
-	                <div class="choi-past-book">
-                    <div class="choi-jjim-img">
+	           <div class="choi-past-book">
+                    <div class="choi-past-img">
                         <img src="resources/bookimg/${my.bookcode }.jpg" alt="book">
                     </div>
-                    <div class="choi-jjim-text">
-                    	<div class = "choi-close-btn">
-                    		<img src="resources/images/Vector.png" alt="x" onclick="delete-btn();'"/>
-                    	</div>
-                    	<div class = "choi-jjim-text-top">
+                    <div class="choi-past-text">
+                    	<div class = "choi-past-text-top">
 	                        <p>${my.booktitle}</p>
                     	</div>
-    					<div class = "choi-jjim-text-bottom">
-	                        <span>지은이</span>
-	                        <span>출판사</span>
+    					<div class = "choi-past-text-bottom">
+	                        <span>${my.author }</span>
+	                        <span>${my.publisher }</span>
     					</div>
                     </div>
                 </div>
 	            </c:forEach> 
 	            </c:otherwise>
 	            </c:choose>
+	            <div class = "pageNum">
+                	<a href = "#" class = "page-prev-btn" onclick="#">
+                		<img src = "resources/images/left.png">
+                	</a>
+                	<div class = "pageNum-detail"></div>
+                	<a href = "#" class = "page-prev-btn" onclick="#">
+                		<img src = "resources/images/right.png">
+                	</a>
+                </div>
+	            
               </div>             
             </div>
             </div>
@@ -130,30 +138,31 @@
         </div>
       </div>
 
-
+	<!-- 찜한목록 -->	
 	
-		
-		
         <div class="choi-jjim">
             <p>찜한 목록</p>
-            <div class="choi-jjim-book">
             <c:choose>
-	        <c:when test="${sessionScope.interest eq null || empty sessionScope.interest}}">
-	       		 <div class="choi-jjim-innerbook">
-                    <div class="choi-jjim-img">
-                        <img src="resources/bookimg/jjimblank.png" alt="book">
+	        <c:when test="${empty interest}">
+            <div class="choi-jjim-book">
+	       		 <div class="choi-jjim-innerbook-nothing">
+                    <div class="choi-jjim-img-nothing">
+                        <img src="resources/images/jjim-nothing.png" alt="book">
                     </div>
                 </div>
+             </div>
               </c:when>
               <c:otherwise>
      	      <c:forEach var ="my" items= "${interest }"> 
+     	      <div class="choi-jjim-book">
                 <div class="choi-jjim-innerbook">
                     <div class="choi-jjim-img">
                         <img src="resources/bookimg/${my.bookcode }.jpg" alt="book">
                     </div>
+                    
                     <div class="choi-jjim-text">
                     	<div class = "choi-close-btn">
-                    		<img src="resources/images/Vector.png" alt="" />
+                    		<a href="#" class = "deleteBtn" onclick = "deleteBtn();"><img src="resources/images/Vector.png" alt="x" /></a>
                     	</div>
                     	<div class = "choi-jjim-text-top">
 	                        <p>${my.booktitle}</p>
@@ -163,33 +172,14 @@
 	                        <span>${my.publisher }</span>
     					</div>
                     </div>
-                </div>
+                    </div>
+                    </div>
                 </c:forEach>
                 </c:otherwise>
                 </c:choose>
             </div>
             
-          <div class = "choi-jjim-paging">
-            <c:if test = "${pageList.prev }">
-          		<a href = "?pageNum=${pageList.startPage-1 }"><img src="slide_left.png" alt="slide_left" /></a>
-          	</c:if>
-          	<c:forEach var="pageNum" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-		        <c:choose>
-		            <c:when test="${pageNum eq pageMaker.getCri().getPageNum()}">
-		                <a class="active" href="?pageNum=${pageNum}">${pageNum}</a>
-		            </c:when>
-		            <c:otherwise>
-		                <a href="?pageNum=${pageNum}">${pageNum}</a>
-		            </c:otherwise>
-		        </c:choose>
-		    </c:forEach>
-			<c:if test = "${pageList.next }">
-          		<a href = "?pageNum=${pageList.startPage+1 }"><img src="slide_right.png" alt="slide_right" /></a>   
-          	</c:if>
-            </div>
-        </div>
 
-    </div>
     
      
      
@@ -198,7 +188,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
+<script src="/resources/js/mypage.js"></script>
  <%@include file = "include/footer.jsp" %>
 
 </body>
