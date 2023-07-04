@@ -23,6 +23,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.gson.Gson;
 import com.polaris.home.command.AutoReturnCommand;
+import com.polaris.home.command.BookloanCommand;
 import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.DetailLoanCommand;
 import com.polaris.home.command.DetailReviewCommand;
@@ -393,6 +394,8 @@ public class HomeController {
 	  
 	  return "mypage"; // mypage.jsp 호출!!! }
 	  }
+	  
+	 
 
 	  @RequestMapping(value="mypage", method = RequestMethod.POST)
 	  public String pageList(HttpServletRequest request, Model model) {
@@ -416,7 +419,19 @@ public class HomeController {
 		  return "mypage";
 		  
 	  }
-	  
+	
+	  @ResponseBody
+	  @RequestMapping(value = "/pageList")
+	  public void pageList(HttpServletRequest req, HttpServletResponse res)throws Exception{
+		  PolarisDAO dao = new PolarisDAO();
+		  int listnum = 5*Integer.parseInt(req.getParameter("listnum"));
+		  String listType = req.getParameter("listType");
+		  List<BookloanDTO> dto = dao.choi_pageAllList();
+		  PrintWriter out =res.getWriter();
+		  String gson = new Gson().toJson(dto);
+		  out.println(gson);
+		  out.close();
+	  }
 	  
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
 	public String bookinfo(HttpServletRequest request, Model model) {
@@ -515,6 +530,22 @@ public class HomeController {
 		
 		return "mypage";	// mypage.jsp 호출!!!
 	
+	}
+	
+	//반납choi
+	@RequestMapping(value = "/bookloan", method = RequestMethod.POST)
+	public String choi_bookLoan(HttpServletRequest request, Model model, RedirectAttributes re) {
+	    String bookcode = request.getParameter("bookcode");
+	    int num = Integer.parseInt(request.getParameter("num"));
+
+	    model.addAttribute("request", request);
+	    re.addAttribute("bookcode", bookcode);
+	    re.addAttribute("num", num);
+
+	    command = new BookloanCommand();
+	    command.execute(model);
+
+	    return "redirect:/mypage";
 	}
 	
 	
