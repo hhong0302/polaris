@@ -88,6 +88,10 @@ function changePass(){
         alert('현재 비밀번호를 입력하세요.');
         nowPass.focus();
         return false;
+    }else if(nowPass.value != currentPass.value){
+        alert('현재 비밀번호가 맞지 않습니다.');
+        nowPass.focus();
+        return false
     }else if(newPass.value == ''){
         alert('새 비밀번호를 입력하세요.');
         newPass.focus();
