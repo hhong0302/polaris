@@ -360,8 +360,7 @@ function pageNumBtnClick(e,listNumber,lstType,bookcode)
 //이전,다음 버튼
 function rvListPrevNxtBtn(hg_number,bookcode)
 {
-	/*console.log(Math.floor(allReviewDatas/5));
-	console.log(listPageNum);*/
+	//console.log(Math.ceil(allReviewDatas/5));
 	const pgNum_pgbtn = document.getElementsByClassName("pageNum-pagebtn");
 	listPageNum+=hg_number;
 	if(listPageNum<0)
@@ -370,9 +369,9 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 		pgbtn_prev.classList.remove("active");
 		return false;
 	}
-	if(listPageNum>Math.floor(allReviewDatas/5))
+	if(listPageNum==Math.ceil(allReviewDatas/5))
 	{
-		listPageNum=Math.floor(allReviewDatas/5);
+		listPageNum=Math.ceil(allReviewDatas/5)-1;
 		pgbtn_next.classList.remove("active");
 		return false;
 	}
@@ -386,10 +385,13 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 		rvButtonList+=`<button class="pageNum-pagebtn" onclick="pageNumBtnClick(this,${i-1},'${listType}','${bookcode}')">${i}</button>`;
 	}
 	pgnum_detail_btnbox.innerHTML=rvButtonList;
+	
+	//다음 버튼 누르면 1번째 리스트 클릭 -> 6,7,8,9,10이면 리스트6을 보여줌
 	if(hg_number==1)
 	{
 		pgNum_pgbtn[0].click();
 	}
+	//이전 버튼 누르면 4번째 리스트 클릭
 	else
 	{
 		pgNum_pgbtn[4].click();
@@ -398,8 +400,9 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 	if(listPageNum==0) pgbtn_prev.classList.remove("active");
 	else pgbtn_prev.classList.add("active");
 
-	if(listPageNum==Math.floor(allReviewDatas/5)) pgbtn_next.classList.remove("active");
+	if(listPageNum==Math.ceil(allReviewDatas/5)-1) pgbtn_next.classList.remove("active");
 	else pgbtn_next.classList.add("active");
+	//console.log(listPageNum);
 }
 
 //모두보기 누르면 나왔다 들어갔다 버튼
