@@ -156,7 +156,8 @@
 	width:90px;
 	height:128px;
 	margin-top:10px;
-	box-shadow:-3px 3px 10px 1px rgba(0,0,0,0.2);
+	box-shadow:-3px 3px 10px 0px rgba(0,0,0,0.2);
+	border-radius:3px;
 }
 
 .hg-rightbox .hg-righttitle
