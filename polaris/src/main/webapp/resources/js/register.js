@@ -1,4 +1,5 @@
 var idck = 0;
+var idck2 = 0;
 $(function(){
     $("#idcheck").click(function(){
         var userid = $("#userid").val();
@@ -31,6 +32,30 @@ $(function(){
             }
         });
     });
+    $("#finalok").click(function(){
+        var userid = $("#userid").val();
+        $.ajax({
+            async: true,
+            type: 'POST',
+            url: "idcheck?userid="+userid,
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            success: function(data){
+                if(data > 0){
+                    idck2 = 0;
+                }else if(data == 0 && $("#userid").val() != '' && idcheck.test($("#userid").val())){
+                    idck2 = idck2 + 1;
+                }else if(data < 0 || $("#userid").val() == ''){
+                    return false;
+                }
+                register();
+            },
+            error: function(error){
+                console.log("error : " + error);
+            }
+        });
+    });
+
     $('.eye').click(function(){
         if($(this).hasClass('active')){
             $(this).removeClass("active");
@@ -53,6 +78,7 @@ $(function(){
           $('.repassinput').attr('type', 'text');
         }  
        });
+    
 });//jquery
 
 
@@ -129,8 +155,10 @@ userpass.addEventListener('keyup', function(){
 userpass.addEventListener('keyup', function(){
     if(userpass.value != reuserpass.value){
         repasscheckok.style.display = 'none';
+        repasscheckno.style.display = 'flex';
     }else{
         repasscheckok.style.display = 'flex';
+        repasscheckno.style.display = 'none';
     }
 })
 reuserpass.addEventListener('keyup', function(){
@@ -199,11 +227,9 @@ userpass.addEventListener('keyup', function(){
     if(passcheck2.test(userpass.value)){
         document.querySelector('#check-option2').classList.add('blue');
         document.querySelector(".check-down").classList.add('blue');
-        checkemo.style.color = 'blue';
     }else{
             document.querySelector('#check-option2').classList.remove('blue');
             document.querySelector(".check-down").classList.remove('blue');
-            checkemo.style.color = '#bdbdbd';
 
     }
 });
@@ -261,7 +287,7 @@ function register(){
     }
     else if(!emailcheck.test(email.value)){
         email.focus();
-        alert("이건 뭐임");
+        alert("이메일을 형식에 맞게 입력하세요.");
         return false;
     }
     else if(email.value == ''){
@@ -269,12 +295,16 @@ function register(){
         email.focus();
         return false;
     }else if(idck == 0){
-        alert("id중복체크를 해주세요");
+        alert("id를 다시 입력하세요.");
         return false;
     }else{
-    		console.log(idck);
-            document.registerform.submit();
+        if(idck != 0 && idck2 != 0){
+        document.registerform.submit();
+        }else{
+            alert('아이디를 다시 확인해 주세요.');
+            return false;
         }
+    }
     }
 
 

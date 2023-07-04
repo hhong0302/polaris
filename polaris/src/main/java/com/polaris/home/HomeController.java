@@ -554,12 +554,17 @@ public class HomeController {
 		return "register";	// register.jsp 호출!!!
 	}
 	@RequestMapping(value = "registerok")
-	public String registerok(HttpServletRequest request, Model model) {
+	public void registerok(HttpServletRequest request,HttpServletResponse response, Model model) throws IOException {
+		PrintWriter out = response.getWriter();
+		response.setContentType("text/html; charset=UTF-8");
 		model.addAttribute("request", request);
 		command = new RegisterCommand();
 		command.execute(model);
-		
-		return "redirect:/";
+		out.println("<script>");
+		out.println("alert('회원가입이 완료 되었습니다.');");
+		out.println("location.href=('/home')");
+		out.println("</script>");
+		out.close();
 		
 	}
 	@RequestMapping("/idcheck")
@@ -676,7 +681,6 @@ public class HomeController {
 		
 		command.execute(model);
 		session.invalidate();
-		
 		out.println("<script>");
 		out.println("alert('회원탈퇴가 완료되었습니다. 그동안 이용해 주셔서 감사합니다.');");
 		out.println("location.href=('/home')");

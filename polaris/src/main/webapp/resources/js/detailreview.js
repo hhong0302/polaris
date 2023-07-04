@@ -142,22 +142,21 @@ function rvmoreWatch(e)
 //리뷰 작성/수정/삭제 부분
 
 //리뷰 리스트 부분
-let listPageNum=0;
+let listPageNum=0; //페이지 리스트의 번호. 0이면 1~5페이지, 1이면 6~10페이지... 를 보여 줌
 let listType;
-let allReviewDatas=0;
+let allReviewDatas=0; //총 리뷰 수
 let scrollCount=0;
 const rvcmtcontent = document.getElementsByClassName("reviewComment-content");
 const reviewcommentlist = document.getElementsByClassName("reviewcommentlist-detail")[0];
 const rvmenu_detail = document.getElementsByClassName("reviewMenu-detail");
 const rvtitle_detail = document.getElementsByClassName("reviewTitle-detail");
 const pgnum_detail_btnbox = document.getElementsByClassName("pageNum-detail-btnbox")[0];
-const pgbtn_prev = document.getElementsByClassName("prv")[0];
-const pgbtn_next = document.getElementsByClassName("nxt")[0];
+const pgbtn_prev = document.getElementsByClassName("prv")[0];//이전페이지 없으면 흐릿한 색으로 바꾸기 위해 선언
+const pgbtn_next = document.getElementsByClassName("nxt")[0];//다음페이지 없으면 흐릿한 색으로 바꾸기 위해 선언
 
 //인기/최신 버튼
 function listNav_click(reviewType,bookcode)
 {
-	let reviewList = "";
 	if(reviewType=="recent")
 	{
 		rvmenu_detail[0].classList.add("action");
@@ -178,11 +177,11 @@ function listNav_click(reviewType,bookcode)
 		url : "reviewController",
 		type: "GET",
 		dataType: "json",
-		data:{"reviewType":reviewType,"bookcode":bookcode},
+		data:{"reviewType":reviewType,"bookcode":bookcode},//인기순/최신순, bookcode를 reviewController에 전달
 		async:false,
 		contentType: "application/json",
 		success : function(datas) {
-			let listCount=0;
+			let listCount=0;//초기 리스트 개수. 총 개수가 25보다 적으면 
 			let rvButtonList="";
 		  	if(datas==null||datas==""||datas==0)
 			{
@@ -203,7 +202,6 @@ function listNav_click(reviewType,bookcode)
 					rvButtonList+=`<button class="pageNum-pagebtn" onclick="pageNumBtnClick(this,${i-1},'${listType}','${bookcode}')">${i}</button>`;
 				}
 			}
-				reviewcommentlist.innerHTML=reviewList;
 				pgnum_detail_btnbox.innerHTML=rvButtonList;
   		},
   		error : function() {
@@ -362,8 +360,7 @@ function pageNumBtnClick(e,listNumber,lstType,bookcode)
 //이전,다음 버튼
 function rvListPrevNxtBtn(hg_number,bookcode)
 {
-	/*console.log(Math.floor(allReviewDatas/5));
-	console.log(listPageNum);*/
+	//console.log(Math.ceil(allReviewDatas/5));
 	const pgNum_pgbtn = document.getElementsByClassName("pageNum-pagebtn");
 	listPageNum+=hg_number;
 	if(listPageNum<0)
@@ -372,9 +369,9 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 		pgbtn_prev.classList.remove("active");
 		return false;
 	}
-	if(listPageNum>Math.floor(allReviewDatas/5))
+	if(listPageNum==Math.ceil(allReviewDatas/5))
 	{
-		listPageNum=Math.floor(allReviewDatas/5);
+		listPageNum=Math.ceil(allReviewDatas/5)-1;
 		pgbtn_next.classList.remove("active");
 		return false;
 	}
@@ -388,10 +385,13 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 		rvButtonList+=`<button class="pageNum-pagebtn" onclick="pageNumBtnClick(this,${i-1},'${listType}','${bookcode}')">${i}</button>`;
 	}
 	pgnum_detail_btnbox.innerHTML=rvButtonList;
+	
+	//다음 버튼 누르면 1번째 리스트 클릭 -> 6,7,8,9,10이면 리스트6을 보여줌
 	if(hg_number==1)
 	{
 		pgNum_pgbtn[0].click();
 	}
+	//이전 버튼 누르면 4번째 리스트 클릭
 	else
 	{
 		pgNum_pgbtn[4].click();
@@ -400,8 +400,9 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 	if(listPageNum==0) pgbtn_prev.classList.remove("active");
 	else pgbtn_prev.classList.add("active");
 
-	if(listPageNum==Math.floor(allReviewDatas/5)) pgbtn_next.classList.remove("active");
+	if(listPageNum==Math.ceil(allReviewDatas/5)-1) pgbtn_next.classList.remove("active");
 	else pgbtn_next.classList.add("active");
+	//console.log(listPageNum);
 }
 
 //모두보기 누르면 나왔다 들어갔다 버튼

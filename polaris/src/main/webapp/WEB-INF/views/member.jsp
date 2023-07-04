@@ -38,19 +38,22 @@
                         </div>
                         <div class="right">
                             <div class="now-pass">
-                                <input type="password" name="now-pass" id="now-pass" placeholder="현재 비밀번호">
+                                <input type="password" name="now-pass" class="passinput" id="now-pass" placeholder="현재 비밀번호">
+                                <div class="eye show"><i class="fa-solid fa-eye-slash fa-lg"></i></div>
                             </div>
                             <div class="passcheckno">
                                 <span></span><span id="passcheckno-message">현재 비밀번호와 일치하지 않습니다.</span>
                             </div>
                             <div class="new-pass">
-                                <input type="password" name="new-pass" id="new-pass" placeholder="새 비밀번호">
+                                <input type="password" name="new-pass" class="newpassinput" id="new-pass" placeholder="새 비밀번호">
+                                <div class="eye1 show"><i class="fa-solid fa-eye-slash fa-lg"></i></div>
                             </div>
                             <div class="newpassno">
                                 <span></span><span id="newpassno-message">새 비밀번호를 다시 입력해주세요.</span>
                             </div>
                             <div class="re-pass">
-                                <input type="password" name="re-pass" id="re-pass" placeholder="새 비밀번호 확인">
+                                <input type="password" name="re-pass" class="repassinput" id="re-pass" placeholder="새 비밀번호 확인">
+                                <div class="eye2 show"><i class="fa-solid fa-eye-slash fa-lg"></i></div>
                             </div>
                             <div class="renewpassno">
                                 <span></span><span id="renewpassno-message">비밀번호가 일치하지 않습니다.</span>
@@ -91,7 +94,7 @@
                     <div class="left"></div>
                     <div class="right">
                         <form action="changeBirth" class="changeBirthArea" name="changeBirthArea" method="post">
-                            <input type="number" name="new-birth" id="new-birth" placeholder="생년월일 8자리" >
+                            <input type="text" name="new-birth" id="new-birth" placeholder="생년월일 8자리" maxlength="8" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
                             <button type="button" onclick="changeBirth()" class="change-birth">생년월일 변경</button>
                         </form>
                     </div>
