@@ -1,3 +1,4 @@
+<%@page import="com.polaris.home.dao.PolarisDAO"%>
 <%@page import="com.polaris.home.dto.BookDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -16,7 +17,9 @@
 <body>
 <%@include file="include/header.jsp" %>
 	<%
+		PolarisDAO dao = new PolarisDAO();
 		String uid = (String) session.getAttribute("userid");
+		int loanCount = dao.loanCount((String)session.getAttribute("userid"));
 	%>
 	<input type="hidden" name="userid" value="<%= uid%>">
 	<div class="container-detail">
@@ -29,7 +32,7 @@
 				<p>메인<i class="ri-arrow-drop-right-line"></i><span class="ftBlack-detail">${book.genre}</span></p>
 			</div>
 			
-			<form action="bookloan?bookinfo=${bookcode}" class="bookRental-detail" method="post">
+			<form action="detailbookloan?bookinfo=${bookcode}" class="bookRental-detail" method="post">
 				<div class="hash-detail">					
 					<p class="bookHash-detail">
 					${fn:replace(book.hash, replaceHash, "</p> <p>")}
@@ -83,7 +86,17 @@
 						</div>
 						<c:choose>
 							<c:when test="${loanStatus == 0}">
+								<%
+									if(loanCount < 3){
+								%>
 								<button type="submit" class="rental-detail">대여하기</button>
+								<%
+									}else{
+								%>
+								<button type="button" class="rental-detail" onclick="loanReject()">대여하기</button>
+								<%
+									}
+								%>
 							</c:when>
 							<c:otherwise>
 								<button type="submit" class="rental-detail">반납하기</button>

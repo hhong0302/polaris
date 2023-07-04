@@ -507,7 +507,7 @@ public class HomeController {
 		out.close();
 	}
 	
-	@RequestMapping("/bookloan")
+	@RequestMapping("/detailbookloan")
 	public String loanbook(HttpServletRequest request, Model model, RedirectAttributes re) {
 		String bookcode = request.getParameter("bookinfo");
 		model.addAttribute("request", request);
@@ -526,6 +526,14 @@ public class HomeController {
 		command = new DetailLoanCommand();
 		command.execute(model);
 		return "loanStatus";
+	}
+	@RequestMapping(value = "loanCount")
+	public String loanCount(HttpServletRequest request, Model model){
+		model.addAttribute("request", request);
+		
+		command = new DetailLoanCommand();
+		command.execute(model);
+		return "loanCount";
 	}
 	@RequestMapping(value = "sgGenre")
 	public String sgGenre(HttpServletRequest request, Model model){

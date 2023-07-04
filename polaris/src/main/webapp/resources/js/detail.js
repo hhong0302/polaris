@@ -88,6 +88,8 @@ function interest(bookcode, userid, booktitle, author, publisher) {
 			alert("insert error");
 		}
 	});
+}
 
-	
+function loanReject(){
+	alert("책 대여는 한번에 3개까지 가능합니다.");
 }

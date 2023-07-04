@@ -423,6 +423,10 @@ public class PolarisDAO {
 		String sql ="select count(*) from bookloan where bookcode = '" + bookcode +"' and userid = '" + userid + "' and loan = 1";
 		return template.queryForObject(sql, Integer.class);
 	}
+	public int loanCount(String userid){
+		String sql ="select count(*) from bookloan where userid = '" + userid + "' and loan = 1";
+		return template.queryForObject(sql, Integer.class);
+	}
 	public String sgGenre(String bookcode){
 		String sql = "select genre from book where bookcode = '" + bookcode + "'";
 		return template.queryForObject(sql, String.class);
