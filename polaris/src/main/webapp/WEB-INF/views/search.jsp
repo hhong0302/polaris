@@ -64,9 +64,9 @@
 										}else{
 										%>
 											<div  class="rental-box">
-												<div class="search-like" onclick="likeSuccess()">
-													<img src="resources/images/emptyheart.png" class="likeimg1 likeimg1-${book.bookcode}" alt="emptyheart" />
-													<p class="likecount likecount-${book.bookcode}">찜 ${book.likecount}</p>
+												<div class="search-like" >
+												    <img src="resources/images/emptyheart.png" class="likeimg1 likeimg1-${book.bookcode}" alt="emptyheart" onclick="likeSuccess('${book.bookcode}', '${uid}', '${book.booktitle}', '${book.author}', '${book.publisher}', this)"/>
+												    <p class="likecount likecount-${book.bookcode}">찜 ${book.likecount}</p>
 												</div>
 												<div class="btn-box">
 													<div class="detail-btn-box">
@@ -166,7 +166,8 @@
 										%>
 											<div  class="rental-box">
 												<div class="search-like" >
-												    <img src="resources/images/emptyheart.png" class="likeimg1 likeimg1-${book.bookcode}" alt="emptyheart" onclick="likeSuccess('${book.bookcode}', '${uid}', '${book.booktitle}', '${book.author}', '${book.publisher}', this)"/>
+												    <img src="resources/images/emptyheart.png" class="likeimg1 likeimg1-${book.bookcode}" alt="emptyheart" 
+												    onclick="likeSuccess('${book.bookcode}', '${uid}', '${book.booktitle}', '${book.author}', '${book.publisher}')"/>
 												    <p class="likecount likecount-${book.bookcode}">찜 ${book.likecount}</p>
 												</div>
 												<div class="btn-box">
@@ -174,7 +175,7 @@
 														<a href="detail?bookinfo=${book.bookcode}" class="detail-btn">상세보기</a>
 													</div>
 													<div class="rental-btn">
-														<button type="button" class="search-rental-btn">대여하기</button>
+														<button type="button" class="search-rental-btn searchloan-${book.bookcode}" onclick="loanbook('${book.bookcode}','${book.booktitle}')">대여하기</button>
 													</div>
 												</div>
 											</div>

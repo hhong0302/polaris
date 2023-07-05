@@ -377,6 +377,32 @@ public class HomeController {
 		out.println(likeCount);
 		out.close();
 	}
+	@RequestMapping(value = "/searchLoanBook", method = { RequestMethod.GET })	
+	public String searchLoanBook(HttpServletRequest request, Model model, RedirectAttributes re,@RequestParam("bookinfo") String bookinfo,@RequestParam(
+	"booktitle") String booktitle){
+	 
+		model.addAttribute("request", request);
+		
+		command = new DetailLoanCommand();
+		command.execute(model);
+	    
+	    return "search";			
+	}
+	@RequestMapping(value = "/searchloanCount", method = { RequestMethod.GET })
+	@ResponseBody 
+	public void searchLoanCount(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
+		String bookcode = request.getParameter("bookcode");
+		HttpSession session = request.getSession();
+		String userid=(String) session.getAttribute("userid");
+		
+		PolarisDAO dao = new PolarisDAO();
+
+		int loanStatus=dao.loanStatus(bookcode,userid);
+		System.out.println(loanStatus);
+		PrintWriter out = response.getWriter();
+		out.println(loanStatus);
+		out.close();
+	}
 
 	
 	  @RequestMapping(value = "interest", method = RequestMethod.GET) 
