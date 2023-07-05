@@ -30,7 +30,7 @@ public class MyCommand implements SpCommand {
 		
 		List<MembersDTO> mdto = dao.choi_memList();
 		List<BookloanDTO> bdto = dao.choi_loanList();
-		List<BookloanDTO> pbdto = dao.choi_pastloanList();
+		int pbdto = dao.choi_pastloanList();
 		List<InterestDTO> idto = dao.choi_interest();
 		
 		model.addAttribute("memlist", mdto);
