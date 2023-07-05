@@ -23,7 +23,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.gson.Gson;
 import com.polaris.home.command.AutoReturnCommand;
-import com.polaris.home.command.BookloanCommand;
 import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.DetailLoanCommand;
 import com.polaris.home.command.DetailReviewCommand;
@@ -48,6 +47,7 @@ import com.polaris.home.command.SpUpdatePassCommand;
 import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.BookDTO;
 import com.polaris.home.dto.BookloanDTO;
+import com.polaris.home.dto.InterestDTO;
 import com.polaris.home.dto.ReviewDTO;
 import com.polaris.home.util.Static;
 
@@ -391,19 +391,6 @@ public class HomeController {
 	  
 	  return "mypage"; // mypage.jsp 호출!!! }
 	  }
-
-	  
-	 @ResponseBody
-	 @RequestMapping(value="/pageAllList")
-	 public void pageAllList(HttpServletRequest req, HttpServletResponse res) throws Exception{
-		 PolarisDAO dao = new PolarisDAO();
-		 int listnum = 5*Integer.parseInt(req.getParameter("listnum"));
-		 List<BookloanDTO> dto = dao.choi_loanPageList(listnum);
-		 PrintWriter out = res.getWriter();
-		 String gson = new Gson().toJson(dto);	//데이터 json으로 전환
-		 out.print(gson);
-		 out.close();
-	 }
 	 
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
 	public String bookinfo(HttpServletRequest request, Model model) {
@@ -539,21 +526,57 @@ public class HomeController {
 		out.close();
 	}
 	
+	 @ResponseBody
+	 @RequestMapping(value="/pageAllList")
+	 public void pageAllList(HttpServletRequest req, HttpServletResponse res) throws Exception{
+		 PolarisDAO dao = new PolarisDAO();
+		 int listnum = 12*Integer.parseInt(req.getParameter("listnum"));
+		 List<BookloanDTO> dto = dao.choi_loanPageList(listnum);
+		 PrintWriter out = res.getWriter();
+		 String gson = new Gson().toJson(dto);	//데이터 json으로 전환
+		 out.print(gson);
+		 out.close();
+	 }
+	
+	@ResponseBody
+	@RequestMapping(value = "/jjimAllCounter")
+	public void jjimAllCounter(HttpServletRequest req, HttpServletResponse res) throws Exception{
+		PolarisDAO dao = new PolarisDAO();
+		int jjimCount = dao.choi_interest();
+		PrintWriter out = res.getWriter();
+		out.print(jjimCount);
+		out.close();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/jjimAllList")
+	public void jjimAllList (HttpServletRequest req, HttpServletResponse res) throws Exception{
+		PolarisDAO dao = new PolarisDAO();
+		int listnum = 12*Integer.parseInt(req.getParameter("listnum"));
+		List<InterestDTO> dto = dao.choi_jjimPageList(listnum);
+		PrintWriter out = res.getWriter();
+		String gson = new Gson().toJson(dto);
+		out.print(gson);
+		out.close();
+	}
+	
+	
 	//반납choi
-	@RequestMapping(value = "/bookloan", method = RequestMethod.POST)
-	public String choi_bookLoan(HttpServletRequest request, Model model, RedirectAttributes re) {
+	@ResponseBody
+	@RequestMapping(value = "/bookloan", method = RequestMethod.GET)
+	public void choi_bookLoan(HttpServletRequest request) {
 	    String bookcode = request.getParameter("bookcode");
 	    int num = Integer.parseInt(request.getParameter("num"));
-
-	    model.addAttribute("request", request);
-	    re.addAttribute("bookcode", bookcode);
-	    re.addAttribute("num", num);
-
-	    command = new BookloanCommand();
-	    command.execute(model);
-
-	    return "redirect:/mypage";
-	}
+	    PolarisDAO dao = new PolarisDAO();
+	    dao.choi_bookLoan(bookcode, num);
+		/*
+		 * model.addAttribute("request", request); re.addAttribute("bookcode",
+		 * bookcode); re.addAttribute("num", num);
+		 * 
+		 * command = new BookloanCommand(); command.execute(model);
+		 * 
+		 * return "redirect:/mypage";
+		 */	}
 	
 	
 	@RequestMapping(value = "register")
