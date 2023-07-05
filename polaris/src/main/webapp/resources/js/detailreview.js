@@ -12,7 +12,7 @@ const rvbox_detail_value=rvbox_detail.innerHTML;
 
 window.onload=function()
 {
-	if(rvbox_detail_num<=95) document.getElementById("rvcontentmoreWatchbtnbox").innerHTML="";
+	if(rvbox_detail_num<=80) document.getElementById("rvcontentmoreWatchbtnbox").innerHTML="";
 	else document.getElementById("rvcontentmoreWatchbtnbox").innerHTML=`<button type="button" 
 	class="rvcontentmoreWatchbtn" onclick="rvmoreWatch(this)">모두보기<i class="fa-solid fa-angle-down"></i>
 	</button>`;
@@ -126,7 +126,7 @@ function reviewModifyCancel()
 //더보기 버튼
 function rvmoreWatch(e)
 {
-	if(rvbox_detail.clientHeight==95)
+	if(rvbox_detail.clientHeight==80)
 	{
 		e.innerHTML= `접기<i class="fa-solid fa-angle-up"></i>`;
 		rvbox_detail.style.height=rvbox_detail.scrollHeight+"px";
@@ -135,7 +135,7 @@ function rvmoreWatch(e)
 	else
 	{
 		e.innerHTML= `모두보기<i class="fa-solid fa-angle-down"></i>`;
-		rvbox_detail.style.height="95px";
+		rvbox_detail.style.height="80px";
 		rvbox_detail.classList.add("active");
 	}
 }
@@ -408,7 +408,7 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 //모두보기 누르면 나왔다 들어갔다 버튼
 function moreWatch(e,hg_number)
 {
-	if(rvcmtcontent[hg_number].clientHeight==43)
+	if(rvcmtcontent[hg_number].clientHeight==40)
 	{
 		e.innerHTML= `접기<i class="fa-solid fa-angle-up"></i>`;
 		rvcmtcontent[hg_number].style.height=rvcmtcontent[hg_number].scrollHeight+"px";
@@ -417,7 +417,7 @@ function moreWatch(e,hg_number)
 	else
 	{
 		e.innerHTML= `모두보기<i class="fa-solid fa-angle-down"></i>`;
-		rvcmtcontent[hg_number].style.height="43px";
+		rvcmtcontent[hg_number].style.height="40px";
 		rvcmtcontent[hg_number].classList.add("active");
 	}
 }
