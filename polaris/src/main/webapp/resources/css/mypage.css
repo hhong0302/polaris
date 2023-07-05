@@ -66,6 +66,7 @@ span{
     margin-right: 25px;
 }
 .choi-current-book{
+	margin-top : 20px;	
     width: 387px;
     height: 230px;
     display: flex;
@@ -74,21 +75,38 @@ span{
     border : 1px solid #ccc;
     padding : 20px 25px;
     margin-right : 19px;
+}
+.choi-past-book-big{
+	display : inline-flex;
 }
 .choi-past-book{
-	background-color: #fff;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    border : 1px solid #ccc;
-    width: 387px;
-    height: 230px;
-    padding : 20px 25px;
-    margin-right : 19px;
+	width : 183px;
+	height : 110px;
+	border-radius: 8px;
+	margin-right : 20px;
+	margin-top : 20px;
+	background-color : #ddd;
+	display : flex;
 }
-.choi-post-book-img img{
-	width : 130px;
-	height : 190px;
+.choi-past-img img{
+	width : 54px;
+	height : 80px;
+	margin-left : 10px;
+	margin-top : 16px;
+	margin-bottom : 16px;
+}
+.choi-past-text{
+	margin : 20px 10px;
+}
+.choi-past-text-top p{
+	font-size : 13px;
+	font-weight : bold;
+	margin-bottom : 21px;
+}
+.choi-past-text-bottom span{
+	font-size : 12px;
+	color : #797979;
+	display : block;
 }
 .choi-book-text>div{
 	margin-bottom : 15px;
@@ -97,6 +115,14 @@ span{
 	width : 130px;
 	height : 190px;
 	margin-right : 20px;
+}
+.pageNum{
+	margin : 0;
+	margin-top : 20px;
+	display : flex;
+	justify-content : center;
+	width : 1200px;
+	align-items : center;
 }
 .choi-dday{
 	color : #FF0000;
@@ -127,17 +153,26 @@ span{
 	color : #c30000;
 	font-weight : bold;
 }
+.choi-book-text-last{
+	display : flex;
+}
 .choi-book-text-last button{
 	margin-top : 28px;
 	border-radius : 4px;
-	float : right;
-	background-color : #245478;
-	color : #fff;
-	font-size : 15px;
 	width : 90px;
 	height : 34px;
 	border : none;
 	cursor : pointer;
+}
+.bookloan{
+	background-color : #245478;
+	color : #fff;
+	font-size : 15px;
+}
+.booklook{
+	background-color : #797979;
+	color : #fff;
+	margin-right : 7px;
 }
 .choi-dday{
 	margin-top : 5px;
@@ -151,16 +186,22 @@ span{
 	height : 303px;
 	
 }
+.choi-jjim-img-nothing img{
+	width : 190px;
+	height : 110px;
+}
 .choi-jjim p{
     font-size: 20px;
     font-weight: bold;
     color: #000;
 }
+.choi-jjim-innerbook-nothing{
+	margin-top : 10px;
+}
 .choi-jjim-innerbook{
     background-color: #f1f1f1;
     border-radius: 8px;
     display: flex;
-    justify-content: space-between;
     width: 190px;
     height: 110px;
     padding : 10px;
@@ -183,9 +224,8 @@ span{
     height : 85px;
     margin-right : 10px;
 }
-.choi-jjim-text{
+.choi-jjim-text div{
 	display : block;
-	height : auto;
 }
 .choi-close-btn img{
 	float : right;
@@ -202,8 +242,13 @@ span{
 }
 .choi-jjim-text-bottom span{
 	font-size : 12px;
+	display : block;
 }
 .choi-booklist{
-	display : flex;
 	margin-top : 20px;
+}
+.deleteBtn{
+	border : none;	
+	float : right;
+	width : 100%;
 }

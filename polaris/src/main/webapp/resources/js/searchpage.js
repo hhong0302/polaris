@@ -33,59 +33,96 @@ for (var i = 0; i < searchResults.length; i++) {
 loadMoreButton.addEventListener("click", showNextResults);
 
 
+
 //찜하기 insert,delete
 function likeSuccess(bookcode, uid, booktitle, author, publisher) {
-	$.ajax({
-		url: "searchLike",
-		type: 'GET',
-		data: {
-			bookinfo: bookcode,
-			userid: uid,
-			booktitle: booktitle,
-			author: author,
-			publisher: publisher
-		},
-		success: function(data) {
-			$.ajax({
-			    url: "searchUserLike",
-			    type: 'GET',
-			    data: {
-			        bookcode: bookcode
-			    },
-			    success: function(data) {
-			    	$.ajax({
-			    	url: "searchLikeCount",
-			    	type: 'GET',
-			    	data: {
-			        	bookcode: bookcode
-			    	},
-			    	success: function(data) {
-			        	var likeCount = parseInt(data);
-			       		var likeClick = parseInt(data);
-			        	var code = bookcode;
-			        	if (likeClick === 1) {
-			        		$(".likeimg1-" + code).attr("src", "resources/images/fillheart.png");
-			           		$(".likecount-" + code).text("찜 "+likeCount);			            
-			        	} else {
-			        		$(".likeimg1-" + code).attr("src", "resources/images/emptyheart.png");
-			            	$(".likecount-" + code).text("찜 "+likeCount);
-			        	}
-			    	},
-			    	error: function() {
-        				alert("Error");
-    				}
-			});
+    $.ajax({
+        url: "searchLike",
+        type: 'GET',
+        data: {
+            bookinfo: bookcode,
+            userid: uid,
+            booktitle: booktitle,
+            author: author,
+            publisher: publisher
+        },
+        success: function(data) {
+            $.ajax({
+                url: "searchUserLike",
+                type: 'GET',
+                data: {
+                    bookcode: bookcode
+                },
+                success: function(data) {
+                    $.ajax({
+                        url: "searchLikeCount",
+                        type: 'GET',
+                        data: {
+                            bookcode: bookcode
+                        },
+                        success: function(data) {
+                            var likeCount = parseInt(data);
+                            var likeClick = parseInt(data);
+                            var code = bookcode;
+                            if (likeClick === 1) {
+                                $(".likeimg1-" + code).attr("src", "resources/images/fillheart.png");
+                                $(".likecount-" + code).text("찜 "+likeCount);                       
+                            } else {
+                                $(".likeimg1-" + code).attr("src", "resources/images/emptyheart.png");
+                                $(".likecount-" + code).text("찜 "+likeCount);
+                            }
+                        },
+                        error: function() {
+                            alert("Error");
+                        }
+                    });
+                },
+                error: function() {
+                    alert("Error");
+                }
+            });
+        },
+        error: function() {
+            alert("Error");
+        }
+    });
+}
 
-			},
-			    error: function() {
-        			alert("Error");
-    			}
-				});
-		},
-		error: function() {
-			alert("error");
-		}
-	});
 
-	
+//대여하기
+function loanbook(bookcode, booktitle) {
+    $.ajax({
+        url: "searchLoanBook",
+        type: "GET",
+        data: { "bookinfo": bookcode, "booktitle": booktitle },
+        async: false,
+        contentType: "application/json",
+        success: function(data) {
+            // 세션에 데이터 저장
+            saveDataToSession(bookcode, booktitle);
+
+            $.ajax({
+                url: "searchloanCount",
+                type: "GET",
+                data: { "bookcode": bookcode, "booktitle": booktitle },
+                success: function(data) {
+                    var loanStatus = parseInt(data);
+                    var code = bookcode;
+                    if (loanStatus == 0) {
+                        alert("반납하시겠습니까?");
+                        $(".searchloan-" + code).text("대여하기");
+                    } else {
+                        alert("대여하시겠습니까?");
+                        $(".searchloan-" + code).text("반납하기");
+                    }
+                },
+                error: function() {
+                    alert("에러");
+                }
+            });
+        },
+        error: function() {
+            alert("에러");
+        }
+    });
 }
