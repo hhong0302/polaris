@@ -23,6 +23,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.gson.Gson;
 import com.polaris.home.command.AutoReturnCommand;
+import com.polaris.home.command.BookloanCommand;
 import com.polaris.home.command.DetailCommand;
 import com.polaris.home.command.DetailLoanCommand;
 import com.polaris.home.command.DetailReviewCommand;
@@ -393,6 +394,8 @@ public class HomeController {
 	  
 	  return "mypage"; // mypage.jsp 호출!!! }
 	  }
+	  
+	 
 
 	  @RequestMapping(value="mypage", method = RequestMethod.POST)
 	  public String pageList(HttpServletRequest request, Model model) {
@@ -416,7 +419,19 @@ public class HomeController {
 		  return "mypage";
 		  
 	  }
-	  
+	
+	  @ResponseBody
+	  @RequestMapping(value = "/pageList")
+	  public void pageList(HttpServletRequest req, HttpServletResponse res)throws Exception{
+		  PolarisDAO dao = new PolarisDAO();
+		  int listnum = 5*Integer.parseInt(req.getParameter("listnum"));
+		  String listType = req.getParameter("listType");
+		  List<BookloanDTO> dto = dao.choi_pageAllList();
+		  PrintWriter out =res.getWriter();
+		  String gson = new Gson().toJson(dto);
+		  out.println(gson);
+		  out.close();
+	  }
 	  
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
 	public String bookinfo(HttpServletRequest request, Model model) {
@@ -460,22 +475,39 @@ public class HomeController {
 		command = new LikeCommand();
 		command.execute(model);
 		
-		return "redirect:/detail";
+		return "detail";
 		
 	}
-	@RequestMapping("/deleteLike")
-	public String deleteLike(HttpServletRequest request, Model model, RedirectAttributes re) {
-		String bookcode = request.getParameter("bookinfo");
-		model.addAttribute("request", request);
-		re.addAttribute("bookinfo", bookcode);
+	@RequestMapping(value = "/detailUserLike", method = { RequestMethod.GET })
+	@ResponseBody 
+	public void detailUserLike(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
+		String bookcode = request.getParameter("bookcode");
+		HttpSession session = request.getSession();
+		String userid=(String) session.getAttribute("userid");
 		
-		command = new LikeCommand();
-		command.execute(model);
+		int likeClick=0;
+		PolarisDAO dao = new PolarisDAO();
+
+		likeClick=dao.userLike(bookcode,userid);
+	
+		PrintWriter out = response.getWriter();
+		out.println(likeClick);
+		out.close();
+	}
+	@RequestMapping(value = "/detailLikeCount", method = { RequestMethod.GET })
+	@ResponseBody 
+	public void detailLikeCount(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
+		String bookcode = request.getParameter("bookcode");
 		
-		return "redirect:/detail";
-		
-	}	
-	@RequestMapping("/bookloan")
+		PolarisDAO dao = new PolarisDAO();
+		int likeCount=dao.likeCount(bookcode);
+	
+		PrintWriter out = response.getWriter();
+		out.println(likeCount);
+		out.close();
+	}
+	
+	@RequestMapping("/detailbookloan")
 	public String loanbook(HttpServletRequest request, Model model, RedirectAttributes re) {
 		String bookcode = request.getParameter("bookinfo");
 		model.addAttribute("request", request);
@@ -494,6 +526,14 @@ public class HomeController {
 		command = new DetailLoanCommand();
 		command.execute(model);
 		return "loanStatus";
+	}
+	@RequestMapping(value = "loanCount")
+	public String loanCount(HttpServletRequest request, Model model){
+		model.addAttribute("request", request);
+		
+		command = new DetailLoanCommand();
+		command.execute(model);
+		return "loanCount";
 	}
 	@RequestMapping(value = "sgGenre")
 	public String sgGenre(HttpServletRequest request, Model model){
@@ -515,6 +555,22 @@ public class HomeController {
 		
 		return "mypage";	// mypage.jsp 호출!!!
 	
+	}
+	
+	//반납choi
+	@RequestMapping(value = "/bookloan", method = RequestMethod.POST)
+	public String choi_bookLoan(HttpServletRequest request, Model model, RedirectAttributes re) {
+	    String bookcode = request.getParameter("bookcode");
+	    int num = Integer.parseInt(request.getParameter("num"));
+
+	    model.addAttribute("request", request);
+	    re.addAttribute("bookcode", bookcode);
+	    re.addAttribute("num", num);
+
+	    command = new BookloanCommand();
+	    command.execute(model);
+
+	    return "redirect:/mypage";
 	}
 	
 	
