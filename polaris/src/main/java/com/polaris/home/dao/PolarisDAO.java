@@ -302,9 +302,9 @@ public class PolarisDAO {
 		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
 	}
 	
-	public List<BookloanDTO> choi_pastloanList(){
-		String sql = "select*from bookloan where loan < 1";
-		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
+	public int choi_pastloanList(){
+		String sql = "select count(*) from bookloan where loan < 1";
+		return template.queryForObject(sql, Integer.class);
 	}
 	
 	public List<InterestDTO> choi_interest(){
@@ -336,12 +336,14 @@ public class PolarisDAO {
 				}
 		});
 	}
-	public List<BookloanDTO> choi_pageAllList() {
-		String sql = "select*from bookloan where loan = 0";
+	//페이징 12345 처리
+	public List<BookloanDTO> choi_loanPageList(int listnum){
+		String sql = "select*from bookloan where loan < 1";
+		sql+=" limit "+listnum+", 5";
 		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
 	}
 
-	
+
 	
 	//바지조장 End
 	

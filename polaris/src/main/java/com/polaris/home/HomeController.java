@@ -48,9 +48,6 @@ import com.polaris.home.command.SpUpdatePassCommand;
 import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.BookDTO;
 import com.polaris.home.dto.BookloanDTO;
-import com.polaris.home.dto.InterestDTO;
-import com.polaris.home.dto.PageMakerDTO;
-import com.polaris.home.dto.PagingCriteriaDTO;
 import com.polaris.home.dto.ReviewDTO;
 import com.polaris.home.util.Static;
 
@@ -394,45 +391,20 @@ public class HomeController {
 	  
 	  return "mypage"; // mypage.jsp 호출!!! }
 	  }
-	  
-	 
 
-	  @RequestMapping(value="mypage", method = RequestMethod.POST)
-	  public String pageList(HttpServletRequest request, Model model) {
-		  PolarisDAO dao = new PolarisDAO();
-		  String interest = request.getParameter("interest");
-		  PagingCriteriaDTO cri = new PagingCriteriaDTO();
-		  
-		  int pageNum = Integer.parseInt(request.getParameter("pageNum"));
-		  int amount = Integer.parseInt(request.getParameter("amount"));
-		  cri.setPageNum(pageNum);
-		  cri.setAmount(amount);
-		  
-		  int total = dao.choi_pagingTotal();
-		  PageMakerDTO pagemaker = new PageMakerDTO(cri, total);
-		  
-		  List<InterestDTO> interestdto = dao.choi_InterestList(cri);
-		  
-		  model.addAttribute("pagemaker", pagemaker);
-		  model.addAttribute("interest", interest);
-		  
-		  return "mypage";
-		  
-	  }
-	
-	  @ResponseBody
-	  @RequestMapping(value = "/pageList")
-	  public void pageList(HttpServletRequest req, HttpServletResponse res)throws Exception{
-		  PolarisDAO dao = new PolarisDAO();
-		  int listnum = 5*Integer.parseInt(req.getParameter("listnum"));
-		  String listType = req.getParameter("listType");
-		  List<BookloanDTO> dto = dao.choi_pageAllList();
-		  PrintWriter out =res.getWriter();
-		  String gson = new Gson().toJson(dto);
-		  out.println(gson);
-		  out.close();
-	  }
 	  
+	 @ResponseBody
+	 @RequestMapping(value="/pageAllList")
+	 public void pageAllList(HttpServletRequest req, HttpServletResponse res) throws Exception{
+		 PolarisDAO dao = new PolarisDAO();
+		 int listnum = 5*Integer.parseInt(req.getParameter("listnum"));
+		 List<BookloanDTO> dto = dao.choi_loanPageList(listnum);
+		 PrintWriter out = res.getWriter();
+		 String gson = new Gson().toJson(dto);	//데이터 json으로 전환
+		 out.print(gson);
+		 out.close();
+	 }
+	 
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
 	public String bookinfo(HttpServletRequest request, Model model) {
 		String bookcode = request.getParameter("bookinfo");
@@ -555,6 +527,16 @@ public class HomeController {
 		
 		return "mypage";	// mypage.jsp 호출!!!
 	
+	}
+	
+	@ResponseBody
+	@RequestMapping(value ="/pastLoanAllCounter")
+	public void pastLoanAllCounter(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		PolarisDAO dao = new PolarisDAO();
+		int pastloan = dao.choi_pastloanList();
+		PrintWriter out = res.getWriter();
+		out.print(pastloan);
+		out.close();
 	}
 	
 	//반납choi
