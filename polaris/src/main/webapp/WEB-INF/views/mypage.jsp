@@ -46,7 +46,7 @@
                 <a class="nav-link active" data-toggle="tab" href="#qwe">• 현재 대여 목록</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#asd">• 지난 대여 목록</a>
+                <a class="nav-link" data-toggle="tab" href="#asd" onclick="pageAllList();">• 지난 대여 목록</a>
               </li>
             </ul>
             <div class="tab-content">				
@@ -95,7 +95,7 @@
               <div class="tab-pane fade" id="asd">
               <div class = "choi-booklist">
               <c:choose>
-	          <c:when test="${empty pastloanList}">
+	          <c:when test="${pastloanList eq 0}">
 	          	<div class="choi-past-book">
                     <div class="choi-post-book-img">
                         <img src="resources/images/past-nothing.png" alt="book">
@@ -103,7 +103,8 @@
                  </div>
 	          </c:when>
 	           <c:otherwise>
-               <c:forEach var ="my" items= "${pastloanList }"> 
+	           <div class="choi-past-book-big">
+             <%--   <c:forEach var ="my" items= "${pastloanList }"> 
 	           <div class="choi-past-book">
                     <div class="choi-past-img">
                         <img src="resources/bookimg/${my.bookcode }.jpg" alt="book">
@@ -118,15 +119,17 @@
     					</div>
                     </div>
                 </div>
-	            </c:forEach> 
+	            </c:forEach>  --%>
+	            </div>
 	            </c:otherwise>
 	            </c:choose>
 	            <div class = "pageNum">
-                	<a href = "#" class = "page-prev-btn" onclick="#">
+                	<a href = "#" class = "prv" onclick="rvListPrevNxtBtn(-1, '${bookcode}')">
                 		<img src = "resources/images/left.png">
                 	</a>
-                	<div class = "pageNum-detail"></div>
-                	<a href = "#" class = "page-prev-btn" onclick="#">
+                	<div class = "pageNum-detail">
+                	</div>
+                	<a href = "#" class = "nxt" onclick="rvListPrevNxtBtn(1, '${bookcode}'">
                 		<img src = "resources/images/right.png">
                 	</a>
                 </div>
@@ -185,10 +188,11 @@
      
      
      
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<script src="/resources/js/mypage.js"></script>
+<script src="resources/js/mypage.js"></script>
+
+
  <%@include file = "include/footer.jsp" %>
 
 </body>

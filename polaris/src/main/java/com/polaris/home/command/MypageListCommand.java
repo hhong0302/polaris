@@ -19,9 +19,7 @@ public class MypageListCommand implements SpCommand {
 		HttpServletRequest req = (HttpServletRequest)map.get("request");
 		HttpSession session = req.getSession();
 		PolarisDAO dao = new PolarisDAO();
-		String bookcode = req.getParameter("bookinfo");
-		List<BookloanDTO> pageCount = dao.choi_pageAllList();
-		
+		String bookcode = req.getParameter("bookinfo");		
 	}
 
 }
