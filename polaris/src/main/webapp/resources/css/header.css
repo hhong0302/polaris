@@ -42,12 +42,16 @@ header::after{
 }
 .menu{
 	display: flex;
+	color: #333;
 }
 .menu li{
 	padding-right: 35px;
 	color: #333;
 	font-weight: bold;
 	font-size: 17px;
+}
+.menu li a.selected {
+    color: #4563FF !important;
 }
 .menu li:hover{
 	color: #4563FF;
