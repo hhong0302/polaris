@@ -20,6 +20,7 @@ public class MypageListCommand implements SpCommand {
 		HttpSession session = req.getSession();
 		PolarisDAO dao = new PolarisDAO();
 		String bookcode = req.getParameter("bookinfo");		
+
 	}
 
 }

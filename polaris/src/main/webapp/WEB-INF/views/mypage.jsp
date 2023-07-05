@@ -103,8 +103,10 @@
                  </div>
 	          </c:when>
 	           <c:otherwise>
+
 	           <div class="choi-past-book-big">
              <%--   <c:forEach var ="my" items= "${pastloanList }"> 
+
 	           <div class="choi-past-book">
                     <div class="choi-past-img">
                         <img src="resources/bookimg/${my.bookcode }.jpg" alt="book">
@@ -130,6 +132,7 @@
                 	<div class = "pageNum-detail">
                 	</div>
                 	<a href = "#" class = "nxt" onclick="rvListPrevNxtBtn(1, '${bookcode}'">
+
                 		<img src = "resources/images/right.png">
                 	</a>
                 </div>
@@ -190,6 +193,7 @@
      
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
 <script src="resources/js/mypage.js"></script>
 
 

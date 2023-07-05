@@ -50,7 +50,6 @@ function pageAllList(){
 		success : function(datas) {
 			let listCount=0;	//초기 리스트 개수. 총 개수가 60보다 적으면 
 			let rvButtonList="";	//리스트가 총 몇개인지
-
 		  	if(datas==0)
 			{
 				rvButtonList+=`<button class="pageNum-pagebtn">1</button>`;
@@ -60,6 +59,7 @@ function pageAllList(){
 				allReviewDatas=Math.ceil(datas/12);
 				
 				if(datas<60) listCount=Math.ceil(datas/12);
+
 				else
 				{
 					listCount=5;
@@ -77,8 +77,7 @@ function pageAllList(){
   		}
 		});
 		document.getElementsByClassName("pageNum-pagebtn")[0].click();
-		
-		
+
 		//페이지 처음에 1페이지로 가는거
 		}
 
@@ -92,11 +91,13 @@ $.ajax({
 		type: "GET",
 		dataType: "json",
 		data:{"listnum":listNumber},
+
 		async:false,
 		contentType: "application/json",
 		success : function(datas) {
 			for(let i=0;i<datas.length;i++)
 				{
+
 					reviewList+=`<div class="choi-past-book">
                     <div class="choi-past-img">
                         <img src="resources/bookimg/${datas.bookcode }.jpg" alt="book">
@@ -113,6 +114,7 @@ $.ajax({
                 </div>`;
 			    			
 			    }
+
 		},
   		error : function() {
   		console.log("error");
@@ -126,6 +128,7 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 {
 
 	const pgNum_pgbtn = document.getElementsByClassName("pageNum");
+
 	listPageNum+=hg_number;
 	if(listPageNum<0)
 	{
@@ -149,6 +152,7 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 		rvButtonList+=`<button class="pageNum-pagebtn" onclick="pageNumBtnClick(this,${i-1},'${listType}','${bookcode}')">${i}</button>`;
 	}
 	pgnum_detail.innerHTML=rvButtonList;
+
 	if(hg_number==1)
 	{
 		pgNum_pgbtn[0].click();

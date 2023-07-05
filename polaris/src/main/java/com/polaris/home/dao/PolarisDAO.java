@@ -343,6 +343,7 @@ public class PolarisDAO {
 		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
 	}
 
+
 	
 	//바지조장 End
 	
@@ -422,6 +423,10 @@ public class PolarisDAO {
 	
 	public int loanStatus(String bookcode, String userid){
 		String sql ="select count(*) from bookloan where bookcode = '" + bookcode +"' and userid = '" + userid + "' and loan = 1";
+		return template.queryForObject(sql, Integer.class);
+	}
+	public int loanCount(String userid){
+		String sql ="select count(*) from bookloan where userid = '" + userid + "' and loan = 1";
 		return template.queryForObject(sql, Integer.class);
 	}
 	public String sgGenre(String bookcode){
