@@ -1,3 +1,4 @@
+<%@page import="com.polaris.home.dao.PolarisDAO"%>
 <%@page import="com.polaris.home.dto.BookDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -16,7 +17,9 @@
 <body>
 <%@include file="include/header.jsp" %>
 	<%
+		PolarisDAO dao = new PolarisDAO();
 		String uid = (String) session.getAttribute("userid");
+		int loanCount = dao.loanCount((String)session.getAttribute("userid"));
 	%>
 	<input type="hidden" name="userid" value="<%= uid%>">
 	<div class="container-detail">
@@ -29,7 +32,7 @@
 				<p>메인<i class="ri-arrow-drop-right-line"></i><span class="ftBlack-detail">${book.genre}</span></p>
 			</div>
 			
-			<form action="bookloan?bookinfo=${bookcode}" class="bookRental-detail" method="post">
+			<form action="detailbookloan?bookinfo=${bookcode}" class="bookRental-detail" method="post">
 				<div class="hash-detail">					
 					<p class="bookHash-detail">
 					${fn:replace(book.hash, replaceHash, "</p> <p>")}
@@ -65,36 +68,35 @@
 				<%
 					if (uid == null){
 				%>
-					<div onclick="reject()" class="rentalBtn-detail">
+					<div class="rentalBtn-detail">
 						<div class="likeBtn-detail">
-							<img alt="like" src="resources/images/emptyheart.png">
-							찜 ${likeCount}
+							<img src="resources/images/emptyheart.png" class="likeimg" alt="emptyheart" onclick="reject()">
+							<p>찜 ${book.likecount}</p>
 						</div>
-						<button type="button" class="rental-detail">대여하기</button>
-						<button type="button" class="readNow-detail">바로 읽기</button>
+						<button type="button" class="rental-detail" onclick="reject()">대여하기</button>
+						<button type="button" class="readNow-detail" onclick="reject()">바로 읽기</button>
 					</div>
 				<%
 					}else {
 				%>				
 					<div class="rentalBtn-detail">
-						<c:choose>
-							<c:when test="${userLike == 0}">
-								<a class="likeBtn-detail"
-								   href="/home/insertLike?bookinfo=${bookcode}&booktitle=${book.booktitle}&author=${book.author}&publisher=${book.publisher}">
-									<img alt="like" src="resources/images/emptyheart.png">
-									찜 ${likeCount}
-								</a>
-							</c:when>
-							<c:otherwise>
-								<a class="likeBtn-detail" href="/home/deleteLike?bookinfo=${bookcode}">
-									<img alt="like" src="resources/images/fillheart.png">
-									찜 ${likeCount}
-								</a>
-							</c:otherwise>
-						</c:choose>
+						<div class="likeBtn-detail" >
+						    <img src="resources/images/emptyheart.png" class="likeimg likeimg-${book.bookcode}" alt="emptyheart" onclick="interest('${book.bookcode}', '${userid}', '${book.booktitle}', '${book.author}', '${book.publisher}', this)"/>
+						    <p class="likecount likecount-${book.bookcode}">찜 ${book.likecount}</p>
+						</div>
 						<c:choose>
 							<c:when test="${loanStatus == 0}">
+								<%
+									if(loanCount < 3){
+								%>
 								<button type="submit" class="rental-detail">대여하기</button>
+								<%
+									}else{
+								%>
+								<button type="button" class="rental-detail" onclick="loanReject()">대여하기</button>
+								<%
+									}
+								%>
 							</c:when>
 							<c:otherwise>
 								<button type="submit" class="rental-detail">반납하기</button>
