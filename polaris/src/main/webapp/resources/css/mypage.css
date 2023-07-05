@@ -76,6 +76,9 @@ span{
     padding : 20px 25px;
     margin-right : 19px;
 }
+.choi-past-book-big{
+	display : inline-flex;
+}
 .choi-past-book{
 	width : 183px;
 	height : 110px;
@@ -90,7 +93,7 @@ span{
 	height : 80px;
 	margin-left : 10px;
 	margin-top : 16px;
-	margin-bottom : 16px;s
+	margin-bottom : 16px;
 }
 .choi-past-text{
 	margin : 20px 10px;
@@ -112,6 +115,14 @@ span{
 	width : 130px;
 	height : 190px;
 	margin-right : 20px;
+}
+.pageNum{
+	margin : 0;
+	margin-top : 20px;
+	display : flex;
+	justify-content : center;
+	width : 1200px;
+	align-items : center;
 }
 .choi-dday{
 	color : #FF0000;
@@ -234,7 +245,6 @@ span{
 	display : block;
 }
 .choi-booklist{
-	display : flex;
 	margin-top : 20px;
 }
 .deleteBtn{
