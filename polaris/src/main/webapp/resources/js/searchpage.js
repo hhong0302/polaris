@@ -98,9 +98,6 @@ function loanbook(bookcode, booktitle) {
         async: false,
         contentType: "application/json",
         success: function(data) {
-            // 세션에 데이터 저장
-            saveDataToSession(bookcode, booktitle);
-
             $.ajax({
                 url: "searchloanCount",
                 type: "GET",
@@ -111,10 +108,11 @@ function loanbook(bookcode, booktitle) {
                     if (loanStatus == 0) {
                         alert("반납하시겠습니까?");
                         $(".searchloan-" + code).text("대여하기");
-                    } else {
-                        alert("대여하시겠습니까?");
+                    }else{
+                        alert("대여하시겠습니까?");                       
                         $(".searchloan-" + code).text("반납하기");
                     }
+                    location.reload();
                 },
                 error: function() {
                     alert("에러");
