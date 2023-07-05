@@ -475,22 +475,39 @@ public class HomeController {
 		command = new LikeCommand();
 		command.execute(model);
 		
-		return "redirect:/detail";
+		return "detail";
 		
 	}
-	@RequestMapping("/deleteLike")
-	public String deleteLike(HttpServletRequest request, Model model, RedirectAttributes re) {
-		String bookcode = request.getParameter("bookinfo");
-		model.addAttribute("request", request);
-		re.addAttribute("bookinfo", bookcode);
+	@RequestMapping(value = "/detailUserLike", method = { RequestMethod.GET })
+	@ResponseBody 
+	public void detailUserLike(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
+		String bookcode = request.getParameter("bookcode");
+		HttpSession session = request.getSession();
+		String userid=(String) session.getAttribute("userid");
 		
-		command = new LikeCommand();
-		command.execute(model);
+		int likeClick=0;
+		PolarisDAO dao = new PolarisDAO();
+
+		likeClick=dao.userLike(bookcode,userid);
+	
+		PrintWriter out = response.getWriter();
+		out.println(likeClick);
+		out.close();
+	}
+	@RequestMapping(value = "/detailLikeCount", method = { RequestMethod.GET })
+	@ResponseBody 
+	public void detailLikeCount(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
+		String bookcode = request.getParameter("bookcode");
 		
-		return "redirect:/detail";
-		
-	}	
-	@RequestMapping("/bookloan")
+		PolarisDAO dao = new PolarisDAO();
+		int likeCount=dao.likeCount(bookcode);
+	
+		PrintWriter out = response.getWriter();
+		out.println(likeCount);
+		out.close();
+	}
+	
+	@RequestMapping("/detailbookloan")
 	public String loanbook(HttpServletRequest request, Model model, RedirectAttributes re) {
 		String bookcode = request.getParameter("bookinfo");
 		model.addAttribute("request", request);
@@ -509,6 +526,14 @@ public class HomeController {
 		command = new DetailLoanCommand();
 		command.execute(model);
 		return "loanStatus";
+	}
+	@RequestMapping(value = "loanCount")
+	public String loanCount(HttpServletRequest request, Model model){
+		model.addAttribute("request", request);
+		
+		command = new DetailLoanCommand();
+		command.execute(model);
+		return "loanCount";
 	}
 	@RequestMapping(value = "sgGenre")
 	public String sgGenre(HttpServletRequest request, Model model){
