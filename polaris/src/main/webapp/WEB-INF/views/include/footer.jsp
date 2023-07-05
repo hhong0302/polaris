@@ -10,17 +10,10 @@
 	</button>
 </div>
 
-<script>
-function hg_gototop()
-{
-	window.scrollTo({ top: 0, behavior: "smooth" }); 
-}
-</script>
-
-<footer>
+<footer id="hg-footer">
 	<div class="container hg-footer">
 		<div class="hg-ftop">
-			<div>
+			<div class="hg-ftopleft">
 				<a href="/home">
 					<img src="resources/images/textlogo_white.svg" alt="logo" />
 				</a>
@@ -31,6 +24,13 @@ function hg_gototop()
 				<span>개인정보처리방침</span>
 				<span class="hg-span">|</span>
 				<span>청소년 보호정책</span>
+			</div>
+			<div class="hg-familysite">
+				<a href="javascript:void(0)" target="_blank"><span id="hg-prositetxt">Profile Site</span></a>
+				<div class="hg-familysitebox">
+					<span id="hg-fmysitetxt">Family Site</span>
+					<div id="hg-fmysitebox"></div>
+				</div>
 			</div>
 		</div>
 		<div class="hg-fbottom">
@@ -50,3 +50,31 @@ function hg_gototop()
 		</div>
 	</div>
 </footer>
+
+
+<script>
+const hg_familysite = document.getElementsByClassName("hg-familysite")[0];
+const hg_prositetxt = document.getElementById("hg-prositetxt");
+const hg_fmysitebox = document.getElementById("hg-fmysitebox");
+hg_familysite.addEventListener("click",function()
+{
+	hg_familysite.classList.toggle("active");
+	hg_prositetxt.classList.toggle("active");
+	hg_fmysitebox.classList.toggle("active");
+});
+const hg_gototopbtn = document.getElementsByClassName("hg-gototop")[0];
+window.addEventListener('scroll', function(){
+	if(window.pageYOffset>160)
+	{
+		hg_gototopbtn.classList.add("active");
+	}
+	else
+	{
+		hg_gototopbtn.classList.remove("active");
+	}
+});
+function hg_gototop()
+{
+	window.scrollTo({ top: 0, behavior: "smooth" }); 
+}
+</script>

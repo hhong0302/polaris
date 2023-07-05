@@ -2,7 +2,7 @@
 html {
 	scroll-behavior:smooth;
 }
-body {
+html, body {
 	font-family: ‘Pretendard’, ‘Noto Sans KR’, sans-serif;
 }
 .container-detail {
@@ -121,20 +121,24 @@ button.readNow-detail {
 	background: #797979;
 	border-radius: 50%;
 	margin-right: 8px;
+	transition: all 40ms;
 }
 .navMenu-detail.action {
 	width: 10px;
 	height: 10px;
 	background: #3345a4;
 	border-radius: 50%;
+	transition: all 40ms;
 }
 .menuTitle-detail {
 	color: #797979;
 	font-size: 18px;
 	font-weight: bolder;
+	transition: all 40ms;
 }
 .menuTitle-detail.action {
 	color: #3345a4;
+	transition: all 40ms;
 }
 .sticky {
 	position: sticky;
@@ -273,13 +277,14 @@ button.readNow-detail {
 	font-weight:600;
 	margin: 5px 15px 0 5px;
 	white-space:nowrap;
+	letter-spacing:1px;
 }
 .reviewWrt-detail-title #reviewtitle
 {
 	width:940px;
 	height:50px;
 	font-size:18px;
-	font-weight:600;
+	font-weight:500;
 	padding-left:10px;
 	margin-right:20px;
     border: 2px solid #ccc;
@@ -299,7 +304,7 @@ button.readNow-detail {
 	color: #fff;
 	border: none;
 	font-size: 20px;
-	font-weight: 600;
+	font-weight: 500;
 	letter-spacing:-1px;
 	cursor: pointer;
 }
@@ -325,7 +330,7 @@ button.readNow-detail {
 }
 .reviewBox-detail {
 	width: 940px;
-	height:95px;
+	height:80px;
     padding: 10px 10px;
     border: 2px solid #ccc;
     outline: none;
@@ -400,7 +405,7 @@ button.readNow-detail {
 	color: #fff;
 	border: none;
 	font-size: 20px;
-	font-weight: 600;
+	font-weight: 500;
 	letter-spacing:-1px;
 	cursor: pointer;
 }
@@ -463,6 +468,7 @@ button.readNow-detail {
 }
 .reviewTop-detail .reviewInfo-detail h1
 {
+	height:18px;
 	font-size:18px;
 	font-weight:600;
 	color:#797979;
@@ -470,7 +476,7 @@ button.readNow-detail {
 .reviewComment-content
 {
 	width:945px;
-	height:43px;
+	height:40px;
 	font-size:16px;
 	color:#797979;
 	padding:0;
@@ -524,7 +530,7 @@ button.readNow-detail {
 .reviewBottom-detail .reviewUser-detail {
 	font-size: 16px;
 	color: #999;
-	font-weight: 600;
+	font-weight: 500;
 }
 .reviewBottom-detail #hg-dottes
 {
@@ -539,7 +545,7 @@ button.readNow-detail {
 {
 	font-size:13px;
 	color:#999;
-	font-weight:600;
+	font-weight:500;
 }
 .likeBox-detail-like
 {

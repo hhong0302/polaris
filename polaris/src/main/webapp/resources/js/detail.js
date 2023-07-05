@@ -1,13 +1,3 @@
-$('a.info').click(function(){
-    $('a.review>span').removeClass('action');
-    $('a.info>span').addClass('action');
-});
-$('a.review').click(function(){
-    $('a.info>span').removeClass('action');
-    $('a.review>span').addClass('action');
-});
-
-
 function scroll_move(seq){
     var offset = $("#move" + seq).offset();
     $('html, body').animate({scrollTop : offset.top-60}, 0);
@@ -44,3 +34,62 @@ function reject() {
 	alert("로그인후 이용가능합니다")
 }
 
+
+/***** 찜하기 *****/
+function interest(bookcode, userid, booktitle, author, publisher) {
+	$.ajax({
+		url: "insertLike",
+		type: 'GET',
+		data: {
+			bookinfo: bookcode,
+			userid: userid,
+			booktitle: booktitle,
+			author: author,
+			publisher: publisher
+		},
+		success: function(data) {
+			$.ajax({
+			    url: "detailUserLike",
+			    type: 'GET',
+			    data: {
+			        bookcode: bookcode
+			    },
+			    success: function(data) {
+			    	$.ajax({
+			    	url: "detailLikeCount",
+			    	type: 'GET',
+			    	data: {
+			        	bookcode: bookcode
+			    	},
+			    	success: function(data) {
+			        	var likeCount = parseInt(data);
+			       		var likeClick = parseInt(data);
+			        	var code = bookcode;
+			        	if (likeClick === 1) {
+			        		$(".likeimg-" + code).attr("src", "resources/images/fillheart.png");
+			           		$(".likecount-" + code).text("찜 "+likeCount);			            
+			        	} else {
+			        		$(".likeimg-" + code).attr("src", "resources/images/emptyheart.png");
+			            	$(".likecount-" + code).text("찜 "+likeCount);
+			        	}
+			    	},
+			    	error: function() {
+        				alert("likeCount error");
+    				}
+			});
+
+			},
+			    error: function() {
+        			alert("userLike error");
+    			}
+				});
+		},
+		error: function() {
+			alert("insert error");
+		}
+	});
+}
+
+function loanReject(){
+	alert("책 대여는 한번에 3개까지 가능합니다.");
+}

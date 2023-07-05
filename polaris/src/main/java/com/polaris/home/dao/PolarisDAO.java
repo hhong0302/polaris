@@ -2,11 +2,13 @@ package com.polaris.home.dao;
 
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.sql.DataSource;
 
@@ -76,7 +78,9 @@ public class PolarisDAO {
 	// 관심순
 	public List<InterestDTO> hg_homeinterest()
 	{
-		String sql = "select * from book order by likecount desc limit 0,5";
+		String sql = "select a.*, b.likecount from book as a left join "
+				+ "(select bookcode, count(bookcode) as likecount from interest group by bookcode order by likecount desc) as b "
+				+ "on a.bookcode=b.bookcode order by b.likecount desc limit 0,5";
 		return (List<InterestDTO>)template.query(sql,new BeanPropertyRowMapper<InterestDTO>(InterestDTO.class));
 	}
 	//곧 반납 도서
@@ -85,25 +89,23 @@ public class PolarisDAO {
 		String sql = "select * from bookloan where userid='"+userid+"' and loan=1 order by loandate asc limit 0,2;";
 		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
 	}
-	//소설/시 뿌리기
-	public List<BookDTO> hg_homenovel()
+	//소설/시 · 에세이 뿌리기
+	public List<BookDTO> hg_homeList(String genre)
 	{
-		String sql = "select * from book where genre='소설/시' order by date desc";
-		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
-	}
-	//에세이 뿌리기
-	public List<BookDTO> hg_homeessay()
-	{
-		String sql = "select * from book where genre='에세이' order by date desc";
+		String sql = "select * from book where genre='"+genre+"' order by date desc";
 		return (List<BookDTO>)template.query(sql,new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
 	//인기.최신.대여순 뿌리기
 	public List<BookDTO> hg_hotList(String name)
 	{
 		String sql = "";
-		if(name.equals("popular")||name=="popular") sql="select * from book order by likecount desc limit 0,10";
+		if(name.equals("popular")||name=="popular") sql="select a.* from book as a left join "
+		+ "(select bookcode, count(bookcode) as likecount from interest group by bookcode order by likecount desc) as b "
+		+ "on a.bookcode=b.bookcode order by b.likecount desc limit 0,10";
 		if(name.equals("recent")||name=="recent") sql="select * from book order by date desc limit 0,10";
-		if(name.equals("lotsloan")||name=="lotsloan") sql="select * from book order by loancount desc limit 0,10";
+		if(name.equals("lotsloan")||name=="lotsloan") sql="select a.* from book as a left join "
+		+ "(select bookcode, count(bookcode) as loancount from bookloan group by bookcode order by loancount desc) as b "
+		+ "on a.bookcode=b.bookcode order by b.loancount desc limit 0,10";
 		
 		return template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
@@ -183,6 +185,11 @@ public class PolarisDAO {
 		if(rvType=="recent"||rvType.equals("recent")) sql+="order by redate desc";
 		else sql+="order by relike desc, redate desc";
 		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
+	}
+	public int getReviewCount(int reviewNum)
+	{
+		String sql = "select relike from review where num="+reviewNum;
+		return template.queryForObject(sql, Integer.class);
 	}
 	//리뷰 작성자의 아이디값 받아오기(좋아요)
 	public String rvIdFind(int reviewNum)
@@ -296,16 +303,55 @@ public class PolarisDAO {
 		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
 	}
 	
-	public List<BookloanDTO> choi_pastloanList(){
-		String sql = "select*from bookloan where loan < 1";
-		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
+	public int choi_pastloanList(){
+		String sql = "select count(*) from bookloan where loan < 1 ";
+		return template.queryForObject(sql, Integer.class);
+	}
+	//페이지 전체 출력
+	public int choi_interest(){
+		String sql = "select count(*) from interest";
+		return template.queryForObject(sql, Integer.class);
 	}
 	
-	public List<InterestDTO> choi_interest(){
+	public int choi_pagingTotal() {
+	    String sql = "SELECT COUNT(*) FROM interest";
+	    return template.queryForObject(sql, Integer.class);
+	}
+	
+	public void choi_bookLoan(String bookcode, int num) {
+		Date today = new Date();
+		Locale currentLocale = new Locale("KOREAN", "KOREA");
+		String pattern = "yyyy-MM-dd HH:mm:ss";
+		SimpleDateFormat formatter = new SimpleDateFormat(pattern, currentLocale);
+		String loandate = formatter.format(today);
+		template.update(new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
+				String sql = "update bookloan set loan = 0,"
+						+ "loandate = '"+loandate+"'"
+						+ " where bookcode = '" + bookcode + "' and num = '" + num + "'";
+				PreparedStatement pstmt = con.prepareStatement(sql);
+					return pstmt;
+				}
+		});
+	}
+	//페이징 12345 처리
+	public List<BookloanDTO> choi_loanPageList(int listnum){
+		String sql = "select*from bookloan where loan < 1 order by loandate desc";
+		sql+=" limit "+listnum+", 12" ;
+		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
+	}
+
+	//찜한 목록 페이징 12345처리
+	public List<InterestDTO> choi_jjimPageList(int listnum){
 		String sql = "select*from interest";
+		sql += "limit"+listnum+",12";
 		return (List<InterestDTO>)template.query(sql,new BeanPropertyRowMapper<InterestDTO>(InterestDTO.class));
 
 	}
+
+	
 	//바지조장 End
 	
 	
@@ -354,15 +400,17 @@ public class PolarisDAO {
 		String sql = "select count(*) from interest where bookcode = '" + bookcode + "' and userid = '" + userid + "'";
 		return template.queryForObject(sql, Integer.class);
 	}
-	public void loanBook(String bookcode, String userid, String booktitle) {
+	public void loanBook(String bookcode, String userid, String booktitle, String author, String publisher) {
 			template.update(new PreparedStatementCreator() {
 				@Override
 				public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
-					String sql = "insert into bookloan (bookcode, userid, booktitle, loan) values (?,?,?,1)";
+					String sql = "insert into bookloan (bookcode, userid, booktitle, loan, author, publisher) values (?,?,?,1,?,?)";
 					PreparedStatement pstmt = con.prepareStatement(sql);
 						pstmt.setString(1, bookcode);
 						pstmt.setString(2, userid);
 						pstmt.setString(3, booktitle);
+						pstmt.setString(4, author);
+						pstmt.setString(5, publisher);
 						return pstmt;
 					}
 				
@@ -382,6 +430,10 @@ public class PolarisDAO {
 	
 	public int loanStatus(String bookcode, String userid){
 		String sql ="select count(*) from bookloan where bookcode = '" + bookcode +"' and userid = '" + userid + "' and loan = 1";
+		return template.queryForObject(sql, Integer.class);
+	}
+	public int loanCount(String userid){
+		String sql ="select count(*) from bookloan where userid = '" + userid + "' and loan = 1";
 		return template.queryForObject(sql, Integer.class);
 	}
 	public String sgGenre(String bookcode){
