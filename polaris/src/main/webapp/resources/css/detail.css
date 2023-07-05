@@ -330,7 +330,7 @@ button.readNow-detail {
 }
 .reviewBox-detail {
 	width: 940px;
-	height:95px;
+	height:80px;
     padding: 10px 10px;
     border: 2px solid #ccc;
     outline: none;
@@ -476,7 +476,7 @@ button.readNow-detail {
 .reviewComment-content
 {
 	width:945px;
-	height:43px;
+	height:40px;
 	font-size:16px;
 	color:#797979;
 	padding:0;
