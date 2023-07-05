@@ -13,11 +13,11 @@
 			<img src="resources/images/textlogo_black.svg" alt="logo" />
 		</a>
 	<div class="search_box">
-	<form id="searchForm" action="search" method="GET" autocomplete="off">
-	  <input type="text" name="query" class="search" id="searchInput" placeholder="검색어를 입력해주세요." />
-	  <a href="#" onclick="submitSearch(event)">
-	    <img src="resources/images/search.jpg" alt="search-icon" />
-	  </a>
+	<form id="searchForm" action="search" method="GET" autocomplete="off" onsubmit="return submitSearch(event)">
+	    <input type="text" name="query" class="search" id="searchInput" placeholder="검색어를 입력해주세요." />
+	    <a href="#" onclick="submitSearch(event)">
+	        <img src="resources/images/search.jpg" alt="search-icon" />
+	    </a>
 	</form>
 	</div>
 	</div>
@@ -36,12 +36,12 @@
 				<%
 					if(userid == null || userid.equals("")){
 				%>
-					<a href="login">로그인</a>  •
+					<a href="login">로그인</a>&nbsp;&nbsp;•&nbsp;
 					<a href="register">회원가입</a>
 				<%
 					}else{
 				%>
-					<a href="logout">로그아웃</a>  •
+					<a href="logout">로그아웃</a>&nbsp;&nbsp;•&nbsp;
 					<a href="#">마이페이지</a>
 				<%
 				}
