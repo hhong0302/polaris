@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"  />
 <link rel="stylesheet" href="resources/css/mypage.css" />
 <style>
    p { margin:20px 0px; }
@@ -82,7 +83,7 @@
 	                            </div>
 		                            <div class="choi-book-text-last">
 		                          		<button type="submit" id = "booklook" class="booklook" >바로보기</button>
-		                            	<button type="submit" id = "bookloan" class="bookloan" onclick="returnBook('${bookcode}', '${num}')" >반납하기</button>
+		                            	<button type="submit" id = "bookloan" class="bookloan" onclick="returnBook('${my.bookcode}', '${my.num}')" >반납하기</button>
 		                            </div>
 	                        </div>
 	                    </div> 
@@ -106,7 +107,7 @@
 
 	           <div class="choi-past-book-big">
              <%--   <c:forEach var ="my" items= "${pastloanList }"> 
-
+			
 	           <div class="choi-past-book">
                     <div class="choi-past-img">
                         <img src="resources/bookimg/${my.bookcode }.jpg" alt="book">
@@ -123,17 +124,18 @@
                 </div>
 	            </c:forEach>  --%>
 	            </div>
+	            <div class="choi-past-book-big">
+	            </div>
 	            </c:otherwise>
 	            </c:choose>
 	            <div class = "pageNum">
                 	<a href = "#" class = "prv" onclick="rvListPrevNxtBtn(-1, '${bookcode}')">
-                		<img src = "resources/images/left.png">
+                		<i class="fa-solid fa-chevron-left"></i>
                 	</a>
                 	<div class = "pageNum-detail">
                 	</div>
                 	<a href = "#" class = "nxt" onclick="rvListPrevNxtBtn(1, '${bookcode}'">
-
-                		<img src = "resources/images/right.png">
+                		<i class="fa-solid fa-chevron-right"></i>
                 	</a>
                 </div>
 	            
@@ -149,7 +151,7 @@
         <div class="choi-jjim">
             <p>찜한 목록</p>
             <c:choose>
-	        <c:when test="${empty interest}">
+	        <c:when test="${interest eq 0}">
             <div class="choi-jjim-book">
 	       		 <div class="choi-jjim-innerbook-nothing">
                     <div class="choi-jjim-img-nothing">
@@ -159,7 +161,9 @@
              </div>
               </c:when>
               <c:otherwise>
-     	      <c:forEach var ="my" items= "${interest }"> 
+     	      <div class = "choi-jjim-book-big">
+ <%--     	      <c:forEach var ="my" items= "${interest }"> 
+     	  
      	      <div class="choi-jjim-book">
                 <div class="choi-jjim-innerbook">
                     <div class="choi-jjim-img">
@@ -178,15 +182,31 @@
 	                        <span>${my.publisher }</span>
     					</div>
                     </div>
-                    </div>
-                    </div>
-                </c:forEach>
+                   </div>
+                 </div>
+                </c:forEach> --%>
+               </div>
+               <div class = "choi-jjim-book-big">
+               </div>
                 </c:otherwise>
                 </c:choose>
+                
+                <div class = "pageNum">
+                	<a href = "#" class = "prv" onclick="rvListPrevNxtBtn(-1, '${bookcode}')">
+                		<i class="fa-solid fa-chevron-left"></i>
+                	</a>
+                	<div class = "jjim-pageNum-detail">
+                	</div>
+                	<a href = "#" class = "nxt" onclick="rvListPrevNxtBtn(1, '${bookcode}'">
+                		<i class="fa-solid fa-chevron-right"></i>
+                	</a>
+                </div>
+                
+                
             </div>
-            
+            </div>
 
-    
+ 
      
      
      
