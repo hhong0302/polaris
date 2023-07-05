@@ -226,6 +226,8 @@ footer
 
 .hg-ftop .hg-ftopleft span
 {
+	display:inline-block;
+	height:16px;
 	font-size:14px;
 	font-weight:300;
 	margin-bottom:7px;
