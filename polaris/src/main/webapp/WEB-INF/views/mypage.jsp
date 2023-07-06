@@ -15,7 +15,7 @@
    p { margin:20px 0px; }
 </style>
 </head>
-<body onload="jjimLoanAllCounter()">
+<body>
 <%
 	int loan = (Integer)session.getAttribute("loan");
 %>
@@ -34,7 +34,7 @@
 		
 		            </div>
 		            <div class="choi-line2">
-		                <span><a href="member">내 정보 수정</a></span>
+		                <span><a href="#">내 정보 수정</a></span>
 		            </div>
 		        </div>
 			</c:if>
@@ -71,14 +71,14 @@
 	                            <img src="resources/bookimg/${my.bookcode }.jpg" alt="bookimg">
 	                        </div>
 	                        <div class="choi-book-text">
-	                        	<div class="choi-book-text-top active">
+	                        	<div class="choi-book-text-top">
 		                            <p>${my.booktitle }</p>
 		                            <span>저자 . 글쓴이</span>
 	                            </div>
 	                            <div class="choi-book-text-mid">
 	                            <c:set var = "TextValue" value="${my.loandate }" />
-		                            <span>대여일</span>
-		                            <p>${fn:substring(TextValue, 0,11)}</p>
+		                            <span>대여 기간</span>
+		                            <p>${fn:substring(TextValue, 0,11)} ~</p>
 		                            <span class="choi-dday">반납일까지 남았습니다.</span>
 	                            </div>
 		                            <div class="choi-book-text-last">
@@ -161,8 +161,10 @@
              </div>
               </c:when>
               <c:otherwise>
-     	      <div class = "choi-jjim-book">
+     	      <div class = "choi-jjim-book-big">
  <%--     	      <c:forEach var ="my" items= "${interest }"> 
+     	  
+     	      <div class="choi-jjim-book">
                 <div class="choi-jjim-innerbook">
                     <div class="choi-jjim-img">
                         <img src="resources/bookimg/${my.bookcode }.jpg" alt="book">
@@ -181,20 +183,21 @@
     					</div>
                     </div>
                    </div>
+                 </div>
                 </c:forEach> --%>
                </div>
-               <div class = "choi-jjim-book">
+               <div class = "choi-jjim-book-big">
                </div>
                 </c:otherwise>
                 </c:choose>
                 
                 <div class = "pageNum">
-                	<a href = "#" class = "prv" onclick="jjimListPrevNxtBtn(-1, '${bookcode}')">
+                	<a href = "#" class = "prv" onclick="rvListPrevNxtBtn(-1, '${bookcode}')">
                 		<i class="fa-solid fa-chevron-left"></i>
                 	</a>
                 	<div class = "jjim-pageNum-detail">
                 	</div>
-                	<a href = "#" class = "nxt" onclick="jjimListPrevNxtBtn(1, '${bookcode}'">
+                	<a href = "#" class = "nxt" onclick="rvListPrevNxtBtn(1, '${bookcode}'">
                 		<i class="fa-solid fa-chevron-right"></i>
                 	</a>
                 </div>

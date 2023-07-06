@@ -216,11 +216,12 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 const jjimtbook = document.getElementsByClassName("choi-jjim-book");
 const jjimnum_detail = document.getElementsByClassName("jjim-pageNum-detail")[0];
 
-function jjimLoanAllCounter(){
+function jjimLoanAllCounter(userid){
 
 	$.ajax({
 		url : "jjimAllCounter",
 		type: "GET",
+		data:{"userid" : userid},
 		dataType: "json",
 		async:false,
 		contentType: "application/json",
@@ -263,7 +264,7 @@ function jjimLoanAllCounter(){
 		
 		
 //찜한 상품 1,2,3,4,5 그 버튼
-function jjimpageNumBtnClick(listNumber)
+function jjimpageNumBtnClick(listnum, userid)
 {
 	const pgNum_pgbtn = document.getElementsByClassName("pageNum-pagebtn");
 	let reviewList = "";
@@ -272,7 +273,8 @@ $.ajax({
 		url : "jjimAllList",
 		type: "GET",
 		dataType: "json",
-		data:{"listnum":listNumber},
+		data:{"listnum":listnum, 
+		"userid" : userid},
 		async:false,
 		contentType: "application/json",
 		success : function(datas) {

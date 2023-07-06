@@ -27,11 +27,11 @@ public class MyCommand implements SpCommand {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
-		
+		String userid = request.getParameter("userid");
 		List<MembersDTO> mdto = dao.choi_memList();
 		List<BookloanDTO> bdto = dao.choi_loanList();
 		int pbdto = dao.choi_pastloanList();
-		int idto = dao.choi_interest();
+		int idto = dao.choi_interest(userid);
 		
 		model.addAttribute("memlist", mdto);
 		model.addAttribute("loanList", bdto);
@@ -39,26 +39,6 @@ public class MyCommand implements SpCommand {
 		model.addAttribute("interest", idto);
 	}
 	
-	/*
-	 * @RequestMapping("/mypage") public String paging(PagingCriteriaDTO cri, Model
-	 * model) {
-	 * 
-	 * PolarisDAO dao = new PolarisDAO(); int total = dao.choi_pagingTotal();
-	 * 
-	 * PageMakerDTO pageMaker = new PageMakerDTO(cri, total);
-	 * 
-	 * List<InterestDTO> interestList = dao.choi_InterestList(cri);
-	 * 
-	 * model.addAttribute("pageMaker", pageMaker);
-	 * model.addAttribute("interestList", interestList);
-	 * 
-	 * List<MembersDTO> mdto = dao.choi_memList(); List<BookloanDTO> bdto =
-	 * dao.choi_loanList(); List<BookloanDTO> pbdto = dao.choi_pastloanList();
-	 * List<InterestDTO> idto = dao.choi_interest();
-	 * 
-	 * return "mypage";
-	 * 
-	 * }
-	 */
+
 
 }

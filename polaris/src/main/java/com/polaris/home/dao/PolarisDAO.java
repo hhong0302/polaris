@@ -312,8 +312,8 @@ public class PolarisDAO {
 		return template.queryForObject(sql, Integer.class);
 	}
 	//페이지 전체 출력
-	public int choi_interest(){
-		String sql = "select count(*) from interest";
+	public int choi_interest(String userid){
+		String sql = "select count(*) from interest where userid = '"+userid+"'";
 		return template.queryForObject(sql, Integer.class);
 	}
 	
@@ -348,8 +348,8 @@ public class PolarisDAO {
 	}
 
 	//찜한 목록 페이징 12345처리
-	public List<InterestDTO> choi_jjimPageList(int listnum){
-		String sql = "select*from interest";
+	public List<InterestDTO> choi_jjimPageList(int listnum, String userid){
+		String sql = "select*from interest where userid = '"+userid+"'";
 		sql += " limit "+listnum+", 12";
 		return (List<InterestDTO>)template.query(sql,new BeanPropertyRowMapper<InterestDTO>(InterestDTO.class));
 
