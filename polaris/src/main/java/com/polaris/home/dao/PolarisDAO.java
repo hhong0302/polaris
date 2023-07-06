@@ -444,8 +444,42 @@ public class PolarisDAO {
 	    String sql = "select * from book where genre = '" + genre + "' and bookcode not in ('"+ bookcode + "') order by rand() limit 4";
 	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	}
-	
-	
+	public void exitBookloan(String userid) {
+		template.update(new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
+				String sql = "delete from bookloan where userid = ?";
+				PreparedStatement pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, userid);
+					return pstmt;
+				}
+		});
+	}
+	public void exitInterest(String userid) {
+		template.update(new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
+				String sql = "delete from interest where userid = ?";
+				PreparedStatement pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, userid);
+					return pstmt;
+				}
+		});
+	}
+	public void exitReview(String userid) {
+		template.update(new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
+				String sql = "delete from review where userid = ?";
+				PreparedStatement pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, userid);
+					return pstmt;
+				}
+		});
+	}
 	//alice End
 	
 	
