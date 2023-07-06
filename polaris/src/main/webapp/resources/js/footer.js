@@ -28,9 +28,6 @@ $(document).ready(function()
 								${data[i].booktitle}
 							</span>
 						</a>
-						<span class="hg-howmuch">
-							1일 남음
-						</span>
 					</div>`;
 				}
 				if(data.length==2) rightboxLoanList+=`<div class="hg-rightline"></div>

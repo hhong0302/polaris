@@ -2,11 +2,13 @@ package com.polaris.home.dao;
 
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.sql.DataSource;
 
@@ -19,7 +21,6 @@ import com.polaris.home.dto.BookDTO;
 import com.polaris.home.dto.BookloanDTO;
 import com.polaris.home.dto.InterestDTO;
 import com.polaris.home.dto.MembersDTO;
-import com.polaris.home.dto.PagingCriteriaDTO;
 import com.polaris.home.dto.ReviewDTO;
 import com.polaris.home.util.Static;
 
@@ -302,22 +303,14 @@ public class PolarisDAO {
 		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
 	}
 	
-	public List<BookloanDTO> choi_pastloanList(){
-		String sql = "select*from bookloan where loan < 1";
-		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
+	public int choi_pastloanList(){
+		String sql = "select count(*) from bookloan where loan < 1 ";
+		return template.queryForObject(sql, Integer.class);
 	}
-	
-	public List<InterestDTO> choi_interest(){
-		String sql = "select*from interest";
-		return (List<InterestDTO>)template.query(sql,new BeanPropertyRowMapper<InterestDTO>(InterestDTO.class));
-	}
-	
-	public List<InterestDTO> choi_InterestList(PagingCriteriaDTO cri) {
-	    String sql = "SELECT * FROM interest LIMIT ? OFFSET ?";
-	    int limit = cri.getAmount();
-	    int offset = (cri.getPageNum() - 1) * cri.getAmount();
-
-	    return template.query(sql, new BeanPropertyRowMapper<>(InterestDTO.class), limit, offset);
+	//페이지 전체 출력
+	public int choi_interest(){
+		String sql = "select count(*) from interest";
+		return template.queryForObject(sql, Integer.class);
 	}
 	
 	public int choi_pagingTotal() {
@@ -326,22 +319,38 @@ public class PolarisDAO {
 	}
 	
 	public void choi_bookLoan(String bookcode, int num) {
+		Date today = new Date();
+		Locale currentLocale = new Locale("KOREAN", "KOREA");
+		String pattern = "yyyy-MM-dd HH:mm:ss";
+		SimpleDateFormat formatter = new SimpleDateFormat(pattern, currentLocale);
+		String loandate = formatter.format(today);
 		template.update(new PreparedStatementCreator() {
 			
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
-				String sql = "update bookloan set loan = 0 where bookcode = '" + bookcode + "' and num = '" + num + "'";
+				String sql = "update bookloan set loan = 0,"
+						+ "loandate = '"+loandate+"'"
+						+ " where bookcode = '" + bookcode + "' and num = '" + num + "'";
 				PreparedStatement pstmt = con.prepareStatement(sql);
 					return pstmt;
 				}
 		});
 	}
-	public List<BookloanDTO> choi_pageAllList() {
-		String sql = "select*from bookloan where loan = 0";
+	//페이징 12345 처리
+	public List<BookloanDTO> choi_loanPageList(int listnum){
+		String sql = "select*from bookloan where loan < 1 order by loandate desc";
+		sql+=" limit "+listnum+", 12" ;
 		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
 	}
 
-	
+	//찜한 목록 페이징 12345처리
+	public List<InterestDTO> choi_jjimPageList(int listnum){
+		String sql = "select*from interest";
+		sql += "limit"+listnum+",12";
+		return (List<InterestDTO>)template.query(sql,new BeanPropertyRowMapper<InterestDTO>(InterestDTO.class));
+
+	}
+
 	
 	//바지조장 End
 	
