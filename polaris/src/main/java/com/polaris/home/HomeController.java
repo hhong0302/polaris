@@ -517,6 +517,7 @@ public class HomeController {
 	@RequestMapping(value ="/pastLoanAllCounter")
 	public void pastLoanAllCounter(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		PolarisDAO dao = new PolarisDAO();
+		String userid = req.getParameter("userid");
 		int pastloan = dao.choi_pastloanList();
 		PrintWriter out = res.getWriter();
 		out.print(pastloan);
@@ -566,15 +567,16 @@ public class HomeController {
 	    int num = Integer.parseInt(request.getParameter("num"));
 	    PolarisDAO dao = new PolarisDAO();
 	    dao.choi_bookLoan(bookcode, num);
-		/*
-		 * model.addAttribute("request", request); re.addAttribute("bookcode",
-		 * bookcode); re.addAttribute("num", num);
-		 * 
-		 * command = new BookloanCommand(); command.execute(model);
-		 * 
-		 * return "redirect:/mypage";
-		 */	}
+	}
 	
+	//interest 삭제
+	@ResponseBody
+	@RequestMapping(value="/delInterest", method = RequestMethod.GET)
+	public void delInterest(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		PolarisDAO dao = new PolarisDAO();
+		String userid = req.getParameter("userid");
+	    dao.choi_del_interest(userid);
+	}
 	
 	@RequestMapping(value = "register")
 	public String register(Model model) {
