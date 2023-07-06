@@ -642,6 +642,18 @@ public class HomeController {
 		out.println("</script>");
 		out.close();	// 로그아웃!!!
 	}
+	@RequestMapping(value = "/exitLogout")
+	public void exitLogout(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		
+		response.setContentType("text/html; charset=UTF-8");
+		HttpSession session = request.getSession();
+		PrintWriter out = response.getWriter();
+		session.invalidate();
+		out.println("<script>");
+		out.println("location.href=('/home')");
+		out.println("</script>");
+		out.close();	// 로그아웃!!!
+	}
 	@RequestMapping(value = "findidok")
 	public String findidok(HttpServletRequest request, Model model) {
 		command = new FindIdCommand();
@@ -651,9 +663,18 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "member")
-	public String member(HttpServletRequest request, Model model) {
+	public String member(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
 		HttpSession session = request.getSession();
+		PrintWriter out = response.getWriter();
 		String userid = (String)session.getAttribute("userid");
+		if(userid == null) {
+			response.setContentType("text/html; charset=UTF-8");
+			out.println("<script>");
+			out.println("alert('이미 탈퇴 처리된 회원입니다.');");
+			out.println("location.href=('/home')");
+			out.println("</script>");
+			out.close();
+		}
 		request.setAttribute("userid", userid);
 		model.addAttribute("request", request);
 		command = new MemberListCommand();
@@ -708,7 +729,7 @@ public class HomeController {
 		session.invalidate();
 		out.println("<script>");
 		out.println("alert('회원탈퇴가 완료되었습니다. 그동안 이용해 주셔서 감사합니다.');");
-		out.println("location.href=('/home')");
+		out.println("location.href=('/home/exitLogout')");
 		out.println("</script>");
 		out.close();
 	}
