@@ -1,3 +1,4 @@
+<%@page import="java.io.PrintWriter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" session="true"%>
 <!DOCTYPE html>
@@ -9,10 +10,16 @@
 <link rel="stylesheet" href="resources/css/member.css">
 </head>
 <body>
+<%
+	response.setHeader("Pragma", "no-cache"); 
+	response.setHeader("Cache-Control", "no-cache"); 
+	response.setHeader("Cache-Control", "no-store"); 
+	response.setDateHeader("Expires", 0L); 
+	
+%>
     <div class="container my-container">
         <h1>회원 정보 수정</h1>
         <form action="passUpdate" method="post" class="memberUpdate" name="memberUpdate" >
-
                 <div class="first">
                     <div class="block">
                         <div class="left">
