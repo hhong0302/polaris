@@ -4,6 +4,13 @@
 <link rel="stylesheet" href="resources/css/reset.css" />
 <link rel="stylesheet" href="resources/css/header.css" />
 <%
+	response.setHeader("Pragma", "no-cache"); 
+	response.setHeader("Cache-Control", "no-cache"); 
+	response.setHeader("Cache-Control", "no-store"); 
+	response.setDateHeader("Expires", 0L); 
+	
+%>
+<%
 	String userid = (String)session.getAttribute("userid");
 %>
 <header>
@@ -42,7 +49,7 @@
 					}else{
 				%>
 					<a href="logout">로그아웃</a>&nbsp;&nbsp;•&nbsp;
-					<a href="#">마이페이지</a>
+					<a href="mypage">마이페이지</a>
 				<%
 				}
 				%>
