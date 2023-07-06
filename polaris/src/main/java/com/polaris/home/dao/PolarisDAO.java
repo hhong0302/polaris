@@ -350,10 +350,22 @@ public class PolarisDAO {
 	//찜한 목록 페이징 12345처리
 	public List<InterestDTO> choi_jjimPageList(int listnum){
 		String sql = "select*from interest";
-		sql += "limit"+listnum+",12";
+		sql += " limit "+listnum+", 12";
 		return (List<InterestDTO>)template.query(sql,new BeanPropertyRowMapper<InterestDTO>(InterestDTO.class));
 
 	}
+	
+	//찜하기 삭제
+	public void choi_del_interest(String userid) {
+		String sql = "DELETE FROM interest WHERE userid = ?";
+		template.update(sql,new PreparedStatementSetter() {
+	        @Override
+	        public void setValues(PreparedStatement ps) throws SQLException {
+	        	ps.setString(1, userid);
+	        }
+	    });
+	}
+
 
 	
 	//바지조장 End
