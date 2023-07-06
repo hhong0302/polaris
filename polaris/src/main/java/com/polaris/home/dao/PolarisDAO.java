@@ -55,9 +55,13 @@ public class PolarisDAO {
 	public ArrayList<BookDTO> ordersearch(String order)
 	{
 		String sql = "";
-		if(order.equals("인기순")||order=="인기순") sql="select * from book order by likecount desc";
+		if(order.equals("인기순")||order=="인기순") sql="select a.* from book as a left join "
+				+ "(select bookcode, count(bookcode) as likecount from interest group by bookcode order by likecount desc) as b "
+				+ "on a.bookcode=b.bookcode order by b.likecount desc";
 		if(order.equals("최신순")||order=="최신순") sql="select * from book order by date desc";
-		if(order.equals("대여순")||order=="대여순") sql="select * from book order by loancount desc";
+		if(order.equals("대여순")||order=="대여순") sql="select a.* from book as a left join "
+				+ "(select bookcode, count(bookcode) as loancount from bookloan group by bookcode order by loancount desc) as b "
+				+ "on a.bookcode=b.bookcode order by b.loancount desc";
 		
 		return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
 	} 
