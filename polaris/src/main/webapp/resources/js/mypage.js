@@ -1,8 +1,25 @@
-function deleteBtn(){
-	let bookimg = document.querySelector('.deleteBtn');
-	if(bookimg){
-		bookimg.remove();
-	}
+function delInterest(userid){
+	 $.ajax({
+        url: 'delInterest',
+        method: 'GET', 
+        data: {"userid": userid
+         }, // 서버로 보낼 데이터
+        success: function(response) {
+            console.log('찜하기가 삭제 되었습니다.');
+            console.log(response);
+            $('#deleteBtn').remove();
+			alert("취소되었습니다.");
+        },
+        error: function(xhr, status, error) {
+            
+            console.log('찜하기 취소가 실패하였습니다.');
+           	alert("다시 시도해주세요");
+        }
+        
+
+    });
+    
+    return false; 
 }
 
 
@@ -107,7 +124,7 @@ $.ajax({
                         <img src="resources/bookimg/${datas[i].bookcode }.jpg" alt="book">
                     </div>
                     <div class="choi-past-text">
-                    	<div class = "choi-past-text-top">
+                    	<div class = "choi-past-text-top active">
 	                        <p>${datas[i].booktitle}</p>
                     	</div>
     					<div class = "choi-past-text-bottom">
@@ -125,7 +142,7 @@ $.ajax({
                         <img src="resources/bookimg/${datas[i].bookcode }.jpg" alt="book">
                     </div>
                     <div class="choi-past-text">
-                    	<div class = "choi-past-text-top">
+                    	<div class = "choi-past-text-top active">
 	                        <p>${datas[i].booktitle}</p>
                     	</div>
     					<div class = "choi-past-text-bottom">
@@ -144,7 +161,7 @@ $.ajax({
   		console.log("error");
   		}
 	});
-	pastbook[0].innerHTML=reviewList;
+	pastbook[0].innerHTML = reviewList;
 	pastbook[1].innerHTML = pastList;
 }
 	
@@ -196,7 +213,7 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 
 
 <!-- 찜한상품 -->
-const jjimtbook = document.getElementsByClassName("choi-jjim-book-big");
+const jjimtbook = document.getElementsByClassName("choi-jjim-book");
 const jjimnum_detail = document.getElementsByClassName("jjim-pageNum-detail")[0];
 
 function jjimLoanAllCounter(){
@@ -227,18 +244,20 @@ function jjimLoanAllCounter(){
 				}
 				for(let i=1;i<=listCount;i++)
 				{
-					rvButtonList+=`<button class="pageNum-pagebtn" onclick="pageNumBtnClick(${i-1})">${i}</button>`;
+					rvButtonList+=`<button class="pageNum-pagebtn" onclick="jjimpageNumBtnClick(${i-1})">${i}</button>`;
 				}
 			}
-				pgnum_detail.innerHTML=rvButtonList;
+				jjimnum_detail.innerHTML=rvButtonList;
   		},
   		error : function() {
   		console.log("error");
   		}
 		});
 		document.getElementsByClassName("pageNum-pagebtn")[0].click();
-
 		//페이지 처음에 1페이지로 가는거
+		
+		jjimpageNumBtnClick(0);
+		// 페이지 로딩 시에 첫 번째 페이지를 자동으로 보여주도록 호출
 		}
 		
 		
@@ -254,24 +273,23 @@ $.ajax({
 		type: "GET",
 		dataType: "json",
 		data:{"listnum":listNumber},
-
 		async:false,
 		contentType: "application/json",
 		success : function(datas) {
 			
 			for(let i=0;i<datas.length;i++){
 			if(i<6)
+
 				{
 
-					reviewList+=` <div class="choi-jjim-book">
-                <div class="choi-jjim-innerbook">
+					reviewList+=`<div class="choi-jjim-innerbook">
                     <div class="choi-jjim-img">
                         <img src="resources/bookimg/${datas[i].bookcode }.jpg" alt="book">
                     </div>
                     
                     <div class="choi-jjim-text">
                     	<div class = "choi-close-btn">
-                    		<a href="#" class = "deleteBtn" onclick = "deleteBtn();"><img src="resources/images/Vector.png" alt="x" /></a>
+                    		<a href="#" id =  "deleteBtn" class = "deleteBtn" onclick = "delInterest();"><img src="resources/images/Vector.png" alt="x" /></a>
                     	</div>
                     	<div class = "choi-jjim-text-top">
 	                        <p>${datas[i].booktitle}</p>
@@ -281,14 +299,12 @@ $.ajax({
 	                        <span>${datas[i].publisher }</span>
     					</div>
                     </div>
-                   </div>
-                 </div>`;
+                   </div> `;
 			
 			    }
 			    else{
 			    
-			    	pastList+=`<div class="choi-jjim-book">
-                <div class="choi-jjim-innerbook">
+			    	pastList+=`<div class="choi-jjim-innerbook">
                     <div class="choi-jjim-img">
                         <img src="resources/bookimg/${datas[i].bookcode }.jpg" alt="book">
                     </div>
@@ -305,8 +321,7 @@ $.ajax({
 	                        <span>${datas[i].publisher }</span>
     					</div>
                     </div>
-                   </div>
-                 </div>`;
+                   </div>`;
 			    
 			    }
 			    
@@ -317,13 +332,13 @@ $.ajax({
   		console.log("error");
   		}
 	});
-	pastbook[0].innerHTML=reviewList;
-	pastbook[1].innerHTML = pastList;
+	jjimtbook[0].innerHTML = reviewList;
+	jjimtbook[1].innerHTML = pastList;
 }
 	
 	
 //찜한 상품 대여 이전,다음 버튼
-function rvListPrevNxtBtn(hg_number,bookcode)
+function jjimListPrevNxtBtn(hg_number,bookcode)
 {
 
 	const pgNum_pgbtn = document.getElementsByClassName("pageNum");
@@ -348,9 +363,9 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 		{
 			break;
 		}
-		rvButtonList+=`<button class="pageNum-pagebtn" onclick="pageNumBtnClick(this,${i-1},'${listType}','${bookcode}')">${i}</button>`;
+		rvButtonList+=`<button class="pageNum-pagebtn" onclick="jjimpageNumBtnClick(this,${i-1},'${listType}','${bookcode}')">${i}</button>`;
 	}
-	pgnum_detail.innerHTML=rvButtonList;
+	jjimnum_detail.innerHTML=rvButtonList;
 
 	if(hg_number==1)
 	{
