@@ -114,10 +114,10 @@ function reviewModifyCancel()
 		async:false,
 		contentType: "application/json",
 		success : function() {
-			
+  			location.reload();
 		},
   		error : function() {
-  		location.reload();
+  			location.reload();
   		}
 		});
 	}
@@ -126,7 +126,7 @@ function reviewModifyCancel()
 //더보기 버튼
 function rvmoreWatch(e)
 {
-	if(rvbox_detail.clientHeight==80)
+	if(rvbox_detail.clientHeight==83)
 	{
 		e.innerHTML= `접기<i class="fa-solid fa-angle-up"></i>`;
 		rvbox_detail.style.height=rvbox_detail.scrollHeight+"px";
@@ -135,7 +135,7 @@ function rvmoreWatch(e)
 	else
 	{
 		e.innerHTML= `모두보기<i class="fa-solid fa-angle-down"></i>`;
-		rvbox_detail.style.height="80px";
+		rvbox_detail.style.height="83px";
 		rvbox_detail.classList.add("active");
 	}
 }
