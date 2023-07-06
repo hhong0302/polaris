@@ -18,6 +18,9 @@ public class SpExitCommand implements SpCommand{
         
         PolarisDAO dao = new PolarisDAO();
         dao.exit(userid);
+        dao.exitInterest(userid);
+        dao.exitBookloan(userid);
+        dao.exitReview(userid);
 		
 	}
 
