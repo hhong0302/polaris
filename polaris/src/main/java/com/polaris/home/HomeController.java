@@ -463,35 +463,6 @@ public class HomeController {
 		return "detail";
 		
 	}
-	@RequestMapping(value = "/detailUserLike", method = { RequestMethod.GET })
-	@ResponseBody 
-	public void detailUserLike(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
-		String bookcode = request.getParameter("bookcode");
-		HttpSession session = request.getSession();
-		String userid=(String) session.getAttribute("userid");
-		
-		int likeClick=0;
-		PolarisDAO dao = new PolarisDAO();
-
-		likeClick=dao.userLike(bookcode,userid);
-	
-		PrintWriter out = response.getWriter();
-		out.println(likeClick);
-		out.close();
-	}
-	@RequestMapping(value = "/detailLikeCount", method = { RequestMethod.GET })
-	@ResponseBody 
-	public void detailLikeCount(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
-		String bookcode = request.getParameter("bookcode");
-		
-		PolarisDAO dao = new PolarisDAO();
-		int likeCount=dao.likeCount(bookcode);
-	
-		PrintWriter out = response.getWriter();
-		out.println(likeCount);
-		out.close();
-	}
-	
 	@RequestMapping("/detailbookloan")
 	public String loanbook(HttpServletRequest request, Model model, RedirectAttributes re) {
 		String bookcode = request.getParameter("bookinfo");
@@ -501,7 +472,7 @@ public class HomeController {
 		command = new DetailLoanCommand();
 		command.execute(model);
 		
-		return "redirect:/detail";
+		return "detail";
 		
 	}
 	@RequestMapping(value = "loanStatus")
@@ -546,6 +517,7 @@ public class HomeController {
 	@RequestMapping(value ="/pastLoanAllCounter")
 	public void pastLoanAllCounter(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		PolarisDAO dao = new PolarisDAO();
+		String userid = req.getParameter("userid");
 		int pastloan = dao.choi_pastloanList();
 		PrintWriter out = res.getWriter();
 		out.print(pastloan);
@@ -595,15 +567,16 @@ public class HomeController {
 	    int num = Integer.parseInt(request.getParameter("num"));
 	    PolarisDAO dao = new PolarisDAO();
 	    dao.choi_bookLoan(bookcode, num);
-		/*
-		 * model.addAttribute("request", request); re.addAttribute("bookcode",
-		 * bookcode); re.addAttribute("num", num);
-		 * 
-		 * command = new BookloanCommand(); command.execute(model);
-		 * 
-		 * return "redirect:/mypage";
-		 */	}
+	}
 	
+	//interest 삭제
+	@ResponseBody
+	@RequestMapping(value="/delInterest", method = RequestMethod.GET)
+	public void delInterest(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		PolarisDAO dao = new PolarisDAO();
+		String userid = req.getParameter("userid");
+	    dao.choi_del_interest(userid);
+	}
 	
 	@RequestMapping(value = "register")
 	public String register(Model model) {
@@ -673,6 +646,18 @@ public class HomeController {
 		out.println("</script>");
 		out.close();	// 로그아웃!!!
 	}
+	@RequestMapping(value = "/exitLogout")
+	public void exitLogout(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		
+		response.setContentType("text/html; charset=UTF-8");
+		HttpSession session = request.getSession();
+		PrintWriter out = response.getWriter();
+		session.invalidate();
+		out.println("<script>");
+		out.println("location.href=('/home')");
+		out.println("</script>");
+		out.close();	// 로그아웃!!!
+	}
 	@RequestMapping(value = "findidok")
 	public String findidok(HttpServletRequest request, Model model) {
 		command = new FindIdCommand();
@@ -682,9 +667,18 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "member")
-	public String member(HttpServletRequest request, Model model) {
+	public String member(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
 		HttpSession session = request.getSession();
+		PrintWriter out = response.getWriter();
 		String userid = (String)session.getAttribute("userid");
+		if(userid == null) {
+			response.setContentType("text/html; charset=UTF-8");
+			out.println("<script>");
+			out.println("alert('이미 탈퇴 처리된 회원입니다.');");
+			out.println("location.href=('/home')");
+			out.println("</script>");
+			out.close();
+		}
 		request.setAttribute("userid", userid);
 		model.addAttribute("request", request);
 		command = new MemberListCommand();
@@ -739,7 +733,7 @@ public class HomeController {
 		session.invalidate();
 		out.println("<script>");
 		out.println("alert('회원탈퇴가 완료되었습니다. 그동안 이용해 주셔서 감사합니다.');");
-		out.println("location.href=('/home')");
+		out.println("location.href=('/home/exitLogout')");
 		out.println("</script>");
 		out.close();
 	}

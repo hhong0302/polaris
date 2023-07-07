@@ -267,7 +267,7 @@ function register(){
         reuserpass.focus();
         return false;
     }else if(reuserpass.value != userpass.value){
-        alert("비밀번를 확인해주세요.");
+        alert("비밀번호를 확인해주세요.");
         return false;
     }
     else if(username.value == ''){
