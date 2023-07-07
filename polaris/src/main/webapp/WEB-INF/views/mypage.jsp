@@ -161,10 +161,9 @@
              </div>
               </c:when>
               <c:otherwise>
-     	      <div class = "choi-jjim-book-big">
+     	      <div class = "choi-jjim-book">
  <%--     	      <c:forEach var ="my" items= "${interest }"> 
      	  
-     	      <div class="choi-jjim-book">
                 <div class="choi-jjim-innerbook">
                     <div class="choi-jjim-img">
                         <img src="resources/bookimg/${my.bookcode }.jpg" alt="book">
@@ -183,10 +182,10 @@
     					</div>
                     </div>
                    </div>
-                 </div>
+ 
                 </c:forEach> --%>
                </div>
-               <div class = "choi-jjim-book-big">
+               <div class = "choi-jjim-book">
                </div>
                 </c:otherwise>
                 </c:choose>

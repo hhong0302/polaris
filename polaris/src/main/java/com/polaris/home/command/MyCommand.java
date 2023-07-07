@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,9 @@ public class MyCommand implements SpCommand {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
-		String userid = request.getParameter("userid");
+		HttpSession session = request.getSession();
+		String userid = (String)session.getAttribute("userid");
+		
 		List<MembersDTO> mdto = dao.choi_memList();
 		List<BookloanDTO> bdto = dao.choi_loanList();
 		int pbdto = dao.choi_pastloanList();

@@ -316,11 +316,7 @@ public class PolarisDAO {
 		String sql = "select count(*) from interest where userid = '"+userid+"'";
 		return template.queryForObject(sql, Integer.class);
 	}
-	
-	public int choi_pagingTotal() {
-	    String sql = "SELECT COUNT(*) FROM interest";
-	    return template.queryForObject(sql, Integer.class);
-	}
+
 	
 	public void choi_bookLoan(String bookcode, int num) {
 		Date today = new Date();
@@ -356,14 +352,9 @@ public class PolarisDAO {
 	}
 	
 	//찜하기 삭제
-	public void choi_del_interest(String userid) {
-		String sql = "DELETE FROM interest WHERE userid = ?";
-		template.update(sql,new PreparedStatementSetter() {
-	        @Override
-	        public void setValues(PreparedStatement ps) throws SQLException {
-	        	ps.setString(1, userid);
-	        }
-	    });
+	public void choi_del_interest(String userid, String bookcode) {
+		String sql = "DELETE FROM interest WHERE userid = '"+userid+"' and bookcode = '"+bookcode+"'";
+		template.update(sql);
 	}
 
 

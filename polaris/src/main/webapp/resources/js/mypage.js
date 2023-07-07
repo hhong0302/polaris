@@ -1,14 +1,15 @@
-function delInterest(userid){
+function delInterest(bookcode){
 	 $.ajax({
         url: 'delInterest',
         method: 'GET', 
-        data: {"userid": userid
+        data: {"bookcode": bookcode
          }, // 서버로 보낼 데이터
         success: function(response) {
             console.log('찜하기가 삭제 되었습니다.');
             console.log(response);
             $('#deleteBtn').remove();
 			alert("취소되었습니다.");
+			location.reload();
         },
         error: function(xhr, status, error) {
             
@@ -70,7 +71,7 @@ function pageAllList(){
 			let rvButtonList="";	//리스트가 총 몇개인지
 		  	if(datas==0)
 			{
-				rvButtonList+=`<button class="pageNum-pagebtn">1</button>`;
+				rvButtonList+=`<button class="pageNum-pagebtn ">1</button>`;
 			}
 			else
 			{
@@ -85,7 +86,7 @@ function pageAllList(){
 				}
 				for(let i=1;i<=listCount;i++)
 				{
-					rvButtonList+=`<button class="pageNum-pagebtn" onclick="pageNumBtnClick(${i-1})">${i}</button>`;
+					rvButtonList+=`<button class="pageNum-pagebtn " onclick="pageNumBtnClick(${i-1})">${i}</button>`;
 				}
 			}
 				pgnum_detail.innerHTML=rvButtonList;
@@ -97,6 +98,11 @@ function pageAllList(){
 		document.getElementsByClassName("pageNum-pagebtn")[0].click();
 
 		//페이지 처음에 1페이지로 가는거
+		
+		$('.pageNum-pagebtn').click(function(e){
+		    $('.pageNum-pagebtn').removeClass('active');
+		    $(this).toggleClass('active');
+		})
 		}
 
 //지난 대여 1,2,3,4,5 그 버튼
@@ -163,6 +169,8 @@ $.ajax({
 	});
 	pastbook[0].innerHTML = reviewList;
 	pastbook[1].innerHTML = pastList;
+	
+	
 }
 	
 //지난 대여 이전,다음 버튼
@@ -213,15 +221,14 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 
 
 <!-- 찜한상품 -->
-const jjimtbook = document.getElementsByClassName("choi-jjim-book");
+const jjimbook = document.getElementsByClassName("choi-jjim-book");
 const jjimnum_detail = document.getElementsByClassName("jjim-pageNum-detail")[0];
 
-function jjimLoanAllCounter(userid){
+function jjimLoanAllCounter(){
 
 	$.ajax({
 		url : "jjimAllCounter",
 		type: "GET",
-		data:{"userid" : userid},
 		dataType: "json",
 		async:false,
 		contentType: "application/json",
@@ -230,7 +237,7 @@ function jjimLoanAllCounter(userid){
 			let rvButtonList="";	//리스트가 총 몇개인지
 		  	if(datas==0)
 			{
-				rvButtonList+=`<button class="pageNum-pagebtn">1</button>`;
+				rvButtonList+=`<button class="pageNum-pagebtn active">1</button>`;
 			}
 			else
 			{
@@ -245,7 +252,7 @@ function jjimLoanAllCounter(userid){
 				}
 				for(let i=1;i<=listCount;i++)
 				{
-					rvButtonList+=`<button class="pageNum-pagebtn" onclick="jjimpageNumBtnClick(${i-1})">${i}</button>`;
+					rvButtonList+=`<button class="pageNum-pagebtn active" onclick="jjimpageNumBtnClick(${i-1})">${i}</button>`;
 				}
 			}
 				jjimnum_detail.innerHTML=rvButtonList;
@@ -264,7 +271,7 @@ function jjimLoanAllCounter(userid){
 		
 		
 //찜한 상품 1,2,3,4,5 그 버튼
-function jjimpageNumBtnClick(listnum, userid)
+function jjimpageNumBtnClick(listNumber)
 {
 	const pgNum_pgbtn = document.getElementsByClassName("pageNum-pagebtn");
 	let reviewList = "";
@@ -273,12 +280,11 @@ $.ajax({
 		url : "jjimAllList",
 		type: "GET",
 		dataType: "json",
-		data:{"listnum":listnum, 
-		"userid" : userid},
+		data:{"listnum":listNumber},
 		async:false,
 		contentType: "application/json",
 		success : function(datas) {
-			
+
 			for(let i=0;i<datas.length;i++){
 			if(i<6)
 
@@ -291,9 +297,9 @@ $.ajax({
                     
                     <div class="choi-jjim-text">
                     	<div class = "choi-close-btn">
-                    		<a href="#" id =  "deleteBtn" class = "deleteBtn" onclick = "delInterest();"><img src="resources/images/Vector.png" alt="x" /></a>
+                    		<a class = "deleteBtn" onclick = "delInterest('${datas[i].bookcode }');"><img src="resources/images/Vector.png" alt="x" /></a>
                     	</div>
-                    	<div class = "choi-jjim-text-top">
+                    	<div class = "choi-jjim-text-top active">
 	                        <p>${datas[i].booktitle}</p>
                     	</div>
     					<div class = "choi-jjim-text-bottom">
@@ -313,9 +319,9 @@ $.ajax({
                     
                     <div class="choi-jjim-text">
                     	<div class = "choi-close-btn">
-                    		<a href="#" class = "deleteBtn" onclick = "deleteBtn();"><img src="resources/images/Vector.png" alt="x" /></a>
+                    		<a class = "deleteBtn" onclick = "delInterest('${datas[i].bookcode }');"><img src="resources/images/Vector.png" alt="x" /></a>
                     	</div>
-                    	<div class = "choi-jjim-text-top">
+                    	<div class = "choi-jjim-text-top active">
 	                        <p>${datas[i].booktitle}</p>
                     	</div>
     					<div class = "choi-jjim-text-bottom">
@@ -334,10 +340,15 @@ $.ajax({
   		console.log("error");
   		}
 	});
-	jjimtbook[0].innerHTML = reviewList;
-	jjimtbook[1].innerHTML = pastList;
+	jjimbook[0].innerHTML = reviewList;
+	jjimbook[1].innerHTML = pastList;
 }
 	
+window.onload=function()
+{
+	jjimLoanAllCounter();
+}
+
 	
 //찜한 상품 대여 이전,다음 버튼
 function jjimListPrevNxtBtn(hg_number,bookcode)

@@ -541,7 +541,8 @@ public class HomeController {
 	@RequestMapping(value = "/jjimAllCounter")
 	public void jjimAllCounter(HttpServletRequest req, HttpServletResponse res) throws Exception{
 		PolarisDAO dao = new PolarisDAO();
-		String userid = req.getParameter("userid");
+		HttpSession session = req.getSession();
+		String userid = (String)session.getAttribute("userid");
 		int jjimCount = dao.choi_interest(userid);
 		PrintWriter out = res.getWriter();
 		out.print(jjimCount);
@@ -553,7 +554,8 @@ public class HomeController {
 	public void jjimAllList (HttpServletRequest req, HttpServletResponse res) throws Exception{
 		PolarisDAO dao = new PolarisDAO();
 		int listnum = 12*Integer.parseInt(req.getParameter("listnum"));
-		String userid = req.getParameter("userid");
+		HttpSession session = req.getSession();
+		String userid = (String)session.getAttribute("userid");
 		List<InterestDTO> dto = dao.choi_jjimPageList(listnum, userid);
 		PrintWriter out = res.getWriter();
 		String gson = new Gson().toJson(dto);	//데이터 제이슨으로 전환
@@ -577,8 +579,10 @@ public class HomeController {
 	@RequestMapping(value="/delInterest", method = RequestMethod.GET)
 	public void delInterest(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		PolarisDAO dao = new PolarisDAO();
-		String userid = req.getParameter("userid");
-	    dao.choi_del_interest(userid);
+		HttpSession session = req.getSession();
+		String userid = (String)session.getAttribute("userid");
+		String bookcode = req.getParameter("bookcode");
+	    dao.choi_del_interest(userid, bookcode);
 	}
 	
 	@RequestMapping(value = "register")
