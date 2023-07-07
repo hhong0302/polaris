@@ -146,15 +146,13 @@ public class HomeController {
 	public void reviewController(HttpServletRequest req,HttpServletResponse res) throws Exception{
 		PolarisDAO dao = new PolarisDAO();
 		String bookcode = req.getParameter("bookcode");
-		String rvType = req.getParameter("reviewType");
-		List <ReviewDTO> dto = dao.hg_reviewList(bookcode,rvType);
+		int count = dao.hg_reviewAllCount(bookcode);
 		PrintWriter out = res.getWriter();
-		String gson = new Gson().toJson(dto);
-		out.println(gson);
+		out.println(count);
 		out.close();
 	}
 	
-	//리뷰 리스트
+	//리뷰 리스트 1,2,3,4,5
 	@ResponseBody
 	@RequestMapping(value = "/reviewListController")
 	public void reviewListController(HttpServletRequest req,HttpServletResponse res) throws Exception{
@@ -178,8 +176,15 @@ public class HomeController {
 		HttpSession session = req.getSession();
 		PolarisDAO dao = new PolarisDAO();
 		String userid="";
-		int isClick = 0;
-		int Allcount = dao.getReviewCount(reviewNum);
+		int isClick = 0, Allcount=0;
+		try
+		{
+			Allcount = dao.getReviewCount(reviewNum);			
+		}
+		catch(NullPointerException e)
+		{
+			Allcount=0;
+		}
 		try
 		{
 			userid = (String) session.getAttribute("userid");	
