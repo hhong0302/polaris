@@ -95,6 +95,15 @@ a:hover{
 	background-color : #ddd;
 	display : flex;
 }
+.choi-past-book{
+	width : 183px;
+	height : 110px;
+	border-radius: 8px;
+	margin-right : 20px;
+	margin-top : 20px;
+	background-color : #ddd;
+	display : flex;
+}
 .choi-past-img img{
 	width : 54px;
 	height : 80px;
@@ -103,7 +112,8 @@ a:hover{
 	margin-bottom : 16px;
 }
 .choi-past-text{
-	margin : 20px 10px;
+	margin-top: 20px;
+    width: 100%;
 }
 .choi-past-text-top p{
 	display : block;
@@ -317,4 +327,6 @@ button.jjim-pageNum-pagebtn.active{
     border: none;
     outline: none;
 }
-
+.deleteBtn{
+	cursor : pointer;
+}
