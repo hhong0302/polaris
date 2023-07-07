@@ -338,7 +338,7 @@ public class HomeController {
 	    
 	    return "search";
 	}
-	@RequestMapping(value = "/searchLike", method = { RequestMethod.GET })	
+	@RequestMapping(value = "searchLike", method = { RequestMethod.GET })	
 	public String test(HttpServletRequest request, Model model, RedirectAttributes re,@RequestParam("bookinfo") String bookinfo,@RequestParam("userid") String userid,@RequestParam(
 	"booktitle") String booktitle, @RequestParam("author") String author, @RequestParam("publisher") String publisher) {
 	 
@@ -349,7 +349,7 @@ public class HomeController {
 	    
 	    return "search";			
 	}
-	@RequestMapping(value = "/searchUserLike", method = { RequestMethod.GET })
+	@RequestMapping(value = "searchUserLike", method = { RequestMethod.GET })
 	@ResponseBody 
 	public void searchUserLike(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
 		String bookcode = request.getParameter("bookcode");
@@ -358,16 +358,15 @@ public class HomeController {
 		
 		int likeClick=0;
 		PolarisDAO dao = new PolarisDAO();
-
 		likeClick=dao.searchUserLike(bookcode,userid);
 	
 		PrintWriter out = response.getWriter();
 		out.println(likeClick);
 		out.close();
 	}
-	@RequestMapping(value = "/searchLikeCount", method = { RequestMethod.GET })
+	@RequestMapping(value = "searchLikeCount", method = { RequestMethod.GET })
 	@ResponseBody 
-	public void searchLikeCount(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
+	public String searchLikeCount(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
 		String bookcode = request.getParameter("bookcode");
 		
 		PolarisDAO dao = new PolarisDAO();
@@ -376,6 +375,8 @@ public class HomeController {
 		PrintWriter out = response.getWriter();
 		out.println(likeCount);
 		out.close();
+		
+		return "search";
 	}
 	@RequestMapping(value = "/searchLoanBook", method = { RequestMethod.GET })	
 	public String searchLoanBook(HttpServletRequest request, Model model, RedirectAttributes re,@RequestParam("bookinfo") String bookinfo,@RequestParam(
@@ -398,7 +399,6 @@ public class HomeController {
 		PolarisDAO dao = new PolarisDAO();
 
 		int loanStatus=dao.loanStatus(bookcode,userid);
-		System.out.println(loanStatus);
 		PrintWriter out = response.getWriter();
 		out.println(loanStatus);
 		out.close();
