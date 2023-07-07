@@ -34,7 +34,7 @@
 		
 		            </div>
 		            <div class="choi-line2">
-		                <span><a href="#">내 정보 수정</a></span>
+		                <span><a href="member">내 정보 수정</a></span>
 		            </div>
 		        </div>
 			</c:if>
@@ -98,7 +98,7 @@
               <c:choose>
 	          <c:when test="${pastloanList eq 0}">
 	          	<div class="choi-past-book">
-                    <div class="choi-post-book-img">
+                    <div class="choi-past-book-img">
                         <img src="resources/images/past-nothing.png" alt="book">
                     </div>
                  </div>
@@ -151,7 +151,9 @@
         <div class="choi-jjim">
             <p>찜한 목록</p>
             <c:choose>
-	        <c:when test="${interest eq 0}">
+	        <c:when test="${interest == 0}">
+	        <div class="choi-jjim-book" style ="display : none;"></div>
+	        <div class="choi-jjim-book" style ="display : none;"></div>
             <div class="choi-jjim-book">
 	       		 <div class="choi-jjim-innerbook-nothing">
                     <div class="choi-jjim-img-nothing">

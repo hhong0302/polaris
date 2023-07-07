@@ -313,7 +313,8 @@ public class HomeController {
 	    command.execute(model);
 	    model.addAttribute("searchType", "totalsearch");
 	    
-	    	return "search"; 
+	    
+	    return "search"; 
 	}
 	
 	//장르 검색
@@ -344,13 +345,18 @@ public class HomeController {
 	    return "search";
 	}
 	@RequestMapping(value = "searchLike", method = { RequestMethod.GET })	
-	public String test(HttpServletRequest request, Model model, RedirectAttributes re,@RequestParam("bookinfo") String bookinfo,@RequestParam("userid") String userid,@RequestParam(
+
+	public String test(HttpServletRequest request, Model model, @RequestParam("bookinfo") String bookinfo,@RequestParam("userid") String userid,@RequestParam(
+
 	"booktitle") String booktitle, @RequestParam("author") String author, @RequestParam("publisher") String publisher) {
 	 
 		model.addAttribute("request", request);
 		
 		command = new LikeCommand();
 		command.execute(model);
+		
+	    model.addAttribute("bookinfo", bookinfo);
+	    model.addAttribute("userid", userid);
 	    
 	    return "search";			
 	}

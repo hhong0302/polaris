@@ -86,7 +86,7 @@ a:hover{
 .choi-jjim-book-big{
 	display : inline-flex;
 }
-.choi-past-book{
+.choi-past-book img{
 	width : 183px;
 	height : 110px;
 	border-radius: 8px;
@@ -305,3 +305,16 @@ button.pageNum-pagebtn.active{
     border: none;
     outline: none;
 }
+button.jjim-pageNum-pagebtn{
+	border: none;
+    background: none;
+    color : #000;
+    cursor : pointer;
+    outline: none;
+}
+button.jjim-pageNum-pagebtn.active{
+    color : #0054FF;
+    border: none;
+    outline: none;
+}
+
