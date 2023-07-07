@@ -3,6 +3,10 @@ span{
     font-size: 10px;
     color: #ddd;
 }
+a:hover{
+	text-decoration: none;
+	color : inherit;
+}
 .choi-top sapn{
     margin-top: 10px;
 }
@@ -79,6 +83,9 @@ span{
 .choi-past-book-big{
 	display : inline-flex;
 }
+.choi-jjim-book-big{
+	display : inline-flex;
+}
 .choi-past-book{
 	width : 183px;
 	height : 110px;
@@ -102,6 +109,15 @@ span{
 	font-size : 13px;
 	font-weight : bold;
 	margin-bottom : 21px;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.choi-past-text-top.active{
+	text-overflow: ellipsis;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
 }
 .choi-past-text-bottom span{
 	font-size : 12px;
@@ -135,6 +151,16 @@ span{
 .choi-book-text-top p{
 	font-size : 16px;
 	font-weight : bold;
+	white-space: nowrap;
+	overflow: hidden;
+ 	text-overflow: ellipsis;
+}
+.choi-book-text-top.active{
+	white-space: normal;
+	overflow : hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 .choi-book-text span{
 	margin-top : 5px;
@@ -236,6 +262,7 @@ span{
 .choi-jjim-text-top p{
 	font-size : 13px;
 	font-weight : bold;
+	
 }
 .choi-jjim-text-bottom{
 	margin-top : 9px;
@@ -251,4 +278,8 @@ span{
 	border : none;	
 	float : right;
 	width : 100%;
+}
+.pageNum-pagebtn{
+	border: none;
+    background: none
 }
