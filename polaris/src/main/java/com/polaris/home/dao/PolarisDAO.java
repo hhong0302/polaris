@@ -312,15 +312,11 @@ public class PolarisDAO {
 		return template.queryForObject(sql, Integer.class);
 	}
 	//페이지 전체 출력
-	public int choi_interest(){
-		String sql = "select count(*) from interest";
+	public int choi_interest(String userid){
+		String sql = "select count(*) from interest where userid = '"+userid+"'";
 		return template.queryForObject(sql, Integer.class);
 	}
-	
-	public int choi_pagingTotal() {
-	    String sql = "SELECT COUNT(*) FROM interest";
-	    return template.queryForObject(sql, Integer.class);
-	}
+
 	
 	public void choi_bookLoan(String bookcode, int num) {
 		Date today = new Date();
@@ -348,22 +344,17 @@ public class PolarisDAO {
 	}
 
 	//찜한 목록 페이징 12345처리
-	public List<InterestDTO> choi_jjimPageList(int listnum){
-		String sql = "select*from interest";
+	public List<InterestDTO> choi_jjimPageList(int listnum, String userid){
+		String sql = "select*from interest where userid = '"+userid+"'";
 		sql += " limit "+listnum+", 12";
 		return (List<InterestDTO>)template.query(sql,new BeanPropertyRowMapper<InterestDTO>(InterestDTO.class));
 
 	}
 	
 	//찜하기 삭제
-	public void choi_del_interest(String userid) {
-		String sql = "DELETE FROM interest WHERE userid = ?";
-		template.update(sql,new PreparedStatementSetter() {
-	        @Override
-	        public void setValues(PreparedStatement ps) throws SQLException {
-	        	ps.setString(1, userid);
-	        }
-	    });
+	public void choi_del_interest(String userid, String bookcode) {
+		String sql = "DELETE FROM interest WHERE userid = '"+userid+"' and bookcode = '"+bookcode+"'";
+		template.update(sql);
 	}
 
 
