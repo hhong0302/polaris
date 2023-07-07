@@ -237,7 +237,7 @@ function jjimLoanAllCounter(){
 			let rvButtonList="";	//리스트가 총 몇개인지
 		  	if(datas==0)
 			{
-				rvButtonList+=`<button class="pageNum-pagebtn active">1</button>`;
+				rvButtonList+=`<button class="jjim-pageNum-pagebtn active">1</button>`;
 			}
 			else
 			{
@@ -248,11 +248,11 @@ function jjimLoanAllCounter(){
 				else
 				{
 					listCount=5;
-					pgbtn_next.classList.add("active");
+					<!-- pgbtn_next.classList.add("active"); -->
 				}
 				for(let i=1;i<=listCount;i++)
 				{
-					rvButtonList+=`<button class="pageNum-pagebtn active" onclick="jjimpageNumBtnClick(${i-1})">${i}</button>`;
+					rvButtonList+=`<button class="jjim-pageNum-pagebtn active" onclick="jjimpageNumBtnClick(${i-1})">${i}</button>`;
 				}
 			}
 				jjimnum_detail.innerHTML=rvButtonList;
@@ -261,7 +261,7 @@ function jjimLoanAllCounter(){
   		console.log("error");
   		}
 		});
-		document.getElementsByClassName("pageNum-pagebtn")[0].click();
+		document.getElementsByClassName("jjim-pageNum-pagebtn")[0].click();
 		//페이지 처음에 1페이지로 가는거
 		
 		jjimpageNumBtnClick(0);
@@ -273,7 +273,7 @@ function jjimLoanAllCounter(){
 //찜한 상품 1,2,3,4,5 그 버튼
 function jjimpageNumBtnClick(listNumber)
 {
-	const pgNum_pgbtn = document.getElementsByClassName("pageNum-pagebtn");
+	const pgNum_pgbtn = document.getElementsByClassName("jjim-pageNum-pagebtn");
 	let reviewList = "";
 	let pastList = "";
 $.ajax({
