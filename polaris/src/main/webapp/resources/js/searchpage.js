@@ -47,40 +47,7 @@ function likeSuccess(bookcode, uid, booktitle, author, publisher) {
             publisher: publisher
         },
         success: function(data) {
-            $.ajax({
-                url: "searchUserLike",
-                type: 'GET',
-                data: {
-                    bookcode: bookcode
-                },
-                success: function(data) {
-                    $.ajax({
-                        url: "searchLikeCount",
-                        type: 'GET',
-                        data: {
-                            bookcode: bookcode
-                        },
-                        success: function(data) {
-                            var likeCount = parseInt(data);
-                            var likeClick = parseInt(data);
-                            var code = bookcode;
-                            if (likeClick === 1) {
-                                $(".likeimg1-" + code).attr("src", "resources/images/fillheart.png");
-                                $(".likecount-" + code).text("찜 "+likeCount);                       
-                            } else {
-                                $(".likeimg1-" + code).attr("src", "resources/images/emptyheart.png");
-                                $(".likecount-" + code).text("찜 "+likeCount);
-                            }
-                        },
-                        error: function() {
-                            alert("Error");
-                        }
-                    });
-                },
-                error: function() {
-                    alert("Error");
-                }
-            });
+           location.reload();
         },
         error: function() {
             alert("Error");
@@ -107,12 +74,13 @@ function loanbook(bookcode, booktitle) {
                     var code = bookcode;
                     if (loanStatus == 0) {
                         alert("반납하시겠습니까?");
-                        $(".searchloan-" + code).text("대여하기");
+                        location.reload();
+                        $(".searchloan-" + code).text("대여하기");                     
                     }else{
-                        alert("대여하시겠습니까?");                       
+                        alert("대여하시겠습니까?");  
+                        location.reload();                     
                         $(".searchloan-" + code).text("반납하기");
                     }
-                    location.reload();
                 },
                 error: function() {
                     alert("에러");
