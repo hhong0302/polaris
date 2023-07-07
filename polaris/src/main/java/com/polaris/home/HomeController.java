@@ -338,7 +338,7 @@ public class HomeController {
 	    
 	    return "search";
 	}
-	@RequestMapping(value = "/searchLike", method = { RequestMethod.GET })	
+	@RequestMapping(value = "searchLike", method = { RequestMethod.GET })	
 	public String test(HttpServletRequest request, Model model, RedirectAttributes re,@RequestParam("bookinfo") String bookinfo,@RequestParam("userid") String userid,@RequestParam(
 	"booktitle") String booktitle, @RequestParam("author") String author, @RequestParam("publisher") String publisher) {
 	 
@@ -349,7 +349,7 @@ public class HomeController {
 	    
 	    return "search";			
 	}
-	@RequestMapping(value = "/searchUserLike", method = { RequestMethod.GET })
+	@RequestMapping(value = "searchUserLike", method = { RequestMethod.GET })
 	@ResponseBody 
 	public void searchUserLike(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
 		String bookcode = request.getParameter("bookcode");
@@ -358,16 +358,15 @@ public class HomeController {
 		
 		int likeClick=0;
 		PolarisDAO dao = new PolarisDAO();
-
 		likeClick=dao.searchUserLike(bookcode,userid);
 	
 		PrintWriter out = response.getWriter();
 		out.println(likeClick);
 		out.close();
 	}
-	@RequestMapping(value = "/searchLikeCount", method = { RequestMethod.GET })
+	@RequestMapping(value = "searchLikeCount", method = { RequestMethod.GET })
 	@ResponseBody 
-	public void searchLikeCount(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
+	public String searchLikeCount(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
 		String bookcode = request.getParameter("bookcode");
 		
 		PolarisDAO dao = new PolarisDAO();
@@ -375,6 +374,33 @@ public class HomeController {
 	
 		PrintWriter out = response.getWriter();
 		out.println(likeCount);
+		out.close();
+		
+		return "search";
+	}
+	@RequestMapping(value = "/searchLoanBook", method = { RequestMethod.GET })	
+	public String searchLoanBook(HttpServletRequest request, Model model, RedirectAttributes re,@RequestParam("bookinfo") String bookinfo,@RequestParam(
+	"booktitle") String booktitle){
+	 
+		model.addAttribute("request", request);
+		
+		command = new DetailLoanCommand();
+		command.execute(model);
+	    
+	    return "search";			
+	}
+	@RequestMapping(value = "/searchloanCount", method = { RequestMethod.GET })
+	@ResponseBody 
+	public void searchLoanCount(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
+		String bookcode = request.getParameter("bookcode");
+		HttpSession session = request.getSession();
+		String userid=(String) session.getAttribute("userid");
+		
+		PolarisDAO dao = new PolarisDAO();
+
+		int loanStatus=dao.loanStatus(bookcode,userid);
+		PrintWriter out = response.getWriter();
+		out.println(loanStatus);
 		out.close();
 	}
 
@@ -437,35 +463,6 @@ public class HomeController {
 		return "detail";
 		
 	}
-	@RequestMapping(value = "/detailUserLike", method = { RequestMethod.GET })
-	@ResponseBody 
-	public void detailUserLike(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
-		String bookcode = request.getParameter("bookcode");
-		HttpSession session = request.getSession();
-		String userid=(String) session.getAttribute("userid");
-		
-		int likeClick=0;
-		PolarisDAO dao = new PolarisDAO();
-
-		likeClick=dao.userLike(bookcode,userid);
-	
-		PrintWriter out = response.getWriter();
-		out.println(likeClick);
-		out.close();
-	}
-	@RequestMapping(value = "/detailLikeCount", method = { RequestMethod.GET })
-	@ResponseBody 
-	public void detailLikeCount(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
-		String bookcode = request.getParameter("bookcode");
-		
-		PolarisDAO dao = new PolarisDAO();
-		int likeCount=dao.likeCount(bookcode);
-	
-		PrintWriter out = response.getWriter();
-		out.println(likeCount);
-		out.close();
-	}
-	
 	@RequestMapping("/detailbookloan")
 	public String loanbook(HttpServletRequest request, Model model, RedirectAttributes re) {
 		String bookcode = request.getParameter("bookinfo");
@@ -475,7 +472,7 @@ public class HomeController {
 		command = new DetailLoanCommand();
 		command.execute(model);
 		
-		return "redirect:/detail";
+		return "detail";
 		
 	}
 	@RequestMapping(value = "loanStatus")

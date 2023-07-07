@@ -1,3 +1,4 @@
+<%@page import="com.polaris.home.dao.PolarisDAO"%>
 <%@page import="com.polaris.home.dto.BookDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -13,9 +14,11 @@
 <body>
     <%@ include file="include/header.jsp" %>
 	<%
+		PolarisDAO dao = new PolarisDAO();
 		String uid = (String) session.getAttribute("userid");
+		HttpSession sessionObj = request.getSession();
+		int likeClick = (int) session.getAttribute("likeClick");
 	%>
-	<input type="hidden" name="userid" value="<%= uid%>">
     <div class="container">
         <c:choose>
             <c:when test="${searchType eq 'search'}">
@@ -49,7 +52,7 @@
 											<div  class="rental-box">
 												<div class="search-like" onclick="reject()">
 													<img src="resources/images/emptyheart.png" class="likeimg1" alt="emptyheart" />
-													<p>찜 ${book.likecount}</p>
+													<p>찜 ${likeCount}</p>
 												</div>
 												<div class="btn-box">
 													<div class="detail-btn-box">
@@ -66,7 +69,7 @@
 											<div  class="rental-box">
 												<div class="search-like" >
 												    <img src="resources/images/emptyheart.png" class="likeimg1 likeimg1-${book.bookcode}" alt="emptyheart" onclick="likeSuccess('${book.bookcode}', '${uid}', '${book.booktitle}', '${book.author}', '${book.publisher}', this)"/>
-												    <p class="likecount likecount-${book.bookcode}">찜 ${book.likecount}</p>
+												    <p class="likecount likecount-${book.bookcode}">찜 ${likeCount}</p>
 												</div>
 												<div class="btn-box">
 													<div class="detail-btn-box">
@@ -150,7 +153,7 @@
 											<div  class="rental-box">
 												<div class="search-like">
 													<img src="resources/images/emptyheart.png" class="likeimg1" alt="emptyheart" onclick="reject()"/>
-													<p>찜 ${book.likecount}</p>
+													<p>찜 ${likeCount}</p>
 												</div>
 												<div class="btn-box">
 													<div class="detail-btn-box">
@@ -165,11 +168,20 @@
 										}else{
 										%>
 											<div  class="rental-box">
-												<div class="search-like" >
-												    <img src="resources/images/emptyheart.png" class="likeimg1 likeimg1-${book.bookcode}" alt="emptyheart" 
-												    onclick="likeSuccess('${book.bookcode}', '${uid}', '${book.booktitle}', '${book.author}', '${book.publisher}')"/>
-												    <p class="likecount likecount-${book.bookcode}">찜 ${book.likecount}</p>
-												</div>
+												<c:choose>
+												    <c:when test="${likeClick eq 0}">
+												        <div class="search-like">
+												            <img src="resources/images/emptyheart.png" class="likeimg1 likeimg1-${book.bookcode}" alt="emptyheart" onclick="likeSuccess('${book.bookcode}', '${uid}', '${book.booktitle}', '${book.author}', '${book.publisher}', this)"/>
+												            <p>찜 ${likeCount}</p>
+												        </div>
+												    </c:when>
+												    <c:when test="${likeClick eq 1}">
+												        <div class="search-like">
+												            <img src="resources/images/fillheart.png" class="likeimg1 likeimg1-${book.bookcode}" alt="emptyheart" onclick="likeSuccess('${book.bookcode}', '${uid}', '${book.booktitle}', '${book.author}', '${book.publisher}', this)"/>
+												            <p>찜 ${likeCount}</p>
+												        </div>
+												    </c:when>
+												</c:choose>
 												<div class="btn-box">
 													<div class="detail-btn-box">
 														<a href="detail?bookinfo=${book.bookcode}" class="detail-btn">상세보기</a>
@@ -207,6 +219,8 @@
             <img src="resources/banner/banner_band01.jpg" alt="banner" />
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="path/to/jquery.cookie.js"></script>
     <script src="resources/js/searchpage.js"></script>
     <%@ include file="include/rboxfooter.jsp" %>
 </body>
