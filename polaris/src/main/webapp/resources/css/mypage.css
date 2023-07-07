@@ -305,3 +305,16 @@ button.pageNum-pagebtn.active{
     border: none;
     outline: none;
 }
+button.jjim-pageNum-pagebtn{
+	border: none;
+    background: none;
+    color : #000;
+    cursor : pointer;
+    outline: none;
+}
+button.jjim-pageNum-pagebtn.active{
+    color : #0054FF;
+    border: none;
+    outline: none;
+}
+

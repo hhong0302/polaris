@@ -151,7 +151,9 @@
         <div class="choi-jjim">
             <p>찜한 목록</p>
             <c:choose>
-	        <c:when test="${interest eq 0}">
+	        <c:when test="${interest == 0}">
+	        <div class="choi-jjim-book" style ="display : none;"></div>
+	        <div class="choi-jjim-book" style ="display : none;"></div>
             <div class="choi-jjim-book">
 	       		 <div class="choi-jjim-innerbook-nothing">
                     <div class="choi-jjim-img-nothing">
