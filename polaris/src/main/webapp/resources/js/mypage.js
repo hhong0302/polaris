@@ -31,6 +31,7 @@ function returnBook(bookcode, num) {
         data: {"bookcode": bookcode, "num": num }, // 서버로 보낼 데이터
         success: function(response) {
             console.log('책 반납이 완료되었습니다.');
+            alert ("책 반납이 완료되었습니다.");
             location.reload();
         },
         error: function(xhr, status, error) {
