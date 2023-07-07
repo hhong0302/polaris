@@ -3,6 +3,7 @@ package com.polaris.home.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.RowMapper;
 
 import com.polaris.home.dto.BookDTO;
 import com.polaris.home.dto.BookloanDTO;
@@ -27,7 +29,7 @@ import com.polaris.home.util.Static;
 public class PolarisDAO {
 	
 	DataSource dataSource;
-	JdbcTemplate template = null;
+	JdbcTemplate template;
 	
 	public PolarisDAO()
 	{
@@ -182,17 +184,11 @@ public class PolarisDAO {
 		String sql = "select count(*) from review where bookcode='"+bookcode+"' ";
 		return template.queryForObject(sql, Integer.class);
 	}
-	//리스트 목록 뿌리기
-	public List<ReviewDTO> hg_reviewList(String bookcode,String rvType)
-	{
-		String sql="select * from review where bookcode='"+bookcode+"' ";
-		if(rvType=="recent"||rvType.equals("recent")) sql+="order by redate desc";
-		else sql+="order by relike desc, redate desc";
-		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
-	}
 	public int getReviewCount(int reviewNum)
 	{
-		String sql = "select relike from review where num="+reviewNum;
+		String sql = "select b.relike from review as a left join "
+				+ "(select writer,count(*) as relike from clicklist b group by bookcode,writer)as b "
+				+ "on a.userid=b.writer where num="+reviewNum;
 		return template.queryForObject(sql, Integer.class);
 	}
 	//리뷰 작성자의 아이디값 받아오기(좋아요)
@@ -221,16 +217,6 @@ public class PolarisDAO {
 				ps.setString(3,pusher);
 			}
 		});
-		String sql2 = "update review set relike=relike-1 where bookcode=? and userid=?";
-		template.update(sql2,new PreparedStatementSetter()
-		{
-			@Override
-			public void setValues(PreparedStatement ps) throws SQLException
-			{
-				ps.setString(1,bookcode);
-				ps.setString(2, writer);
-			}
-		});
 	}
 	//좋아요 누르면 insert
 	public void upRevLike(String bookcode, String writer, String pusher)
@@ -246,25 +232,23 @@ public class PolarisDAO {
 				ps.setString(3,pusher);
 			}
 		});
-		String sql2 = "update review set relike=relike+1 where bookcode=? and userid=?";
-		template.update(sql2,new PreparedStatementSetter()
-		{
-			@Override
-			public void setValues(PreparedStatement ps) throws SQLException
-			{
-				ps.setString(1,bookcode);
-				ps.setString(2, writer);
-			}
-		});
 	}
 	//번호 눌렀을 때 나오는 리스트 1,2,3,4,5
 	public List<ReviewDTO> hg_reviewList(int listnum,String listType,String bookcode)
 	{
-		String sql = "select * from review where bookcode='"+bookcode+"' ";
-		if(listType=="recent"||listType.equals("recent")) sql+="order by redate desc";
-		else sql+="order by relike desc, redate desc";
+		String sql = "";
+		if(listType=="recent"||listType.equals("recent")) sql = "select a.*, b.relike from review as a left join "
+															+ "(select bookcode,writer, count(bookcode) as relike "
+															+ "from clicklist group by bookcode,writer order by relike desc) as b "
+															+ "on a.userid=b.writer and a.bookcode=b.bookcode "
+															+ "where a.bookcode='"+bookcode+"' order by a.redate desc";
+		else sql="select a.*, b.relike from review as a left join "
+				+ "(select bookcode,writer, count(bookcode) as relike "
+				+ "from clicklist group by bookcode,writer order by relike desc) as b "
+				+ "on a.userid=b.writer and a.bookcode=b.bookcode "
+				+ "where a.bookcode='"+bookcode+"' order by b.relike desc, a.redate desc";
 		sql+=" limit "+listnum+", 5";
-		return (List<ReviewDTO>)template.query(sql,new BeanPropertyRowMapper<ReviewDTO>(ReviewDTO.class));
+		return template.query(sql,new ReviewRowMapper());
 	}
 	//비밀번호 찾기
 	public int findId(String userid,String username,String birth,String usertel)
@@ -588,4 +572,20 @@ public String findMyId(String username, String birth, String tel) {
 
 	
 
+}
+
+class ReviewRowMapper implements RowMapper<ReviewDTO>
+{
+	@Override
+	public ReviewDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ReviewDTO dto = new ReviewDTO();
+		dto.setNum(rs.getInt("num"));
+		dto.setBookcode(rs.getString("bookcode"));
+		dto.setUserid(rs.getString("userid"));
+		dto.setRetitle(rs.getString("retitle"));
+		dto.setRecontent(rs.getString("recontent"));
+		dto.setRedate(rs.getString("redate"));
+		dto.setRelike(rs.getInt("relike"));
+		return dto;
+	}
 }

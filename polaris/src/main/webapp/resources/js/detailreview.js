@@ -177,10 +177,11 @@ function listNav_click(reviewType,bookcode)
 		url : "reviewController",
 		type: "GET",
 		dataType: "json",
-		data:{"reviewType":reviewType,"bookcode":bookcode},//인기순/최신순, bookcode를 reviewController에 전달
+		data:{"bookcode":bookcode},//인기순/최신순, bookcode를 reviewController에 전달
 		async:false,
 		contentType: "application/json",
 		success : function(datas) {
+			console.log(datas);
 			let listCount=0;//초기 리스트 개수. 총 개수가 25보다 적으면 
 			let rvButtonList="";
 		  	if(datas==null||datas==""||datas==0)
@@ -189,9 +190,9 @@ function listNav_click(reviewType,bookcode)
 			}
 			else
 			{
-				allReviewDatas=Math.ceil(datas.length/5);
+				allReviewDatas=Math.ceil(datas/5);
 				
-				if(datas.length<25) listCount=Math.ceil(datas.length/5);
+				if(datas<25) listCount=Math.ceil(datas/5);
 				else
 				{
 					listCount=5;
