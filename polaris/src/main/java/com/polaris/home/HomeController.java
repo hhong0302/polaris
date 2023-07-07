@@ -343,7 +343,7 @@ public class HomeController {
 	    
 	    return "search";
 	}
-	@RequestMapping(value = "/searchLike", method = { RequestMethod.GET })	
+	@RequestMapping(value = "searchLike", method = { RequestMethod.GET })	
 	public String test(HttpServletRequest request, Model model, RedirectAttributes re,@RequestParam("bookinfo") String bookinfo,@RequestParam("userid") String userid,@RequestParam(
 	"booktitle") String booktitle, @RequestParam("author") String author, @RequestParam("publisher") String publisher) {
 	 
@@ -354,7 +354,7 @@ public class HomeController {
 	    
 	    return "search";			
 	}
-	@RequestMapping(value = "/searchUserLike", method = { RequestMethod.GET })
+	@RequestMapping(value = "searchUserLike", method = { RequestMethod.GET })
 	@ResponseBody 
 	public void searchUserLike(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
 		String bookcode = request.getParameter("bookcode");
@@ -363,16 +363,15 @@ public class HomeController {
 		
 		int likeClick=0;
 		PolarisDAO dao = new PolarisDAO();
-
 		likeClick=dao.searchUserLike(bookcode,userid);
 	
 		PrintWriter out = response.getWriter();
 		out.println(likeClick);
 		out.close();
 	}
-	@RequestMapping(value = "/searchLikeCount", method = { RequestMethod.GET })
+	@RequestMapping(value = "searchLikeCount", method = { RequestMethod.GET })
 	@ResponseBody 
-	public void searchLikeCount(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
+	public String searchLikeCount(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
 		String bookcode = request.getParameter("bookcode");
 		
 		PolarisDAO dao = new PolarisDAO();
@@ -381,6 +380,8 @@ public class HomeController {
 		PrintWriter out = response.getWriter();
 		out.println(likeCount);
 		out.close();
+		
+		return "search";
 	}
 	@RequestMapping(value = "/searchLoanBook", method = { RequestMethod.GET })	
 	public String searchLoanBook(HttpServletRequest request, Model model, RedirectAttributes re,@RequestParam("bookinfo") String bookinfo,@RequestParam(
@@ -403,7 +404,6 @@ public class HomeController {
 		PolarisDAO dao = new PolarisDAO();
 
 		int loanStatus=dao.loanStatus(bookcode,userid);
-		System.out.println(loanStatus);
 		PrintWriter out = response.getWriter();
 		out.println(loanStatus);
 		out.close();
@@ -509,11 +509,10 @@ public class HomeController {
 	
 	@RequestMapping(value = "mypage", method = RequestMethod.GET)
 	public String bookloan(HttpServletRequest request, Model model) {
-		
+		model.addAttribute("request", request);
 		command = new MyCommand();
 		command.execute(model);
-
-		
+	
 		return "mypage";	// mypage.jsp 호출!!!
 	
 	}
@@ -522,7 +521,6 @@ public class HomeController {
 	@RequestMapping(value ="/pastLoanAllCounter")
 	public void pastLoanAllCounter(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		PolarisDAO dao = new PolarisDAO();
-		String userid = req.getParameter("userid");
 		int pastloan = dao.choi_pastloanList();
 		PrintWriter out = res.getWriter();
 		out.print(pastloan);
@@ -536,7 +534,7 @@ public class HomeController {
 		 int listnum = 12*Integer.parseInt(req.getParameter("listnum"));
 		 List<BookloanDTO> dto = dao.choi_loanPageList(listnum);
 		 PrintWriter out = res.getWriter();
-		 String gson = new Gson().toJson(dto);	//데이터 json으로 전환
+		 String gson = new Gson().toJson(dto);	//데이터 제이슨으로 전환
 		 out.print(gson);
 		 out.close();
 	 }
@@ -545,26 +543,30 @@ public class HomeController {
 	@RequestMapping(value = "/jjimAllCounter")
 	public void jjimAllCounter(HttpServletRequest req, HttpServletResponse res) throws Exception{
 		PolarisDAO dao = new PolarisDAO();
-		int jjimCount = dao.choi_interest();
+		HttpSession session = req.getSession();
+		String userid = (String)session.getAttribute("userid");
+		int jjimCount = dao.choi_interest(userid);
 		PrintWriter out = res.getWriter();
 		out.print(jjimCount);
 		out.close();
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/jjimAllList")
+	@RequestMapping(value="/jjimAllList", method = RequestMethod.GET)
 	public void jjimAllList (HttpServletRequest req, HttpServletResponse res) throws Exception{
 		PolarisDAO dao = new PolarisDAO();
 		int listnum = 12*Integer.parseInt(req.getParameter("listnum"));
-		List<InterestDTO> dto = dao.choi_jjimPageList(listnum);
+		HttpSession session = req.getSession();
+		String userid = (String)session.getAttribute("userid");
+		List<InterestDTO> dto = dao.choi_jjimPageList(listnum, userid);
 		PrintWriter out = res.getWriter();
-		String gson = new Gson().toJson(dto);
+		String gson = new Gson().toJson(dto);	//데이터 제이슨으로 전환
 		out.print(gson);
 		out.close();
 	}
 	
 	
-	//반납choi
+	//반납
 	@ResponseBody
 	@RequestMapping(value = "/bookloan", method = RequestMethod.GET)
 	public void choi_bookLoan(HttpServletRequest request) {
@@ -579,8 +581,10 @@ public class HomeController {
 	@RequestMapping(value="/delInterest", method = RequestMethod.GET)
 	public void delInterest(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		PolarisDAO dao = new PolarisDAO();
-		String userid = req.getParameter("userid");
-	    dao.choi_del_interest(userid);
+		HttpSession session = req.getSession();
+		String userid = (String)session.getAttribute("userid");
+		String bookcode = req.getParameter("bookcode");
+	    dao.choi_del_interest(userid, bookcode);
 	}
 	
 	@RequestMapping(value = "register")
@@ -651,18 +655,6 @@ public class HomeController {
 		out.println("</script>");
 		out.close();	// 로그아웃!!!
 	}
-	@RequestMapping(value = "/exitLogout")
-	public void exitLogout(HttpServletRequest request,HttpServletResponse response) throws IOException {
-		
-		response.setContentType("text/html; charset=UTF-8");
-		HttpSession session = request.getSession();
-		PrintWriter out = response.getWriter();
-		session.invalidate();
-		out.println("<script>");
-		out.println("location.href=('/home')");
-		out.println("</script>");
-		out.close();	// 로그아웃!!!
-	}
 	@RequestMapping(value = "findidok")
 	public String findidok(HttpServletRequest request, Model model) {
 		command = new FindIdCommand();
@@ -672,18 +664,9 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "member")
-	public String member(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+	public String member(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-		PrintWriter out = response.getWriter();
 		String userid = (String)session.getAttribute("userid");
-		if(userid == null) {
-			response.setContentType("text/html; charset=UTF-8");
-			out.println("<script>");
-			out.println("alert('이미 탈퇴 처리된 회원입니다.');");
-			out.println("location.href=('/home')");
-			out.println("</script>");
-			out.close();
-		}
 		request.setAttribute("userid", userid);
 		model.addAttribute("request", request);
 		command = new MemberListCommand();
@@ -738,7 +721,7 @@ public class HomeController {
 		session.invalidate();
 		out.println("<script>");
 		out.println("alert('회원탈퇴가 완료되었습니다. 그동안 이용해 주셔서 감사합니다.');");
-		out.println("location.href=('/home/exitLogout')");
+		out.println("location.href=('/home')");
 		out.println("</script>");
 		out.close();
 	}

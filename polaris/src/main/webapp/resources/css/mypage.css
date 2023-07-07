@@ -106,17 +106,19 @@ a:hover{
 	margin : 20px 10px;
 }
 .choi-past-text-top p{
+	display : block;
 	font-size : 13px;
 	font-weight : bold;
 	margin-bottom : 21px;
 	white-space: nowrap;
-	overflow: hidden;
+	overflow: hidden; 
+	text-overflow : ellipsis;
 }
-.choi-past-text-top.active{
-	text-overflow: ellipsis;
-    word-break: break-word;
+.choi-past-text-top.active p{
+	white-space: normal;
+	overflow : hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
 .choi-past-text-bottom span{
@@ -250,6 +252,9 @@ a:hover{
     height : 85px;
     margin-right : 10px;
 }
+.choi-jjim-text{
+	width : 100%;
+}
 .choi-jjim-text div{
 	display : block;
 }
@@ -262,7 +267,16 @@ a:hover{
 .choi-jjim-text-top p{
 	font-size : 13px;
 	font-weight : bold;
-	
+	white-space: nowrap;
+	text-overflow : ellipsis;
+}
+.choi-jjim-text-top.active p{
+	width : 100%;
+	white-space: normal;
+	overflow : hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 .choi-jjim-text-bottom{
 	margin-top : 9px;
@@ -279,7 +293,15 @@ a:hover{
 	float : right;
 	width : 100%;
 }
-.pageNum-pagebtn{
+button.pageNum-pagebtn{
 	border: none;
-    background: none
+    background: none;
+    color : #000;
+    cursor : pointer;
+    outline: none;
+}
+button.pageNum-pagebtn.active{
+    color : #0054FF;
+    border: none;
+    outline: none;
 }
