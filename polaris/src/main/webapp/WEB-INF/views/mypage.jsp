@@ -154,6 +154,7 @@
 	        <c:when test="${interest == 0}">
 	        <div class="choi-jjim-book" style ="display : none;"></div>
 	        <div class="choi-jjim-book" style ="display : none;" ></div>
+
             <div class="choi-jjim-book">
 	       		 <div class="choi-jjim-innerbook-nothing">
                     <div class="choi-jjim-img-nothing">
