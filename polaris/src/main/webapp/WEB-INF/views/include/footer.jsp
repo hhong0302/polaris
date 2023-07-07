@@ -26,7 +26,7 @@
 				<span>청소년 보호정책</span>
 			</div>
 			<div class="hg-familysite">
-				<a href="javascript:void(0)" target="_blank"><span id="hg-prositetxt">Profile Site</span></a>
+				<a href="#" target="_blank"><span id="hg-prositetxt">Profile Site</span></a>
 				<div class="hg-familysitebox">
 					<span id="hg-fmysitetxt">Family Site</span>
 					<div id="hg-fmysitebox"></div>
@@ -35,13 +35,13 @@
 		</div>
 		<div class="hg-fbottom">
 			<div class="hg-fbtop">
-				<span>대표 이사 : 누리최</span>
+				<span>대표 이사 : 홍길동</span>
 				<span>경기 김포시 김포한강4로 125 10층, 장기동 1604</span>
 				<span>사업자 등록 번호 : 012-34-56789</span>
 			</div>
 			<div class="hg-fbmid">
 				<span>대표 번호 : 0000-0000(발신자 부담 전화)</span>
-				<span>개인정보 보호 책임자 : 누리최</span>
+				<span>개인정보 보호 책임자 : 홍길동</span>
 				<span>통신판매업 신고 : 제 2023-061123호</span>
 			</div>
 			<div class="hg-fbbottom">
