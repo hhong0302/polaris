@@ -32,7 +32,7 @@
 				<p>메인<i class="ri-arrow-drop-right-line"></i><span class="ftBlack-detail">${book.genre}</span></p>
 			</div>
 			
-			<form action="detailbookloan?bookinfo=${bookcode}" class="bookRental-detail" method="post">
+			<form class="bookRental-detail" method="post">
 				<div class="hash-detail">					
 					<p class="bookHash-detail">
 					${fn:replace(book.hash, replaceHash, "</p> <p>")}
@@ -70,8 +70,8 @@
 				%>
 					<div class="rentalBtn-detail">
 						<div class="likeBtn-detail">
-							<img src="resources/images/emptyheart.png" class="likeimg" alt="emptyheart" onclick="reject()">
-							<p>찜 ${book.likecount}</p>
+							<img src="resources/images/emptyheart.png"alt="emptyheart" onclick="reject()">
+							찜 ${likeCount}
 						</div>
 						<button type="button" class="rental-detail" onclick="reject()">대여하기</button>
 						<button type="button" class="readNow-detail" onclick="reject()">바로 읽기</button>
@@ -80,26 +80,36 @@
 					}else {
 				%>				
 					<div class="rentalBtn-detail">
-						<div class="likeBtn-detail" >
-						    <img src="resources/images/emptyheart.png" class="likeimg likeimg-${book.bookcode}" alt="emptyheart" onclick="interest('${book.bookcode}', '${userid}', '${book.booktitle}', '${book.author}', '${book.publisher}', this)"/>
-						    <p class="likecount likecount-${book.bookcode}">찜 ${book.likecount}</p>
-						</div>
+						<c:choose>
+							<c:when test="${userLike == 0}">
+								<div class="likeBtn-detail" >
+								    <img src="resources/images/emptyheart.png" alt="emptyheart" onclick="interest('${book.bookcode}', '${userid}', '${book.booktitle}', '${book.author}', '${book.publisher}')"/>
+								    찜 ${likeCount}
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="likeBtn-detail" >
+								    <img src="resources/images/fillheart.png" alt="fillheart" onclick="interest('${book.bookcode}', '${userid}', '${book.booktitle}', '${book.author}', '${book.publisher}')"/>
+								    찜 ${likeCount}
+								</div>
+							</c:otherwise>
+						</c:choose>
 						<c:choose>
 							<c:when test="${loanStatus == 0}">
 								<%
 									if(loanCount < 3){
 								%>
-								<button type="submit" class="rental-detail">대여하기</button>
+									<button type="button" class="rental-detail" onclick="loanBook('${book.bookcode}', '${userid}', '${book.booktitle}', '${book.author}', '${book.publisher}')">대여하기</button>
 								<%
 									}else{
 								%>
-								<button type="button" class="rental-detail" onclick="loanReject()">대여하기</button>
+									<button type="button" class="rental-detail" onclick="loanReject()">대여하기</button>
 								<%
 									}
 								%>
 							</c:when>
 							<c:otherwise>
-								<button type="submit" class="rental-detail">반납하기</button>
+								<button type="button" class="rental-detail" onclick="loanBook('${book.bookcode}', '${userid}', '${book.booktitle}', '${book.author}', '${book.publisher}')">반납하기</button>
 							</c:otherwise>
 						</c:choose>
 						<button type="button" class="readNow-detail">바로 읽기</button>

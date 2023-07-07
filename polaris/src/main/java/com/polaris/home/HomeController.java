@@ -463,35 +463,6 @@ public class HomeController {
 		return "detail";
 		
 	}
-	@RequestMapping(value = "/detailUserLike", method = { RequestMethod.GET })
-	@ResponseBody 
-	public void detailUserLike(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
-		String bookcode = request.getParameter("bookcode");
-		HttpSession session = request.getSession();
-		String userid=(String) session.getAttribute("userid");
-		
-		int likeClick=0;
-		PolarisDAO dao = new PolarisDAO();
-
-		likeClick=dao.userLike(bookcode,userid);
-	
-		PrintWriter out = response.getWriter();
-		out.println(likeClick);
-		out.close();
-	}
-	@RequestMapping(value = "/detailLikeCount", method = { RequestMethod.GET })
-	@ResponseBody 
-	public void detailLikeCount(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
-		String bookcode = request.getParameter("bookcode");
-		
-		PolarisDAO dao = new PolarisDAO();
-		int likeCount=dao.likeCount(bookcode);
-	
-		PrintWriter out = response.getWriter();
-		out.println(likeCount);
-		out.close();
-	}
-	
 	@RequestMapping("/detailbookloan")
 	public String loanbook(HttpServletRequest request, Model model, RedirectAttributes re) {
 		String bookcode = request.getParameter("bookinfo");
@@ -501,7 +472,7 @@ public class HomeController {
 		command = new DetailLoanCommand();
 		command.execute(model);
 		
-		return "redirect:/detail";
+		return "detail";
 		
 	}
 	@RequestMapping(value = "loanStatus")
