@@ -5,11 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<%@include file="include/header.jsp" %>
+<title>Polaris</title>
 <link rel="stylesheet" href="resources/css/member.css">
+<link rel="icon" href="resources/images/favicon.png" />
 </head>
 <body>
+<%@include file="include/header.jsp" %>
 <%
 	response.setHeader("Pragma", "no-cache"); 
 	response.setHeader("Cache-Control", "no-cache"); 

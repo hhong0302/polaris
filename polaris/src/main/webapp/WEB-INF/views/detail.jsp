@@ -10,9 +10,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Polaris</title>
+<c:forEach var="book" items="${bookinfo}">
+<title>${book.booktitle} - Polaris</title>
+</c:forEach>
 <link rel="stylesheet" href="resources/css/detail.css" />
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="icon" href="resources/images/favicon.png" />
 </head>
 <body>
 <%@include file="include/header.jsp" %>
