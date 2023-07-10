@@ -3,6 +3,11 @@ span{
     font-size: 10px;
     color: #ddd;
 }
+.choi-container{
+	width : 1200px;
+	margin : 0 auto;
+	padding : 0 auto;
+}
 a:hover{
 	text-decoration: none;
 	color : inherit;
@@ -188,8 +193,9 @@ a:hover{
 }
 .choi-book-text-mid p{
 	margin-top : 5px;
-	color : #c30000;
+	color : #000;
 	font-weight : bold;
+	font-size : 15px;
 }
 .choi-book-text-last{
 	display : flex;
