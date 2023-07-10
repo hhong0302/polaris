@@ -153,14 +153,18 @@ userpass.addEventListener('keyup', function(){
     }
 });
 userpass.addEventListener('keyup', function(){
-    if(userpass.value != reuserpass.value){
+    if(userpass.value != reuserpass.value && reuserpass.value == ''){
+        repasscheckno.style.display = 'none';
+        repasscheckok.style.display = 'none';
+
+    }else if((userpass.value != reuserpass.value || reuserpass.value != '') || userpass.value != reuserpass.value){
         repasscheckok.style.display = 'none';
         repasscheckno.style.display = 'flex';
     }else{
         repasscheckok.style.display = 'flex';
         repasscheckno.style.display = 'none';
     }
-})
+});
 reuserpass.addEventListener('keyup', function(){
     if(reuserpass.value == '' && reuserpass.value == userpass.value){
         repasscheckno.style.display = 'none';
