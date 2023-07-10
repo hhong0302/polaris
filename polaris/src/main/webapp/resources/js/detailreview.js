@@ -12,7 +12,8 @@ const rvbox_detail_value=rvbox_detail.innerHTML;
 
 window.onload=function()
 {
-	if(rvbox_detail_num<=80) document.getElementById("rvcontentmoreWatchbtnbox").innerHTML="";
+	console.log(rvbox_detail_num);
+	if(rvbox_detail_num<=92) document.getElementById("rvcontentmoreWatchbtnbox").innerHTML="";
 	else document.getElementById("rvcontentmoreWatchbtnbox").innerHTML=`<button type="button" 
 	class="rvcontentmoreWatchbtn" onclick="rvmoreWatch(this)">모두보기<i class="fa-solid fa-angle-down"></i>
 	</button>`;
@@ -126,7 +127,7 @@ function reviewModifyCancel()
 //더보기 버튼
 function rvmoreWatch(e)
 {
-	if(rvbox_detail.clientHeight==83)
+	if(rvbox_detail.clientHeight==80)
 	{
 		e.innerHTML= `접기<i class="fa-solid fa-angle-up"></i>`;
 		rvbox_detail.style.height=rvbox_detail.scrollHeight+"px";
@@ -135,7 +136,7 @@ function rvmoreWatch(e)
 	else
 	{
 		e.innerHTML= `모두보기<i class="fa-solid fa-angle-down"></i>`;
-		rvbox_detail.style.height="83px";
+		rvbox_detail.style.height="80px";
 		rvbox_detail.classList.add("active");
 	}
 }
@@ -177,7 +178,7 @@ function listNav_click(reviewType,bookcode)
 		url : "reviewController",
 		type: "GET",
 		dataType: "json",
-		data:{"reviewType":reviewType,"bookcode":bookcode},//인기순/최신순, bookcode를 reviewController에 전달
+		data:{"bookcode":bookcode},//인기순/최신순, bookcode를 reviewController에 전달
 		async:false,
 		contentType: "application/json",
 		success : function(datas) {
@@ -189,9 +190,9 @@ function listNav_click(reviewType,bookcode)
 			}
 			else
 			{
-				allReviewDatas=Math.ceil(datas.length/5);
+				allReviewDatas=Math.ceil(datas/5);
 				
-				if(datas.length<25) listCount=Math.ceil(datas.length/5);
+				if(datas<25) listCount=Math.ceil(datas/5);
 				else
 				{
 					listCount=5;
@@ -279,7 +280,7 @@ function pageNumBtnClick(e,listNumber,lstType,bookcode)
 	});
 	for(let i=0;i<rvcmtcontent.length;i++)
 	{
-		if(rvcmtcontent[i].scrollHeight<=43)
+		if(rvcmtcontent[i].scrollHeight<=40)
 		{
 			document.getElementsByClassName("moreWatchbtnbox")[i].innerHTML="";
 		}

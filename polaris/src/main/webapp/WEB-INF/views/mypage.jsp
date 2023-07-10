@@ -34,7 +34,7 @@
 		
 		            </div>
 		            <div class="choi-line2">
-		                <span><a href="#">내 정보 수정</a></span>
+		                <span><a href="member">내 정보 수정</a></span>
 		            </div>
 		        </div>
 			</c:if>
@@ -69,12 +69,12 @@
 	                    <div class="choi-current-book">
 	                     <div class="choi-book-img">
 	                            <img src="resources/bookimg/${my.bookcode }.jpg" alt="bookimg">
-	                        </div>
-	                        <div class="choi-book-text">
-	                        	<div class="choi-book-text-top">
-		                            <p>${my.booktitle }</p>
+	                     </div>
+	                     <div class="choi-book-text">
+	                       	<div class="choi-book-text-top">
+		                           <a href = "detail?bookinfo=${my.bookcode }"><p>${my.booktitle }</p></a>
 		                            <span>저자 . 글쓴이</span>
-	                            </div>
+	                        </div>
 	                            <div class="choi-book-text-mid">
 	                            <c:set var = "TextValue" value="${my.loandate }" />
 		                            <span>대여 기간</span>
@@ -98,7 +98,7 @@
               <c:choose>
 	          <c:when test="${pastloanList eq 0}">
 	          	<div class="choi-past-book">
-                    <div class="choi-post-book-img">
+                    <div class="choi-past-book-img">
                         <img src="resources/images/past-nothing.png" alt="book">
                     </div>
                  </div>
@@ -151,7 +151,10 @@
         <div class="choi-jjim">
             <p>찜한 목록</p>
             <c:choose>
-	        <c:when test="${interest eq 0}">
+	        <c:when test="${interest == 0}">
+	        <div class="choi-jjim-book" style ="display : none;"></div>
+	        <div class="choi-jjim-book" style ="display : none;" ></div>
+
             <div class="choi-jjim-book">
 	       		 <div class="choi-jjim-innerbook-nothing">
                     <div class="choi-jjim-img-nothing">
@@ -161,15 +164,14 @@
              </div>
               </c:when>
               <c:otherwise>
-     	      <div class = "choi-jjim-book-big">
+     	      <div class = "choi-jjim-book">
  <%--     	      <c:forEach var ="my" items= "${interest }"> 
      	  
-     	      <div class="choi-jjim-book">
                 <div class="choi-jjim-innerbook">
                     <div class="choi-jjim-img">
                         <img src="resources/bookimg/${my.bookcode }.jpg" alt="book">
                     </div>
-                    
+                     
                     <div class="choi-jjim-text">
                     	<div class = "choi-close-btn">
                     		<a href="#" class = "deleteBtn" onclick = "deleteBtn();"><img src="resources/images/Vector.png" alt="x" /></a>
@@ -183,10 +185,10 @@
     					</div>
                     </div>
                    </div>
-                 </div>
+ 
                 </c:forEach> --%>
                </div>
-               <div class = "choi-jjim-book-big">
+               <div class = "choi-jjim-book">
                </div>
                 </c:otherwise>
                 </c:choose>

@@ -1,8 +1,26 @@
-function deleteBtn(){
-	let bookimg = document.querySelector('.deleteBtn');
-	if(bookimg){
-		bookimg.remove();
-	}
+function delInterest(bookcode){
+	 $.ajax({
+        url: 'delInterest',
+        method: 'GET', 
+        data: {"bookcode": bookcode
+         }, // 서버로 보낼 데이터
+        success: function(response) {
+            console.log('찜하기가 삭제 되었습니다.');
+            console.log(response);
+            $('#deleteBtn').remove();
+			alert("취소되었습니다.");
+			location.reload();
+        },
+        error: function(xhr, status, error) {
+            
+            console.log('찜하기 취소가 실패하였습니다.');
+           	alert("다시 시도해주세요");
+        }
+        
+
+    });
+    
+    return false; 
 }
 
 
@@ -13,6 +31,7 @@ function returnBook(bookcode, num) {
         data: {"bookcode": bookcode, "num": num }, // 서버로 보낼 데이터
         success: function(response) {
             console.log('책 반납이 완료되었습니다.');
+            alert ("책 반납이 완료되었습니다.");
             location.reload();
         },
         error: function(xhr, status, error) {
@@ -53,7 +72,7 @@ function pageAllList(){
 			let rvButtonList="";	//리스트가 총 몇개인지
 		  	if(datas==0)
 			{
-				rvButtonList+=`<button class="pageNum-pagebtn">1</button>`;
+				rvButtonList+=`<button class="pageNum-pagebtn ">1</button>`;
 			}
 			else
 			{
@@ -68,7 +87,7 @@ function pageAllList(){
 				}
 				for(let i=1;i<=listCount;i++)
 				{
-					rvButtonList+=`<button class="pageNum-pagebtn" onclick="pageNumBtnClick(${i-1})">${i}</button>`;
+					rvButtonList+=`<button class="pageNum-pagebtn " onclick="pageNumBtnClick(${i-1})">${i}</button>`;
 				}
 			}
 				pgnum_detail.innerHTML=rvButtonList;
@@ -80,6 +99,11 @@ function pageAllList(){
 		document.getElementsByClassName("pageNum-pagebtn")[0].click();
 
 		//페이지 처음에 1페이지로 가는거
+		
+		$('.pageNum-pagebtn').click(function(e){
+		    $('.pageNum-pagebtn').removeClass('active');
+		    $(this).toggleClass('active');
+		})
 		}
 
 //지난 대여 1,2,3,4,5 그 버튼
@@ -107,7 +131,7 @@ $.ajax({
                         <img src="resources/bookimg/${datas[i].bookcode }.jpg" alt="book">
                     </div>
                     <div class="choi-past-text">
-                    	<div class = "choi-past-text-top">
+                    	<div class = "choi-past-text-top active">
 	                        <p>${datas[i].booktitle}</p>
                     	</div>
     					<div class = "choi-past-text-bottom">
@@ -125,7 +149,7 @@ $.ajax({
                         <img src="resources/bookimg/${datas[i].bookcode }.jpg" alt="book">
                     </div>
                     <div class="choi-past-text">
-                    	<div class = "choi-past-text-top">
+                    	<div class = "choi-past-text-top active">
 	                        <p>${datas[i].booktitle}</p>
                     	</div>
     					<div class = "choi-past-text-bottom">
@@ -144,8 +168,10 @@ $.ajax({
   		console.log("error");
   		}
 	});
-	pastbook[0].innerHTML=reviewList;
+	pastbook[0].innerHTML = reviewList;
 	pastbook[1].innerHTML = pastList;
+	
+	
 }
 	
 //지난 대여 이전,다음 버튼
@@ -196,7 +222,7 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 
 
 <!-- 찜한상품 -->
-const jjimtbook = document.getElementsByClassName("choi-jjim-book-big");
+const jjimbook = document.getElementsByClassName("choi-jjim-book");
 const jjimnum_detail = document.getElementsByClassName("jjim-pageNum-detail")[0];
 
 function jjimLoanAllCounter(){
@@ -212,7 +238,7 @@ function jjimLoanAllCounter(){
 			let rvButtonList="";	//리스트가 총 몇개인지
 		  	if(datas==0)
 			{
-				rvButtonList+=`<button class="pageNum-pagebtn">1</button>`;
+				rvButtonList+=`<button class="jjim-pageNum-pagebtn active">1</button>`;
 			}
 			else
 			{
@@ -223,22 +249,24 @@ function jjimLoanAllCounter(){
 				else
 				{
 					listCount=5;
-					pgbtn_next.classList.add("active");
+					<!-- pgbtn_next.classList.add("active"); -->
 				}
 				for(let i=1;i<=listCount;i++)
 				{
-					rvButtonList+=`<button class="pageNum-pagebtn" onclick="pageNumBtnClick(${i-1})">${i}</button>`;
+					rvButtonList+=`<button class="jjim-pageNum-pagebtn active" onclick="jjimpageNumBtnClick(${i-1})">${i}</button>`;
 				}
 			}
-				pgnum_detail.innerHTML=rvButtonList;
+				jjimnum_detail.innerHTML=rvButtonList;
   		},
   		error : function() {
   		console.log("error");
   		}
 		});
-		document.getElementsByClassName("pageNum-pagebtn")[0].click();
-
+		document.getElementsByClassName("jjim-pageNum-pagebtn")[0].click();
 		//페이지 처음에 1페이지로 가는거
+		
+		jjimpageNumBtnClick(0);
+		// 페이지 로딩 시에 첫 번째 페이지를 자동으로 보여주도록 호출
 		}
 		
 		
@@ -246,7 +274,7 @@ function jjimLoanAllCounter(){
 //찜한 상품 1,2,3,4,5 그 버튼
 function jjimpageNumBtnClick(listNumber)
 {
-	const pgNum_pgbtn = document.getElementsByClassName("pageNum-pagebtn");
+	const pgNum_pgbtn = document.getElementsByClassName("jjim-pageNum-pagebtn");
 	let reviewList = "";
 	let pastList = "";
 $.ajax({
@@ -254,26 +282,25 @@ $.ajax({
 		type: "GET",
 		dataType: "json",
 		data:{"listnum":listNumber},
-
 		async:false,
 		contentType: "application/json",
 		success : function(datas) {
-			
+
 			for(let i=0;i<datas.length;i++){
 			if(i<6)
+
 				{
 
-					reviewList+=` <div class="choi-jjim-book">
-                <div class="choi-jjim-innerbook">
+					reviewList+=`<div class="choi-jjim-innerbook">
                     <div class="choi-jjim-img">
                         <img src="resources/bookimg/${datas[i].bookcode }.jpg" alt="book">
                     </div>
                     
                     <div class="choi-jjim-text">
                     	<div class = "choi-close-btn">
-                    		<a href="#" class = "deleteBtn" onclick = "deleteBtn();"><img src="resources/images/Vector.png" alt="x" /></a>
+                    		<a class = "deleteBtn" onclick = "delInterest('${datas[i].bookcode }');"><img src="resources/images/Vector.png" alt="x" /></a>
                     	</div>
-                    	<div class = "choi-jjim-text-top">
+                    	<div class = "choi-jjim-text-top active">
 	                        <p>${datas[i].booktitle}</p>
                     	</div>
     					<div class = "choi-jjim-text-bottom">
@@ -281,23 +308,21 @@ $.ajax({
 	                        <span>${datas[i].publisher }</span>
     					</div>
                     </div>
-                   </div>
-                 </div>`;
+                   </div> `;
 			
 			    }
 			    else{
 			    
-			    	pastList+=`<div class="choi-jjim-book">
-                <div class="choi-jjim-innerbook">
+			    	pastList+=`<div class="choi-jjim-innerbook">
                     <div class="choi-jjim-img">
                         <img src="resources/bookimg/${datas[i].bookcode }.jpg" alt="book">
                     </div>
                     
                     <div class="choi-jjim-text">
                     	<div class = "choi-close-btn">
-                    		<a href="#" class = "deleteBtn" onclick = "deleteBtn();"><img src="resources/images/Vector.png" alt="x" /></a>
+                    		<a class = "deleteBtn" onclick = "delInterest('${datas[i].bookcode }');"><img src="resources/images/Vector.png" alt="x" /></a>
                     	</div>
-                    	<div class = "choi-jjim-text-top">
+                    	<div class = "choi-jjim-text-top active">
 	                        <p>${datas[i].booktitle}</p>
                     	</div>
     					<div class = "choi-jjim-text-bottom">
@@ -305,8 +330,7 @@ $.ajax({
 	                        <span>${datas[i].publisher }</span>
     					</div>
                     </div>
-                   </div>
-                 </div>`;
+                   </div>`;
 			    
 			    }
 			    
@@ -317,13 +341,18 @@ $.ajax({
   		console.log("error");
   		}
 	});
-	pastbook[0].innerHTML=reviewList;
-	pastbook[1].innerHTML = pastList;
+	jjimbook[0].innerHTML = reviewList;
+	jjimbook[1].innerHTML = pastList;
 }
 	
+window.onload=function()
+{
+	jjimLoanAllCounter();
+}
+
 	
 //찜한 상품 대여 이전,다음 버튼
-function rvListPrevNxtBtn(hg_number,bookcode)
+function jjimListPrevNxtBtn(hg_number,bookcode)
 {
 
 	const pgNum_pgbtn = document.getElementsByClassName("pageNum");
@@ -348,9 +377,9 @@ function rvListPrevNxtBtn(hg_number,bookcode)
 		{
 			break;
 		}
-		rvButtonList+=`<button class="pageNum-pagebtn" onclick="pageNumBtnClick(this,${i-1},'${listType}','${bookcode}')">${i}</button>`;
+		rvButtonList+=`<button class="pageNum-pagebtn" onclick="jjimpageNumBtnClick(this,${i-1},'${listType}','${bookcode}')">${i}</button>`;
 	}
-	pgnum_detail.innerHTML=rvButtonList;
+	jjimnum_detail.innerHTML=rvButtonList;
 
 	if(hg_number==1)
 	{

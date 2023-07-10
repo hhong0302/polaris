@@ -3,6 +3,10 @@ span{
     font-size: 10px;
     color: #ddd;
 }
+a:hover{
+	text-decoration: none;
+	color : inherit;
+}
 .choi-top sapn{
     margin-top: 10px;
 }
@@ -79,6 +83,18 @@ span{
 .choi-past-book-big{
 	display : inline-flex;
 }
+.choi-jjim-book-big{
+	display : inline-flex;
+}
+.choi-past-book img{
+	width : 183px;
+	height : 110px;
+	border-radius: 8px;
+	margin-right : 20px;
+	margin-top : 20px;
+	background-color : #ddd;
+	display : flex;
+}
 .choi-past-book{
 	width : 183px;
 	height : 110px;
@@ -96,12 +112,24 @@ span{
 	margin-bottom : 16px;
 }
 .choi-past-text{
-	margin : 20px 10px;
+	margin-top: 20px;
+    width: 100%;
 }
 .choi-past-text-top p{
+	display : block;
 	font-size : 13px;
 	font-weight : bold;
 	margin-bottom : 21px;
+	white-space: nowrap;
+	overflow: hidden; 
+	text-overflow : ellipsis;
+}
+.choi-past-text-top.active p{
+	white-space: normal;
+	overflow : hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 .choi-past-text-bottom span{
 	font-size : 12px;
@@ -135,6 +163,16 @@ span{
 .choi-book-text-top p{
 	font-size : 16px;
 	font-weight : bold;
+	white-space: nowrap;
+	overflow: hidden;
+ 	text-overflow: ellipsis;
+}
+.choi-book-text-top.active{
+	white-space: normal;
+	overflow : hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 .choi-book-text span{
 	margin-top : 5px;
@@ -224,6 +262,9 @@ span{
     height : 85px;
     margin-right : 10px;
 }
+.choi-jjim-text{
+	width : 100%;
+}
 .choi-jjim-text div{
 	display : block;
 }
@@ -236,6 +277,16 @@ span{
 .choi-jjim-text-top p{
 	font-size : 13px;
 	font-weight : bold;
+	white-space: nowrap;
+	text-overflow : ellipsis;
+}
+.choi-jjim-text-top.active p{
+	width : 100%;
+	white-space: normal;
+	overflow : hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 .choi-jjim-text-bottom{
 	margin-top : 9px;
@@ -252,3 +303,32 @@ span{
 	float : right;
 	width : 100%;
 }
+button.pageNum-pagebtn{
+	border: none;
+    background: none;
+    color : #000;
+    cursor : pointer;
+    outline: none;
+}
+button.pageNum-pagebtn.active{
+    color : #0054FF;
+    border: none;
+    outline: none;
+}
+button.jjim-pageNum-pagebtn{
+	border: none;
+    background: none;
+    color : #000;
+    cursor : pointer;
+    outline: none;
+}
+button.jjim-pageNum-pagebtn.active{
+    color : #0054FF;
+    border: none;
+    outline: none;
+}
+
+.deleteBtn{
+	cursor : pointer;
+}
+
