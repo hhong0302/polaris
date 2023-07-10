@@ -91,7 +91,6 @@
 	            </c:otherwise>
             	</c:choose> 
              </div>
-	         
               <div class="tab-pane fade" id="asd">
               <div class = "choi-booklist">
               <c:choose>
