@@ -74,7 +74,7 @@
 	                     <div class="choi-book-text">
 	                       	<div class="choi-book-text-top">
 		                           <a href = "detail?bookinfo=${my.bookcode }"><p>${my.booktitle }</p></a>
-		                            <span>저자 . 글쓴이</span>
+		                            <span>${my.author } ㆍ ${my.publisher }</span>
 	                        </div>
 	                            <div class="choi-book-text-mid">
 	                            <c:set var = "TextValue" value="${my.loandate }" />

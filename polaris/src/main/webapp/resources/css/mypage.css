@@ -172,6 +172,9 @@ a:hover{
 	overflow: hidden;
  	text-overflow: ellipsis;
 }
+.choi-book-text-top span{
+	margin-top : 5px;
+}
 .choi-book-text-top.active{
 	white-space: normal;
 	overflow : hidden;
