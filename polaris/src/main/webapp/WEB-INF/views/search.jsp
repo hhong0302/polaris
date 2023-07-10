@@ -90,7 +90,7 @@
 													    <c:when test="${book.searchloancount == 0}">
 													        <div class="rental-btn">
 													            <% if (loanCount < 3) { %>
-													                <button type="button" class="search-rental-btn searchloan-${book.bookcode}" onclick="loanbook('${book.bookcode}','${book.booktitle}')">대여하기</button>
+													                <button type="button" class="search-rental-btn searchloan-${book.bookcode}" onclick="loanbook('${book.bookcode}', '${userid}', '${book.booktitle}', '${book.author}', '${book.publisher}')">대여하기</button>
 													            <% } else { %>
 													                <button type="button" class="search-rental-btn searchloan-${book.bookcode}" onclick="rejectloanbook()">대여하기</button>
 													            <% } %>
@@ -98,7 +98,7 @@
 													    </c:when>
 													    <c:otherwise>
 													        <div class="rental-btn">
-													            <button type="button" class="search-rental-btn searchloan-${book.bookcode}" onclick="loanbook('${book.bookcode}','${book.booktitle}')">반납하기</button>
+													            <button type="button" class="search-rental-btn searchloan-${book.bookcode}" onclick="loanbook('${book.bookcode}', '${userid}', '${book.booktitle}', '${book.author}', '${book.publisher}')">반납하기</button>
 													        </div>
 													    </c:otherwise>
 													</c:choose>
@@ -215,7 +215,7 @@
 													    <c:when test="${book.searchloancount == 0}">
 													        <div class="rental-btn">
 													            <% if (loanCount < 3) { %>
-													                <button type="button" class="search-rental-btn searchloan-${book.bookcode}" onclick="loanbook('${book.bookcode}','${book.booktitle}')">대여하기</button>
+													                <button type="button" class="search-rental-btn searchloan-${book.bookcode}" onclick="loanbook('${book.bookcode}', '${userid}', '${book.booktitle}', '${book.author}', '${book.publisher}')">대여하기</button>
 													            <% } else { %>
 													                <button type="button" class="search-rental-btn searchloan-${book.bookcode}" onclick="rejectloanbook()">대여하기</button>
 													            <% } %>
@@ -223,7 +223,7 @@
 													    </c:when>
 													    <c:otherwise>
 													        <div class="rental-btn">
-													            <button type="button" class="search-rental-btn searchloan-${book.bookcode}" onclick="loanbook('${book.bookcode}','${book.booktitle}')">반납하기</button>
+													            <button type="button" class="search-rental-btn searchloan-${book.bookcode}" onclick="loanbook('${book.bookcode}', '${userid}', '${book.booktitle}', '${book.author}', '${book.publisher}')">반납하기</button>
 													        </div>
 													    </c:otherwise>
 													</c:choose>

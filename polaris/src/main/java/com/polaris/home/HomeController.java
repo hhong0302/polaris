@@ -370,20 +370,6 @@ public class HomeController {
 	    
 	    return "search";			
 	}
-	@RequestMapping(value = "/searchloanCount", method = { RequestMethod.GET })
-	public String searchLoanCount(HttpServletRequest request, HttpServletResponse response, Model model){ 
-		String bookcode = request.getParameter("bookcode");
-		HttpSession session = request.getSession();
-		String userid=(String) session.getAttribute("userid");
-		
-		PolarisDAO dao = new PolarisDAO();
-
-		int loanStatus=dao.loanStatus(bookcode,userid);
-		
-		model.addAttribute("loanStatus", loanStatus);
-		
-		return "search";
-	}
 
 	
 	  @RequestMapping(value = "interest", method = RequestMethod.GET) 
