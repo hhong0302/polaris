@@ -1,5 +1,8 @@
 @charset "UTF-8";
-
+.gyu-container{
+	width: 1200px;
+	margin: 0 auto;
+}
 header
 {
 	height:178px;
@@ -61,5 +64,3 @@ header::after{
 	font-size: 13px;
 	padding-top: 7px;
 }
-
-.

@@ -54,41 +54,29 @@ function likeSuccess(bookcode, uid, booktitle, author, publisher) {
         }
     });
 }
+function rejectloanbook(){
+	alert("책 대여는 한번에 3개까지 가능합니다.");
+}
 
 
 //대여하기
-function loanbook(bookcode, booktitle) {
-    $.ajax({
-        url: "searchLoanBook",
-        type: "GET",
-        data: { "bookinfo": bookcode, "booktitle": booktitle },
-        async: false,
-        contentType: "application/json",
-        success: function(data) {
-            $.ajax({
-                url: "searchloanCount",
-                type: "GET",
-                data: { "bookcode": bookcode, "booktitle": booktitle },
-                success: function(data) {
-                    var loanStatus = parseInt(data);
-                    var code = bookcode;
-                    if (loanStatus == 0) {
-                        alert("반납하시겠습니까?");
-                        location.reload();
-                        $(".searchloan-" + code).text("대여하기");                     
-                    }else{
-                        alert("대여하시겠습니까?");  
-                        location.reload();                     
-                        $(".searchloan-" + code).text("반납하기");
-                    }
-                },
-                error: function() {
-                    alert("에러");
-                }
-            });
-        },
-        error: function() {
-            alert("에러");
-        }
-    });
+
+function loanbook(bookcode, userid, booktitle, author, publisher) {
+	$.ajax({
+		url: "searchLoanBook",
+		type: 'GET',
+		data: {
+			bookinfo: bookcode,
+			userid: userid,
+			booktitle: booktitle,
+			author: author,
+			publisher: publisher
+		},
+		success: function(data) {
+			location.reload();
+		},
+		error: function() {
+			alert("error");
+		}
+	});
 }

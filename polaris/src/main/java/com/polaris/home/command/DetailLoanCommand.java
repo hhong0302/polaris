@@ -1,11 +1,8 @@
 package com.polaris.home.command;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
@@ -26,6 +23,7 @@ public class DetailLoanCommand implements SpCommand {
         String publisher = request.getParameter("publisher");
         int loanStatus = dao.loanStatus(bookcode, (String)session.getAttribute("userid"));
         int loanCount = dao.loanCount((String)session.getAttribute("userid"));
+        
 		
         if(loanCount < 3) {
         	if(loanStatus == 0) dao.loanBook(bookcode, (String)session.getAttribute("userid"), booktitle, author, publisher);

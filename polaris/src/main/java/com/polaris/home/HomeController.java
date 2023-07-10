@@ -303,7 +303,7 @@ public class HomeController {
 	}
 	
 	//전체 검색
-	@RequestMapping(value = "totalsearch")
+	@RequestMapping(value = "totalsearch" , method = { RequestMethod.GET })
 	public String totalsearch(HttpServletRequest request,Model model) {
 		
 		model.addAttribute("request", request);
@@ -312,8 +312,7 @@ public class HomeController {
 	    command = new MenuSearchCommand();
 	    command.execute(model);
 	    model.addAttribute("searchType", "totalsearch");
-	    
-	    
+	    	    
 	    return "search"; 
 	}
 	
@@ -360,35 +359,6 @@ public class HomeController {
 	    
 	    return "search";			
 	}
-	@RequestMapping(value = "searchUserLike", method = { RequestMethod.GET })
-	@ResponseBody 
-	public void searchUserLike(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
-		String bookcode = request.getParameter("bookcode");
-		HttpSession session = request.getSession();
-		String userid=(String) session.getAttribute("userid");
-		
-		int likeClick=0;
-		PolarisDAO dao = new PolarisDAO();
-		likeClick=dao.searchUserLike(bookcode,userid);
-	
-		PrintWriter out = response.getWriter();
-		out.println(likeClick);
-		out.close();
-	}
-	@RequestMapping(value = "searchLikeCount", method = { RequestMethod.GET })
-	@ResponseBody 
-	public String searchLikeCount(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
-		String bookcode = request.getParameter("bookcode");
-		
-		PolarisDAO dao = new PolarisDAO();
-		int likeCount=dao.searchLikeCount(bookcode);
-	
-		PrintWriter out = response.getWriter();
-		out.println(likeCount);
-		out.close();
-		
-		return "search";
-	}
 	@RequestMapping(value = "/searchLoanBook", method = { RequestMethod.GET })	
 	public String searchLoanBook(HttpServletRequest request, Model model, RedirectAttributes re,@RequestParam("bookinfo") String bookinfo,@RequestParam(
 	"booktitle") String booktitle){
@@ -399,20 +369,6 @@ public class HomeController {
 		command.execute(model);
 	    
 	    return "search";			
-	}
-	@RequestMapping(value = "/searchloanCount", method = { RequestMethod.GET })
-	@ResponseBody 
-	public void searchLoanCount(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{ 
-		String bookcode = request.getParameter("bookcode");
-		HttpSession session = request.getSession();
-		String userid=(String) session.getAttribute("userid");
-		
-		PolarisDAO dao = new PolarisDAO();
-
-		int loanStatus=dao.loanStatus(bookcode,userid);
-		PrintWriter out = response.getWriter();
-		out.println(loanStatus);
-		out.close();
 	}
 
 	

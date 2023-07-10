@@ -7,10 +7,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Polaris</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"  />
 <link rel="stylesheet" href="resources/css/mypage.css" />
+<link rel="icon" href="resources/images/favicon.png" />
 <style>
    p { margin:20px 0px; }
 </style>
@@ -20,7 +21,7 @@
 	int loan = (Integer)session.getAttribute("loan");
 %>
 <%@include file = "include/header.jsp" %>
-    <div class="container">
+    <div class="choi-container">
         <div class = "choi-top">
             <span>홈 > 마이페이지</span>
         </div>
@@ -73,13 +74,12 @@
 	                     <div class="choi-book-text">
 	                       	<div class="choi-book-text-top">
 		                           <a href = "detail?bookinfo=${my.bookcode }"><p>${my.booktitle }</p></a>
-		                            <span>저자 . 글쓴이</span>
+		                            <span>${my.author } ㆍ ${my.publisher }</span>
 	                        </div>
 	                            <div class="choi-book-text-mid">
 	                            <c:set var = "TextValue" value="${my.loandate }" />
-		                            <span>대여 기간</span>
-		                            <p>${fn:substring(TextValue, 0,11)} ~</p>
-		                            <span class="choi-dday">반납일까지 남았습니다.</span>
+		                            <span>대여 일자</span>
+		                            <p>${fn:substring(TextValue, 0,11)}</p>
 	                            </div>
 		                            <div class="choi-book-text-last">
 		                          		<button type="submit" id = "booklook" class="booklook" >바로보기</button>
@@ -92,7 +92,6 @@
 	            </c:otherwise>
             	</c:choose> 
              </div>
-	         
               <div class="tab-pane fade" id="asd">
               <div class = "choi-booklist">
               <c:choose>
