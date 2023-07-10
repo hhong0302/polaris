@@ -12,6 +12,7 @@
 ### · Framework : Spring Framework (Spring MVC Project)
 ### · Database : MySQL(8.0.33)
 ### · Server : Apache tomcat 9.0.46
+### · Deploy : cafe24(예정)
 
 ## 📖 페이지 구성
 ### · 홈 페이지: 구성, 메인
