@@ -16,8 +16,6 @@
 	<%
 		PolarisDAO dao = new PolarisDAO();
 		String uid = (String) session.getAttribute("userid");
-		HttpSession sessionObj = request.getSession();
-		int likeClick = (int) session.getAttribute("likeClick");
 	%>
     <div class="container">
         <c:choose>
