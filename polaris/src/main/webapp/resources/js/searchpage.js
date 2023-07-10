@@ -60,31 +60,23 @@ function rejectloanbook(){
 
 
 //대여하기
-function loanbook(bookcode, booktitle) {
-    $.ajax({
-        url: "searchLoanBook",
-        type: "GET",
-        data: { "bookinfo": bookcode, "booktitle": booktitle },
-        async: false,
-        contentType: "application/json",
-        success: function(data) {
-            $.ajax({
-		        url: "totalsearch",
-		        type: 'GET',
-		        data: {
-		            bookinfo: bookcode,
-		        },
-		        success: function(data) {
-					location.reload();
-		        },
-		        error: function() {
-		            alert("Error");
-		        }
-		    });
-		    
-        },
-        error: function() {
-            alert("에러");
-        }
-    });
+
+function loanbook(bookcode, userid, booktitle, author, publisher) {
+	$.ajax({
+		url: "searchLoanBook",
+		type: 'GET',
+		data: {
+			bookinfo: bookcode,
+			userid: userid,
+			booktitle: booktitle,
+			author: author,
+			publisher: publisher
+		},
+		success: function(data) {
+			location.reload();
+		},
+		error: function() {
+			alert("error");
+		}
+	});
 }
