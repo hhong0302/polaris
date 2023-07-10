@@ -5,9 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Polaris</title>
 <link rel="stylesheet" href="resources/css/reset.css" />
 <link rel="stylesheet" href="resources/css/findidpw.css" />
+<link rel="icon" href="resources/images/favicon.png" />
 </head>
 <body>
 	<div class="id-container">

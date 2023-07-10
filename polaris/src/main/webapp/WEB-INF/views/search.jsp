@@ -7,9 +7,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>검색 결과</title>
+    <title>Polaris</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="resources/css/search.css" />
+<link rel="icon" href="resources/images/favicon.png" />
 </head>
 <body>
     <%@ include file="include/header.jsp" %>
