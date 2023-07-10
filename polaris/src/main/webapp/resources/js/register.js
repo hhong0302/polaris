@@ -117,7 +117,7 @@ const checkbtn = document.getElementById('idcheck');
 let idcheck = /^[a-zA-Z0-9]{6,18}$/;
 let passcheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/;
 let passcheck1 = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])/;
-let passcheck2 = /(?=.*[0-9]).{8,20}$/;
+let passcheck2 = /^.{1,20}$/;
 let emailcheck = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/
 let phonecheck = /[0-9]{11,11}$/;
 let birthcheck = /[0-9]{8,8}$/;
@@ -153,7 +153,7 @@ userpass.addEventListener('keyup', function(){
     }
 });
 userpass.addEventListener('keyup', function(){
-    if(userpass.value != reuserpass.value && reuserpass.value == ''){
+    if((userpass.value != reuserpass.value && reuserpass.value == '') || userpass.value == ''){
         repasscheckno.style.display = 'none';
         repasscheckok.style.display = 'none';
 
