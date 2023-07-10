@@ -14,7 +14,7 @@
 	String userid = (String)session.getAttribute("userid");
 %>
 <header>
-<div class="container">
+<div class="gyu-container">
 	<div class="logo_area">
 		<a href="/home">
 			<img src="resources/images/textlogo_black.svg" alt="logo" />
