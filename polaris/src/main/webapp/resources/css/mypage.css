@@ -3,6 +3,11 @@ span{
     font-size: 10px;
     color: #ddd;
 }
+.choi-container{
+	width : 1200px;
+	margin : 0 auto;
+	padding : 0 auto;
+}
 a:hover{
 	text-decoration: none;
 	color : inherit;

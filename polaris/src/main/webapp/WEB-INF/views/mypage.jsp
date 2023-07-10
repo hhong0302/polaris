@@ -20,7 +20,7 @@
 	int loan = (Integer)session.getAttribute("loan");
 %>
 <%@include file = "include/header.jsp" %>
-    <div class="container">
+    <div class="choi-container">
         <div class = "choi-top">
             <span>홈 > 마이페이지</span>
         </div>
@@ -79,7 +79,6 @@
 	                            <c:set var = "TextValue" value="${my.loandate }" />
 		                            <span>대여 일자</span>
 		                            <p>${fn:substring(TextValue, 0,11)}</p>
-		                            
 	                            </div>
 		                            <div class="choi-book-text-last">
 		                          		<button type="submit" id = "booklook" class="booklook" >바로보기</button>
