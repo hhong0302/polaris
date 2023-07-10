@@ -1,6 +1,6 @@
 package com.polaris.home.command;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,19 +19,24 @@ public class MenuSearchCommand implements SpCommand{
         HttpServletRequest request = (HttpServletRequest) map.get("request");
         
         String genre = request.getParameter("genre");
-        String bookcode = request.getParameter("bookinfo");
-
+        
         PolarisDAO dao = new PolarisDAO();
         HttpSession session = request.getSession();
-        int userLike = dao.userLike(bookcode, (String)session.getAttribute("userid"));
-        ArrayList<BookDTO> dto = dao.totalsearch();
-        ArrayList<BookDTO> segen = dao.genresearch(genre);
+        List<BookDTO> dto = dao.totalsearch((String)session.getAttribute("userid"));
+        List<BookDTO> segen = dao.genresearch(genre, (String)session.getAttribute("userid"));     
         
-        System.out.println(userLike);
+        for(BookDTO searchloancount: dto) {
+        	int scount = dao.loanStatus(searchloancount.getBookcode(), (String)session.getAttribute("userid"));
+        	searchloancount.setSearchloancount(scount);
+        }
+        for(BookDTO searchloancount: segen) {
+        	int scount = dao.loanStatus(searchloancount.getBookcode(), (String)session.getAttribute("userid"));
+        	searchloancount.setSearchloancount(scount);
+        }
        
-        model.addAttribute("userLike", userLike);
         model.addAttribute("totalsearch", dto);
         model.addAttribute("genresearch", segen);
+      
 
     }
 }

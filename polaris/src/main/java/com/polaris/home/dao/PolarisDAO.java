@@ -24,6 +24,7 @@ import com.polaris.home.dto.BookloanDTO;
 import com.polaris.home.dto.InterestDTO;
 import com.polaris.home.dto.MembersDTO;
 import com.polaris.home.dto.ReviewDTO;
+
 import com.polaris.home.util.Static;
 
 public class PolarisDAO {
@@ -38,44 +39,66 @@ public class PolarisDAO {
 	
 	//gyu Start
 	//검색
-	public ArrayList<BookDTO> search(String query) {
-		String sql = "SELECT * FROM book WHERE booktitle LIKE '%" + query + "%' OR author LIKE '%" + query + "%' OR genre LIKE '%" + query + "%' OR publisher LIKE '%" + query + "%' ";
-	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+	public List<BookDTO> search(String query, String userid) {
+		String sql ="select c.*, d.idcount from(select a.*,b.likecount from book as a left join"
+	    		+ "(select bookcode, count(bookcode) as likecount from interest group by bookcode) as b "
+	    		+ "on a.bookcode=b.bookcode where a.booktitle like '%" + query + "%' or a.author like '%" + query + "%' or a.genre like '%" + query + "%' or a.publisher like '%" + query + "%')as c left join"
+	    		+ "(select bookcode,count(userid)as idcount from interest where userid='"+userid+"' group by bookcode)as d "
+	    		+ "on c.bookcode=d.bookcode;";
+		return template.query(sql,new SearchRowMapper());
 	}
 	//전체
-	public ArrayList<BookDTO> totalsearch() {
-	    String sql = "SELECT * FROM book";
-	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+	public List<BookDTO> totalsearch(String userid) {
+	    String sql = "select c.*, d.idcount from(select a.*,b.likecount from book as a left join"
+	    		+ "(select bookcode, count(bookcode) as likecount from interest group by bookcode) as b "
+	    		+ "on a.bookcode=b.bookcode)as c left join"
+	    		+ "(select bookcode,count(userid)as idcount from interest where userid='"+userid+"' group by bookcode)as d "
+	    		+ "on c.bookcode=d.bookcode;";
+	    return template.query(sql,new SearchRowMapper());
 	}
 	//장르
-	public ArrayList<BookDTO> genresearch(String genre) { 
-	    String sql = "SELECT * FROM book WHERE genre LIKE ";
-	    sql +="'%" + genre + "%'";
-	    return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+	public List<BookDTO> genresearch(String genre, String userid ) { 
+	    String sql = "select c.*, d.idcount from(select a.*,b.likecount from book as a left join"
+	    		+ "(select bookcode, count(bookcode) as likecount from interest group by bookcode) as b "
+	    		+ "on a.bookcode=b.bookcode where a.genre like '%" + genre + "%')as c left join"
+	    		+ "(select bookcode,count(userid)as idcount from interest where userid='"+userid+"' group by bookcode)as d "
+	    		+ "on c.bookcode=d.bookcode;";
+	    return template.query(sql,new SearchRowMapper());
 	}
 	//인기순, 대여순, 최신순 
-	public ArrayList<BookDTO> ordersearch(String order)
+	public List<BookDTO> ordersearch(String order, String userid)
 	{
 		String sql = "";
-		if(order.equals("인기순")||order=="인기순") sql="select a.* from book as a left join "
-				+ "(select bookcode, count(bookcode) as likecount from interest group by bookcode order by likecount desc) as b "
-				+ "on a.bookcode=b.bookcode order by b.likecount desc";
-		if(order.equals("최신순")||order=="최신순") sql="select * from book order by date desc";
-		if(order.equals("대여순")||order=="대여순") sql="select a.* from book as a left join "
-				+ "(select bookcode, count(bookcode) as loancount from bookloan group by bookcode order by loancount desc) as b "
-				+ "on a.bookcode=b.bookcode order by b.loancount desc";
+		if(order.equals("인기순")||order=="인기순") sql="select c.*, d.idcount from(select a.*,b.likecount from book as a left join "
+				+"(select bookcode, count(bookcode) as likecount from interest group by bookcode) as b "
+				+"on a.bookcode=b.bookcode)as c left join "
+				+"(select bookcode,count(userid)as idcount from interest where userid='"+userid+"' group by bookcode)as d "
+				+"on c.bookcode=d.bookcode order by c.likecount desc;";
+		if(order.equals("최신순")||order=="최신순") sql="select c.*, d.idcount from (select a.*, b.likecount from book as a left join (select bookcode, COUNT(bookcode) as likecount "
+				+ "from interest group by bookcode) as b on a.bookcode = b.bookcode) as c "
+				+ "left join (select bookcode, count(userid) as idcount from interest where userid ='"+userid+"' group by bookcode"
+				+ ") as d on c.bookcode = d.bookcode "
+				+ "order by c.date desc;";
+		if(order.equals("대여순")||order=="대여순") sql="select * from (select c.*, d.idcount, coalesce(b.loancount, 0) as loancount from ("
+				+ "select a.*, b.likecount from book as a left join (select bookcode, count(bookcode) as likecount "
+				+ "from interest group by bookcode) as b on a.bookcode = b.bookcode) as c left join ( "
+				+ "select bookcode, count(userid) as idcount from interest "
+				+ "where userid = '"+userid+"' group by bookcode) as d on c.bookcode = d.bookcode "
+				+ "left join (select bookcode, count(bookcode) as loancount from bookloan "
+				+ "group by bookcode) as b on c.bookcode = b.bookcode) as results "
+				+ "order by results.loancount desc;";
 		
-		return (ArrayList<BookDTO>) template.query(sql, new BeanPropertyRowMapper<BookDTO>(BookDTO.class));
+		return template.query(sql,new SearchRowMapper());
 	} 
-	//유저가 좋아요를 눌렀는지 아닌지
-	public int searchUserLike(String bookcode, String userid){
-		String sql = "select count(*) from interest where bookcode = '" + bookcode + "' and userid = '" + userid + "'";
-		return template.queryForObject(sql, Integer.class);
+	public int searchLoanStatus(String bookcode, String userid) {
+	    String sql = "SELECT count(*) FROM bookloan WHERE bookcode = '" + bookcode + "' AND userid = '" + userid + "' AND loan = 1";
+	    return template.queryForObject(sql, Integer.class);
 	}
-	public int searchLikeCount(String bookcode) {
-		String sql = "select count(*) from interest where bookcode ='" + bookcode + "'";
-		return template.queryForObject(sql, Integer.class);
+	public int searchlikeStatus(String bookcode, String userid) {
+	    String sql = "SELECT count(*) FROM bookloan WHERE bookcode = '" + bookcode + "' AND userid = '" + userid + "' AND loan = 1";
+	    return template.queryForObject(sql, Integer.class);
 	}
+	
 	
 	//gyu End
 	
@@ -586,6 +609,28 @@ class ReviewRowMapper implements RowMapper<ReviewDTO>
 		dto.setRecontent(rs.getString("recontent"));
 		dto.setRedate(rs.getString("redate"));
 		dto.setRelike(rs.getInt("relike"));
+		return dto;
+	}
+}
+class SearchRowMapper implements RowMapper<BookDTO>
+{
+	@Override
+	public BookDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		BookDTO dto = new BookDTO();
+		dto.setNum(rs.getInt("num"));
+		dto.setBookcode(rs.getString("bookcode"));
+		dto.setBooktitle(rs.getString("booktitle"));
+		dto.setAuthor(rs.getString("author"));
+		dto.setTrans(rs.getString("trans"));
+		dto.setBookcontent(rs.getString("Bookcontent"));
+		dto.setPublisher(rs.getString("publisher"));
+		dto.setGenre(rs.getString("genre"));
+		dto.setHash(rs.getString("hash"));
+		dto.setDate(rs.getString("date"));
+		dto.setSize(rs.getString("size"));
+		dto.setPages(rs.getInt("pages"));
+		dto.setLikecount(rs.getInt("likecount"));
+		dto.setIdcount(rs.getInt("idcount"));
 		return dto;
 	}
 }

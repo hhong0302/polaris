@@ -26,6 +26,7 @@ public class DetailLoanCommand implements SpCommand {
         String publisher = request.getParameter("publisher");
         int loanStatus = dao.loanStatus(bookcode, (String)session.getAttribute("userid"));
         int loanCount = dao.loanCount((String)session.getAttribute("userid"));
+        
 		
         if(loanCount < 3) {
         	if(loanStatus == 0) dao.loanBook(bookcode, (String)session.getAttribute("userid"), booktitle, author, publisher);
