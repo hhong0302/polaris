@@ -10,7 +10,7 @@ public class BookloanDTO {
 	private String publisher;
 	private String loan;
 	private String loandate;
-	
+
 	public int getNum() {
 		return num;
 	}

@@ -15,8 +15,15 @@ public class BookDTO {
 	private String size;
 	private int pages;
 	private int likecount;
-	private int loancount;
+	private int idcount;
+	private int searchloancount;
 	
+	public int getSearchloancount() {
+		return searchloancount;
+	}
+	public void setSearchloancount(int searchloancount) {
+		this.searchloancount = searchloancount;
+	}
 	public int getNum() {
 		return num;
 	}
@@ -95,11 +102,17 @@ public class BookDTO {
 	public void setLikecount(int likecount) {
 		this.likecount = likecount;
 	}
-	public int getLoancount() {
-		return loancount;
+	public int getIdcount() {
+		return idcount;
 	}
-	public void setLoancount(int loancount) {
-		this.loancount = loancount;
+	public void setIdcount(int idcount) {
+		this.idcount = idcount;
 	}
+//	public int getLoancount() {
+//		return loancount;
+//	}
+//	public void setLoancount(int loancount) {
+//		this.loancount = loancount;
+//	}
 
 }
