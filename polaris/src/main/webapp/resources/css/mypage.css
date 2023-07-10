@@ -333,6 +333,8 @@ button.jjim-pageNum-pagebtn.active{
     border: none;
     outline: none;
 }
+
 .deleteBtn{
 	cursor : pointer;
 }
+

@@ -47,45 +47,15 @@ function likeSuccess(bookcode, uid, booktitle, author, publisher) {
             publisher: publisher
         },
         success: function(data) {
-            $.ajax({
-                url: "searchUserLike",
-                type: 'GET',
-                data: {
-                    bookcode: bookcode
-                },
-                success: function(data) {
-                    $.ajax({
-                        url: "searchLikeCount",
-                        type: 'GET',
-                        data: {
-                            bookcode: bookcode
-                        },
-                        success: function(data) {
-                            var likeCount = parseInt(data);
-                            var likeClick = parseInt(data);
-                            var code = bookcode;
-                            if (likeClick === 1) {
-                                $(".likeimg1-" + code).attr("src", "resources/images/fillheart.png");
-                                $(".likecount-" + code).text("찜 "+likeCount);                       
-                            } else {
-                                $(".likeimg1-" + code).attr("src", "resources/images/emptyheart.png");
-                                $(".likecount-" + code).text("찜 "+likeCount);
-                            }
-                        },
-                        error: function() {
-                            alert("Error");
-                        }
-                    });
-                },
-                error: function() {
-                    alert("Error");
-                }
-            });
+           location.reload();
         },
         error: function() {
             alert("Error");
         }
     });
+}
+function rejectloanbook(){
+	alert("책 대여는 한번에 3개까지 가능합니다.");
 }
 
 
@@ -99,25 +69,19 @@ function loanbook(bookcode, booktitle) {
         contentType: "application/json",
         success: function(data) {
             $.ajax({
-                url: "searchloanCount",
-                type: "GET",
-                data: { "bookcode": bookcode, "booktitle": booktitle },
-                success: function(data) {
-                    var loanStatus = parseInt(data);
-                    var code = bookcode;
-                    if (loanStatus == 0) {
-                        alert("반납하시겠습니까?");
-                        $(".searchloan-" + code).text("대여하기");
-                    }else{
-                        alert("대여하시겠습니까?");                       
-                        $(".searchloan-" + code).text("반납하기");
-                    }
-                    location.reload();
-                },
-                error: function() {
-                    alert("에러");
-                }
-            });
+		        url: "totalsearch",
+		        type: 'GET',
+		        data: {
+		            bookinfo: bookcode,
+		        },
+		        success: function(data) {
+					location.reload();
+		        },
+		        error: function() {
+		            alert("Error");
+		        }
+		    });
+		    
         },
         error: function() {
             alert("에러");
