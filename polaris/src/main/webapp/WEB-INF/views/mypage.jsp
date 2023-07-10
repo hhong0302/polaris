@@ -77,9 +77,9 @@
 	                        </div>
 	                            <div class="choi-book-text-mid">
 	                            <c:set var = "TextValue" value="${my.loandate }" />
-		                            <span>대여 기간</span>
-		                            <p>${fn:substring(TextValue, 0,11)} ~</p>
-		                            <span class="choi-dday">반납일까지 남았습니다.</span>
+		                            <span>대여 일자</span>
+		                            <p>${fn:substring(TextValue, 0,11)}</p>
+		                            
 	                            </div>
 		                            <div class="choi-book-text-last">
 		                          		<button type="submit" id = "booklook" class="booklook" >바로보기</button>

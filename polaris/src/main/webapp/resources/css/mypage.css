@@ -188,8 +188,9 @@ a:hover{
 }
 .choi-book-text-mid p{
 	margin-top : 5px;
-	color : #c30000;
+	color : #000;
 	font-weight : bold;
+	font-size : 15px;
 }
 .choi-book-text-last{
 	display : flex;
