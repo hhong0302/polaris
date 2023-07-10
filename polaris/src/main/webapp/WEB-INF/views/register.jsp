@@ -4,10 +4,11 @@ pageEncoding="UTF-8" session="true"%>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>Polaris</title>
 <%@include file="include/header.jsp" %>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"  />
 <link rel="stylesheet" href="resources/css/register.css" />
+<link rel="icon" href="resources/images/favicon.png" />
 </head>
 <body>
 
