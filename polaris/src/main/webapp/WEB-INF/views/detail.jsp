@@ -378,7 +378,7 @@
             	<c:forEach var="sg" items="${suggest}">
             	
             		<div class="suggestBookBox-detail">
-            			<a href="/home/detail?bookinfo=${sg.bookcode}">
+            			<a href="/detail?bookinfo=${sg.bookcode}">
 	            			<img alt="suggestBookImg" src="resources/bookimg/${sg.bookcode}.jpg" class="suggestbookImg-detail">
 	            			<span class="suggestInfo-detail">
 	            				<h4>${sg.booktitle}</h4>
