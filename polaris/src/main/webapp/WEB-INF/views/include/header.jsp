@@ -17,7 +17,7 @@
 <div class="gyu-container">
 	<div class="logo_area">
 		<a href="/">
-			<img src="resources/images/textlogo_black.svg" alt="logo" />
+			<img src="resources/images/polaris_logo.svg" alt="logo" />
 		</a>
 	<div class="search_box">
 	<form id="searchForm" action="search" method="GET" autocomplete="off" onsubmit="return submitSearch(event)">
