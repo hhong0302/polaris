@@ -16,7 +16,7 @@
 <header>
 <div class="gyu-container">
 	<div class="logo_area">
-		<a href="/home">
+		<a href="/">
 			<img src="resources/images/textlogo_black.svg" alt="logo" />
 		</a>
 	<div class="search_box">

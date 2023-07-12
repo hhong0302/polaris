@@ -12,7 +12,7 @@
 <body>
 <div class="container">
 	<div class="logo">
-		<a href="/home"><img class="login-logo" src="resources/images/textlogo_black.svg" alt="LOGO" /></a>
+		<a href="/"><img class="login-logo" src="resources/images/textlogo_black.svg" alt="LOGO" /></a>
 	</div>
 	<form action="loginok" method="post" name="login-form" class="login-form">
 		<input type="text" id="id" name="userid" placeholder="아이디" class="id-area">
@@ -31,7 +31,7 @@
 	<ul class="find">
 		<li><a style="cursor:pointer;" onclick="findid()">아이디 찾기</a></li>
 		<li><a style="cursor:pointer;" onclick="findPw()">비밀번호 찾기</a></li>
-		<li><a href="/home/register">회원가입</a></li>
+		<li><a href="/register">회원가입</a></li>
 	</ul>
 	</div>
 	<script src="https://code.jquery.com/jquery.min.js"></script>

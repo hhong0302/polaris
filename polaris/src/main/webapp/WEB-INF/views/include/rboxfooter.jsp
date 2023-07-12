@@ -80,7 +80,7 @@
 	<div class="container hg-footer">
 		<div class="hg-ftop">
 			<div class="hg-ftopleft">
-				<a href="/home">
+				<a href="/">
 					<img src="resources/images/textlogo_white.svg" alt="logo" />
 				</a>
 				<span id="hg-fspan">회사소개</span>
