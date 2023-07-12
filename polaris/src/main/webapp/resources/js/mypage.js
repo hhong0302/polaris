@@ -59,12 +59,13 @@ const pgbtn_next = document.getElementsByClassName("nxt")[0];
 
 
 //지난 대여 목록 총 리스트
-function pageAllList(){
+function pageAllList(userid){
 
 	$.ajax({
 		url : "pastLoanAllCounter",
 		type: "GET",
 		dataType: "json",
+		data: {"userid":userid},
 		async:false,
 		contentType: "application/json",
 		success : function(datas) {
@@ -87,7 +88,7 @@ function pageAllList(){
 				}
 				for(let i=1;i<=listCount;i++)
 				{
-					rvButtonList+=`<button class="pageNum-pagebtn " onclick="pageNumBtnClick(${i-1})">${i}</button>`;
+					rvButtonList+=`<button class="pageNum-pagebtn " onclick="pageNumBtnClick(${i-1}, '${userid}')">${i}</button>`;
 				}
 			}
 				pgnum_detail.innerHTML=rvButtonList;
@@ -107,7 +108,7 @@ function pageAllList(){
 		}
 
 //지난 대여 1,2,3,4,5 그 버튼
-function pageNumBtnClick(listNumber)
+function pageNumBtnClick(listNumber, userid)
 {
 	const pgNum_pgbtn = document.getElementsByClassName("pageNum-pagebtn");
 	let reviewList = "";
@@ -116,8 +117,7 @@ $.ajax({
 		url : "pageAllList",
 		type: "GET",
 		dataType: "json",
-		data:{"listnum":listNumber},
-
+		data:{"listnum":listNumber, "userid":userid},
 		async:false,
 		contentType: "application/json",
 		success : function(datas) {

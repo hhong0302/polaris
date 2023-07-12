@@ -7,15 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mysql.cj.Session;
 import com.polaris.home.dao.PolarisDAO;
 import com.polaris.home.dto.BookloanDTO;
-import com.polaris.home.dto.InterestDTO;
 import com.polaris.home.dto.MembersDTO;
-import com.polaris.home.dto.PageMakerDTO;
-import com.polaris.home.dto.PagingCriteriaDTO;
 
 public class MyCommand implements SpCommand {
 	
@@ -32,8 +27,8 @@ public class MyCommand implements SpCommand {
 		String userid = (String)session.getAttribute("userid");
 		
 		List<MembersDTO> mdto = dao.choi_memList();
-		List<BookloanDTO> bdto = dao.choi_loanList();
-		int pbdto = dao.choi_pastloanList();
+		List<BookloanDTO> bdto = dao.choi_loanList(userid);
+		int pbdto = dao.choi_pastloanList(userid);
 		int idto = dao.choi_interest(userid);
 		
 		model.addAttribute("memlist", mdto);

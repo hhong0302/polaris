@@ -309,13 +309,13 @@ public class PolarisDAO {
 		return (List<MembersDTO>)template.query(sql,new BeanPropertyRowMapper<MembersDTO>(MembersDTO.class));
 	}
 	
-	public List<BookloanDTO> choi_loanList(){
-		String sql = "select*from bookloan where loan >=1";
+	public List<BookloanDTO> choi_loanList(String userid){
+		String sql = "select*from bookloan where userid = '"+userid+"' and loan = 1 order by loan";
 		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
 	}
 	
-	public int choi_pastloanList(){
-		String sql = "select count(*) from bookloan where loan < 1 ";
+	public int choi_pastloanList(String userid){
+		String sql = "select count(*) from bookloan where loan < 1 order by userid = '"+userid+"'";
 		return template.queryForObject(sql, Integer.class);
 	}
 	//페이지 전체 출력
@@ -344,8 +344,8 @@ public class PolarisDAO {
 		});
 	}
 	//페이징 12345 처리
-	public List<BookloanDTO> choi_loanPageList(int listnum){
-		String sql = "select*from bookloan where loan < 1 order by loandate desc";
+	public List<BookloanDTO> choi_loanPageList(int listnum, String userid){
+		String sql = "select*from bookloan where userid='"+userid+"' and loan <1 order by loandate desc";
 		sql+=" limit "+listnum+", 12" ;
 		return (List<BookloanDTO>)template.query(sql,new BeanPropertyRowMapper<BookloanDTO>(BookloanDTO.class));
 	}

@@ -482,19 +482,23 @@ public class HomeController {
 	@ResponseBody
 	@RequestMapping(value ="/pastLoanAllCounter")
 	public void pastLoanAllCounter(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		HttpSession session = req.getSession();
+		String userid = (String)session.getAttribute("userid");
 		PolarisDAO dao = new PolarisDAO();
-		int pastloan = dao.choi_pastloanList();
+		int pastloan = dao.choi_pastloanList(userid);
 		PrintWriter out = res.getWriter();
 		out.print(pastloan);
 		out.close();
 	}
 	
 	 @ResponseBody
-	 @RequestMapping(value="/pageAllList")
+	 @RequestMapping(value="/pageAllList", method = RequestMethod.GET)
 	 public void pageAllList(HttpServletRequest req, HttpServletResponse res) throws Exception{
 		 PolarisDAO dao = new PolarisDAO();
+		 HttpSession session = req.getSession();
+		 String userid = (String)session.getAttribute("userid");
 		 int listnum = 12*Integer.parseInt(req.getParameter("listnum"));
-		 List<BookloanDTO> dto = dao.choi_loanPageList(listnum);
+		 List<BookloanDTO> dto = dao.choi_loanPageList(listnum, userid); 
 		 PrintWriter out = res.getWriter();
 		 String gson = new Gson().toJson(dto);	//데이터 제이슨으로 전환
 		 out.print(gson);

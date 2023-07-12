@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Polaris</title>
+<title>My Page</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"  />
 <link rel="stylesheet" href="resources/css/mypage.css" />
@@ -87,7 +87,7 @@
 		                            </div>
 	                        </div>
 	                    </div> 
-	                </div>                   
+	                </div>                 
                   </c:forEach> 
 	            </c:otherwise>
             	</c:choose> 
