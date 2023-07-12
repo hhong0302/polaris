@@ -72,7 +72,7 @@ public class HomeController {
 			Static.template=this.template;
 		}
 
-	//home
+	//
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
 		SpCommand command = new HomeListCommand();
@@ -562,7 +562,7 @@ public class HomeController {
 		command.execute(model);
 		out.println("<script>");
 		out.println("alert('회원가입이 완료 되었습니다.');");
-		out.println("location.href=('/home')");
+		out.println("location.href=('/')");
 		out.println("</script>");
 		out.close();
 		
@@ -592,7 +592,7 @@ public class HomeController {
 			response.setContentType("text/html; charset=UTF-8");
 			out.println("<script>");
 			out.println("alert('아이디 또는 비밀번호가 틀립니다.');");
-			out.println("location.href=('/home/login')");
+			out.println("location.href=('/login')");
 			out.println("</script>");
 			out.close();
 		}else {
@@ -600,7 +600,7 @@ public class HomeController {
 			HttpSession session = request.getSession();
 			session.setAttribute("userid", request.getParameter("userid"));
 			out.println("<script>");
-			out.println("location.href=('/home')");
+			out.println("location.href=('/')");
 			out.println("</script>");
 			out.close();
 		}
@@ -613,7 +613,7 @@ public class HomeController {
 		session.invalidate();
 		out.println("<script>");
 		out.println("alert('로그아웃이 되었습니다.');");
-		out.println("location.href=('/home')");
+		out.println("location.href=('/')");
 		out.println("</script>");
 		out.close();	// 로그아웃!!!
 	}
@@ -625,7 +625,7 @@ public class HomeController {
 		PrintWriter out = response.getWriter();
 		session.invalidate();
 		out.println("<script>");
-		out.println("location.href=('/home')");
+		out.println("location.href=('/')");
 		out.println("</script>");
 		out.close();	// 로그아웃!!!
 	}
@@ -646,7 +646,7 @@ public class HomeController {
 			response.setContentType("text/html; charset=UTF-8");
 			out.println("<script>");
 			out.println("alert('이미 탈퇴 처리된 회원입니다.');");
-			out.println("location.href=('/home')");
+			out.println("location.href=('/')");
 			out.println("</script>");
 			out.close();
 		}
@@ -669,7 +669,7 @@ public class HomeController {
 		command.execute(model);
 		out.println("<script>");
 		out.println("alert('비밀번호 변경이 완료되었습니다.');");
-		out.println("location.href=('/home/member')");
+		out.println("location.href=('/member')");
 		out.println("</script>");
 		out.close();
 	}
@@ -686,7 +686,7 @@ public class HomeController {
 		command.execute(model);
 		out.println("<script>");
 		out.println("alert('생년월일 변경이 완료되었습니다.');");
-		out.println("location.href=('/home/member')");
+		out.println("location.href=('/member')");
 		out.println("</script>");
 		out.close();
 	}
@@ -704,7 +704,7 @@ public class HomeController {
 		session.invalidate();
 		out.println("<script>");
 		out.println("alert('회원탈퇴가 완료되었습니다. 그동안 이용해 주셔서 감사합니다.');");
-		out.println("location.href=('/home/exitLogout')");
+		out.println("location.href=('/exitLogout')");
 		out.println("</script>");
 		out.close();
 	}
