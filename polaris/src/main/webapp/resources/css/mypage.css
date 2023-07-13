@@ -93,7 +93,6 @@ a:hover{
 .choi-past-book img{
 	width : 183px;
 	height : 110px;
-	border-radius: 8px;
 	margin-right : 20px;
 	background-color : #ddd;
 	display : flex;
@@ -112,7 +111,7 @@ a:hover{
 	border-radius: 8px;
 	margin-right : 20px;
 	display : flex;
-	margin-right: 12px;
+	margin-right: 20px;
     margin-bottom: 10px;
     background: #ddd;
 }
