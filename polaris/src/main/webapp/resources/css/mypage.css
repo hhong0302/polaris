@@ -75,7 +75,6 @@ a:hover{
     margin-right: 25px;
 }
 .choi-current-book{
-	margin-top : 20px;	
     width: 387px;
     height: 230px;
     display: flex;
@@ -91,23 +90,31 @@ a:hover{
 .choi-jjim-book-big{
 	display : inline-flex;
 }
-/* .choi-past-book img{
+.choi-past-book img{
 	width : 183px;
 	height : 110px;
 	border-radius: 8px;
 	margin-right : 20px;
-	margin-top : 20px;
 	background-color : #ddd;
 	display : flex;
-} */
+}
 .choi-past-book-img img{
 	width : 183px;
 	height : 110px;
 	border-radius: 8px;
 	margin-right : 20px;
-	margin-top : 20px;
 	background-color : #ddd;
 	display : flex;
+}
+.choi-past-book{
+	width : 183px;
+	height : 110px;
+	border-radius: 8px;
+	margin-right : 20px;
+	display : flex;
+	margin-right: 12px;
+    margin-bottom: 10px;
+    background: #ddd;
 }
 .choi-past-img img{
 	width : 54px;
