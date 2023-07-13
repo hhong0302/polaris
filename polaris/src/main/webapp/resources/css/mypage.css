@@ -91,7 +91,7 @@ a:hover{
 .choi-jjim-book-big{
 	display : inline-flex;
 }
-.choi-past-book img{
+/* .choi-past-book img{
 	width : 183px;
 	height : 110px;
 	border-radius: 8px;
@@ -99,8 +99,8 @@ a:hover{
 	margin-top : 20px;
 	background-color : #ddd;
 	display : flex;
-}
-.choi-past-book{
+} */
+.choi-past-book-img img{
 	width : 183px;
 	height : 110px;
 	border-radius: 8px;

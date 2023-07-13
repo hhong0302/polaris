@@ -59,13 +59,12 @@ const pgbtn_next = document.getElementsByClassName("nxt")[0];
 
 
 //지난 대여 목록 총 리스트
-function pageAllList(userid){
+function pageAllList(){
 
 	$.ajax({
 		url : "pastLoanAllCounter",
 		type: "GET",
 		dataType: "json",
-		data: {"userid":userid},
 		async:false,
 		contentType: "application/json",
 		success : function(datas) {
