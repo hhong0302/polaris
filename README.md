@@ -1,18 +1,26 @@
-# Spring Framework 기반으로 제작한 도서 대여 서비스 <br/> '북극성(Polaris)' 프로젝트 입니다.
+# Spring Framework 기반으로 제작한 도서 대여 서비스 <br/> '[ 북극성(Polaris) ](https://www.polarisebook.com)' 프로젝트 입니다.
+## 🔎 도메인 주소
+#### https://www.polarisebook.com
+##### cloud flare를 통한 https 보안 연결을 하였습니다.
+
 ## 📱 디자인 팀과 협업하여 제작하였습니다.
 #### · 디자인 팀은 프론트 디자인을 전부 제작하였습니다.
 #### · 프론트엔드와 백엔드 팀은 따로 구분되어있지 않습니다.
 
 ## 🗓️ 개발 기간
-### · 2023.06.07 ~
+### · 2023.06.07 ~ 2023.07.04
 
 ## 🖥️ 개발 환경
 ### · `JDK-11`
 ### · IDE : STS 3.9
 ### · Framework : Spring Framework (Spring MVC Project)
-### · Database : MySQL(8.0.33)
+### · Database : MySQL (8.0.33)
 ### · Server : Apache tomcat 9.0.46
-### · Deploy : cafe24(예정)
+### · Deploy : cafe24
+
+### 배포 이후 변경사항
+#### · `JDK-8 (JDK-1.8)` (수정 중)
+#### · Server : Apache tomcat 8.5.61 (수정 중)
 
 ## 📖 페이지 구성
 ### · 홈 페이지: 구성, 메인
