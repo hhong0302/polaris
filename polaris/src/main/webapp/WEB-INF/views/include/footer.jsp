@@ -26,7 +26,7 @@
 				<span>청소년 보호정책</span>
 			</div>
 			<div class="hg-familysite">
-				<a href="#" target="_blank"><span id="hg-prositetxt">Profile Site</span></a>
+				<a href="http://kbh2753.cafe24.com/polaris/profile/index.html" target="_blank"><span id="hg-prositetxt">Profile Site</span></a>
 				<div class="hg-familysitebox">
 					<span id="hg-fmysitetxt">Family Site</span>
 					<div id="hg-fmysitebox"></div>
