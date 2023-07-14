@@ -80,3 +80,7 @@ function loanBook(bookcode, userid, booktitle, author, publisher) {
 		}
 	});
 }
+
+function ready(){
+	alert("아직 준비 중인 서비스입니다");
+}
