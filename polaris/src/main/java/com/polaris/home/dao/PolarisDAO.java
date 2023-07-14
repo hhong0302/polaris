@@ -315,7 +315,7 @@ public class PolarisDAO {
 	}
 	
 	public int choi_pastloanList(String userid){
-		String sql = "select count(*) from bookloan where loan < 1 order by userid = '"+userid+"'";
+		String sql = "select count(*) from bookloan where userid = '"+userid+"' and loan < 1 order by loan";
 		return template.queryForObject(sql, Integer.class);
 	}
 	//페이지 전체 출력
