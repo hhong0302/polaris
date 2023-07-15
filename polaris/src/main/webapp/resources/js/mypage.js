@@ -396,3 +396,7 @@ function jjimListPrevNxtBtn(hg_number,bookcode)
 	if(listPageNum==Math.floor(allReviewDatas/5)) pgbtn_next.classList.remove("active");
 	else pgbtn_next.classList.add("active");
 }
+
+function ready(){
+	alert("아직 준비 중인 서비스입니다");
+}

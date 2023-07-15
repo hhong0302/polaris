@@ -82,7 +82,7 @@
 		                            <p>${fn:substring(TextValue, 0,11)}</p>
 	                            </div>
 		                            <div class="choi-book-text-last">
-		                          		<button type="submit" id = "booklook" class="booklook" >바로보기</button>
+		                          		<button type="submit" id = "booklook" class="booklook" onclick="ready()">바로보기</button>
 		                            	<button type="submit" id = "bookloan" class="bookloan" onclick="returnBook('${my.bookcode}', '${my.num}')" >반납하기</button>
 		                            </div>
 	                        </div>
