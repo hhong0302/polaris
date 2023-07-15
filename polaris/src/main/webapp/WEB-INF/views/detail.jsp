@@ -77,7 +77,7 @@
 							찜 ${likeCount}
 						</div>
 						<button type="button" class="rental-detail" onclick="reject()">대여하기</button>
-						<button type="button" class="readNow-detail" onclick="reject()">바로 읽기</button>
+						<button type="button" class="readNow-detail" onclick="reject()">바로보기</button>
 					</div>
 				<%
 					}else {
@@ -115,7 +115,7 @@
 								<button type="button" class="rental-detail" onclick="loanBook('${book.bookcode}', '${userid}', '${book.booktitle}', '${book.author}', '${book.publisher}')">반납하기</button>
 							</c:otherwise>
 						</c:choose>
-						<button type="button" class="readNow-detail">바로 읽기</button>
+						<button type="button" class="readNow-detail" onclick="ready()">바로보기</button>
 					</div>
 				<%
 					}
