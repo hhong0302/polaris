@@ -19,8 +19,8 @@
 ### · Deploy : cafe24
 
 ### 배포 이후 변경사항
-#### · `JDK-8 (JDK-1.8)` (수정 중)
-#### · Server : Apache tomcat 8.5.61 (수정 중)
+#### · `JDK-8 (JDK-1.8)`
+#### · Server : Apache tomcat 8.5.61
 
 ## 📖 페이지 구성
 ### · 홈 페이지: 구성, 메인
