@@ -80,7 +80,7 @@
 				<!-- db받아와서 뿌리기 -->
 				<c:forEach items="${hg_novel}" var="dto">
 				<div class="hg-novellist">
-					<a href="detail?bookinfo=${dto.bookcode}">
+					<a href="detail?bookinfo=${dto.bookcode}" class="hg-a">
 						<img src="resources/bookimg/${dto.bookcode}.jpg" alt="${dto.bookcode}" />
 					</a>
 					<h3 class="hg-bname"><a href="detail?bookinfo=${dto.bookcode}">${dto.booktitle}</a></h3>
@@ -122,7 +122,7 @@
 					
 				<c:forEach items="${hg_essay}" var="dto">
 					<div class="hg-essaylist">
-						<a href="detail?bookinfo=${dto.bookcode}">
+						<a href="detail?bookinfo=${dto.bookcode}" class="hg-a">
 							<img src="resources/bookimg/${dto.bookcode}.jpg" alt="${dto.bookcode}" />
 						</a>
 						<h3 class="hg-bname"><a href="detail?bookinfo=${dto.bookcode}">${dto.booktitle}</a></h3>
@@ -198,6 +198,20 @@
 		<img src="resources/banner/banner_band01.jpg" alt="banner_band01" />
 	</a>
 	
+</div>
+
+<div class="hg-popup">
+	<div class="h1box">
+		<h1>사이트 설명</h1>
+		<button type="button" id="popupclose" onclick="popupclose()">
+			<i class="fa-solid fa-xmark"></i>
+		</button>
+	</div>
+	<p>
+		해당 사이트는 포트폴리오용으로 제작한 사이트이며, 수익 창출을 하지 않습니다.<br><br>
+		회원가입 시 개인정보가 저장될 수 있으니, 실제 정보를 입력하지 않는 것을 권장드립니다.<br><br>
+		하단 footer에 family site를 클릭하면 팀원 프로필 사이트로 이동하는 링크가 있습니다.
+	</p>
 </div>
 
 <script src="resources/js/mainhome.js"></script>

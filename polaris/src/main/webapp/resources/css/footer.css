@@ -151,11 +151,32 @@
 	text-align:center;
 }
 
+.hg-returnbox .hg-returnboximg
+{
+	display:block;
+	width:90px;
+	height:128px;
+	margin:auto;
+	margin-top:10px;
+	position:relative;
+}
+
+.hg-returnbox .hg-returnboximg::after
+{
+	content:"";
+	position:absolute;
+	top:0;
+	left:0;
+	display:block;
+	width:90px;
+	height:128px;
+	background: linear-gradient(270deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.05) 93.38%, rgba(3, 3, 3, 0.06) 96.86%, rgba(255, 255, 255, 0.00) 100%);
+}
+
 .hg-rightbox .hg-rtimg
 {
 	width:90px;
 	height:128px;
-	margin-top:10px;
 	box-shadow:-3px 3px 10px 0px rgba(0,0,0,0.2);
 	border-radius:3px;
 }

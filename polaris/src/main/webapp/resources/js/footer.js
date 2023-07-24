@@ -22,8 +22,9 @@ $(document).ready(function()
 				{
 					rightboxLoanList+=`<div class="hg-returnbox" ${i==data.length-1&&i!=0?"style='display:none;'":""}>
 						<a href="detail?bookinfo=${data[i].bookcode}">
-							<img src="resources/bookimg/${data[i].bookcode}.jpg" class="hg-rtimg" alt="${data[i].bookcode}" />
-							
+							<div class="hg-returnboximg">
+								<img src="resources/bookimg/${data[i].bookcode}.jpg" class="hg-rtimg" alt="${data[i].bookcode}" />
+							</div>
 							<span class="hg-righttitle">
 								${data[i].booktitle}
 							</span>
