@@ -76,74 +76,71 @@ const hg_essaybtn = document.getElementsByClassName("hg-essaybtn");
 const hg_essay = document.getElementsByClassName("hg-mainessay")[0];
 const hg_hotbtn = document.getElementsByClassName("hg-hotbtn");
 const hg_hot = document.getElementsByClassName("hg-mainhot")[0];
-let hg_novelnum = 0;
-let hg_essaynum = 0;
-let hg_hotnum = 0;
+let hg_novelnum = 10;
+let hg_essaynum = 10;
+let hg_hotnum = 10;
 
 function hg_nvmove(px)
 {
-	const nvsize = hg_novel.scrollWidth;
+	const nvsize = hg_novel.scrollWidth-10;
 	hg_novelnum += px;
 	if(hg_novelnum<-nvsize+1240)
 	{
 		hg_novelnum=-nvsize+1240;
 		return false;
 	}
-	if(hg_novelnum>0)
+	if(hg_novelnum>10)
 	{
-		hg_novelnum=0;
+		hg_novelnum=10;
 		return false;
 	}
 	hg_novel.style.left=hg_novelnum+'px';
 	hg_novelbtn[0].classList.add('active');
 	hg_novelbtn[1].classList.add('active');
 	if(hg_novelnum==-nvsize+1240)hg_novelbtn[1].classList.remove('active');
-	if(hg_novelnum==0)hg_novelbtn[0].classList.remove('active');
+	if(hg_novelnum==10)hg_novelbtn[0].classList.remove('active');
 }
 
 function hg_esmove(px)
 {
-	const essize = hg_essay.scrollWidth;
+	const essize = hg_essay.scrollWidth-10;
 	hg_essaynum += px;
 	if(hg_essaynum<-essize+1230)
 	{
 		hg_essaynum=-essize+1230;
 		return false;
 	}
-	if(hg_essaynum>0)
+	if(hg_essaynum>10)
 	{
-		hg_essaynum=0;
+		hg_essaynum=10;
 		return false;
 	}
 	hg_essay.style.left=hg_essaynum+'px';
 	hg_essaybtn[0].classList.add('active');
 	hg_essaybtn[1].classList.add('active');
 	if(hg_essaynum==-essize+1230)hg_essaybtn[1].classList.remove('active');
-	if(hg_essaynum==0)hg_essaybtn[0].classList.remove('active');
+	if(hg_essaynum==10)hg_essaybtn[0].classList.remove('active');
 }
 
 function hg_htmove(px)
 {
-	const htsize = hg_hot.scrollWidth;
+	const htsize = hg_hot.scrollWidth-10;
 	hg_hotnum += px;
 	if(hg_hotnum<-htsize+1240)
 	{
-		console.log(1);
 		hg_hotnum=-htsize+1240;
 		return false;
 	}
-	if(hg_hotnum>0)
+	if(hg_hotnum>10)
 	{
-		console.log(2);
-		hg_hotnum=0;
+		hg_hotnum=10;
 		return false;
 	}
-	console.log(3);
 	hg_hot.style.left=hg_hotnum+'px';
 	hg_hotbtn[0].classList.add('active');
 	hg_hotbtn[1].classList.add('active');
 	if(hg_hotnum==-htsize+1240)hg_hotbtn[1].classList.remove('active');
-	if(hg_hotnum==0)hg_hotbtn[0].classList.remove('active');
+	if(hg_hotnum==10)hg_hotbtn[0].classList.remove('active');
 }
 //바튼
 
@@ -163,7 +160,7 @@ function hg_hotmenubtnclick(hg_what,num)
 		  	for(let i=0;i<data.length;i++)
 			{
 				text+=`<div class="hg-hotlist">
-				<a href="detail?bookinfo=${data[i].bookcode}">
+				<a href="detail?bookinfo=${data[i].bookcode}" class="hg-a">
 					<img src="resources/bookimg/${data[i].bookcode}.jpg" alt="${data[i].bookcode}" />
 				</a>
 				<h3 class="hg-bname"><a href="detail?bookinfo=${data[i].bookcode}">${data[i].booktitle}</a></h3>
@@ -177,8 +174,8 @@ function hg_hotmenubtnclick(hg_what,num)
 				</div>
 			</div>`;
 			}
-			hg_hot.style.left="0";
-			hg_hotnum = 0;
+			hg_hot.style.left="10px";
+			hg_hotnum = 10;
 			hg_hotbtn[0].classList.remove('active');
 			hg_hotbtn[1].classList.add('active');
 			hg_mainhot.innerHTML=text;
@@ -197,7 +194,10 @@ function hg_hotmenubtnclick(hg_what,num)
 	});
 }
 
-
+function popupclose()
+{
+	document.getElementsByClassName("hg-popup")[0].style.display="none";
+}
 
 
 
