@@ -13,10 +13,27 @@
 	color: #797979;
 	padding-left: 20px;
 }
+.search-img
+{
+	height:269px;
+	position:relative;
+}
+.search-img::after
+{
+	content:"";
+	display:block;
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	background: linear-gradient(270deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.05) 93.38%, rgba(3, 3, 3, 0.06) 96.86%, rgba(255, 255, 255, 0.00) 100%);
+}
 .search-img img{
 	width: 183px;
 	height: 269px;
-	box-shadow: 6px 6px 6px 0 rgba(0,0,0,0.2);
+	border-radius:2px;
+	box-shadow: -4px 4px 8px 0 rgba(0,0,0,0.2);
 }
 .search-content{
 	display: flex;
