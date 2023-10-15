@@ -1,6 +1,6 @@
 # Spring Framework 기반으로 제작한 도서 대여 서비스 <br/> '[ 북극성(Polaris) ](https://www.polarisebook.com)' 프로젝트 입니다.
 ## 🔎 도메인 주소
-#### https://www.polarisebook.com
+#### https://www.polarisebook.com (호스팅 기간이 만료되었습니다.)
 ##### cloud flare를 통한 https 보안 연결을 하였습니다.
 
 ## 📱 디자인 팀과 협업하여 제작하였습니다.
